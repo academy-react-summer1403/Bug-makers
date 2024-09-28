@@ -9,6 +9,8 @@ function App() {
   return (
     <>
       <h2 className='bg-red-500'>hi</h2>
+      <br />
+      <div className='bg-blue-600 w-56 h-48'>test git</div>
     </>
   )
 }
