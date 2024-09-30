@@ -5,9 +5,10 @@ import * as yup from "yup";
 
 
 
-const RightPassBox=()=>{
+const RightPassBoxStep2=()=>{
     const validation = yup.object().shape({
-    email: yup.string().required("این فیلد اجباریست"),
+    newPassword: yup.string().required("این فیلد اجباریست"),
+    resetValue: yup.string().required("این فیلد اجباریست")
     });
 
     const onSubmit=(values)=>{
@@ -21,7 +22,7 @@ const RightPassBox=()=>{
         <div className="w-1/2 max-sm:w-[100%]">
                 <div className=" mx-[6.51vw] py-[4.163vw] h-full ">
                     <Formik
-                    initialValues={{ "email": "", "baseUrl": "https://localhost:5173/resetpassword"}}
+                    initialValues={{ userId:0 ,newPassword: "", resetValue: ""}}
                     validationSchema={validation}
                     onSubmit={(values)=>{onSubmit(values)}}
                     >
@@ -31,7 +32,8 @@ const RightPassBox=()=>{
                         <span className="text-[#8E8E8E] text-[1vw]">فراموشی رمز عبور</span>
                         <hr className="w-full mt-[0.94vw] "/>
                         
-                        <InputModel name={"email"} placeholder={" ایمیل خود را وارد کنید"} label={"ایمیل"} img={"../../../../../public/images/Login/portrait.png"}/>
+                        <InputModel name={"newPassword"} placeholder={" ایمیل خود را وارد کنید"} label={"ایمیل"} img={"../../../../../public/images/Login/portrait.png"}/>
+                        <InputModel name={"resetValue"} placeholder={" ایمیل خود را وارد کنید"} label={"ایمیل"} img={"../../../../../public/images/Login/portrait.png"}/>
                         
 
                         
@@ -51,4 +53,4 @@ const RightPassBox=()=>{
         </div>
     );
 }
-export default RightPassBox;
+export default RightPassBoxStep2;

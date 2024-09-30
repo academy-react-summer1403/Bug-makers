@@ -1,0 +1,50 @@
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    position: absolute;
+    top: 0.3vw;
+    left: 1vw;
+  width: 4px;
+  /* aspect-ratio: 1; */
+  border: 15px solid #ddd;
+  border-radius: 50%;
+  
+  transform: rotate(45deg);
+  opacity: 1;
+}
+.loader::before {
+  content: "";
+  position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  border: 15px solid #45D4B2;
+  animation: l18 5s normal linear;
+
+  z-index: 12;
+}
+@keyframes l18 {
+    100%{
+        
+    }
+    99%  {clip-path:polygon(50% 50%,0 0,0    0,0    0   ,0    0   ,0    0   )}
+    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0   ,100% 0   ,100% 0   )}
+    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0    100%,0    100%)}
+    0%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0    100%,0    0   )}
+}
+
+.fade {
+            animation: fade 60s forwards; /* انیمیشن تغییر opacity */
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0.2; /* شروع با opacity 1 */
+            }
+            99% {
+                opacity: 0.2; 
+            }
+            100% {
+                opacity: 1; /* پایان با opacity 0 */
+            }
+        }
