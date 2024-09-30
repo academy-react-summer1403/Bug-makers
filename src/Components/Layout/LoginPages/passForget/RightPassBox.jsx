@@ -1,7 +1,8 @@
 import React from "react";
-import { Formik } from "formik";
+import { Formik,Form } from "formik";
 import InputModel from "../forAll/InputModel.jsx";
 import * as yup from "yup";
+import { ForgetPassStep1 } from "../../../../Core/Services/Api/auth.js";
 
 
 
@@ -21,12 +22,12 @@ const RightPassBox=()=>{
         <div className="w-1/2 max-sm:w-[100%]">
                 <div className=" mx-[6.51vw] py-[4.163vw] h-full ">
                     <Formik
-                    initialValues={{ "email": "", "baseUrl": "https://localhost:5173/resetpassword"}}
+                    initialValues={{ email: "", baseUrl: "https://localhost:5173/resetpassword"}}
                     validationSchema={validation}
                     onSubmit={(values)=>{onSubmit(values)}}
                     >
                     
-                    <form>
+                    <Form>
                     <div action="post" className=" flex justify-center flex-col items-center">
                         <span className="text-[#8E8E8E] text-[1vw]">فراموشی رمز عبور</span>
                         <hr className="w-full mt-[0.94vw] "/>
@@ -44,7 +45,7 @@ const RightPassBox=()=>{
                         </div>
                         
                     </div>
-                    </form>
+                    </Form>
                 </Formik>
 
                 </div>

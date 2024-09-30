@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik } from "formik";
+import { Formik ,Form} from "formik";
 import InputModel from "../forAll/InputModel.jsx";
 import * as yup from "yup";
 
@@ -27,7 +27,7 @@ const RightPassBoxStep2=()=>{
                     onSubmit={(values)=>{onSubmit(values)}}
                     >
                     
-                    <form>
+                    <Form>
                     <div action="post" className=" flex justify-center flex-col items-center">
                         <span className="text-[#8E8E8E] text-[1vw]">فراموشی رمز عبور</span>
                         <hr className="w-full mt-[0.94vw] "/>
@@ -37,7 +37,7 @@ const RightPassBoxStep2=()=>{
                         
 
                         
-                        <button className="mt-[2vw] text-white bg-green-500 rounded-[0.563vw] w-full h-[2.25vw] text-[0.83vw] leading-[1.46vw] p-0 m-0">ارسال لینک بازیابی</button>
+                        <button type="submit" className="mt-[2vw] text-white bg-green-500 rounded-[0.563vw] w-full h-[2.25vw] text-[0.83vw] leading-[1.46vw] p-0 m-0">ارسال لینک بازیابی</button>
                         
                         <div className="mt-[0.615vw] text-[0.833vw] h-[1.575vw] w-full flex justify-evenly items-center">
                             <span className="cursor-pointer hover:text-blue-400">ورود به حساب کاربری</span>
@@ -46,7 +46,7 @@ const RightPassBoxStep2=()=>{
                         </div>
                         
                     </div>
-                    </form>
+                    </Form>
                 </Formik>
 
                 </div>

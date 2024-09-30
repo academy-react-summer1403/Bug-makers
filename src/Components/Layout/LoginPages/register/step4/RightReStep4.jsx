@@ -1,18 +1,25 @@
 import React from "react";
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 import InputModel from "../../forAll/InputModel.jsx";
 import * as yup from "yup";
 import LineButt from "../forAllRe/LineButt.jsx";
 import GreenButt from "../forAllRe/GreenButt.jsx";
 import WhiteButt from "../forAllRe/WhiteButt.jsx";
-
+import { RigesterStep3 } from "../../../../../Core/Services/Api/auth.js";
 
 
 const RightReStep4=()=>{
     const validation = yup.object().shape({
-    first: yup.string().required("این فیلد اجباریست"),
-    secound: yup.string().required("این فیلد اجباریست")
+    password: yup.string().required("این فیلد اجباریست"),
+    gmail: yup.string().required("این فیلد اجباریست")
     });
+    const onSubmit=(values)=>{
+        const finalVal = JSON.stringify(values)
+        alert(JSON.stringify(values))
+        console.log(values);
+        RigesterStep3(values);
+        
+    }
     return(
         <div className="w-1/2 max-sm:w-[100%] relative">
                 <div className="h-[11.458vw] ml-0.833vw absolute top-[7.292vw] right-[4.167vw] flex justify-center flex-col items-center">
@@ -26,22 +33,23 @@ const RightReStep4=()=>{
                 </div>
                 <div className=" mx-[6.4vw] py-[4.163vw] h-full ">
                     <Formik
-                    initialValues={{ first: "", secound: ""}}
+                    initialValues={{ password: "", gmail: "",phoneNumber: "09115514783"}}
                     validationSchema={validation}
+                    onSubmit={(values)=>{onSubmit(values)}}
                     >
                     
-                    {(form) => (
+                    <Form>
                     <div action="post" className=" flex justify-center flex-col items-center">
                         <span className="text-[#8E8E8E] text-[1vw]">ثبت نام</span>
                         <hr className="w-full mt-[0.94vw] "/>
                         
-                        <InputModel name={"first"} placeholder={"شماره تلفن خود را وارد کنید"} label={"شماره تلفن"} img={"../../../../../public/images/Login/portrait.png"}/>
-                        <InputModel name={"secound"} placeholder={"رمز عبور خود را وارد کنید" } label={"رمز عبور"} img={"../../../../../public/images/Login/lock.png"}/>
-                        
+                        <InputModel name={"gmail"} placeholder={"ایمیل خود را وارد کنید"} label={"ایمیل"} img={"../../../../../public/images/Login/portrait.png"}/>
+                        <InputModel name={"password"} placeholder={"رمز عبور خود را وارد کنید" } label={"رمز عبور"} img={"../../../../../public/images/Login/lock.png"}/>
+
 
                         
                         
-                        <button className="mt-[2vw] text-white bg-green-500 rounded-[0.563vw] w-full h-[2.25vw] text-[0.83vw] leading-[1.46vw] p-0 m-0">تکمیل ثبت نام</button>
+                        <button type="submit" className="mt-[2vw] text-white bg-green-500 rounded-[0.563vw] w-full h-[2.25vw] text-[0.83vw] leading-[1.46vw] p-0 m-0">تکمیل ثبت نام</button>
                         
                         <div className="mt-[0.615vw] text-[0.833vw] h-[1.575vw] w-full flex justify-between items-center">
                             <span className=" ">عضو سایت هستید؟</span>
@@ -50,7 +58,7 @@ const RightReStep4=()=>{
                         </div>
                         
                     </div>
-                    )}
+                    </Form>
                 </Formik>
 
                 </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function OptInput() {
+function OptInput({verifyCode}) {
     const [otp, setOtp] = useState(new Array(5).fill(""));
 
     const handleChange = (element, index) => {
@@ -20,7 +20,7 @@ return (
             <input
             className="w-[2.083vw] h-[2.083vw] text-center border-[0.104vw] border-gray-300 focus:border-blue-500 rounded-md bg-white text-gray-800"
             type="text"
-            name="otp"
+            name="verifyCode"
             maxLength="1"
             key={index}
             value={data}

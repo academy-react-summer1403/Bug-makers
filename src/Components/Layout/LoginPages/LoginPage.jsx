@@ -10,10 +10,10 @@ const LoginPage = () => {
     return(
         <div className="w-full h-lvh flex justify-center items-center bg-white">
             {/* <Login /> */}
-            <ForgetPass/>
+            {/* <ForgetPass/> */}
             {/* <ReStep1/> */}
             {/* <ReStep2/> */}
-            {/* <ReStep4/> */}
+            <ReStep4/>
 
             
 

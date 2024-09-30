@@ -1,5 +1,5 @@
 import React from "react";
-import { ErrorMessage, Formik } from "formik";
+import { ErrorMessage, Form, Formik } from "formik";
 import InputModel from "../../forAll/InputModel.jsx";
 import * as yup from "yup";
 import LineButt from "../forAllRe/LineButt.jsx";
@@ -8,18 +8,22 @@ import WhiteButt from "../forAllRe/WhiteButt.jsx";
 import ReactCodeInput from "react-code-input";
 import '../../forAll/login.css'
 import OptInput from "./OptInput.jsx";
+import { RigesterStep2 } from "../../../../../Core/Services/Api/auth.js";
 
 
 
 const RightReStep2=()=>{
     const validation = yup.object().shape({
-    first: yup.string().required("این فیلد اجباریست"),
-    codePicker: yup.string().required("این فیلد اجباریست")
+    phoneNumber: yup.string().required("این فیلد اجباریست"),
+    verifyCode: yup.string().required("این فیلد اجباریست")
     });
 
     const onSubmit=(values)=>{
         
-
+        alert(JSON.stringify(values))
+        console.log(values);
+        RigesterStep2(values);
+        
     }
     return(
         <div className="w-1/2 max-sm:w-[100%] relative">
@@ -34,12 +38,12 @@ const RightReStep2=()=>{
                 </div>
                 <div className=" mx-[6.4vw] py-[4.163vw] h-full ">
                     <Formik
-                    initialValues={{ first: "", codePicker: ""}}
+                    initialValues={{ phoneNumber: "", verifyCode: ""}}
                     validationSchema={validation}
                     onSubmit={(values) => onSubmit(values)}
                     >
                     
-                    {(form) => (
+                    <Form>
                     <div action="post" className=" flex justify-center flex-col items-center">
                         <span className="text-[#8E8E8E] text-[1vw]">ثبت نام</span>
                         <hr className="w-full mt-[0.94vw] "/>
@@ -48,9 +52,9 @@ const RightReStep2=()=>{
 
 
                         <label className="mt-[1.687vw] mb-[0.8vw] text-[#727272] text-[0.885vw] font-normal mr-[0.9vw] w-full text-right" htmlFor="codePicker">کد تایید</label>
-                        <OptInput/>
+                        <OptInput verifyCode={verifyCode}/>
                         <ErrorMessage 
-                        name="codePicker"
+                        name="verifyCode"
                         component={"p"}
                         className="text-red-600"/>  
                         
@@ -68,7 +72,7 @@ const RightReStep2=()=>{
                         </div>
                         
                     </div>
-                    )}
+                    </Form>
                 </Formik>
 
                 </div>

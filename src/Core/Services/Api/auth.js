@@ -12,9 +12,9 @@ export const LoginAPI = async (user)=>{
 
 export const RigesterStep1 = async (phoneNum)=>{
     try {
-        const response = await http.post('Sign/SendVerifyMessage',phoneNum);
+        const response = await http.post('/Sign/SendVerifyMessage',phoneNum);
 
-        return response
+        return alert(response)
     } catch (error) {
         return false        
     }
@@ -44,9 +44,9 @@ export const ForgetPassStep1 = async (forgetPass)=>{
     try {
         const response = await http.post('/Sign/ForgetPassword',forgetPass);
 
-        return response
+        return alert(response)
     } catch (error) {
-        return false        
+        return alert(false)        
     }
 }
 
