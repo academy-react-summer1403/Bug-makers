@@ -4,7 +4,7 @@ export const LoginAPI = async (user)=>{
     try {
         const response = await http.post('/Sign/Login',user);
 
-        return alert(response.headers)
+        return console.log(response.headers)
     } catch (error) {
         return false        
     }
@@ -14,7 +14,7 @@ export const RigesterStep1 = async (phoneNum)=>{
     try {
         const response = await http.post('/Sign/SendVerifyMessage',phoneNum);
 
-        return alert(response)
+        return console.log(response)
     } catch (error) {
         return false        
     }
@@ -44,19 +44,19 @@ export const ForgetPassStep1 = async (forgetPass)=>{
     try {
         const response = await http.post('/Sign/ForgetPassword',forgetPass);
 
-        return alert(response)
+        return console.log(response)
     } catch (error) {
-        return alert(false)        
+        return false     
     }
 }
 
 export const ForgetPassStep2 = async (ConfigValue)=>{
     try {
-        const response = await http.get(`/Sign/Reset/:${ConfigValue}`);
+        const response = await http.get(`/Sign/Reset/${ConfigValue}`);
 
-        return response
-    } catch (error) {
-        return false        
+        return response.id
+    } catch (errors) {
+        return false     
     }
 }
 
@@ -65,8 +65,8 @@ export const ForgetPassStep3 = async (newPass)=>{
         const response = await http.post('/Sign/Reset',newPass);
 
         return response
-    } catch (error) {
-        return false        
+    } catch (errors) {
+        return alert("دوباره تلاش کنید")       
     }
 }
 

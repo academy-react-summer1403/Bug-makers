@@ -6,6 +6,7 @@ import LineButt from "../forAllRe/LineButt.jsx";
 import GreenButt from "../forAllRe/GreenButt.jsx";
 import WhiteButt from "../forAllRe/WhiteButt.jsx";
 import { RigesterStep3 } from "../../../../../Core/Services/Api/auth.js";
+import { getItem } from "../../../../../Core/Services/common/storage.services.js";
 
 
 const RightReStep4=()=>{
@@ -13,11 +14,15 @@ const RightReStep4=()=>{
     password: yup.string().required("این فیلد اجباریست"),
     gmail: yup.string().required("این فیلد اجباریست")
     });
+    const phoneN="phoneN";
+    const phoneNumber = getItem(phoneN)
+
     const onSubmit=(values)=>{
         const finalVal = JSON.stringify(values)
         alert(JSON.stringify(values))
         console.log(values);
         RigesterStep3(values);
+        navigate("/")
         
     }
     return(
@@ -33,7 +38,7 @@ const RightReStep4=()=>{
                 </div>
                 <div className=" mx-[6.4vw] py-[4.163vw] h-full ">
                     <Formik
-                    initialValues={{ password: "", gmail: "",phoneNumber: "09115514783"}}
+                    initialValues={{ password: "", gmail: "",phoneNumber: `${phoneNumber}`}}
                     validationSchema={validation}
                     onSubmit={(values)=>{onSubmit(values)}}
                     >
@@ -54,7 +59,7 @@ const RightReStep4=()=>{
                         <div className="mt-[0.615vw] text-[0.833vw] h-[1.575vw] w-full flex justify-between items-center">
                             <span className=" ">عضو سایت هستید؟</span>
                             
-                            <span className="cursor-pointer hover:text-blue-400">ورود به حساب کاربری</span>
+                            <span onClick={()=>{navigate("/sign/login")}} className="cursor-pointer hover:text-blue-400">ورود به حساب کاربری</span>
                         </div>
                         
                     </div>

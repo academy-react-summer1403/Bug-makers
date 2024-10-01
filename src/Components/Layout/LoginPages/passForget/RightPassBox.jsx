@@ -3,10 +3,12 @@ import { Formik,Form } from "formik";
 import InputModel from "../forAll/InputModel.jsx";
 import * as yup from "yup";
 import { ForgetPassStep1 } from "../../../../Core/Services/Api/auth.js";
+import { useNavigate } from "react-router-dom";
 
 
 
 const RightPassBox=()=>{
+    const navigate = useNavigate()
     const validation = yup.object().shape({
     email: yup.string().required("این فیلد اجباریست"),
     });
@@ -22,7 +24,7 @@ const RightPassBox=()=>{
         <div className="w-1/2 max-sm:w-[100%]">
                 <div className=" mx-[6.51vw] py-[4.163vw] h-full ">
                     <Formik
-                    initialValues={{ email: "", baseUrl: "https://localhost:5173/resetpassword"}}
+                    initialValues={{ email: "", baseUrl: "https://localhost:5173/sign/resetPass/:"}}
                     validationSchema={validation}
                     onSubmit={(values)=>{onSubmit(values)}}
                     >
@@ -39,9 +41,9 @@ const RightPassBox=()=>{
                         <button className="mt-[2vw] text-white bg-green-500 rounded-[0.563vw] w-full h-[2.25vw] text-[0.83vw] leading-[1.46vw] p-0 m-0">ارسال لینک بازیابی</button>
                         
                         <div className="mt-[0.615vw] text-[0.833vw] h-[1.575vw] w-full flex justify-evenly items-center">
-                            <span className="cursor-pointer hover:text-blue-400">ورود به حساب کاربری</span>
+                            <span onClick={()=>{navigate("/sign/login")}} className="cursor-pointer hover:text-blue-400">ورود به حساب کاربری</span>
                             <div className="h-3/4 border-[0.104vw] w-0"></div>
-                            <span className="cursor-pointer hover:text-blue-400">هم اکنون ثبت نام کنید</span>
+                            <span onClick={()=>{navigate("/sign/rigester/step1")}} className="cursor-pointer hover:text-blue-400">هم اکنون ثبت نام کنید</span>
                         </div>
                         
                     </div>

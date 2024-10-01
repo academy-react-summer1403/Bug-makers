@@ -9,9 +9,7 @@ import RightPassBox from "./RightPassBox.jsx";
 
 const ForgetPass = () => {
 
-    const validation = yup.object().shape({
-    first: yup.string().required("این فیلد اجباریست"),
-});
+
 
     return(
         

@@ -6,18 +6,30 @@ import LineButt from "../forAllRe/LineButt.jsx";
 import GreenButt from "../forAllRe/GreenButt.jsx";
 import WhiteButt from "../forAllRe/WhiteButt.jsx";
 import { RigesterStep1 } from "../../../../../Core/Services/Api/auth.js";
+import { setItem } from "../../../../../Core/Services/common/storage.services.js";
+import { useNavigate } from "react-router-dom";
 
 
 
 const RightReStep1=()=>{
+    const navigate = useNavigate()
     const validation = yup.object().shape({
     phoneNumber: yup.string().required("این فیلد اجباریست"),
     });
+
+    
+    
     const onSubmit=(values)=>{
+        const phone = values.phoneNumber;
+        const phoneN="phoneN";
+        setItem(phoneN,phone)
+        RigesterStep1(values)
+
         
-        alert(JSON.stringify(values))
+        // alert(JSON.stringify(values))
         console.log(values);
-        RigesterStep1(values);
+        // RigesterStep1(values);
+        navigate("/sign/rigester/step2")
         
     }
     return(
@@ -51,9 +63,9 @@ const RightReStep1=()=>{
                         <button type="submit" className="mt-[2vw] text-white bg-green-500 rounded-[0.563vw] w-full h-[2.25vw] text-[0.83vw] leading-[1.46vw] p-0 m-0">دریافت کد تایید</button>
                         
                         <div className="mt-[0.615vw] text-[0.833vw] h-[1.575vw] w-full flex justify-between items-center">
-                            <span className=" ">عضو سایت هستید؟</span>
+                            <span  className=" ">عضو سایت هستید؟</span>
                             
-                            <span className="cursor-pointer hover:text-blue-400">ورود به حساب کاربری</span>
+                            <span onClick={()=>{navigate("/sign/login")}} className="cursor-pointer hover:text-blue-400">ورود به حساب کاربری</span>
                         </div>
                         
                     </div>

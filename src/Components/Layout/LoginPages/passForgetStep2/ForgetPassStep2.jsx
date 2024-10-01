@@ -7,7 +7,7 @@ import LeftImageBox from "../forAll/LeftImageBox.jsx";
 import RightPassBoxStep2 from "./RightPassBoxStep2.jsx";
 
 
-const ForgetPass = () => {
+const ForgetPassStep2 = () => {
 
     return(
         
@@ -21,4 +21,4 @@ const ForgetPass = () => {
         
     );
 }
-export default ForgetPass;
+export default ForgetPassStep2;
