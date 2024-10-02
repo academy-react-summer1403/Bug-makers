@@ -2,43 +2,42 @@ import React, { useState, useEffect } from "react";
 import { setItem } from "../../../../../Core/Services/common/storage.services";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { RigesterStep2 } from "../../../../../Core/Services/Api/auth";
 
-function OptInput({ verifyCode, phoneNumber }) {
-    const [otp, setOtp] = useState(new Array(5).fill(""));
-    const [completedCode, setCompletedCode] = useState("");
+function OptInput({ phoneNumber }) {
+    const [otp, setOtp] = useState(new Array(5).fill("")); // حالت اولیه برای کد تایید
+    const [errorMessage, setErrorMessage] = useState(""); // وضعیت برای پیام خطا
     const navigate = useNavigate(); // استفاده از useNavigate برای هدایت
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            if (otp.every((digit) => digit !== "")) {
-                setCompletedCode(otp.join(""));
-            }
-        }, 2000);
-
-        return () => clearTimeout(timer);
+        if (otp.every((digit) => digit !== "")) { // بررسی پر بودن تمام خانه‌ها
+            const completedCode = otp.join(""); // تنظیم کد کامل
+            verifyCode(completedCode); // بررسی کد بلافاصله بعد از پر شدن تمامی باکس‌ها
+        }
     }, [otp]);
 
-    useEffect(() => {
-        if (completedCode) {
-            const verifyCode = async () => {
-                try {
-                    // درخواست به API برای بررسی صحت کد
-                    const response = await axios.post('https://classapi.sepehracademy.ir/api/Sign/SendVerifyMessage', { code: completedCode, phoneNumber:phoneNumber });
-                    
-                    if (response.data.success) {
-                        // اگر کد درست بود، نویگیت به صفحه بعد
-                        await setItem("verify", completedCode);
-                        navigate("/sign/rigester/step3"); // هدایت به صفحه بعد
-                    } else {
-                        alert("کد وارد شده اشتباه است");
-                    }
-                } catch (error) {
-                    console.error("Error verifying code:", error);
-                }
-            };
-            verifyCode();
+    const verifyCode = async (code) => {
+        try {
+            // ارسال درخواست به API برای بررسی صحت کد
+            const response = await RigesterStep2({"phoneNumber" : phoneNumber , "verifyCode" : code});
+                
+
+            // console.log(response); // اضافه کردن این خط برای بررسی پاسخ API
+
+            if (response) {
+                // اگر کد درست بود، نویگیت به صفحه بعد
+                await setItem("verify", code);
+                navigate("/sign/rigester/step3"); // هدایت به صفحه بعد
+            } else {
+                setErrorMessage("کد وارد شده اشتباه است، مجدد امتحان کنید"); // نمایش پیام به کاربر
+                setOtp(new Array(5).fill("")); // خالی کردن تمام خانه‌ها
+                document.querySelectorAll('input[name="verifyCode"]')[0].focus(); // بازگرداندن نشانگر به اولین خانه
+            }
+        } catch (error) {
+            console.error("Error verifying code:", error);
+            setErrorMessage("خطایی رخ داد، لطفاً دوباره امتحان کنید");
         }
-    }, [completedCode, navigate, phoneNumber]);
+    };
 
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return;
@@ -72,6 +71,7 @@ function OptInput({ verifyCode, phoneNumber }) {
                     />
                 ))}
             </div>
+            {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>} {/* نمایش پیام خطا */}
         </div>
     );
 }

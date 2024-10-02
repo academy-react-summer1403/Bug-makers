@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ErrorMessage, Form, Formik } from "formik";
 import InputModel from "../../forAll/InputModel.jsx";
 import * as yup from "yup";
@@ -21,21 +21,33 @@ const RightReStep2=()=>{
     const [code,setCode] = useState()
     const [reset,setReset]=useState(false)
     const phoneN="phoneN";
-    const [phoneNumber,setPhoneNumber] = useState()
+    const [phoneNumber,setPhoneNumber] = useState("")
     
     const setNumber =async ()=>{
         setPhoneNumber(getItem(phoneN))
+        
+
     }
     useEffect(()=>{
     setNumber();
     resendTime();
-    RigesterStep1(phoneNumber);
-    alert(phoneNumber)    
+
+  
     
     },[])
-    useEffect(()=>{
-        RigesterStep1(phoneN);
-    },[reset])
+
+    const isInitialMount = useRef(true)
+
+    useEffect(() => {
+  if (isInitialMount.current==false) {
+    console.log({"phoneNumber":phoneNumber})
+    RigesterStep1({"phoneNumber":phoneNumber});
+    alert(isInitialMount)
+    setResend(true);
+    resendTime();
+  }
+});
+   
     
     // useEffect(()=>{
     //     setVerify()
@@ -49,7 +61,7 @@ const RightReStep2=()=>{
 
 
     const resendTime=()=>{
-        setTimeout(()=>{setResend(resend==false);},55000)
+        setTimeout(()=>{setResend(false);},55000)
     } 
 
     const validation = yup.object().shape({
@@ -91,7 +103,7 @@ const RightReStep2=()=>{
                     <Formik
                     initialValues={{ phoneNumber: "", verifyCode: `${code}`}}
                     validationSchema={validation}
-                    onChange={(values) => onSubmit(values)}
+                    // onChange={(values) => onSubmit(values)}
                     >
                     
                     <Form>
@@ -110,11 +122,11 @@ const RightReStep2=()=>{
                         className="text-red-600"/>  
                         
                         
-                        <button onClick={()=>{setReset(!reset); navigate("/sign/rigester/step2")}} type="submit" disabled={resend} className="relative mt-[2vw] text-white bg-[#40BE5D] rounded-[0.563vw] w-full h-[2.25vw] text-[0.83vw] leading-[1.46vw] p-0 m-0 fade">دریافت مجدد کد تایید 
+                        <button onClick={()=>{isInitialMount.current = false; navigate("/sign/rigester/step2")}} type="submit" disabled={resend} className="relative mt-[2vw] text-white bg-[#40BE5D] rounded-[0.563vw] w-full h-[2.25vw] text-[0.83vw] leading-[1.46vw] p-0 m-0 fade">دریافت مجدد کد تایید 
                             
 
                         </button>
-                        <div class="loader"></div>
+                        <div className="loader"></div>
                         
                         
                         <div className="mt-[0.615vw] text-[0.833vw] h-[1.575vw] w-full flex justify-between items-center">

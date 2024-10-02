@@ -7,9 +7,11 @@ import GreenButt from "../forAllRe/GreenButt.jsx";
 import WhiteButt from "../forAllRe/WhiteButt.jsx";
 import { RigesterStep3 } from "../../../../../Core/Services/Api/auth.js";
 import { getItem } from "../../../../../Core/Services/common/storage.services.js";
+import { useNavigate } from "react-router-dom";
 
 
 const RightReStep4=()=>{
+    const navigate = useNavigate()
     const validation = yup.object().shape({
     password: yup.string().required("این فیلد اجباریست"),
     gmail: yup.string().required("این فیلد اجباریست")
@@ -17,12 +19,20 @@ const RightReStep4=()=>{
     const phoneN="phoneN";
     const phoneNumber = getItem(phoneN)
 
-    const onSubmit=(values)=>{
-        const finalVal = JSON.stringify(values)
+    const onSubmit=async (values)=>{
+        
         alert(JSON.stringify(values))
-        console.log(values);
-        RigesterStep3(values);
-        navigate("/")
+        
+        const response= await RigesterStep3(values);
+        if(response){
+            console.log(response);
+            navigate("/")     
+        }
+        else{
+            alert("ثبت نام موفقیت امیز نبود مجدد امتحان کنید")
+            navigate("/sign/rigester/step1")  
+        }
+        
         
     }
     return(

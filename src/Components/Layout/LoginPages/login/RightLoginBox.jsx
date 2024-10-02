@@ -7,6 +7,7 @@ import * as Icon from "react-icons/fi";
 import Checkbox from "react-custom-checkbox";
 import { BsJustify } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { setItem } from "../../../../Core/Services/common/storage.services.js";
 
 
 
@@ -17,13 +18,21 @@ const RightLoginBox=()=>{
     phoneOrGmail: yup.string().required("این فیلد اجباریست"),
     password: yup.string().required("این فیلد اجباریست")
     });
-    const onSubmit=(values)=>{
-        const finalVal = JSON.stringify(values)
+    const onSubmit= async(values)=>{
+        const finalVal = (values)
         alert(JSON.stringify(values))
         console.log(values);
-        LoginAPI(values);
+        const response = await LoginAPI(values);
+        if(response.token!=null){
         navigate("/")
+        console.log(response)
         
+        setItem("token",response.token)
+        alert("شما با موفقیت وارد شدید")
+        }
+        else{
+            alert("مجدد تلاش کنید")
+        }
     }
     
     return(

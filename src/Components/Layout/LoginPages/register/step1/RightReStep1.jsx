@@ -19,17 +19,24 @@ const RightReStep1=()=>{
 
     
     
-    const onSubmit=(values)=>{
+    const onSubmit=async (values)=>{
         const phone = values.phoneNumber;
         const phoneN="phoneN";
         setItem(phoneN,phone)
-        RigesterStep1(values)
-
         
-        // alert(JSON.stringify(values))
-        console.log(values);
+        const response = await RigesterStep1(values)
+        if(response.message== "درخواست نامعتبر"){
+            alert("این شماره در سایت ثبت شده است لطفا وارد شوید")
+            navigate("/sign/login")
+        }
+        else{
+            // alert(JSON.stringify(values))
+        console.log(response);
         // RigesterStep1(values);
         navigate("/sign/rigester/step2")
+        }
+        
+        
         
     }
     return(

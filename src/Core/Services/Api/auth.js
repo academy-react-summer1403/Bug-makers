@@ -4,7 +4,7 @@ export const LoginAPI = async (user)=>{
     try {
         const response = await http.post('/Sign/Login',user);
 
-        return console.log(response.headers)
+        return response
     } catch (error) {
         return false        
     }
@@ -14,7 +14,7 @@ export const RigesterStep1 = async (phoneNum)=>{
     try {
         const response = await http.post('/Sign/SendVerifyMessage',phoneNum);
 
-        return console.log(response)
+        return response
     } catch (error) {
         return false        
     }
@@ -36,7 +36,7 @@ export const RigesterStep3 = async (rigester)=>{
 
         return response
     } catch (error) {
-        return false        
+        return error        
     }
 }
 
@@ -54,7 +54,7 @@ export const ForgetPassStep2 = async (ConfigValue)=>{
     try {
         const response = await http.get(`/Sign/Reset/${ConfigValue}`);
 
-        return response.id
+        return response
     } catch (errors) {
         return false     
     }

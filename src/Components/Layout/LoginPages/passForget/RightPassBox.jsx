@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const RightPassBox=()=>{
     const navigate = useNavigate()
     const validation = yup.object().shape({
-    email: yup.string().required("این فیلد اجباریست"),
+    email: yup.string().required("لطفا ایمیل خود را صحیح وارد کنید"),
     });
 
     const onSubmit=(values)=>{
@@ -34,7 +34,7 @@ const RightPassBox=()=>{
                         <span className="text-[#8E8E8E] text-[1vw]">فراموشی رمز عبور</span>
                         <hr className="w-full mt-[0.94vw] "/>
                         
-                        <InputModel name={"email"} placeholder={" ایمیل خود را وارد کنید"} label={"ایمیل"} img={"../../../../../public/images/Login/portrait.png"}/>
+                        <InputModel name={"email"} placeholder={" ایمیل خود را وارد کنید"} label={"ایمیل"} img={"../../../../../public/images/Login/portrait.png"} type={"email"}/>
                         
 
                         
