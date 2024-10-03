@@ -42,7 +42,7 @@ const RightReStep2=()=>{
   if (isInitialMount.current==false) {
     console.log({"phoneNumber":phoneNumber})
     RigesterStep1({"phoneNumber":phoneNumber});
-    alert(isInitialMount)
+    // alert(isInitialMount)
     setResend(true);
     resendTime();
   }

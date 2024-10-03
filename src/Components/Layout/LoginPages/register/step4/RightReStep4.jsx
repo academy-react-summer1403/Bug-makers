@@ -21,11 +21,13 @@ const RightReStep4=()=>{
 
     const onSubmit=async (values)=>{
         
-        alert(JSON.stringify(values))
+        // alert(JSON.stringify(values))
         
         const response= await RigesterStep3(values);
         if(response){
             console.log(response);
+            alert(" شما با موفقیت ثبت نام شدید")
+
             navigate("/")     
         }
         else{

@@ -60,7 +60,7 @@ function OptInput({ phoneNumber }) {
             <div className="flex gap-[2vw] ">
                 {otp.map((data, index) => (
                     <input
-                        className="w-[2.083vw] h-[2.083vw] text-center border-[0.104vw] border-gray-300 focus:border-blue-500 rounded-md bg-white text-gray-800"
+                        className="w-[2.083vw] h-[2.083vw] text-center border-[0.104vw] border-gray-300 focus:border-blue-500 rounded-[0.4vw] bg-white text-gray-800 text-[0.8vw]"
                         type="text"
                         name="verifyCode"
                         maxLength="1"
@@ -71,7 +71,7 @@ function OptInput({ phoneNumber }) {
                     />
                 ))}
             </div>
-            {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>} {/* نمایش پیام خطا */}
+            {errorMessage && <p className="text-red-500 mt-[0.6vw] text-[0.7vw]">{errorMessage}</p>} {/* نمایش پیام خطا */}
         </div>
     );
 }

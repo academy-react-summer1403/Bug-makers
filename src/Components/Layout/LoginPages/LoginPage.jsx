@@ -11,12 +11,7 @@ import { Outlet } from "react-router-dom";
 const LoginPage = () => {
     return(
         <div className="w-full h-lvh flex justify-center items-center bg-white">
-            {/* <Login /> */}
-            {/* <ForgetPass/> */}
-            {/* <ReStep1/> */}
-            {/* <ReStep2/> */}
-            {/* <ReStep4/> */}
-            {/* <ForgetPassStep2/> */}
+            
             <Outlet/>
 
             
