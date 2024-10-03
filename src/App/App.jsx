@@ -1,12 +1,19 @@
 import { useState } from 'react'
 import './App.css'
+<<<<<<< HEAD
 import LoginPage from '../Components/Layout/LoginPage/loginPage'
+=======
+import Header from '../Components/Layout/Header/Header'
+import LoginPage from '../Components/Layout/LoginPages/LoginPage.jsx'
+import { Outlet } from 'react-router-dom'
+import Login from '../Components/Layout/LoginPages/login/Login.jsx'
+>>>>>>> Login
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <h2 className='bg-red-500'>hi</h2>
 <<<<<<< HEAD:src/App.jsx
@@ -19,6 +26,11 @@ function App() {
 =======
       <LoginPage/>
 >>>>>>> d2b31e5917492e95712fc0331dfef3dbc9946c34
+=======
+      
+
+      <Outlet/>
+>>>>>>> Login
     </>
   )
 }

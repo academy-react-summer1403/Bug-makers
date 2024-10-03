@@ -4,6 +4,10 @@
 
 
 :root {
+<<<<<<< HEAD
+=======
+  direction: rtl;
+>>>>>>> Login
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -31,8 +35,12 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
+<<<<<<< HEAD
   min-width: 320px;
   min-height: 100vh;
+=======
+
+>>>>>>> Login
 }
 
 h1 {
@@ -71,3 +79,9 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+<<<<<<< HEAD
+=======
+
+
+    
+>>>>>>> Login
