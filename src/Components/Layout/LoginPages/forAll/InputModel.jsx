@@ -1,7 +1,12 @@
 import { Field ,ErrorMessage} from "formik";
 import React from "react";
+import * as yup from "yup";
 
 const InputModel = ({val,type,img,label,placeholder,name}) => {
+    // const validation = yup.object().shape({
+    // name : yup.string().required("این فیلد اجباریست"),
+
+    // });
     return(
         <>
             <label htmlFor="userName" className="mt-[1.687vw] text-[#727272] text-[0.885vw] font-normal mr-[0.9vw] w-full text-right">{label}</label>
