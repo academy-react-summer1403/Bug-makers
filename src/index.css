@@ -27,4 +27,10 @@ h1 {
   font-family: Iransans;
   src: url(../public/Fonts/IRANSans.ttf);
 }
- /*   مشاهده دوره باتن   دوره اموزش ککدوک بزرگسال   اهداف ما در پروژهشگاه */
+
+@font-face {
+  font-family: IranSansNumber;
+  src: url(../public/Fonts/IRANSansXFaNum-Bold.ttf);
+}
+
+.price{font-family: IranSansNumber;}

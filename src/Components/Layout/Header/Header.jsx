@@ -37,7 +37,7 @@ const Header = () => {
         <ul className={`max-[362px]:w-[200px] max-[254px]:w-[150px] /*end responsive*/ border w-[300px] rounded-lg mt-2 bg-[#f5f5f4] shadow-[0px_10px_10px_0px_#00000008] transition-all duration-100 ${openMenu ? 'visible opacity-100' : 'invisible opacity-0'}`}>
           <MenuOption 
             className={`p-1 indent-4 cursor-pointer 
-              ${selectedButton === 0 ? 'hover:text-[#4bb0d8]' : ''}
+              ${selectedButton === 0 ? 'hover:text-[#4bb0d8] ' : ''}
               ${selectedButton === 1 ? 'hover:text-green-600' : ''}
               ${selectedButton === 2 ? 'hover:text-yellow-600' : ''}
             `}
