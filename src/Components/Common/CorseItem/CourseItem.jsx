@@ -2,7 +2,7 @@ import { list } from 'postcss'
 import React from 'react'
 import { useState } from 'react'
 
-const CourseItem = ({ title , img , description , technologyList , teacherName , likeCount , commandCount , courseRate , statusName , listStyle}) => {
+const CourseItem = ({ title , img , description , technologyList , teacherName , likeCount , commandCount , courseRate , statusName , price , currentRegistrants , date , listStyle}) => {
   return (
     <div dir={`${listStyle ? 'ltr' : 'rtl'}`}  className={`relative shadow-[-15px_15px_15px_0px_#0000000D] bg-white rounded-2xl p-[5px] overflow-hidden group hover:scale-110 cursor-pointer transition-all duration-300  ${listStyle ? 'w-[100%]  h-[350px]' : 'w-[250px]  h-[405px]   '}`}>
         <div className={`w-[600px] h-40 bg-[rgba(245,245,245,0.5)] absolute  transition-all duration-500 group-hover:translate-x-[-150px]  ${listStyle ? 'rotate-45 translate-x-[1000px] translate-y-[-100px] group-hover:translate-y-[250px] group-hover:translate-x-[-450px]' : 'rotate-45 translate-x-[450px] translate-y-[-50px] group-hover:translate-y-[200px]'}`}></div>
@@ -36,12 +36,12 @@ const CourseItem = ({ title , img , description , technologyList , teacherName ,
         <h2 className={` w-[180px] h-[35px] rounded-[8px] absolute top-[229px] right-80 text-[16px] text-center bg-register-course text-white leading-8 ${listStyle ? 'block' : 'hidden'}`}>ثبت نام در دوره</h2>
         <div dir='rtl' className={`absolute h-[24px]  flex flex-row gap-1 justify-center items-center ${listStyle ? 'top-[276px] right-10' : 'top-[308px] left-[15px] '}`}>
             <img src='../../../../public/Image/Icon/calendar.png' className={` ${listStyle ? 'w-[15px] h-[15px]' : 'w-[24px] h-[24px]'}`} />
-            <span className='text-[11px] ml-[70px]'>25 شهریور 1402</span>
+            <span className='text-[11px] ml-[70px]'>{date}</span>
             <span className='text-[10px] '>{statusName}</span>
         </div>
         <span className={`absolute text-[11px] text-[#8A8A8A] ${listStyle ? ' top-[280px] right-[325px]' : ' top-[347px] left-[190px]'}`}>هزینه دوره</span>
         <div dir='rtl' className={`absolute h-[24px]  flex flex-row gap-2 justify-center items-center ${listStyle ? ' top-[276px] right-[415px]' : ' top-[343px] left-[15px]'}`}>
-            <h3 className='text-[16px] text-[#DC6C6C] font-semibold price'>530,000</h3>
+            <h3 className='text-[16px] text-[#DC6C6C] font-semibold price'>{price}</h3>
             <img src='../../../../public/Image/Icon/toman.png'  />
         </div>
         <div className={` bg-[#f2eefb] absolute  h-[1px] ${listStyle ? 'top-[310px] right-3 w-[42%]' : 'top-[371px] left-0 w-[100%]'}`}></div>
@@ -50,7 +50,7 @@ const CourseItem = ({ title , img , description , technologyList , teacherName ,
             <div className={`w-[40px] h-[17px] flex flex-row justify-center items-center gap-2 text-[11px] text-[#8A8A8A] ${listStyle ? 'block' : 'hidden'}`}>
                 <span>کاربر</span>
                 <img src='../../../../public/Image/Icon/users-alt.png'  />
-                <span>130</span>
+                <span>{currentRegistrants}</span>
             </div>
             <div className='w-[40px] h-[17px] flex flex-row justify-center items-center gap-2 text-[11px]  text-[#8A8A8A]'>
                 <span>{likeCount}</span>

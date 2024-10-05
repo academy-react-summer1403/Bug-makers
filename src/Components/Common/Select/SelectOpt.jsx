@@ -36,14 +36,7 @@ const SelectOpt = ({ placeholder, onChange, isTeacherSelect, FilterValue }) => {
     }
   }, [FilterValue]);
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center">
-        <AiOutlineLoading3Quarters className="animate-spin text-xl" />
-        <p>در حال بارگذاری...</p>
-      </div>
-    );
-  }
+
 
   if (error) {
     return <p>خطایی رخ داده است، لطفا دوباره تلاش کنید.</p>;

@@ -8,6 +8,8 @@ import TextLanding from '../../Components/Common/TextInLanding/TextLanding';
 import CourseItem from '../../Components/Common/CorseItem/CourseItem';
 import Pagination from '../../Components/Common/Paginate/Paginate';
 import SelectOpt from '../../Components/Common/Select/SelectOpt';
+import DateModal from '../../Components/ComponentOnce/Date/Date';
+import moment from 'jalali-moment'; 
 
 const CoursePage = () => {
   // stateForCategoryFilter
@@ -28,6 +30,10 @@ const CoursePage = () => {
   // state value
   const [filterValue, setFilterValue] = useState(false);
 
+  const [startDate, setStartDate] = useState(null);
+const [endDate, setEndDate] = useState(null);
+
+
   const itemsPerPage = 8; 
   const dispatch = useDispatch();
 
@@ -36,8 +42,8 @@ const CoursePage = () => {
 
   // fetchCoursesWithFilters
   const { isLoading, error, data } = useQuery(
-    ['getCourse', queryValue, teacherId, categoryQuery], 
-    () => getCourseListWithPagination(queryValue, teacherId, categoryQuery), 
+    ['getCourse', queryValue, teacherId, categoryQuery, startDate, endDate], 
+    () => getCourseListWithPagination(queryValue, teacherId, categoryQuery, startDate, endDate), 
     {
       onSuccess: (data) => {
         dispatch(setCourseList(data.courseFilterDtos || data));
@@ -45,6 +51,9 @@ const CoursePage = () => {
       keepPreviousData: true, 
     }
   );
+  
+  
+  
 
   // handleSearchQueryChange
   const handleSearch = (e) => {
@@ -62,6 +71,16 @@ const CoursePage = () => {
     setTimeout(() => {
       setFilterValue(false);
     }, 100); 
+  };
+
+  const filterByDateRange = (startDate, endDate) => {
+    setStartDate(startDate);
+    setEndDate(endDate);
+  };
+  
+  // Converting Date 
+  const convertToJalali = (miladiDate) => {
+    return moment(miladiDate, 'YYYY-MM-DD').locale('fa').format('YYYY/MM/DD');
   };
   
 
@@ -84,6 +103,9 @@ const CoursePage = () => {
           commandCount={course.commandCount}
           courseRate={course.courseRate}
           statusName={course.statusName}
+          price={course.cost}
+          currentRegistrants={course.currentRegistrants}
+          date={convertToJalali(course.lastUpdate)}
           listStyle={listStyle}
         />
       ));
@@ -112,12 +134,13 @@ const CoursePage = () => {
             onChange={(value) => setCategoryQuery(value)} 
             FilterValue={filterValue}
           />
+          <DateModal onFilter={filterByDateRange} />
         </div>
 
         {/* filterActionSection */}
         <div className='relative w-[100%] h-[90px] flex flex-nowrap justify-center items-center'>
           <span className='text-[10px] text-[#978A8A] absolute right-0'>
-            {CourseListItem.length} از {data?.totalCount || 0} 
+            تعداد{CourseListItem.length} نتیجه از {data?.totalCount || 0} دوره طبق جستجوی شما برای شما یافت شد
           </span>          
           <span className='w-[106px] h-[20px] rounded-[16px] text-center text-[10px] leading-6 text-[#FE8E8E] cursor-pointer bg-white' onClick={handleRemoveFilter}>
             حذف تمامی فیلتر
