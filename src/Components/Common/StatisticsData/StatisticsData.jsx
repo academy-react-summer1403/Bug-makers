@@ -1,20 +1,40 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
+import { useQuery } from 'react-query';
+import { getCourseListWithPagination } from '../../../Core/Services/Api/CoursePage/getCourseListWithPagination';
+import { getTeacherList } from '../../../Core/Services/Api/CoursePage/TeacherList';
 import TextLanding from '../TextInLanding/TextLanding';
 
-    const statistics = [
-  { id: 1, label: 'دانشجو', end: 1200, delay: 0 },
-  { id: 2, label: 'دوره آموزشی', end: 78, delay: 0.3 },
-  { id: 3, label: 'استاد', end: 12, delay: 0.6 },
-    ];
-
-  const StatisticsData = () => {
+const StatisticsData = () => {
   const [startCount, setStartCount] = useState(false);
+
+  // Fetch courses
+  const { data: courseData, isLoading: isCoursesLoading } = useQuery(
+    'courses',
+    () => getCourseListWithPagination(null, null, null, null, null, 'DESC', null, null)
+  );
+
+  // Fetch teachers
+  const { data: teacherData, isLoading: isTeachersLoading } = useQuery(
+    'teachers',
+    getTeacherList
+  );
 
   const handleInView = () => {
     setStartCount(true);
   };
+
+  // Define the statistics based on fetched data
+  const statistics = [
+    { id: 1, label: 'دانشجو', end: 1200, delay: 0 },  // Assuming a static value for students
+    { id: 2, label: 'دوره آموزشی', end: courseData?.totalCount || 0, delay: 0.3 },
+    { id: 3, label: 'استاد', end: teacherData?.length || 0, delay: 0.6 },
+  ];
+
+  if (isCoursesLoading || isTeachersLoading) {
+    return <p>در حال بارگذاری...</p>;
+  }
 
   return (
     <div className='m-auto w-[100%] relative text-center mt-[56.63541666666667vw] bg-transparent'>
@@ -23,7 +43,7 @@ import TextLanding from '../TextInLanding/TextLanding';
         pText='اطلاعات دوره ها'
       />
 
-      {/* wrapper  */}
+      {/* Wrapper */}
       <div className='flex  mt-[20vw] justify-center gap-[15vw] '>
         {statistics.map((stat) => (
           <motion.div

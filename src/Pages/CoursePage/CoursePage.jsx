@@ -10,6 +10,7 @@ import Pagination from '../../Components/Common/Paginate/Paginate';
 import SelectOpt from '../../Components/Common/Select/SelectOpt';
 import DateModal from '../../Components/ComponentOnce/Date/Date';
 import moment from 'jalali-moment'; 
+import PriceFilter from '../../Components/ComponentOnce/PriceFilter/PriceFilter';
 
 const CoursePage = () => {
   // stateForCategoryFilter
@@ -31,7 +32,12 @@ const CoursePage = () => {
   const [filterValue, setFilterValue] = useState(false);
 
   const [startDate, setStartDate] = useState(null);
-const [endDate, setEndDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const [sorting, setSorting] = useState('')
+
+  const [minCost, setMinCost] = useState(null);
+  const [maxCost, setMaxCost] = useState(null);
 
 
   const itemsPerPage = 8; 
@@ -42,8 +48,8 @@ const [endDate, setEndDate] = useState(null);
 
   // fetchCoursesWithFilters
   const { isLoading, error, data } = useQuery(
-    ['getCourse', queryValue, teacherId, categoryQuery, startDate, endDate], 
-    () => getCourseListWithPagination(queryValue, teacherId, categoryQuery, startDate, endDate), 
+    ['getCourse', queryValue, teacherId, categoryQuery, startDate, endDate , sorting , minCost , maxCost], 
+    () => getCourseListWithPagination(queryValue, teacherId, categoryQuery, startDate, endDate , sorting , minCost , maxCost), 
     {
       onSuccess: (data) => {
         dispatch(setCourseList(data.courseFilterDtos || data));
@@ -67,7 +73,8 @@ const [endDate, setEndDate] = useState(null);
     setCategoryQuery(''); 
     
     setFilterValue(true);
-  
+    setMinCost(null)
+    setMaxCost(null)
     setTimeout(() => {
       setFilterValue(false);
     }, 100); 
@@ -83,6 +90,11 @@ const [endDate, setEndDate] = useState(null);
     return moment(miladiDate, 'YYYY-MM-DD').locale('fa').format('YYYY/MM/DD');
   };
   
+
+  const handlePriceFilter = (min, max) => {
+    setMinCost(min);
+    setMaxCost(max);
+  };
 
   // renderCourseItems
   const renderCourses = () => {
@@ -135,6 +147,16 @@ const [endDate, setEndDate] = useState(null);
             FilterValue={filterValue}
           />
           <DateModal onFilter={filterByDateRange} />
+
+          <SelectOpt
+            placeholder="ترتیب نمایش"
+            isSortSelect={true}
+            onChange={(value) => setSorting(value)} 
+            FilterValue={filterValue}
+          />
+
+          <PriceFilter onFilter={handlePriceFilter} />
+
         </div>
 
         {/* filterActionSection */}

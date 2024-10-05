@@ -1,6 +1,6 @@
 import instance from "../../Interceptor/Interceptor";
-export const getCourseListWithPagination = async (query, teacherId, categoryQuery, startDate, endDate) => {
-  let url = `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=300&SortingCol=Active&SortType=DESC`;
+export const getCourseListWithPagination = async (query, teacherId, categoryQuery, startDate, endDate , sorting , minCost , maxCost) => {
+  let url = `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=300&SortingCol=Active&SortType=${sorting ? sorting : 'DESC'}`;
 
   if (query) {
     url += `&Query=${query}`;
@@ -19,6 +19,12 @@ export const getCourseListWithPagination = async (query, teacherId, categoryQuer
   }
   if (endDate) {
     url += `&EndDate=${endDate}`;
+  }
+  if (minCost) {
+    url += `&CostDown=${minCost}`;
+  }
+  if (maxCost) {
+    url += `&CostUp=${maxCost}`;
   }
 
   const response = await instance.get(url);

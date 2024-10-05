@@ -3,22 +3,31 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery } from 'react-query';
 import { getTeacherList } from '../../../Core/Services/Api/CoursePage/TeacherList';
 import { getCategoryList } from '../../../Core/Services/Api/CoursePage/Category';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai'; // آیکن اسپینر
 
-const SelectOpt = ({ placeholder, onChange, isTeacherSelect, FilterValue }) => {
+const SelectOpt = ({ placeholder, onChange, isTeacherSelect, isSortSelect, FilterValue }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
+  // Sort data for sorting options
+  const sortData = [
+    { id: 1, value: 'آخرین آپدیت' }
+  ];
+
+  // Fetch teacher or category list based on prop
   const { data: optionsList, isLoading, error } = useQuery(
-    isTeacherSelect ? 'teachers' : 'categories', 
-    isTeacherSelect ? getTeacherList : getCategoryList
+    isTeacherSelect ? 'teachers' : isSortSelect ? 'sortOptions' : 'categories',
+    isTeacherSelect ? getTeacherList : isSortSelect ? () => Promise.resolve(sortData) : getCategoryList
   );
 
   const handleSelect = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
     if (onChange) {
-      onChange(isTeacherSelect ? option.teacherId : option.id);
+      if (isSortSelect) {
+        onChange(option.value); 
+      } else {
+        onChange(isTeacherSelect ? option.teacherId : option.id);
+      }
     }
   };
 
@@ -29,14 +38,11 @@ const SelectOpt = ({ placeholder, onChange, isTeacherSelect, FilterValue }) => {
     }
   };
 
-  // استفاده از useEffect برای ریست کردن selectedOption
   useEffect(() => {
     if (FilterValue) {
-      setSelectedOption(null); // ریست کردن مقدار
+      setSelectedOption(null);
     }
   }, [FilterValue]);
-
-
 
   if (error) {
     return <p>خطایی رخ داده است، لطفا دوباره تلاش کنید.</p>;
@@ -56,7 +62,7 @@ const SelectOpt = ({ placeholder, onChange, isTeacherSelect, FilterValue }) => {
         className="w-full h-[40px] rounded-[10px] text-[12px] bg-[#F2F2F2] indent-3 cursor-pointer flex items-center justify-between"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span>{selectedOption ? selectedOption.fullName || selectedOption.techName : placeholder}</span>
+        <span>{selectedOption ? (selectedOption.fullName || selectedOption.techName || selectedOption.value) : placeholder}</span>
       </div>
       <AnimatePresence>
         {isOpen && (
@@ -69,11 +75,11 @@ const SelectOpt = ({ placeholder, onChange, isTeacherSelect, FilterValue }) => {
           >
             {optionsList?.map((option) => (
               <li
-                key={isTeacherSelect ? option.teacherId : option.id} 
+                key={isSortSelect ? option.id : isTeacherSelect ? option.teacherId : option.id}
                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer text-[12px]"
                 onClick={() => handleSelect(option)}
               >
-                {isTeacherSelect ? option.fullName : option.techName}
+                {isSortSelect ? option.value : isTeacherSelect ? option.fullName : option.techName}
               </li>
             ))}
           </motion.ul>

@@ -27,7 +27,7 @@ const CourseTraining = () => {
 
   return (
     <div className={`m-auto w-[100%] text-center  mt-[22.63541666666667vw] bg-transparent
-        ${selectedButton === 0 ? 'max-[750px]:mt-[30vw]' : 'mt-[22.63541666666667vw]'}
+        ${selectedButton === 0 ? 'max-[750px]:mt-[30vw]' : 'mt-[28.63541666666667vw]'}
         `}>
           {/* title  */}
       <TextLanding 
