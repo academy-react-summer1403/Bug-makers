@@ -8,6 +8,7 @@ export default {
     extend: {
       boxShadow: { 
         '3xl': '-3px 3px 3px 0px rgba(0,0,0,0.1)',
+        '4xl': '0px 3px 3px 0px rgba(204,182,182,0.2);'
       }
     },
   },
