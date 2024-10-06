@@ -20,6 +20,10 @@ export default {
         'drop-shadow': '-5px 5px 5px 1px #0000000D'
 
       },
+      screens: {
+        'custom': '952px', 
+        'custom2': '514px' 
+      },
     },
   },
   plugins: [],

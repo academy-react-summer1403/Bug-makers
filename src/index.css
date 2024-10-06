@@ -37,13 +37,12 @@ h1 {
 
 .range-slider {
   position: relative;
-  width: 100%;
 }
 
 .range-slider input[type="range"] {
   position: absolute;
   width: 100%;
-  pointer-events: none; 
+  pointer-events: none;
   -webkit-appearance: none;
   appearance: none;
   background: none;

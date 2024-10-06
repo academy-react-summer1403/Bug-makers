@@ -27,10 +27,10 @@ const DateModal = ({ onFilter }) => {
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center max-[1312px]:w-[100%]">
       {/* Modal Trigger Button */}
       <div
-        className="w-[160px] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
+        className="w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
         بازه زمانی
@@ -109,13 +109,13 @@ const DateModal = ({ onFilter }) => {
 
               {/* Confirm and Cancel Buttons */}
               <button
-                className="bg-[#91ACCF] text-white w-[106px] h-[30px] rounded-[8px] absolute bottom-5 right-36"
+                className="max-custom2:right-10 bg-[#91ACCF] text-white w-[106px] h-[30px] rounded-[8px] absolute bottom-5 right-36"
                 onClick={handleFilter}
               >
                 تایید
               </button>
               <button
-                className="bg-transparent text-[#626262] w-[106px] border-2 border-[#91ACCF] h-[30px] rounded-[8px] absolute bottom-5 left-36"
+                className="max-custom2:left-10 bg-transparent text-[#626262] w-[106px] border-2 border-[#91ACCF] h-[30px] rounded-[8px] absolute bottom-5 left-36"
                 onClick={() => {
                   setIsOpen(false);
                   setStartDay('');
