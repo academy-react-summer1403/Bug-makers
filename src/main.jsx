@@ -11,6 +11,11 @@ import ForgetPassStep2 from './Components/Layout/LoginPages/passForgetStep2/Forg
 import ReStep1 from './Components/Layout/LoginPages/register/step1/ReStep1'
 import ReStep2 from './Components/Layout/LoginPages/register/step2/ReStep2'
 import ReStep4 from './Components/Layout/LoginPages/register/step4/ReStep4'
+import { Provider } from 'react-redux'
+import { Store } from '../src/Redux/Store/Store';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 
 const router = createBrowserRouter([
@@ -73,9 +78,14 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Provider store={Store}>
+      <QueryClientProvider client={queryClient}>
+
+    
     <RouterProvider router={router}>
       <App/>
     </RouterProvider>
-    
+    </QueryClientProvider>
+    </Provider>
   </StrictMode>,
 )
