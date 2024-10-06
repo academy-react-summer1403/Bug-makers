@@ -4,19 +4,15 @@ import React from "react";
 import * as yup from "yup";
 
 import LeftImageBox from "../forAll/LeftImageBox.jsx";
-import RightPassBox from "./RightPassBox.jsx";
+import RightPassBoxStep2 from "./RightPassBoxStep2.jsx";
 
 
-const ForgetPass = () => {
-
-    const validation = yup.object().shape({
-    first: yup.string().required("این فیلد اجباریست"),
-});
+const ForgetPassStep2 = () => {
 
     return(
         
         <div className="text-gray-500 border-[#d1d1d1] border-[0.104vw]  w-[64vw] h-[30vw] rounded-[20px] flex justify-evenly overflow-hidden max-sm:w-[35%] max-sm:h-auto max-sm:scale-[2.5]">
-            <RightPassBox/>
+            <RightPassBoxStep2/>
             <LeftImageBox leftImage={"../../../../../public/images/Login/Image 8.png"}/>
             
             
@@ -25,4 +21,4 @@ const ForgetPass = () => {
         
     );
 }
-export default ForgetPass;
+export default ForgetPassStep2;
