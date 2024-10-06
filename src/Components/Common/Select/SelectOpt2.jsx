@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery } from 'react-query';
-import { getTeacherList } from '../../../Core/Services/Api/CoursePage/TeacherList';
-import { getCategoryList } from '../../../Core/Services/Api/CoursePage/Category';
+import { GetListNewsCategory } from '../../../Core/Services/Api//BlogPage/NewsList';
+import { getCategoryList2 } from '../../../Core/Services/Api/BlogPage/Category';
 
-const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect, FilterValue }) => {
+const SelectOpt2 = ({ width ,placeholder, onChange, isTeacherSelect, isSortSelect, FilterValue }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -16,7 +16,7 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
   // Fetch teacher or category list based on prop
   const { data: optionsList, isLoading, error } = useQuery(
     isTeacherSelect ? 'teachers' : isSortSelect ? 'sortOptions' : 'categories',
-    isTeacherSelect ? getTeacherList : isSortSelect ? () => Promise.resolve(sortData) : getCategoryList
+    isTeacherSelect ? GetListNewsCategory : isSortSelect ? () => Promise.resolve(sortData) : getCategoryList2
   );
 
   const handleSelect = (option) => {
@@ -26,7 +26,7 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
       if (isSortSelect) {
         onChange(option.value); 
       } else {
-        onChange(isTeacherSelect ? option.teacherId : option.id);
+        onChange(isTeacherSelect ? option.categoryName : option.id);
       }
     }
   };
@@ -49,7 +49,7 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
   }
 
   return (
-    <div className={`text-gray-600 relative w-[${width}] ${isOpen ? 'z-10' : 'z-0'}`}>
+    <div className={`text-gray-600 relative w-[235px] ${isOpen ? 'z-10' : 'z-0'}`}>
       {selectedOption && (
         <span
           className="cursor-pointer p-3 absolute left-0 top-0"
@@ -89,4 +89,4 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
   );
 };
 
-export default SelectOpt;
+export default SelectOpt2;

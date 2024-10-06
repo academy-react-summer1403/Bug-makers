@@ -1,6 +1,6 @@
 import instance from "../../interseptore/Interceptor";
 export const getBlogListWithPagination = async (query,NewsCategoryId,sorting) => {
-  let url = `/News?PageNumber=1&RowsOfPage=300&SortingCol=InsertDate&SortType=DESC&Query=&NewsCat${sorting ? sorting : 'DESC'}`;
+  let url = `/News?PageNumber=1&RowsOfPage=300&SortingCol=InsertDate&SortType=DESC&Query=&NewsCategoryId=`;
 
   if (query) {
     url += `&Query=${query}`;
@@ -30,5 +30,5 @@ export const getBlogListWithPagination = async (query,NewsCategoryId,sorting) =>
   // }
 
   const response = await instance.get(url);
-  return response.data; 
+  return response.news; 
 };

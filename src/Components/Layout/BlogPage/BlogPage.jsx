@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { setBlogList } from '../../../Redux/Slice/Blog/BlogList.js';
-import { getCourseListWithPagination } from '../../../Core/Services/Api/CoursePage/getCourseListWithPagination'; 
+import { getBlogListWithPagination } from '../../../Core/Services/Api/BlogPage/getBlogListWithPagination'; 
 import SearchBox from '../../../Components/Common/SearchBox/SearchBox.jsx';
 import TextLanding from '../../../Components/Common/TextInLanding/TextLanding';
 import CourseItem from '../../../Components/Common/CorseItem/CourseItem';
@@ -17,6 +17,7 @@ import SelectOpt from '../../../Components/Common/Select/SelectOpt';
 import DateModal from '../../../Components/ComponentOnce/Date/Date';
 import moment from 'jalali-moment'; 
 import PriceFilter from '../../../Components/ComponentOnce/PriceFilter/PriceFilter';
+import SelectOpt2 from "../../Common/Select/SelectOpt2.jsx";
 
 const BlogPage = () => {
   // stateForCategoryFilter
@@ -50,15 +51,15 @@ const BlogPage = () => {
   const dispatch = useDispatch();
 
   // getCourseListFromRedux
-  const CourseListItem = useSelector((state) => state.CourseSlice.CourseList);
-
+  const CourseListItem = useSelector((state) => state.BlogSlice.BlogList);
   // fetchCoursesWithFilters
   const { isLoading, error, data } = useQuery(
-    ['getCourse', queryValue, teacherId, categoryQuery, startDate, endDate , sorting , minCost , maxCost], 
-    () => getCourseListWithPagination(queryValue, categoryQuery, sorting ), 
+    ['get', queryValue,categoryQuery,sorting ], 
+    () => getBlogListWithPagination(queryValue, categoryQuery, sorting ), 
     {
       onSuccess: (data) => {
-        dispatch(setBlogList(data.news || data));
+
+        dispatch(setBlogList(data || data));
       },
       keepPreviousData: true, 
     }
@@ -109,22 +110,19 @@ const BlogPage = () => {
 
     return CourseListItem
       .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
-        .map((course) => (
-        <CourseItem
-            key={course.courseId}
-            title={course.title}
-            img={course.tumbImageAddress}
-            technologyList={course.technologyList}
-            description={course.describe}
-            teacherName={course.teacherName}
-            likeCount={course.likeCount}
-            commandCount={course.commandCount}
-            courseRate={course.courseRate}
-            statusName={course.statusName}
-            price={course.cost}
-            currentRegistrants={course.currentRegistrants}
-            date={convertToJalali(course.lastUpdate)}
-            listStyle={listStyle}
+        .map((news) => (
+        <MinimalBlog
+            key={news.id}
+            title={news.title}
+            cat={news.newsCatregoryName}
+            desc={news.miniDescribe}
+            newsImg={news.currentImageAddressTumb}
+            userImg={news.addUserProfileImage}
+            writer={news.addUserFullName}
+            comment={news.currentView}
+            like={news.currentLikeCount}
+            date={news.updateDate}
+            datePass={news.updateDate}
         />
     ));
   };
@@ -137,23 +135,30 @@ const BlogPage = () => {
         {/* searchAndFilterSection */}
         <div className='h-[55px] flex justify-center items-center gap-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C]'>
           <SearchBox
-            placeHolder='دنبال چی میگردی'
+            width={"520px"}
+            placeHolder='دنبال چیز خاصی میگردی؟'
             value={`${filterValue ? '' : queryValue}`}
             onChange={handleSearch} 
           />
           <SelectOpt
+            width={"235px"}
             placeholder='دسته‌بندی'
             onChange={(value) => setCategoryQuery(value)} 
             FilterValue={filterValue}
           />
-          <DateModal onFilter={filterByDateRange} />
+          {/* <DateModal onFilter={filterByDateRange} /> */}
 
-          <SelectOpt
+          <SelectOpt2
+          
+          width={"160px"}
             placeholder="ترتیب نمایش"
             isSortSelect={true}
             onChange={(value) => setSorting(value)} 
             FilterValue={filterValue}
           />
+          <div className="h-[40px] w-[87px] text-center leading-[40px] rounded-[9px] bg-red-500">
+            {CourseListItem.length}
+          </div>
 
           {/* <PriceFilter onFilter={handlePriceFilter} /> */}
 
