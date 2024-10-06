@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { getTeacherList } from '../../../Core/Services/Api/CoursePage/TeacherList';
 import { getCategoryList } from '../../../Core/Services/Api/CoursePage/Category';
 
-const SelectOpt = ({ placeholder, onChange, isTeacherSelect, isSortSelect, FilterValue }) => {
+const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect, FilterValue }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -49,7 +49,7 @@ const SelectOpt = ({ placeholder, onChange, isTeacherSelect, isSortSelect, Filte
   }
 
   return (
-    <div className={`relative w-[160px] ${isOpen ? 'z-10' : 'z-0'}`}>
+    <div className={`relative w-[${width}] ${isOpen ? 'z-10' : 'z-0'}`}>
       {selectedOption && (
         <span
           className="cursor-pointer p-3 absolute left-0 top-0"

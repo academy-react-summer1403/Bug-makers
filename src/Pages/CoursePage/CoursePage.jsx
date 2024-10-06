@@ -137,13 +137,14 @@ const CoursePage = () => {
             onChange={handleSearch} 
           />
           <SelectOpt
-
+            width={"160px"}
             placeholder='استاد دوره'
             isTeacherSelect={true} 
             onChange={(value) => setTeacherId(value)}
             FilterValue={filterValue}
           />
           <SelectOpt
+            width={"160px"}
             placeholder='دسته‌بندی'
             onChange={(value) => setCategoryQuery(value)} 
             FilterValue={filterValue}
@@ -151,6 +152,7 @@ const CoursePage = () => {
           <DateModal onFilter={filterByDateRange} />
 
           <SelectOpt
+            width={"160px"}
             placeholder="ترتیب نمایش"
             isSortSelect={true}
             onChange={(value) => setSorting(value)} 
