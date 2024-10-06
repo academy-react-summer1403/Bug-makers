@@ -132,17 +132,20 @@ const CoursePage = () => {
         {/* searchAndFilterSection */}
         <div className='h-[55px] flex justify-center items-center gap-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C]'>
           <SearchBox
+            width={"160px"}
             placeHolder='دنبال چی میگردی'
             value={`${filterValue ? '' : queryValue}`}
             onChange={handleSearch} 
           />
           <SelectOpt
+            width={"160px"}
             placeholder='استاد دوره'
             isTeacherSelect={true} 
             onChange={(value) => setTeacherId(value)}
             FilterValue={filterValue}
           />
           <SelectOpt
+            width={"160px"}
             placeholder='دسته‌بندی'
             onChange={(value) => setCategoryQuery(value)} 
             FilterValue={filterValue}
@@ -150,6 +153,7 @@ const CoursePage = () => {
           <DateModal onFilter={filterByDateRange} />
 
           <SelectOpt
+            width={"160px"}
             placeholder="ترتیب نمایش"
             isSortSelect={true}
             onChange={(value) => setSorting(value)} 
