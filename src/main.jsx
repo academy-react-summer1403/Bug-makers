@@ -11,7 +11,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import LandingPage from './Pages/Landing Page/LandingPage';
 import CoursePage from './Pages/CoursePage/CoursePage';
 
-// ایجاد یک instance از QueryClient
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([

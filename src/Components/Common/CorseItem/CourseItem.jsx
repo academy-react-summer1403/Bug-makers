@@ -1,8 +1,60 @@
+import axios from 'axios';
 import { list } from 'postcss'
-import React from 'react'
-import { useState } from 'react'
+import React,{ useState , useEffect } from 'react'
+import { useMutation , useQueryClient } from 'react-query'; 
+import { getLikeCount } from '../../../Core/Services/Api/CoursePage/LikeCount';
+import { toast } from 'react-hot-toast';
 
-const CourseItem = ({ title , img , description , technologyList , teacherName , likeCount , commandCount , courseRate , statusName , price , currentRegistrants , date , listStyle}) => {
+const CourseItem = ({ 
+    title, 
+    courseId, 
+    img, 
+    description, 
+    technologyList, 
+    teacherName, 
+    likeCount, 
+    commandCount, 
+    courseRate, 
+    statusName, 
+    price, 
+    currentRegistrants, 
+    date, 
+    listStyle 
+}) => {
+
+    const [likeBtn, setLikeBtn] = useState(false);
+    const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
+
+    useEffect(() => {
+        const likedPosts = JSON.parse(localStorage.getItem('likedPosts')) || [];
+        if (likedPosts.includes(courseId)) {
+            setLikeBtn(true);
+        }
+    }, [courseId]);
+
+    const mutation = useMutation({
+        mutationFn: getLikeCount,
+        onSuccess: () => {
+            const likedPosts = JSON.parse(localStorage.getItem('likedPosts')) || [];
+            if (!likedPosts.includes(courseId)) {
+                likedPosts.push(courseId);
+                localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
+            }
+            setLikeBtn(prev => !prev);
+            setCurrentLikeCount(prev => prev + (likeBtn ? -1 : 1)); 
+            toast.success('لایک شد' ,title, 'دوره')
+        },
+        onError: (error) => {
+            console.error("Error adding like:", error);
+        }
+    });
+
+    const handleLike = () => {
+        // Call API to add like
+        mutation.mutate(courseId);
+        toast.error('ابتدا به حساب کاربری خود ورود کنید')
+    };
+
   return (
     <div dir={`${listStyle ? 'ltr' : 'rtl'}`}  className={`relative shadow-[-15px_15px_15px_0px_#0000000D] bg-white rounded-2xl p-[5px] overflow-hidden group hover:scale-110 cursor-pointer transition-all duration-300  ${listStyle ? 'w-[100%]  h-[350px]' : 'w-[250px]  h-[405px]   '}`}>
         <div className={`w-[600px] h-40 bg-[rgba(245,245,245,0.5)] absolute  transition-all duration-500 group-hover:translate-x-[-150px]  ${listStyle ? 'rotate-45 translate-x-[1000px] translate-y-[-100px] group-hover:translate-y-[250px] group-hover:translate-x-[-450px]' : 'rotate-45 translate-x-[450px] translate-y-[-50px] group-hover:translate-y-[200px]'}`}></div>
@@ -53,8 +105,8 @@ const CourseItem = ({ title , img , description , technologyList , teacherName ,
                 <span>{currentRegistrants}</span>
             </div>
             <div className='w-[40px] h-[17px] flex flex-row justify-center items-center gap-2 text-[11px]  text-[#8A8A8A]'>
-                <span>{likeCount}</span>
-                <img src='../../../../public/Image/Icon/Like.png'  />
+                <span>{currentLikeCount}</span>
+                <img src={likeBtn ? '../../../../public/Image/Icon/Likeing.png' : '../../../../public/Image/Icon/Like.png'} onClick={handleLike} />
             </div>
             <div className='w-[40px] h-[17px] flex flex-row justify-center items-center gap-2 text-[11px]  text-[#8A8A8A]'>
                 <span>{courseRate}</span>

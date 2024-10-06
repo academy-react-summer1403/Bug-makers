@@ -106,6 +106,7 @@ const CoursePage = () => {
       .map((course) => (
         <CourseItem
           key={course.courseId}
+          courseId={course.courseId}
           title={course.title}
           img={course.tumbImageAddress}
           technologyList={course.technologyList}
@@ -176,7 +177,7 @@ const CoursePage = () => {
           
           {/* additionalActionButtons */}
           <div className='w-[87px] h-[44px] rounded-[9px] bg-white flex flex-nowrap justify-center items-center gap-3 absolute left-[100px]'>
-            <span className='text-[#808080] text-[15px]'>وضعیت</span>
+            <span className='text-[#808080] text-[15px]'>{data?.totalCount}</span>
             <img src='../../../public/Image/Icon/eye.png' />
           </div>
           <div className='w-[87px] h-[44px] rounded-[9px] bg-white flex flex-nowrap justify-center items-center gap-3 absolute left-[200px]'>

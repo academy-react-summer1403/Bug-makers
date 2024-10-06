@@ -10,7 +10,7 @@ const SelectOpt = ({ placeholder, onChange, isTeacherSelect, isSortSelect, Filte
 
   // Sort data for sorting options
   const sortData = [
-    { id: 1, value: 'آخرین آپدیت' }
+    { id: 1, value: 'Cost' }
   ];
 
   // Fetch teacher or category list based on prop
