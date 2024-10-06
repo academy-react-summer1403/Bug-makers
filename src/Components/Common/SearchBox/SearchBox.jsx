@@ -1,4 +1,4 @@
-const SearchBox = ({ placeHolder, icon, value, onChange }) => {
+const SearchBox = ({width, placeHolder, icon, value, onChange }) => {
     return (
       <input
         type="text"
