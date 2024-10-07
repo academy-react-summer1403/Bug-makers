@@ -6,18 +6,20 @@ import BlogLikeSvg from '../../BlogForAll/BlogLikeSvg/BlogLikeSvg';
 const MinimalBlog = ({cat,newsImg,title,desc,userImg,writer,like,comment,date,datePass}) => {
 
     return (
-    <div className="w-[212px] h-[262px] bg-white rounded-[15px] shadow-md overflow-hidden relative p-[3px]">
-        <div className="absolute top-[74px] left-[17px] w-[80px] h-[25px] bg-gray-200 rounded-full text-center text-[11px] leading-[20px] text-black">{cat}</div>
+    <div className="shadow-[-15px_15px_15px_0px_#0000000D] w-[240px] h-[330px] bg-white rounded-[15px]  overflow-hidden relative p-[3px] hover:scale-110 cursor-pointer transition-all duration-300 ">
+                <div className={`w-[600px] h-40 bg-[rgba(245,245,245,0.5)] absolute  transition-all duration-500 hoverr:translate-x-[-150px]  ${false ? 'rotate-45 translate-x-[1000px] translate-y-[-100px] hoverr:translate-y-[250px] hoverr:translate-x-[-450px]' : 'rotate-45 translate-x-[450px] translate-y-[-50px] hoverr:translate-y-[200px]'}`}></div>
+
+        <div className="absolute top-[110px] left-[17px] w-[80px] h-[25px] bg-gray-200 rounded-full text-center text-[11px] leading-[20px] text-black">{cat}</div>
         <div className="flex h-full w-full flex-col overflow-hidden rounded-[15px]">
             <div className="w-full bg-gradient-to-r from-blue-200 rounded-[15px] to-blue-100 flex items-center justify-center">
-                <div className="w-full h-[83px] text-white text-5xl font-bold rounded-[11px] overflow-hidden">
+                <div className="w-full h-[120px] text-white text-5xl font-bold rounded-[11px] overflow-hidden">
                     <img className="w-max h-max" src={newsImg} alt="" />
                 </div>
             </div>
         <div className="relative w-full h-[252px] px-[4px] flex flex-col justify-between text-right">
         <div>
-            <div className="text-gray-900 font-[600] h-[20px] text-[14px] mt-[10px] overflow-hidden">{title}</div>
-            <p className="text-gray-600 font-[400] leading-[15px] text-[11px] mt-[8px] h-[30px] overflow-hidden">{desc}</p>
+            <div className="text-gray-900 font-[600] h-[50px] text-[14px] mt-[10px] w-full overflow-hidden text-ellipsis ...">{title}</div>
+            <p className="text-gray-600 font-[400] leading-[15px] text-[11px] mt-[8px] h-[33px] overflow-hidden text-ellipsis ...">{desc}</p>
             <div className="mt-[18px] w-full h-[64px] flex items-center justify-between flex-row">
                 <div className="w-[55%] h-full flex justify-between items-center">
                     <div className="size-[35px] rounded-[8px] bg-gray-300 overflow-hidden">

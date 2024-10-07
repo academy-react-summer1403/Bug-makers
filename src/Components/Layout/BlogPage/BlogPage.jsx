@@ -134,14 +134,14 @@ const BlogPage = () => {
         <TextLanding h3Text='دوره های آموزشی' pText='دوره های ما' />
 
         {/* searchAndFilterSection */}
-        <div className='h-[55px] flex justify-center items-center gap-3 px-[8px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C]'>
+        <div className='h-[55px] flex justify-center items-center gap-3 px-[8px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] max-md:h-[110px] flex-wrap '>
           <SearchBox
             width={"520px"}
             placeHolder='دنبال چیز خاصی میگردی؟'
             value={`${filterValue ? '' : queryValue}`}
             onChange={handleSearch} 
           />
-          <SelectOpt
+          <SelectOpt2
             width={"235px"}
             placeholder='دسته‌بندی'
             onChange={(value) => setCategoryQuery(value)} 
@@ -149,7 +149,7 @@ const BlogPage = () => {
           />
           {/* <DateModal onFilter={filterByDateRange} /> */}
 
-          <SelectOpt2
+          <SelectOpt
           
           width={"160px"}
             placeholder="ترتیب نمایش"
@@ -166,7 +166,7 @@ const BlogPage = () => {
         </div>
 
         {/* filterActionSection */}
-        <div className='relative w-[100%] h-[90px] flex flex-nowrap justify-center items-center'>
+        {/* <div className='relative w-[100%] h-[90px] flex flex-nowrap justify-center items-center'>
           <span className='text-[10px] text-[#978A8A] absolute right-0'>
             تعداد{CourseListItem.length} نتیجه از {data?.totalCount || 0} دوره طبق جستجوی شما برای شما یافت شد
           </span>          
@@ -175,24 +175,24 @@ const BlogPage = () => {
           </span>
           
           {/* listStyleToggle */}
-          <div className={`w-[87px] h-[44px] rounded-[9px] bg-white flex flex-nowrap justify-center items-center gap-3 absolute left-[0px] bg-[url(../../../../../public/Image/Icon/Subtraction.png)] bg-no-repeat ${listStyle ? 'bg-[76%_100%]' : 'bg-[28%_100%]'}`}>
+          {/* <div className={`w-[87px] h-[44px] rounded-[9px] bg-white flex flex-nowrap justify-center items-center gap-3 absolute left-[0px] bg-[url(../../../../../public/Image/Icon/Subtraction.png)] bg-no-repeat ${listStyle ? 'bg-[76%_100%]' : 'bg-[28%_100%]'}`}>
             <img src='../../../public/Image/Icon/list.png' className='cursor-pointer' onClick={() => setListStyle(true)} />
             <img src='../../../public/Image/Icon/apps.png' className='cursor-pointer' onClick={() => setListStyle(false)} />
           </div>
-          
+           */}
           {/* additionalActionButtons */}
-          <div className='w-[87px] h-[44px] rounded-[9px] bg-white flex flex-nowrap justify-center items-center gap-3 absolute left-[100px]'>
+          {/* <div className='w-[87px] h-[44px] rounded-[9px] bg-white flex flex-nowrap justify-center items-center gap-3 absolute left-[100px]'>
             <span className='text-[#808080] text-[15px]'>وضعیت</span>
             <img src='../../../public/Image/Icon/eye.png' />
           </div>
           <div className='w-[87px] h-[44px] rounded-[9px] bg-white flex flex-nowrap justify-center items-center gap-3 absolute left-[200px]'>
             <span className='text-[#808080] text-[15px]'>وضعیت</span>
             <img src='../../../public/Image/Icon/eye.png' />
-          </div>
-        </div>
+          </div> */}
+        {/* </div> } */}
 
         {/* courseItemsSection */}
-        <div className='flex flex-wrap flex-row justify-center gap-[50px] mt-3'>
+        <div className='flex flex-wrap flex-row justify-center gap-[50px] mt-[2vw]'>
           {renderCourses()}
         </div>
 
@@ -202,10 +202,11 @@ const BlogPage = () => {
           handlePageClick={(data) => setCurrentPage(data.selected)}
         />
 
-        <div className="w-full h-[34vw] mt-[1.04vw] border-[0.05vw] flex justify-between items-center">
-            <BlogDownRight CourseListItem={CourseListItem}/>
-            <BlogDownCenter CourseListItem={CourseListItem}/>
-            <BlogDownLeft CourseListItem={CourseListItem}/>
+        <div className="w-full h-max  mt-[1.04vw] border-[0.05vw] relative flex justify-between items-center max-md:flex-col gap-y-[2vw]">
+            <BlogDownRight className="mt-[50vw]" title={"بر اساس سلیقه شما"}/>
+            <BlogDownRight title={"ترند ها"}/>
+
+            <BlogDownLeft/>
             
         </div>
       </div>

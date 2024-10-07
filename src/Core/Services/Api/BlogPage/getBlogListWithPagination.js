@@ -1,16 +1,17 @@
 import instance from "../../interseptore/Interceptor";
-export const getBlogListWithPagination = async (query,NewsCategoryId,sorting) => {
-  let url = `/News?PageNumber=1&RowsOfPage=300&SortingCol=InsertDate&SortType=DESC&Query=&NewsCategoryId=`;
+export const getBlogListWithPagination = async (queryValue,categoryQuery,sorting) => {
+  let url = `/News?PageNumber=1&RowsOfPage=300&SortingCol=InsertDate&SortType=DESC`;
 
-  if (query) {
-    url += `&Query=${query}`;
+  if (queryValue) {
+    url += `&Query=${queryValue}`;
   }
 
   // if (teacherId) {
   //   url += `&TeacherId=${teacherId}`;
   // }
-  if (NewsCategoryId) {
-    url += `&NewsCat=${NewsCategoryId}`;
+  
+  if (categoryQuery) {
+    url += `&NewsCategoryId=${categoryQuery}`;
   }
   // if (categoryQuery) {
   //   url += `&TechCount=1&ListTech=${categoryQuery}`;
