@@ -49,7 +49,7 @@ const SelectOpt2 = ({ width ,placeholder, onChange, isTeacherSelect, isSortSelec
   }
 
   return (
-    <div className={`text-gray-600 relative w-[235px] ${isOpen ? 'z-10' : 'z-0'}`}>
+    <div className={`text-gray-600 relative flex-grow-[2] ${isOpen ? 'z-10' : 'z-0'}`}>
       {selectedOption && (
         <span
           className="cursor-pointer p-3 absolute left-0 top-0"

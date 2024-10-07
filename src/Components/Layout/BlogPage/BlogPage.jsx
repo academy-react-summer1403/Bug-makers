@@ -18,6 +18,7 @@ import DateModal from '../../../Components/ComponentOnce/Date/Date';
 import moment from 'jalali-moment'; 
 import PriceFilter from '../../../Components/ComponentOnce/PriceFilter/PriceFilter';
 import SelectOpt2 from "../../Common/Select/SelectOpt2.jsx";
+import BlogDownRight from "./BlogDown.jsx/BlogDownRight/BlogDownRight.jsx";
 
 const BlogPage = () => {
   // stateForCategoryFilter
@@ -133,7 +134,7 @@ const BlogPage = () => {
         <TextLanding h3Text='دوره های آموزشی' pText='دوره های ما' />
 
         {/* searchAndFilterSection */}
-        <div className='h-[55px] flex justify-center items-center gap-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C]'>
+        <div className='h-[55px] flex justify-center items-center gap-3 px-[8px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C]'>
           <SearchBox
             width={"520px"}
             placeHolder='دنبال چیز خاصی میگردی؟'
@@ -156,7 +157,7 @@ const BlogPage = () => {
             onChange={(value) => setSorting(value)} 
             FilterValue={filterValue}
           />
-          <div className="h-[40px] w-[87px] text-center leading-[40px] rounded-[9px] bg-red-500">
+          <div className="h-[40px] flex-grow-[0.5] text-center leading-[40px] rounded-[9px] bg-red-500">
             {CourseListItem.length}
           </div>
 
@@ -200,6 +201,13 @@ const BlogPage = () => {
           pageCount={Math.ceil(CourseListItem.length / itemsPerPage)}
           handlePageClick={(data) => setCurrentPage(data.selected)}
         />
+
+        <div className="w-full h-[34vw] mt-[1.04vw] border-[0.05vw] flex justify-between items-center">
+            <BlogDownRight CourseListItem={CourseListItem}/>
+            <BlogDownCenter CourseListItem={CourseListItem}/>
+            <BlogDownLeft CourseListItem={CourseListItem}/>
+            
+        </div>
       </div>
     </div>
   );
