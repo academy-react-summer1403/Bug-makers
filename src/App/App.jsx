@@ -5,12 +5,14 @@ import LoginPage from '../Components/Layout/LoginPages/LoginPage.jsx'
 import { Outlet } from 'react-router-dom'
 import Login from '../Components/Layout/LoginPages/login/Login.jsx'
 import BlogPage from '../Components/Layout/BlogPage/BlogPage.jsx'
+import BlogDetail from '../Components/Layout/BlogDetail/BlogDetail.jsx'
 
 function App() {
 
   return (
     <>
-      <BlogPage/>
+      <BlogDetail/>
+      
       
     </>
   )
