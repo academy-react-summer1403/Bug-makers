@@ -5,20 +5,15 @@ import { useSelector } from "react-redux";
 
 
 
-const BlogDetailRightTop =  ({title})=>{
+const BlogDetailRightTop =({title})=>{
 
-    const CourseListItem = useSelector((state) => state.BlogSlice.BlogList)
-    useEffect(
-        ()=>{
-            console.log(CourseListItem) ;
-            
-            
-        },[]
-    )
+    const CourseListItem =useSelector((state) => state.BlogSlice.BlogList)
+
 
     const renderCourses = () => {
 
     return CourseListItem
+        .slice(0, 6)
         .map((news) => (
         <BlogTrands
             key={news.id}

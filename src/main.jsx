@@ -14,6 +14,7 @@ import ReStep4 from './Components/Layout/LoginPages/register/step4/ReStep4'
 import { Provider } from 'react-redux'
 import { Store } from '../src/Redux/Store/Store';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import BlogDetail from './Components/Layout/BlogDetail/BlogDetail.jsx'
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
         index: true,
         path: "/",
         element: <App />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/BlogDetail/:id",
+        element: <BlogDetail />,
         errorElement: <Error />,
       },
       {
