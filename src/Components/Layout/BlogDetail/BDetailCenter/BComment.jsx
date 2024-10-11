@@ -38,7 +38,7 @@ const BComment = ({ comment = [] }) => {
           <div className="h-[1vw] w-1/4 cursor-pointer">جدید‌ترین</div>
         </div>
         <div className="w-[7.30vw]">
-          <span className="text-[1vw]">76</span>
+          <span className="text-[1vw]">{comment.length}</span>
           <span className="text-[0.8vw]"> نظر ثبت شده</span>
         </div>
       </div>
