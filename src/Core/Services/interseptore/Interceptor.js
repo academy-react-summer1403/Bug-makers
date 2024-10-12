@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getItem, removeItem } from "../common/storage.services";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -13,6 +14,11 @@ const onSuccess = (response) => {
 const onError = (err) => {
     console.log(err);
 
+    if(err.response.status===401){
+        removeItem("token")
+        window.location.pathname="/sign/login"
+    }
+
     if(err.response.status >= 400 && err.response.status < 500){
         console.log("Client error: "+ err.response.status)
     }
@@ -22,7 +28,8 @@ const onError = (err) => {
 instance.interceptors.response.use(onSuccess,onError);
 
 instance.interceptors.request.use((opt)=>{
-    opt.headers["MessageTest"] = "Hello word";
+    const token =getItem("token");
+    if (token) opt.headers.Authorization = "Bearer "+token;
     return opt;
 });
 

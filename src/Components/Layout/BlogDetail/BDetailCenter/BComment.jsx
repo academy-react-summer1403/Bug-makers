@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Comments from "./Comments";
+import { getRepleyComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
 
-const BComment = ({ comment = [] }) => {
+const BComment = ({ comment = [],onSubmit,userId,newsId, GetComment}) => {
+
+  
   // تابعی برای رندر کردن کامنت‌ها
-  const renderCourses = () => {
+  const renderCourses = (comment) => {
     // بررسی اگر comment خالی است
     if (!Array.isArray(comment) || comment.length === 0) {
-      return <p>هیچ نظری ثبت نشده است</p>; // در صورتی که comment خالی یا undefined باشد، پیام نشان داده می‌شود.
+      return <p></p>; // در صورتی که comment خالی یا undefined باشد، پیام نشان داده می‌شود.
     }
 
     return comment.map((comment) => (
@@ -22,13 +25,23 @@ const BComment = ({ comment = [] }) => {
         currentUserIsLike={comment.currentUserIsLike}
         currentUserIsDissLike={comment.currentUserIsDissLike}
         pictureAddress={comment.pictureAddress}
+        
+        onSubmit={onSubmit}
+        newsId={newsId}
+        userId={userId}
+        parentId={comment.parentId}
+        currentUserLikeId={comment.currentUserLikeId}
+        GetComment={GetComment}
+        
+        renderCourses={renderCourses}
       />
+      
     ));
   };
 
   return (
-    <div className="w-full h-max rounded-[0.78vw] bg-white mt-[2vw] p-[1vw] text-gray-600">
-      <div className="h-[2.5vw] w-full flex justify-between items-center">
+    <div className="w-full h-max max-h-[60vw] overflow-auto rounded-[0.78vw] bg-white mt-[2vw] p-[1vw] text-gray-600">
+      {comment && Array.isArray(comment) && comment.length > 0?<div className="h-[2.5vw] w-full flex justify-between items-center">
         <span className="text-[1.1vw] w-[7vw] text-right">نظرات</span>
         <div className="w-[16.5vw] flex text-[0.8vw] justify-between items-center">
           <div className="h-[1vw] w-1/4 cursor-pointer"> تعداد لایک </div>
@@ -41,9 +54,13 @@ const BComment = ({ comment = [] }) => {
           <span className="text-[1vw]">{comment.length}</span>
           <span className="text-[0.8vw]"> نظر ثبت شده</span>
         </div>
+      </div>:<div>هیچ نظری برای این پست ثبت نشده</div>}
+      
+
+      <div className="w-full">
+        {renderCourses(comment)}
       </div>
 
-      <div className="w-full">{renderCourses()}</div>
     </div>
   );
 };

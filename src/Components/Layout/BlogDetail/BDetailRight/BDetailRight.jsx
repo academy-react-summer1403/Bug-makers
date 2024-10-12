@@ -16,6 +16,7 @@ const BDetailRight = ()=>{
         .map((news) => (
         <BSideMinimal
             key={news.id}
+            id={news.id}
             title={news.title}
             cat={news.newsCatregoryName}
             desc={news.miniDescribe}

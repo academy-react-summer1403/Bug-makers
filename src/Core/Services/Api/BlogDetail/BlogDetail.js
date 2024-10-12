@@ -28,12 +28,14 @@ export const postDissLikeNews = async (id) => {
   console.log(url)
 
   const response = await instance.post(url);
-  return response};
+  return response
+};
 
 export const delLikeNews = async (id) => {
-  let url = `/News/DeleteLikeNews`;
+  let url = "/News/DeleteLikeNews";
+  
   console.log(id)
-
-  const response = await instance.delete(url,id);
-  return  response
+  const response = await instance.delete(url,{data:id});
+  
+  return response
 };

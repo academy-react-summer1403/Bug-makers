@@ -15,6 +15,7 @@ import { Provider } from 'react-redux'
 import { Store } from '../src/Redux/Store/Store';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import BlogDetail from './Components/Layout/BlogDetail/BlogDetail.jsx'
+import BlogPage from './Components/Layout/BlogPage/BlogPage.jsx'
 
 const queryClient = new QueryClient();
 
@@ -31,7 +32,12 @@ const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: "/BlogDetail/:id",
+        path: "/BlogPage",
+        element: <BlogPage />,
+        errorElement: <Error />,
+      },
+      {
+        path: "BlogDetail/:id",
         element: <BlogDetail />,
         errorElement: <Error />,
       },

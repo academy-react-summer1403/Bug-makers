@@ -1,16 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const BlogTrands = ({newsImg,title,date,like,comment}) => {
+const BlogTrands = ({id,newsImg,title,date,like,comment}) => {
+    const navigator =useNavigate()
   return (
     <>
-    <div className="w-full h-[4.1vw] flex items-center justify-between bg-white mt-[0.47vw]">
-        <div className="size-[3.39vw] bg-gray-200 rounded-[0.42vw] overflow-hidden">
-            <img className="h-full w-max" src={newsImg} alt="" />
+    <div onClick={()=>{navigator(`/BlogDetail/${id}`)}}  className="w-full h-[4.1vw] flex items-center justify-between bg-white mt-[0.47vw]">
+        <div className="h-[3.4vw] w-[3.4vw] bg-gray-200 rounded-[0.42vw] overflow-hidden">
+            <img className="h-full" src={newsImg} alt="" />
         </div>
 
-        <div className="flex-grow h-full pr-[0.42vw] max-w-[83%]">
+        <div className="flex-grow h-full pr-[0.42vw] w-[80%]">
             <div className="h-1/2 w-full">
-                <span className=" inline-block text-gray-800 text-[0.85vw] w-11/12 h-full overflow-hidden text-ellipsis ...">{title}
+                <span className=" inline-block text-gray-800 text-[0.85vw] w-8/12 h-full overflow-hidden text-ellipsis ...">{title}
                 </span>
             </div>
             <div className="h-1/2 w-full flex justify-between">

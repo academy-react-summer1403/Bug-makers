@@ -11,8 +11,8 @@ function App() {
 
   return (
     <>
-      <BlogDetail/>
-      
+      {/* <BlogDetail/> */}
+      <Outlet/>
       
     </>
   )

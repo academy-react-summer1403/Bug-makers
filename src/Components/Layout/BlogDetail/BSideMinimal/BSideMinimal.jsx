@@ -1,12 +1,13 @@
 import React from 'react';
 import BlogLikeSvg from '../../BlogPage/BlogForAll/BlogLikeSvg/BlogLikeSvg';
+import { useNavigate } from 'react-router-dom';
 
 
 
-const BSideMinimal = ({cat,newsImg,title,desc,userImg,writer,like,comment,date,datePass}) => {
-
+const BSideMinimal = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,date,datePass}) => {
+    const navigator =useNavigate()
     return (
-    <div className="shadow-[-0.78vw_0.78vw_0.78vw_0_#0000000D] w-full h-[17.19vw] bg-white rounded-[0.78vw]  overflow-hidden relative p-[0.16vw] cursor-pointer">
+    <div onClick={()=>{navigator(`/BlogDetail/${id}`)}} className="shadow-[-0.78vw_0.78vw_0.78vw_0_#0000000D] w-full h-[17.19vw] bg-white rounded-[0.78vw]  overflow-hidden relative p-[0.16vw] cursor-pointer ">
         <div className="absolute top-[5.73vw] left-[0.89vw] w-[4.17vw] h-[1.3vw] bg-gray-200 rounded-full text-center text-[0.57vw] leading-[1.04vw] text-black">{cat}</div>
         <div className="flex h-full w-full flex-col overflow-hidden rounded-[0.78vw]">
             <div className="w-full bg-gradient-to-r from-blue-200 rounded-[0.78vw] to-blue-100 flex items-center justify-center">
@@ -19,7 +20,7 @@ const BSideMinimal = ({cat,newsImg,title,desc,userImg,writer,like,comment,date,d
                     <div className="text-gray-900 font-[600] h-[2.6vw] text-[0.73vw] mt-[0.52vw] w-full overflow-hidden text-ellipsis ...">{title}</div>
                     <p className="text-gray-600 font-[400] leading-[0.78vw] text-[0.57vw] mt-[0.42vw] h-[1.72vw] overflow-hidden text-ellipsis ...">{desc}</p>
                     <div className="mt-[0.94vw] w-full h-[3vw] flex items-center justify-between flex-row">
-                        <div className="w-[55%] h-full flex justify-between items-center">
+                        <div className="w-[35%] h-full flex justify-between items-center">
                             <div className="size-[1.82vw] rounded-[0.42vw] bg-gray-300 overflow-hidden">
                                 <img className="w-full h-full" src={userImg} alt="" />    
                             </div>  
