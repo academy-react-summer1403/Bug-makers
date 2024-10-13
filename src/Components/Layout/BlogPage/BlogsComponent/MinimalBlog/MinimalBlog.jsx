@@ -1,11 +1,14 @@
 import React from 'react';
 import BlogLikeSvg from '../../BlogForAll/BlogLikeSvg/BlogLikeSvg';
 import { useNavigate } from 'react-router-dom';
+import calculateDateDifference from '../../../../Common/TimeChanger/TimeChanger';
 
 
 
 const MinimalBlog = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,date,datePass}) => {
     const navigator=useNavigate()
+    const pass = calculateDateDifference(datePass)
+    
     return (
     <div onClick={()=>{navigator(`/BlogDetail/${id}`)}} className="shadow-[-15px_15px_15px_0px_#0000000D] w-[240px] h-[330px] bg-white rounded-[15px]  overflow-hidden relative p-[3px] hover:scale-110 cursor-pointer transition-all duration-300 ">
                 <div className={`w-[600px] h-40 bg-[rgba(245,245,245,0.5)] absolute  transition-all duration-500 hoverr:translate-x-[-150px]  ${false ? 'rotate-45 translate-x-[1000px] translate-y-[-100px] hoverr:translate-y-[250px] hoverr:translate-x-[-450px]' : 'rotate-45 translate-x-[450px] translate-y-[-50px] hoverr:translate-y-[200px]'}`}></div>
@@ -37,9 +40,9 @@ const MinimalBlog = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,date
                 <circle cx="5.1665" cy="10.5" r="1.5" fill="#7A7A7A"/>
                 <circle cx="11.8335" cy="10.5" r="1.5" fill="#7A7A7A"/>
             </svg>
-            <span className="text-[10px] font-[400]">{date}</span>
+            <span className="text-[12px] font-[400]">{date}</span>
             |
-            <span className="text-[10px] font-[400]">{datePass}</span>
+            <span className="text-[12px] font-[400]">{pass} روز پیش</span>
             
         </div>
         </div>

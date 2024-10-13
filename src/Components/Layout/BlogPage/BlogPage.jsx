@@ -19,6 +19,7 @@ import moment from 'jalali-moment';
 import PriceFilter from '../../../Components/ComponentOnce/PriceFilter/PriceFilter';
 import SelectOpt2 from "../../Common/Select/SelectOpt2.jsx";
 import BlogDownRight from "./BlogDown.jsx/BlogDownRight/BlogDownRight.jsx";
+import calculateDateDifference from "../../Common/TimeChanger/TimeChanger.jsx";
 
 const BlogPage = () => {
   // stateForCategoryFilter
@@ -104,28 +105,43 @@ const BlogPage = () => {
 //     setMaxCost(max);
 //   };
 
+
+  const convertToJalali = (miladiDate) => {
+    return moment(miladiDate, "YYYY-MM-DD").locale("fa").format("YYYY/MM/DD");
+  };
+  // const [difference, setDifference] = useState(null);
+
+  // useEffect(() => {
+  //   // تاریخ مثال: '1402/07/01' (تاریخ شمسی ورودی)
+    
+  //   const diff = calculateDateDifference();
+
+  //   setDifference(diff);
+  // }, []);
+
   // renderCourseItems
   const renderCourses = () => {
     if (isLoading) return <p>در حال بارگذاری...</p>;
     if (error) return <p>خطایی رخ داده است...</p>;
 
-    return CourseListItem
-      .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
-        .map((news) => (
-        <MinimalBlog
-            key={news.id}
-            id={news.id}
-            title={news.title}
-            cat={news.newsCatregoryName}
-            desc={news.miniDescribe}
-            newsImg={news.currentImageAddressTumb}
-            userImg={news.addUserProfileImage}
-            writer={news.addUserFullName}
-            comment={news.currentView}
-            like={news.currentLikeCount}
-            date={news.updateDate}
-            datePass={news.updateDate}
-        />
+    return CourseListItem.slice(
+      currentPage * itemsPerPage,
+      (currentPage + 1) * itemsPerPage
+    ).map((news) => (
+      <MinimalBlog
+        key={news.id}
+        id={news.id}
+        title={news.title}
+        cat={news.newsCatregoryName}
+        desc={news.miniDescribe}
+        newsImg={news.currentImageAddressTumb}
+        userImg={news.addUserProfileImage}
+        writer={news.addUserFullName}
+        comment={news.currentView}
+        like={news.currentLikeCount}
+        date={convertToJalali(news.updateDate)}
+        datePass={convertToJalali(news.updateDate)}
+      />
     ));
   };
 
