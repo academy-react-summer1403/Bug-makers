@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import Comments from "./Comments";
 import { getRepleyComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
+import moment from "moment-jalaali";
 
 const BComment = ({ comment = [],onSubmit,userId,newsId, GetComment}) => {
 
+  const convertToJalali = (miladiDate) => {
+    return moment(miladiDate, "YYYY-MM-DD").locale("fa").format("YYYY/MM/DD");
+  };
   
   // تابعی برای رندر کردن کامنت‌ها
   const renderCourses = (comment) => {
@@ -11,6 +15,8 @@ const BComment = ({ comment = [],onSubmit,userId,newsId, GetComment}) => {
     if (!Array.isArray(comment) || comment.length === 0) {
       return <p></p>; // در صورتی که comment خالی یا undefined باشد، پیام نشان داده می‌شود.
     }
+
+    console.log(comment)
 
     return comment.map((comment) => (
       <Comments
@@ -25,17 +31,15 @@ const BComment = ({ comment = [],onSubmit,userId,newsId, GetComment}) => {
         currentUserIsLike={comment.currentUserIsLike}
         currentUserIsDissLike={comment.currentUserIsDissLike}
         pictureAddress={comment.pictureAddress}
-        
+        date={convertToJalali(comment.inserDate)}
         onSubmit={onSubmit}
         newsId={newsId}
         userId={userId}
         parentId={comment.parentId}
         currentUserLikeId={comment.currentUserLikeId}
         GetComment={GetComment}
-        
         renderCourses={renderCourses}
       />
-      
     ));
   };
 
