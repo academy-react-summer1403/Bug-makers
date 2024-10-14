@@ -17,6 +17,7 @@ import RecommendLi from "./RecommendLi";
 import { useSelector } from "react-redux";
 import calculateDateDifference from "../../../Common/TimeChanger/TimeChanger";
 import moment from "moment-jalaali";
+import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 
 const BDetailCenter = ({ id }) => {
 
@@ -73,22 +74,7 @@ const BDetailCenter = ({ id }) => {
     };
     const CourseListItem = useSelector((state) => state.BlogSlice.BlogList);
     
-    const convertToJalali = (gregorianDateTime) => {
-
-
-      // تنظیم moment به حالت شمسی
-      moment.loadPersian({
-        dialect: "persian-modern",
-        useGregorianParser: true,
-      });
-
-      // تبدیل تاریخ میلادی به شمسی
-      const jalaliDate = moment(gregorianDateTime, "YYYY-MM-DD").format(
-        "jYYYY/jMM/jDD"
-      );
-
-      return jalaliDate;
-    };
+    
   
 
     const renderCourses = () => {
@@ -113,7 +99,8 @@ console.log(response.updateDate);
             </span>
             |
             <span className="text-[0.62vw] font-[400] text-gray-500">
-              {calculateDateDifference(convertToJalali(response.updateDate))} روز پیش
+              {calculateDateDifference(convertToJalali(response.updateDate))}{" "}
+              روز پیش
             </span>
           </div>
         </div>

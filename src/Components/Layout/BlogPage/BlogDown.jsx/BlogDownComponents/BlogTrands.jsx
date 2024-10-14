@@ -1,8 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import convertToJalali from '../../../../Common/TimeChanger/TimeToShamsi';
+import calculateDateDifference from '../../../../Common/TimeChanger/TimeChanger';
 
 const BlogTrands = ({id,newsImg,title,date,like,comment}) => {
     const navigator =useNavigate()
+    date = convertToJalali(date);
+    const datePass = calculateDateDifference(date);
   return (
     <>
     <div onClick={()=>{navigator(`/BlogDetail/${id}`)}}  className="w-full h-[4.1vw] flex items-center justify-between bg-white mt-[0.47vw]">

@@ -26,7 +26,7 @@ const BDetailRight = ()=>{
             comment={news.currentView}
             like={news.currentLikeCount}
             date={news.updateDate}
-            datePass={news.updateDate}
+
         />
     ));
     } ;

@@ -1,11 +1,15 @@
 import React from 'react';
 import BlogLikeSvg from '../../BlogPage/BlogForAll/BlogLikeSvg/BlogLikeSvg';
 import { useNavigate } from 'react-router-dom';
+import convertToJalali from '../../../Common/TimeChanger/TimeToShamsi';
+import calculateDateDifference from '../../../Common/TimeChanger/TimeChanger';
 
 
 
-const BSideMinimal = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,date,datePass}) => {
+const BSideMinimal = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,date}) => {
     const navigator =useNavigate()
+    date = convertToJalali(date);
+    const datePass = calculateDateDifference(date);
     return (
     <div onClick={()=>{navigator(`/BlogDetail/${id}`)}} className="shadow-[-0.78vw_0.78vw_0.78vw_0_#0000000D] w-full h-[17.19vw] bg-white rounded-[0.78vw]  overflow-hidden relative p-[0.16vw] cursor-pointer ">
         <div className="absolute top-[5.73vw] left-[0.89vw] w-[4.17vw] h-[1.3vw] bg-gray-200 rounded-full text-center text-[0.57vw] leading-[1.04vw] text-black">{cat}</div>
@@ -37,7 +41,7 @@ const BSideMinimal = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,dat
                     </svg>
                     <span className="text-[0.52vw] font-[400]">{date}</span>
                     |
-                    <span className="text-[0.52vw] font-[400]">{datePass}</span>
+                    <span className="text-[0.52vw] font-[400]">{datePass}  روز پیش</span>
                     
                     </div>
                 </div>
