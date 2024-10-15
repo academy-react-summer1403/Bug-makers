@@ -3,7 +3,7 @@ import Comments from "./Comments";
 import { getRepleyComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
 import moment from "moment-jalaali";
 
-const BComment = ({ comment = [],onSubmit,userId,newsId, GetComment}) => {
+const BComment = ({ comment = []}) => {
 
   const convertToJalali = (miladiDate) => {
     return moment(miladiDate, "YYYY-MM-DD").locale("fa").format("YYYY/MM/DD");
@@ -32,12 +32,8 @@ const BComment = ({ comment = [],onSubmit,userId,newsId, GetComment}) => {
         currentUserIsDissLike={comment.currentUserIsDissLike}
         pictureAddress={comment.pictureAddress}
         date={convertToJalali(comment.inserDate)}
-        onSubmit={onSubmit}
-        newsId={newsId}
-        userId={userId}
         parentId={comment.parentId}
         currentUserLikeId={comment.currentUserLikeId}
-        GetComment={GetComment}
         renderCourses={renderCourses}
       />
     ));

@@ -34,6 +34,7 @@ const RightLoginBox=()=>{
         console.log(response)
         
         setItem("token",response.token)
+        setItem("userId", response.id);
         alert("شما با موفقیت وارد شدید")
         }
         else{

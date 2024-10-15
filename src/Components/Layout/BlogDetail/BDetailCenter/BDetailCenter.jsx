@@ -62,7 +62,7 @@ const BDetailCenter = ({ id }) => {
         GetId();
         GetComment();
     }, []);
-    const userId = 20224;
+    const userId = getItem("userId");
 
     const onSubmit = async (val) => {
         const res = await setNewComment(val);

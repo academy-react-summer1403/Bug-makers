@@ -1,69 +1,52 @@
-import React, { useEffect, useState } from "react";
-import {
-  commentDissLikeNews,
-  commentLikeNews,
-  coomentDelLikeNews,
-  getRepleyComment,
-} from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
+import React, { useContext, useEffect, useState } from "react";
+
 import AddCommentForm from "./AddCommentForm";
 import calculateDateDifference from "../../../Common/TimeChanger/TimeChanger";
+import { CommentContex } from "../../CourseDetail/CourseCard/CourseCard";
 
 const Comments = ({
     id,inserDate,describe,likeCount,dissLikeCount,title,replyCount,currentUserIsLike,currentUserIsDissLike,
-    pictureAddress,newsId,userId,parentId,currentUserLikeId,GetComment,renderCourses,onSubmit,date
+    pictureAddress,parentId,currentUserLikeId,renderCourses,date
 }) => {
+
+      const { onSubmit } = useContext(CommentContex);
+      const { userId } = useContext(CommentContex);
+      const { GetComment } = useContext(CommentContex);
+      const { newsId } = useContext(CommentContex);
+      const { setNewsDissLikeComment } = useContext(CommentContex);
+      const { setNewsLikeComment } = useContext(CommentContex);
+      const { delLikeNews2Comment } = useContext(CommentContex);
+      const { showRepley } = useContext(CommentContex);
+      const { responseCo } = useContext(CommentContex);
+      
+      const pass = calculateDateDifference(date);
     const [repleyModal, setRepleyModal] = useState(false);
 
-    const pass = calculateDateDifference(date);
-
-    console.log(currentUserIsLike);
-    const setNewsDissLike = async () => {
-        const res = await commentDissLikeNews(id, false);
-        console.log(res);
-        GetComment();
-    };
-    const setNewsLike = async () => {
-        const res = await commentLikeNews(id, true);
-        console.log(res);
-        GetComment();
-    };
-
-    const delLikeNews2 = async () => {
-        console.log(currentUserLikeId);
-        const res = await coomentDelLikeNews({
-        "deleteEntityId": `${currentUserLikeId}`,
-        });
-        console.log(res);
-        GetComment();
-    };
-
-    const [response, setResponse] = useState();
-    const showRepley = async (id) => {
-        const res = await getRepleyComment(id);
-        setResponse(res);
-        console.log(res);
-    };
+    // console.log(currentUserIsLike);
+    
 
     return (
       <>
         <div className="p-[0.1vw] py-[1vw] border-b-[0.15vw] border-[#C2C2C2]  bg-white flex items-start justify-between h-full w-full ">
-          <div className=" size-[3vw] ml-[1vw] rounded-[0.42vw] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] flex justify-center">
+          <div className="overflow-hidden size-[3vw] ml-[1vw] rounded-[0.42vw] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] flex justify-center">
             <img src={pictureAddress} alt="" className="h-full" />
           </div>
           <div className="w-[95%] text-right">
             {/* Header: نام نویسنده، تاریخ، ساعت */}
             <div className="flex justify-between items-center mb-2">
-              <div className="text-[0.7vw] text-[#5E5E5E] flex justify-between w-[50%]">
-                <span className="max-w-[5vw]">{title}</span>|<span>{date}</span>
+              <div className="text-[0.7vw] text-[#5E5E5E] flex justify-between w-[50%] max-w-[20vw]">
+                <span className="max-w-[10vw]">{title}</span>|<span>{date}</span>
                 |<span>ساعت ۱۶:۲۴ </span>
                 <span className="mr-[0.5vw]">{pass}</span>
               </div>
-              <div className="text-[0.8vw] gap-[1vw] text-gray-800 w-1/3 h-[1.46vw]  flex justify-end">
+              <div className="text-[0.8vw] gap-[1vw] text-gray-800 w-1/3  max-w-[15vw]  h-[1.46vw]  flex justify-end">
                 <div className="flex justify-evenly h-full w-[25%] items-center">
                   <span>{likeCount}</span>
                   <svg
                     onClick={() => {
-                      currentUserIsLike ? delLikeNews2() : setNewsLike();
+                      currentUserIsLike
+                        ? delLikeNews2Comment(currentUserLikeId)
+                        : setNewsLikeComment(id);
                     }}
                     className="cursor-pointer"
                     width="1.51vw"
@@ -84,8 +67,8 @@ const Comments = ({
                   <svg
                     onClick={() => {
                       currentUserIsDissLike
-                        ? delLikeNews2()
-                        : setNewsDissLike();
+                        ? delLikeNews2Comment(currentUserLikeId)
+                        : setNewsDissLikeComment(id);
                     }}
                     className="cursor-pointer"
                     width="1.51vw"
@@ -171,8 +154,8 @@ const Comments = ({
           </div>
         </div>
         <div>
-          {response ? (
-            <div className="pr-[5vw] w-full">{renderCourses(response)} </div>
+          {responseCo ? (
+            <div className="pr-[5vw] w-full">{renderCourses(responseCo)} </div>
           ) : (
             <div className="text-[1vw] text-center"></div>
           )}

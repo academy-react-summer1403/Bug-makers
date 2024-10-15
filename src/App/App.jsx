@@ -13,8 +13,8 @@ function App() {
   return (
     <>
       {/* <BlogDetail/> */}
-      {/* <Outlet/> */}
-      <CourseDetail/>
+      <Outlet/>
+      {/* <CourseDetail/> */}
       
     </>
   )

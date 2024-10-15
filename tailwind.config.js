@@ -12,7 +12,7 @@ export default {
         'blogDown': '-10px 10px 10px 0px rgba(0,0,0,0.1)'
       },
       backgroundImage:{
-        'blogBack':"url('./public/images/Group 13.png')"
+        'blogBack':"url('./public/images/Course/Group 13.png')"
       }
     },
   },

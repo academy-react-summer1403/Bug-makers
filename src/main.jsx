@@ -16,6 +16,7 @@ import { Store } from '../src/Redux/Store/Store';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import BlogDetail from './Components/Layout/BlogDetail/BlogDetail.jsx'
 import BlogPage from './Components/Layout/BlogPage/BlogPage.jsx'
+import CourseDetail from './Components/Layout/CourseDetail/CourseDetail.jsx'
 
 const queryClient = new QueryClient();
 
@@ -42,11 +43,15 @@ const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        
+        path: "CourseDetail/:id",
+        element: <CourseDetail />,
+        errorElement: <Error />,
+      },
+      {
         path: "/sign",
         element: <LoginPage />,
         errorElement: <Error />,
-        children : [
+        children: [
           {
             path: "login",
             element: <Login />,
@@ -76,10 +81,9 @@ const router = createBrowserRouter([
             path: "rigester/step3",
             element: <ReStep4 />,
             errorElement: <Error />,
-          }
-        ]
+          },
+        ],
       },
-      
     ],
   },
   {
