@@ -32,10 +32,12 @@ export const postDissLikeNews = async (id) => {
 };
 
 export const delLikeNews = async (id) => {
-  let url = "/News/DeleteLikeNews";
+  let url = "/Course/DeleteCourseLike";
+  const formData = new FormData()
+  formData.append('CourseLikeId', id);
   
-  console.log(id)
-  const response = await instance.delete(url,{data:id});
+  console.log(i)
+  const response = await instance.delete(url,i);
   
   return response
 };

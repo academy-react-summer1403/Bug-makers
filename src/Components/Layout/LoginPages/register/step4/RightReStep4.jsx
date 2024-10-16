@@ -26,12 +26,12 @@ const RightReStep4=()=>{
         const response= await RigesterStep3(values);
         if(response){
             console.log(response);
-            alert(" شما با موفقیت ثبت نام شدید")
+            // alert(" شما با موفقیت ثبت نام شدید")
 
             navigate("/")     
         }
         else{
-            alert("ثبت نام موفقیت امیز نبود مجدد امتحان کنید")
+            // alert("ثبت نام موفقیت امیز نبود مجدد امتحان کنید")
             navigate("/sign/rigester/step1")  
         }
         

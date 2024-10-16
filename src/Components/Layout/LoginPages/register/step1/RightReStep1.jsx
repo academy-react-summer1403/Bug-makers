@@ -26,11 +26,11 @@ const RightReStep1=()=>{
         
         const response = await RigesterStep1(values)
         if(response.message== "درخواست نامعتبر"){
-            alert("این شماره در سایت ثبت شده است لطفا وارد شوید")
+            // alert("این شماره در سایت ثبت شده است لطفا وارد شوید")
             navigate("/sign/login")
         }
         else{
-            // alert(JSON.stringify(values))
+        
         console.log(response);
         // RigesterStep1(values);
         navigate("/sign/rigester/step2")

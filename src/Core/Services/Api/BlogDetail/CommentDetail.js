@@ -9,7 +9,10 @@ export const getRepleyComment = async (id) => {
 };
 
 export const setNewComment = async (id) => {
-  let url = `/News/CreateNewsComment`;
+  let url;
+  id.parentId
+    ? (url = `/News/CreateNewsReplyComment`)
+    : (url = `/News/CreateNewsComment`);
   console.log(id)
 
   const response = await instance.post(url,id);
@@ -32,11 +35,11 @@ export const commentDissLikeNews = async (id) => {
   return response
 };
 
-export const coomentDelLikeNews = async (id) => {
-  let url = "/News/DeleteCommentLikeNews";
-  
-  console.log(id)
-  const response = await instance.delete(url,{data:id});
-  
-  return response
+export const comentDelLikeCourse = async (id) => {
+  let url = `/Course/DeleteCourseCommentLike?CourseCommandId=${id}`;
+
+  console.log(id);
+  const response = await instance.delete(url);
+
+  return response;
 };

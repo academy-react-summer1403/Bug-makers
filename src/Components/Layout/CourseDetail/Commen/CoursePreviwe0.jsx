@@ -1,7 +1,7 @@
 import React from "react";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 
-const CoursePreviwe0 = ({response}) => {
+const CoursePreviwe0 = ({ response, CorseReserve }) => {
   return (
     <div className="h-[8.9vw] w-[40%] shadow-md p-[0.5vw] mt-[11.7vw] text-right">
       <div className="mb-[1vw]">
@@ -64,7 +64,10 @@ const CoursePreviwe0 = ({response}) => {
         </div>
         <div className="flex flex-col justify-evenly items-center">
           <span className="text-gray-700">قیمت: {response.cost} تومان</span>
-          <button className="w-[10vw] bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300">
+          <button
+            onClick={()=>{CorseReserve()}}
+            className="w-[10vw] bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
+          >
             ثبت نام در این دوره
           </button>
         </div>

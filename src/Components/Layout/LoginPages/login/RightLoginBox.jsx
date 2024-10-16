@@ -26,7 +26,7 @@ const RightLoginBox=()=>{
     };
     const onSubmit= async(values)=>{
         const finalVal = (values)
-        // alert(JSON.stringify(values))
+        
         console.log(values);
         const response = await LoginAPI(values);
         if(response.token!=null){
@@ -35,11 +35,7 @@ const RightLoginBox=()=>{
         
         setItem("token",response.token)
         setItem("userId", response.id);
-        alert("شما با موفقیت وارد شدید")
-        }
-        else{
-            alert("مجدد تلاش کنید")
-        }
+        
     }
     
     return(

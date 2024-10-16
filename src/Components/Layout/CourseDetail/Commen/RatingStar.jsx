@@ -1,9 +1,28 @@
 // RatingStar.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { postCourseRate } from "../../../../Core/Services/Api/CourseDetail/CourseDetail";
 
-const RatingStar = () => {
+const RatingStar = (id) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
+
+  
+
+  const SetRatingF = async()=>{
+    
+    const respone =await postCourseRate(id.id,rating*20)
+    respone.success
+      ? alert(
+          "امتیاز شما با موفقییت ثبت گردید"
+        )
+      : alert("نظر شما قبلا ثبت شده");
+  }
+  useEffect(() => {
+    if (rating !== 0) {
+      SetRatingF();
+    }
+  }, [rating]);
+  
 
   return (
     <div className="w-[20%] flex flex-row-reverse relative top-[-0.5vw] justify-between bg-white " style={{ gap: "0.5vw", background: "transparent" }}>

@@ -15,7 +15,7 @@ const RightPassBox=()=>{
 
     const onSubmit=(values)=>{
         
-        // alert(JSON.stringify(values))
+        
         console.log(values);
         ForgetPassStep1(values);
         

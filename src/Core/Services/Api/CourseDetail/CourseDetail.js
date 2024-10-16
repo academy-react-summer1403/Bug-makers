@@ -39,3 +39,23 @@ export const delLikeNews = async (id) => {
   
   return response
 };
+
+export const postCourseRate = async (id,num) => {
+  console.log(num)
+  let url = `/Course/SetCourseRating?CourseId=${id}&RateNumber=`+num;
+  
+  console.log(url);
+
+  const response = await instance.post(url);
+  return response;
+};
+
+export const CorseReserve = async (id) => {
+
+  let url = `/CourseReserve/ReserveAdd`;
+  
+  console.log(id);
+
+  const response = await instance.post(url,id);
+  return response;
+};

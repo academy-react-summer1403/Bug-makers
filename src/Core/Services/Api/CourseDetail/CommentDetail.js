@@ -1,6 +1,6 @@
 import instance from "../../interseptore/Interceptor";
 
-export const getRepleyComment = async (id, NewsId) => {
+export const getRepleyCommentCorse = async (id, NewsId) => {
   let url = `/Course/GetCourseReplyCommnets/${NewsId}/${id}`;
   console.log(url);
 
@@ -8,14 +8,30 @@ export const getRepleyComment = async (id, NewsId) => {
   return response;
 };
 
-export const setNewComment = async (id) => {
-  let url = `/News/CreateNewsComment`;
-  console.log(id)
+export const setCourseComment = async (id) => {
+  let url = `/Course/AddCommentCourse`;
 
-  const response = await instance.post(url,id);
+  const data = new FormData()
+  data.append("Title", id.Title)
+  data.append("Describe",id.Describe);
+  data.append("CourseId", id.CourseId);
+
+  console.log(data)
+  const response = await instance.post(url,data);
   return response
 };
+export const setCourseRepleyComment = async (id) => {
+  let url = `/Course/AddCommentCourse`;
+  const data = new FormData()
+  data.append("Title", id.Title)
+  data.append("Describe",id.Describe);
+  data.append("CourseId", id.CourseId);
+  data.append("CommentId", id.CommentId);
+  console.log(data)
 
+  const response = await instance.post(url, data);
+  return response
+};
 export const commentLikeCourse = async (id) => {
   let url = `/Course/AddCourseCommentLike?CourseCommandId=${id}`;
   console.log(url)

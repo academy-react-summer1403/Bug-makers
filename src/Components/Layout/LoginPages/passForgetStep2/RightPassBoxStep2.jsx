@@ -4,6 +4,7 @@ import InputModel from "../forAll/InputModel.jsx";
 import * as yup from "yup";
 import { ForgetPassStep3, ForgetPassStep2 } from "../../../../Core/Services/Api/auth.js";
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const RightPassBoxStep2 = () => {
     const navigate = useNavigate();
@@ -88,7 +89,7 @@ const RightPassBoxStep2 = () => {
                                             onBlur={(e) => {
                                                 setFieldValue('newPassword2', e.target.value);
                                                 if (values.newPassword !== e.target.value) {
-                                                    alert("رمزها باید مطابقت داشته باشند");
+                                                    toast.error("رمزها باید مطابقت داشته باشند");
                                                 }
                                             }}
                                         />

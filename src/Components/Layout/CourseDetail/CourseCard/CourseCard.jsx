@@ -3,23 +3,47 @@ import CourseStatus from "../Commen/CoursePreviwe";
 import CoursePreviwe0 from "../Commen/CoursePreviwe0";
 import RatingStar from "../Commen/RatingStar";
 import CourseMenu from "../Commen/CourseMenu";
-import { delLikeNews, getCourseDetail, getCourseDetailComment, postDissLikeNews, postLikeNews } from "../../../../Core/Services/Api/CourseDetail/CourseDetail";
-import BComment from "../../BlogDetail/BDetailCenter/BComment";
-import { comentDelLikeCourse, commentDissLikeCourse, commentLikeCourse, getRepleyComment, setNewComment } from "../../../../Core/Services/Api/CourseDetail/CommentDetail";
+import {
+  delLikeNews,
+  getCourseDetail,
+  getCourseDetailComment,
+  postDissLikeNews,
+  postLikeNews,
+  CorseReserve,
+} from "../../../../Core/Services/Api/CourseDetail/CourseDetail";
+import CComment from "../Comment/CComment";
+import {
+  comentDelLikeCourse,
+  commentDissLikeCourse,
+  commentLikeCourse,
+  setCourseComment,
+  setCourseRepleyComment,
+} from "../../../../Core/Services/Api/CourseDetail/CommentDetail";
 import { getItem } from "../../../../Core/Services/common/storage.services";
+import AddCommentForm from "../Comment/AddCommentForm";
 
-export const CommentContex = createContext()
 
 function CourseCard({id}) {
   
   const [response,setResponse]=useState({})
   const [comment, setComment] = useState({});
   const [detailPage,setDetailPage] = useState(0)
+  const [repleyModal,setRepleyModal]=useState(false)
   const userId = getItem("userId");
   const NewsId =id;
   const handelPage = (value)=>{
     setDetailPage(value);
   }
+
+  const CorseReserveF= async()=>{
+    const re = await CorseReserve({ "courseId": `${id}` });
+     re.success
+       ? alert(
+            "کورس مورد نظر بعد از تایید ادمین برا شما ثبت میشود"
+         )
+       : alert("لطفا ابتدا وارد شوید");
+  }
+
   const GetId= async ()=>{
     const res = await getCourseDetail(id);
     setResponse(res);
@@ -47,14 +71,14 @@ function CourseCard({id}) {
   };
 
   const delLikeNews2 = async () => {
-    console.log(response.likeId);
+    console.log(response.userLikeId);
     const res = await delLikeNews(response.userLikeId);
     console.log(res);
     GetId();
   };
   
   const onSubmit = async (val) => {
-    const res = await setNewComment(val);
+    const res = await setCourseRepleyComment(val);
     res.success
       ? alert(
           "نظر شما با موفقییت ثبت گردید و پس از تایید ادمین به نمایش در میاید"
@@ -62,7 +86,14 @@ function CourseCard({id}) {
       : alert("لطفا ابتدا وارد شوید");
   };
 
-
+  const onSubmit2 = async (val) => {
+      const res = await setCourseComment(val);
+      res.success
+        ? alert(
+            "نظر شما با موفقییت ثبت گردید و پس از تایید ادمین به نمایش در میاید"
+          )
+        : alert("لطفا ابتدا وارد شوید");
+    };
   // comment .............................................
 
   const setNewsDissLikeComment = async (id) => {
@@ -78,19 +109,12 @@ function CourseCard({id}) {
 
   const delLikeNews2Comment = async (currentUserLikeId) => {
     console.log(currentUserLikeId);
-    const res = await comentDelLikeCourse({
-      deleteEntityId: `${currentUserLikeId}`,
-    });
+    const res = await comentDelLikeCourse(currentUserLikeId);
     console.log(res);
     GetComment();
   };
 
-  const [responseCo, setResponseCo] = useState();
-  const showRepley = async (id) => {
-    const res = await getRepleyComment(id,NewsId);
-    setResponseCo(res);
-    console.log(res);
-  };
+
 
 
 
@@ -165,10 +189,10 @@ function CourseCard({id}) {
               </svg>
             </div>
           </div>
-          <RatingStar />
+          <RatingStar id={id} />
         </div>
       </div>
-      <CoursePreviwe0 response={response} />
+      <CoursePreviwe0 response={response} CorseReserve={CorseReserveF} />
       {/* <CourseStatus /> */}
       <div className="w-full rounded-[1vw]  p-[1vw] mt-[2.71vw]">
         <CourseMenu handelPage={handelPage} />
@@ -195,22 +219,51 @@ function CourseCard({id}) {
           <div
             className={`w-full h-full ${detailPage == 3 ? "block" : "hidden"}`}
           >
-            {" "}
-            <CommentContex.Provider
-              value={{
-                onSubmit,
-                userId,
-                GetComment,
-                NewsId,
-                setNewsDissLikeComment,
-                setNewsLikeComment,
-                delLikeNews2Comment,
-                showRepley,
-                responseCo,
+            <div
+              onClick={() => {
+                setRepleyModal(true);
+              }}
+              className="w-full rounded-[0.5vw] h-[3vw] text-[1.5vw] bg-gray-300 cursor-pointer"
+            >
+              ثبت نظر{" "}
+            </div>
+            <div
+              className={
+                repleyModal
+                  ? "fixed z-0 top-0 left-0 h-screen w-screen bg-[#8a8a8a96] backdrop-blur-[3px]"
+                  : "hidden"
+              }
+              onClick={() => {
+                setRepleyModal(false);
               }}
             >
-              <BComment comment={comment} />
-            </CommentContex.Provider>
+              <div
+                className={
+                  repleyModal
+                    ? "h-max w-[50vw] rounded-[1vw] bg-white absolute z-40 top-1/4 left-1/4"
+                    : "hidden"
+                }
+                onClick={(e) => e.stopPropagation()}
+              >
+                <AddCommentForm
+                  onSubmit={onSubmit}
+                  newsId={id}
+                  parentId={null}
+                  onSubmit2={onSubmit2}
+                />
+              </div>
+            </div>{" "}
+            <CComment
+              comment={comment}
+              onSubmit={onSubmit}
+              userId={userId}
+              GetComment={GetComment}
+              newsId={id}
+              setNewsDissLikeComment={setNewsDissLikeComment}
+              setNewsLikeComment={setNewsLikeComment}
+              delLikeNews2Comment={delLikeNews2Comment}
+              onSubmit2={onSubmit2}
+            />
           </div>
           <div
             className={`w-full h-full bg-yellow-500 ${

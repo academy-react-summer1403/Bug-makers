@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import Comments from "./Comments";
-import { getRepleyComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
+import CourseComments from "./CourseComments";
 import moment from "moment-jalaali";
 
-const BComment = ({
+const CComment = ({
   comment = [],
   onSubmit,
   userId,
@@ -12,34 +11,37 @@ const BComment = ({
   setNewsDissLikeComment,
   setNewsLikeComment,
   delLikeNews2Comment,
+  onSubmit2,
 }) => {
   const convertToJalali = (miladiDate) => {
     return moment(miladiDate, "YYYY-MM-DD").locale("fa").format("YYYY/MM/DD");
   };
+  
 
   // تابعی برای رندر کردن کامنت‌ها
-  const renderCourses = (comment) => {
+  const renderCourses = (comment,id) => {
     // بررسی اگر comment خالی است
     if (!Array.isArray(comment) || comment.length === 0) {
       return <p></p>; // در صورتی که comment خالی یا undefined باشد، پیام نشان داده می‌شود.
     }
 
-    console.log(comment);
+    // console.log(comment);
 
     return comment.map((comment) => (
-      <Comments
+      <CourseComments
+        commentId={id}
         key={comment.id}
         id={comment.id}
         inserDate={comment.commentCatregoryName}
         describe={comment.describe}
         likeCount={comment.likeCount}
-        dissLikeCount={comment.dissLikeCount}
+        dissLikeCount={comment.disslikeCount}
         title={comment.title}
-        replyCount={comment.replyCount}
-        currentUserIsLike={comment.currentUserIsLike}
-        currentUserIsDissLike={comment.currentUserIsDissLike}
+        replyCount={comment.acceptReplysCount}
+        currentUserIsLike={comment.currentUserEmotion}
+        currentUserIsDissLike={comment.currentUserEmotion}
         pictureAddress={comment.pictureAddress}
-        date={convertToJalali(comment.inserDate)}
+        date={comment.insertDate}
         parentId={comment.parentId}
         currentUserLikeId={comment.currentUserLikeId}
         renderCourses={renderCourses}
@@ -50,6 +52,7 @@ const BComment = ({
         setNewsDissLikeComment={setNewsDissLikeComment}
         setNewsLikeComment={setNewsLikeComment}
         delLikeNews2Comment={delLikeNews2Comment}
+        onSubmit2={onSubmit2}
       />
     ));
   };
@@ -73,9 +76,9 @@ const BComment = ({
         <div>هیچ نظری برای این پست ثبت نشده</div>
       )}
 
-      <div className="w-full">{renderCourses(comment)}</div>
+      <div className="w-full">{renderCourses(comment,0)}</div>
     </div>
   );
 };
 
-export default BComment;
+export default CComment;

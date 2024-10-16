@@ -11,13 +11,14 @@ import {
   delLikeNews,
 } from "../../../../Core/Services/Api/BlogDetail/BlogDetail";
 import { getItem } from "../../../../Core/Services/common/storage.services";
-import { setNewComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
+import { comentDelLikeCourse, commentDissLikeNews, commentLikeNews, setNewComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
 import AddCommentForm from "./AddCommentForm";
 import RecommendLi from "./RecommendLi";
 import { useSelector } from "react-redux";
 import calculateDateDifference from "../../../Common/TimeChanger/TimeChanger";
 import moment from "moment-jalaali";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
+import toast from "react-hot-toast";
 
 const BDetailCenter = ({ id }) => {
 
@@ -66,11 +67,6 @@ const BDetailCenter = ({ id }) => {
 
     const onSubmit = async (val) => {
         const res = await setNewComment(val);
-        res.success
-        ? alert(
-            "نظر شما با موفقییت ثبت گردید و پس از تایید ادمین به نمایش در میاید"
-            )
-        : alert("لطفا ابتدا وارد شوید");
     };
     const CourseListItem = useSelector((state) => state.BlogSlice.BlogList);
     
@@ -86,6 +82,33 @@ const BDetailCenter = ({ id }) => {
         />
         ));
     };
+
+
+    // comment.....................................
+
+
+    
+    const setNewsDissLikeComment = async (id) => {
+      const res = await commentDissLikeNews(id, false);
+      console.log(res);
+      GetComment();
+    };
+    const setNewsLikeComment = async (id) => {
+      const res = await commentLikeNews(id, true);
+      console.log(res);
+      GetComment();
+    };
+
+    const delLikeNews2Comment = async (currentUserLikeId) => {
+      console.log(currentUserLikeId);
+      const res = await comentDelLikeCourse({
+        deleteEntityId: `${currentUserLikeId}`,
+      });
+      console.log(res);
+      GetComment();
+    };
+
+    
 
     
 console.log(response.updateDate);
@@ -184,11 +207,14 @@ console.log(response.updateDate);
         </div>
 
         <BComment
-          GetComment={GetComment}
+          comment={comment}
           onSubmit={onSubmit}
           userId={userId}
-          comment={comment}
-          newsId={newsId}
+          GetComment={GetComment}
+          newsId={id}
+          setNewsDissLikeComment={setNewsDissLikeComment}
+          setNewsLikeComment={setNewsLikeComment}
+          delLikeNews2Comment={delLikeNews2Comment}
         />
       </div>
     );
