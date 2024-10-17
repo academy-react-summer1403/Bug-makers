@@ -73,3 +73,29 @@ button:focus-visible {
 
 
     
+.bgg{
+   background: repeating-conic-gradient(
+    from var(--aa),
+    #00c3ff 0%,
+    transparent 100%,
+  ); 
+
+  animation: animate 6s  infinite linear; 
+}
+@property --aa{
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+
+}
+
+@keyframes animate{
+
+  0%{
+    --aa:0deg;
+  }
+  100%{
+    --aa:360deg;
+  }
+
+}

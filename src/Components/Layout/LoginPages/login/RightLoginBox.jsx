@@ -94,4 +94,5 @@ const RightLoginBox=()=>{
         </div>
     );
 }
+}
 export default RightLoginBox;

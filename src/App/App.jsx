@@ -8,14 +8,18 @@ import BlogPage from '../Components/Layout/BlogPage/BlogPage.jsx'
 import BlogDetail from '../Components/Layout/BlogDetail/BlogDetail.jsx'
 import CourseDetail from '../Components/Layout/CourseDetail/CourseDetail.jsx'
 import { Toaster } from 'react-hot-toast'
+import { NextUIProvider } from '@nextui-org/react'
 
 function App() {
 
   return (
     <>
       {/* <BlogDetail/> */}
+      <NextUIProvider>
       <Outlet />
       <Toaster />
+     
+      </NextUIProvider>
       {/* <CourseDetail/> */}
     </>
   );

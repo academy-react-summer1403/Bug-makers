@@ -17,6 +17,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import BlogDetail from './Components/Layout/BlogDetail/BlogDetail.jsx'
 import BlogPage from './Components/Layout/BlogPage/BlogPage.jsx'
 import CourseDetail from './Components/Layout/CourseDetail/CourseDetail.jsx'
+import ClientPanel from './Components/Layout/ClientPanel/ClientPanel.jsx'
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
         index: true,
         path: "/",
         element: <App />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/ClientPanel",
+        element: <ClientPanel />,
         errorElement: <Error />,
       },
       {
