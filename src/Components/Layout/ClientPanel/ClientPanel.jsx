@@ -2,7 +2,8 @@ import { Button, Input } from "@nextui-org/react";
 import React from "react";
 import TopBar from "./common/TopBar";
 import RightBar from "./RightBar/RightBar";
-import LeftBar from "./LeftBar/LeftBar";
+
+import { Outlet } from "react-router-dom";
 
 const ClientPanel = ()=>{
 
@@ -16,8 +17,9 @@ const ClientPanel = ()=>{
           <div className="w-full h-[8%] rounded-[0.6vw] bg-white">
             <TopBar />
           </div>
-          <div className="w-full h-[91%] rounded-[0.6vw] bg-white">
-            <LeftBar/>
+          <div className="w-full h-[91%] rounded-[0.6vw] bg-transparent overflow-hidden">
+            <Outlet/>
+            {/* <LeftBar/> */}
           </div>
         </div>
       </div>

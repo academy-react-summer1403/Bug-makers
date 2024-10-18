@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 import { Button, Avatar } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
 
-const LeftBarTop = () => {
+const DashbordEditTop = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState("personal");
-
-  // لیست گزینه‌های پایین نوار
-  const tabs = [
-    { id: "personal", label: "اطلاعات شخصی" },
-    { id: "picture", label: "عکس پروفایل" },
-    { id: "address", label: "آدرس سکونت" },
-    { id: "links", label: "لینک‌ها" },
-  ];
+  const navigator = useNavigate();
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 w-full h-full relative">
       {/* Header Section */}
-      <div className="bg-yellow-400 h-[40%] rounded-t-lg -mx-6 -mt-6"></div>
+      <div className="bg-[#E1C461] h-[40%] rounded-t-lg -mx-6 -mt-6"></div>
       <div className="rounded-full size-[6vw] absolute top-[2.5vw] right-[1vw] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]"></div>
       <div className="flex items-center justify-between mt-[3.5vw] px-[1vw]">
         <div className="w-[40%]">
@@ -165,13 +159,15 @@ const LeftBarTop = () => {
         {tabs.map((tab) => (
           <div>
             <Button
-            radius="sm"
+              radius="sm"
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => {
+                setActiveTab(tab.id);
+                navigator(`/ClientPanel/DashbordEdit/${tab.id}`);
+              }}
               className={`text-gray-600 bg-white pb-2 text-[1vw] hover:border-[#E1C461] ${
-              activeTab === tab.id  ?
-                "text-black":
-                ""} `}
+                activeTab === tab.id ? "text-black" : ""
+              } `}
             >
               {tab.label}
             </Button>
@@ -197,4 +193,4 @@ const LeftBarTop = () => {
   );
 };
 
-export default LeftBarTop;
+export default DashbordEditTop;

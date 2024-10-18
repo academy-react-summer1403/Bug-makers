@@ -18,6 +18,13 @@ import BlogDetail from './Components/Layout/BlogDetail/BlogDetail.jsx'
 import BlogPage from './Components/Layout/BlogPage/BlogPage.jsx'
 import CourseDetail from './Components/Layout/CourseDetail/CourseDetail.jsx'
 import ClientPanel from './Components/Layout/ClientPanel/ClientPanel.jsx'
+import PersonalInfo from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/PersonalInfo/PersonalInfo.jsx'
+import ProfilePic from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/ProfilePic/ProfilePic.jsx'
+import Address from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Address/Address.jsx'
+import Links from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Links/Links.jsx'
+import DashbordEdit from './Components/Layout/ClientPanel/LeftBar/DashbordEdit.jsx'
+import Dashbord from './Components/Layout/ClientPanel/LeftSide/Dashbord/Dashbord.jsx'
+
 
 const queryClient = new QueryClient();
 
@@ -37,6 +44,40 @@ const router = createBrowserRouter([
         path: "/ClientPanel",
         element: <ClientPanel />,
         errorElement: <Error />,
+        children: [
+          {
+            path: "Dashbord",
+            element: <Dashbord />,
+            errorElement: <Error />,
+          },
+          {
+            path: "DashbordEdit",
+            element: <DashbordEdit />,
+            errorElement: <Error />,
+            children: [
+              {
+                path: "Personal",
+                element: <PersonalInfo />,
+                errorElement: <Error />,
+              },
+              {
+                path: "Picture",
+                element: <ProfilePic />,
+                errorElement: <Error />,
+              },
+              {
+                path: "Address",
+                element: <Address />,
+                errorElement: <Error />,
+              },
+              {
+                path: "Links",
+                element: <Links />,
+                errorElement: <Error />,
+              },
+            ],
+          },
+        ],
       },
       {
         path: "/BlogPage",
