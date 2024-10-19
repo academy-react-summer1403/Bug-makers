@@ -37,9 +37,14 @@ const DateModal = ({ onFilter }) => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="flex justify-center items-center max-[1312px]:w-[100%]">
+=======
+    <div className="flex justify-center items-center flex-grow">
+      {/* Modal Trigger Button */}
+>>>>>>> 58fc15aa833394de79744529ebdb6e88c52ed7f6
       <div
-        className="w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
+        className=" flex-grow h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
         بازه زمانی

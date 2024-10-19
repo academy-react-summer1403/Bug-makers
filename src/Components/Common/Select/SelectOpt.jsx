@@ -55,7 +55,7 @@ const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect
   }
 
   return (
-    <div className={`relative  max-[1312px]:w-[100%] ${isOpen ? 'z-10' : 'z-0'}`}>
+    <div className={`relative flex-grow   ${isOpen ? 'z-10' : 'z-0'}`}>
       {selectedOption && (
         <span
           className="cursor-pointer p-3 absolute left-0 top-0"
@@ -65,7 +65,7 @@ const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect
         </span>
       )}
       <div
-        className="w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
+        className="flex-grow  h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{selectedOption ? (selectedOption.fullName || selectedOption.techName || selectedOption.value) : placeholder}</span>
