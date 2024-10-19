@@ -36,9 +36,9 @@ const StoreService = () => {
           <motion.div
             key={key}
             className={`w-[19.53125vw] h-[4.557291666666667vw] rounded-[10px] border border-[#F5F5F4] bg-custom-grading-storeService shadow-[0px_4px_10px_0px_#000] relative
-              ${key === 1 ? 'mr-[20vw]' : ''}
-              ${key === 2 ? 'mr-[5vw]' : ''}
-              ${key === 3 ? 'mr-[25vw]' : ''}
+              ${key === 1 ? 'mr-[26vw]' : ''}
+              ${key === 2 ? 'mr-[0]' : ''}
+              ${key === 3 ? 'mr-[36vw]' : ''}
               ${key === 4 ? 'mr-[10vw]' : ''}
               `}
             variants={itemVariants}

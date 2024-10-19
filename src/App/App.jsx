@@ -5,15 +5,19 @@ import LandingPage from '../Pages/Landing Page/LandingPage'
 import { Outlet } from 'react-router-dom'
 import ThemeColor from '../Components/Common/ThemeColor/ThemeColor'
 import ScrollTopButton from '../Components/Common/ScrollTopButton/ScrollTopButton'
+import { Toaster } from 'react-hot-toast';
 
 function App() {
 
   return (
     <div dir='rtl'>
-      <Header />
-      <Outlet />
-      <ThemeColor />
-      <ScrollTopButton />
+      <NextUIProvider>
+        <Header />
+        <Outlet />
+        <Toaster />
+        <ThemeColor />
+        <ScrollTopButton />
+      </NextUIProvider>
     </div>
   )
 }

@@ -32,7 +32,7 @@ const MiniSlider = ({ isHovered  }) => {
   // Automatic slide
   useEffect(() => {
     if (!isHovered) {
-      const intervalId = setInterval(nextSlide, 3000); 
+      const intervalId = setInterval(prevSlide, 3000); 
       return () => clearInterval(intervalId);
     }
   }, [isHovered]);
@@ -63,14 +63,14 @@ const MiniSlider = ({ isHovered  }) => {
 
       {/* Right & Left Buttons */}
       <motion.button 
-        onClick={prevSlide} 
+        onClick={nextSlide} 
         className='text-gray-500 absolute left-[5vw] top-[25vw]'
       >
         <FaChevronLeft className='w-[6vw] h-[6vw]' />
       </motion.button>
 
       <motion.button 
-        onClick={nextSlide} 
+        onClick={prevSlide} 
         className='text-gray-500 absolute right-[5vw] top-[24.5vw]'
       >
         <FaChevronRight className='w-[6vw] h-[6vw]' />

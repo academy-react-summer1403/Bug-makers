@@ -27,4 +27,58 @@ h1 {
   font-family: Iransans;
   src: url(../public/Fonts/IRANSans.ttf);
 }
- /*   مشاهده دوره باتن   دوره اموزش ککدوک بزرگسال   اهداف ما در پروژهشگاه */
+
+@font-face {
+  font-family: IranSansNumber;
+  src: url(../public/Fonts/IRANSansXFaNum-Bold.ttf);
+}
+
+.price{font-family: IranSansNumber;}
+
+.range-slider {
+  position: relative;
+}
+
+.range-slider input[type="range"] {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+}
+
+.range-slider input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px;
+  background: linear-gradient(to right, blue 0%, blue calc((var(--min) - var(--min-value)) / (var(--max-value) - var(--min-value)) * 100%), #4CAF50 calc((var(--min) - var(--min-value)) / (var(--max-value) - var(--min-value)) * 100%), #4CAF50 calc((var(--max) - var(--min-value)) / (var(--max-value) - var(--min-value)) * 100%), #ddd calc((var(--max) - var(--min-value)) / (var(--max-value) - var(--min-value)) * 100%));
+  pointer-events: auto;
+}
+
+.range-slider input[type="range"]::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  background: #91ACCF;
+  border-radius: 100%;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-appearance: none;
+}
+
+.range-slider input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border: 3px solid #91ACCF;
+  border-radius: 100%;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-appearance: none;
+}
+
+.range-slider input[type="range"]:focus {
+  outline: none;
+}
+
+.range-slider input[type="range"]::-webkit-slider-runnable-track:active {
+  background: #4CAF50;
+}

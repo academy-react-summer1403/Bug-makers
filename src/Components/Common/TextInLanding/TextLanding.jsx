@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
-const TextLanding = ({ h3Text , pText }) => {
+const TextLanding = ({ h3Text , pText  }) => {
 
     const itemVariants = {
         hidden: { opacity: 0, y: 20 },
@@ -9,7 +9,7 @@ const TextLanding = ({ h3Text , pText }) => {
     };
 
   return (
-    <div>
+    <div >
         {/* Animated h3 and p */}
       <motion.h3 
         className='text-[1.953125vw]  '

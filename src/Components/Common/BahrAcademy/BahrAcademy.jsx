@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const BahrAcademy = () => {
   const { selectedButton } = useSelector((state) => state.themeColor);
@@ -31,6 +32,7 @@ const BahrAcademy = () => {
         هدف تغییر سرنوشت هاست با درک دوباره لذت کدنویسی
       </p>
       {/* Btn  */}
+      <Link to={'/CoursePage'}>
       <motion.button
         className={` max-[468px]:text-[2vw] /* end responsive */ p-[0.5vw] text-[1.2vw]  mt-[1vw] rounded-3xl text-white 
           ${selectedButton === 0 ? 'bg-blue-600' : ''} 
@@ -42,6 +44,7 @@ const BahrAcademy = () => {
       >
         مشاهده دوره
       </motion.button>
+      </Link>
     </motion.div>
   );
 };
