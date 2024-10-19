@@ -11,11 +11,13 @@ function App() {
 
   return (
     <div dir='rtl'>
-      <Header />
-      <Outlet />
-      <Toaster />
-      <ThemeColor />
-      <ScrollTopButton />
+      <NextUIProvider>
+        <Header />
+        <Outlet />
+        <Toaster />
+        <ThemeColor />
+        <ScrollTopButton />
+      </NextUIProvider>
     </div>
   )
 }
