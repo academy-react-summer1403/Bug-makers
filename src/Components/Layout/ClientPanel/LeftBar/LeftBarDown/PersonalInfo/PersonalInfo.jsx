@@ -221,7 +221,9 @@ const PersonalInfo = () => {
         </Formik>
         {/* وضعیت حساب */}
         <div className="flex items-start justify-end w-1/2">
-          <Gauge value={step} />
+          <div className="w-[40%] mt-[4vw] ml-[4vw]">
+            <Gauge value={step} />
+          </div>
         </div>
       </div>
     </div>

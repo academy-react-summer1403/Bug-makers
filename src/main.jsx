@@ -51,11 +51,32 @@ const router = createBrowserRouter([
             errorElement: <Error />,
           },
           {
+            path: "MyCourse",
+            element: <Dashbord />,
+            errorElement: <Error />,
+          },
+          {
+            path: "Reserve",
+            element: <Dashbord />,
+            errorElement: <Error />,
+          },
+          {
+            path: "LikedCourse",
+            element: <Dashbord />,
+            errorElement: <Error />,
+          },
+          {
+            path: "LikedBlogs",
+            element: <Dashbord />,
+            errorElement: <Error />,
+          },
+          {
             path: "DashbordEdit",
             element: <DashbordEdit />,
             errorElement: <Error />,
             children: [
               {
+                index:true,
                 path: "Personal",
                 element: <PersonalInfo />,
                 errorElement: <Error />,

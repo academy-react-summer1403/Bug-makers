@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
 
 const RightBar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const navigator = useNavigate();
 
   // لیست آیتم‌های منو
   const menuItems = [
     {
       id: 0,
+      name: "Dashbord",
       label: "داشبورد",
       icon: (
         <svg
@@ -42,6 +45,7 @@ const RightBar = () => {
     },
     {
       id: 1,
+      name: "MyCourse",
       label: "دوره من",
       icon: (
         <svg
@@ -88,6 +92,7 @@ const RightBar = () => {
     },
     {
       id: 2,
+      name: "Reserve",
       label: "رزرو من",
       icon: (
         <svg
@@ -114,6 +119,7 @@ const RightBar = () => {
     },
     {
       id: 3,
+      name: "LikedCourse",
       label: "علاقه‌مندی دوره",
       icon: (
         <svg
@@ -153,6 +159,7 @@ const RightBar = () => {
     },
     {
       id: 4,
+      name: "LikedBlogs",
       label: "علاقه‌مندی مقالات",
       icon: (
         <svg
@@ -181,6 +188,7 @@ const RightBar = () => {
     },
     {
       id: 5,
+      name: "DashbordEdit",
       label: "پروفایل",
       icon: (
         <svg
@@ -232,7 +240,7 @@ const RightBar = () => {
           <Button
             radius="full"
             key={item.id}
-            onClick={() => setActiveIndex(item.id)}
+            onClick={() => {setActiveIndex(item.id);navigator(`${item.name}`);}}
             className={`flex items-center gap-x-[1vw] justify-start w-full h-[54px] hover:border-[#E1C461] ${
               activeIndex === item.id
                 ? "bg-[#E1C461] text-white"

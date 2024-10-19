@@ -5,6 +5,7 @@ import PersianCalender from "../../../../Common/TimeChanger/PersianCalender";
 import CommentCard from "./CommentBar/CommentBar";
 import CommentSection from "./CommentBar/CommentBar";
 import CourseTable from "./CourseList/CourseList";
+import Gauge from "../../LeftBar/LeftBarDown/PersonalInfo/ComplitingCircle";
 
 const Dashbord =()=>{
    
@@ -97,19 +98,19 @@ const Dashbord =()=>{
           </div>
         </div>
         <div className="relative w-full h-[35%] justify-between flex">
-          <div className="w-[80%] h-full">
-           
-              <CommentSection/>
-            
+          <div className="w-[55%] h-full">
+            <CommentSection />
           </div>
 
-          <div className="w-[30%] h-full"></div>
+          <div className="w-[20%] h-[99%] bg-white rounded-[0.5vw]">
+            <Gauge  value={5}/>
+          </div>
           <div className="h-full w-[22%] relative top-[-5vw]">
             <PersianCalender />
           </div>
         </div>
         <div>
-            <CourseTable/>
+          <CourseTable />
         </div>
       </div>
     );

@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { Button, Avatar } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
-const DashbordEditTop = ({ tabs }) => {
+const DashbordEditTop = () => {
   const [activeTab, setActiveTab] = useState("personal");
   const navigator = useNavigate();
 
+    const tabs = [
+      { id: "Personal", label: "اطلاعات شخصی" },
+      { id: "Picture", label: "عکس پروفایل" },
+      { id: "Address", label: "آدرس سکونت" },
+      { id: "Links", label: "لینک‌ها" },
+    ];
   return (
     <div className="bg-white shadow-md rounded-lg p-6 w-full h-full relative">
       {/* Header Section */}

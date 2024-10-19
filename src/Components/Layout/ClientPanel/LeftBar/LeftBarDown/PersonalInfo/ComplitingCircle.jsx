@@ -7,7 +7,7 @@ const Gauge = ({ value }) => {
   const color = `rgba(${255 - percentage * 2.55}, ${percentage * 2.55}, 0, 1)`;
 
   return (
-    <div className="flex flex-col w-[40%] items-center border p-[0.5vw] border-[#eee] rounded-[0.5vw] mt-[4vw] ml-[4vw] text-right">
+    <div className="flex flex-col w-full items-center border p-[0.5vw] border-[#eee] h-full rounded-[0.5vw]  text-right">
       <h2 className="text-[1vw] font-[500] text-right">وضعیت اطلاعات حساب</h2>
       <div className="w-24 h-24 my-[1.5vw]">
         <CircularProgressbar
