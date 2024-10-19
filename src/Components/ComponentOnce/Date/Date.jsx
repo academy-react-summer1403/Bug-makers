@@ -11,24 +11,33 @@ const DateModal = ({ onFilter }) => {
   const [endYear, setEndYear] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [hasData, setHasData] = useState(true);
+  const [showError, setShowError] = useState(false);
 
   const handleFilter = () => {
     const startDate = moment(`${startYear}-${startMonth}-${startDay}`, 'YYYY-MM-DD').format('YYYY-MM-DD');
     const endDate = moment(`${endYear}-${endMonth}-${endDay}`, 'YYYY-MM-DD').format('YYYY-MM-DD');
-    
+
     const data = onFilter(startDate, endDate);
 
     if (data) {
       setHasData(true);
       setIsOpen(false);
+      setShowError(false);
     } else {
       setHasData(false);
+      // Show error message after 2 seconds
+      setTimeout(() => {
+        setShowError(true);
+      }, 2000);
+      // Hide the error message after 1 second
+      setTimeout(() => {
+        setShowError(false);
+      }, 4000);
     }
   };
 
   return (
     <div className="flex justify-center items-center max-[1312px]:w-[100%]">
-      {/* Modal Trigger Button */}
       <div
         className="w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
         onClick={() => setIsOpen(true)}
@@ -36,7 +45,6 @@ const DateModal = ({ onFilter }) => {
         بازه زمانی
       </div>
 
-      {/* Modal */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -50,7 +58,6 @@ const DateModal = ({ onFilter }) => {
               <h2 className="text-lg mb-4 text-right">فیلتر بازه زمانی</h2>
               <hr />
               <div className="flex relative justify-center items-center flex-row flex-nowrap">
-                {/* Start Date */}
                 <div className="flex flex-row items-center flex-nowrap absolute top-10 right-3">
                   <label className="text-[13px]">تاریخ شروع:</label>
                   <div className="flex space-x-2">
@@ -78,7 +85,6 @@ const DateModal = ({ onFilter }) => {
                   </div>
                 </div>
 
-                {/* End Date */}
                 <div className="flex flex-row flex-nowrap justify-center items-center absolute top-24 right-3">
                   <label className="text-[13px]">تاریخ پایان:</label>
                   <div className="flex space-x-2">
@@ -107,7 +113,6 @@ const DateModal = ({ onFilter }) => {
                 </div>
               </div>
 
-              {/* Confirm and Cancel Buttons */}
               <button
                 className="max-custom2:right-10 bg-[#91ACCF] text-white w-[106px] h-[30px] rounded-[8px] absolute bottom-5 right-36"
                 onClick={handleFilter}
@@ -125,16 +130,17 @@ const DateModal = ({ onFilter }) => {
                   setEndMonth('');
                   setEndYear('');
                   setHasData(true);
+                  setShowError(false);
                 }}
               >
                 انصراف
               </button>
-                {/* Display message if no data */}
-                {!hasData && (
-                  <p className="text-black mt-2">
-                    دیتا یافت نشد
-                  </p>
-                )}
+              
+              {showError && (
+                <p className="text-black mt-2">
+                  دیتا یافت نشد
+                </p>
+              )}
             </div>
           </motion.div>
         )}

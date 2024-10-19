@@ -71,6 +71,9 @@ const CoursePage = () => {
     setQueryValue('');
     setTeacherId(null);  
     setCategoryQuery(''); 
+    setSorting('Active')
+    setStartDate(''); 
+    setEndDate('');
     
     setFilterValue(true);
     setMinCost(null)

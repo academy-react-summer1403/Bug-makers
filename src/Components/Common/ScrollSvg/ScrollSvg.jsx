@@ -45,8 +45,8 @@ const ScrollSvg = () => {
     <svg  width="100%" height="100%" viewBox="0 0 1120 6941" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path ref={pathRef} d={`
           ${selectedButton === 0 ? svgThemeBlue : ''} 
-          ${selectedButton === 1 ? svgThemeGreen : ''} 
-          ${selectedButton === 2 ? svgThemeYellow : ''}`}
+          ${selectedButton === 1 ? svgThemeBlue : ''} 
+          ${selectedButton === 2 ? svgThemeBlue : ''}`}
           stroke={
             selectedButton === 0
               ? '#3772FF'

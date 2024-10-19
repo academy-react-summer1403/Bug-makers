@@ -59,10 +59,10 @@ const CourseItem = ({
     <div dir={`${listStyle ? 'ltr' : 'rtl'}`}  className={`relative shadow-[-15px_15px_15px_0px_#0000000D] bg-white rounded-2xl p-[5px] overflow-hidden group hover:scale-110 cursor-pointer transition-all duration-300  ${listStyle ? 'w-[100%]  h-[22.786458333333332vw]' : 'w-[250px]  h-[405px]   '}`}>
         <div className={`w-[600px] h-40 bg-[rgba(245,245,245,0.5)] absolute  transition-all duration-500 group-hover:translate-x-[-150px]  ${listStyle ? 'rotate-45 translate-x-[1000px] translate-y-[-100px] group-hover:translate-y-[250px] group-hover:translate-x-[-450px]' : 'rotate-45 translate-x-[450px] translate-y-[-50px] group-hover:translate-y-[200px]'}`}></div>
         <img src={img}  className={` bg-poster rounded-[11px] ${listStyle ? 'w-[35.807291666666664vw] h-[22.135416666666668vw]' : 'w-[100%] h-[147px]'}`} />
-        <div className={`absolute  w-[70px] h-[25px] rounded-[15px] bg-[#F5F5F4] text-[11px] shadow-[0px_3px_3px_0px_#0000001F] text-[#DEDEDE] leading-[25px] ${listStyle ? 'top-[1.8229166666666667vw] left-[33.854166666666664vw]' : 'left-5 top-[140px]'}`}>{technologyList}</div>
+        <div className={`absolute  w-[70px] h-[25px] rounded-[15px] bg-[#F5F5F4] text-[11px] shadow-[0px_3px_3px_0px_#0000001F] text-[#DEDEDE] leading-[25px] line-clamp-1 ${listStyle ? 'top-[1.8229166666666667vw] left-[33.854166666666664vw]' : 'left-5 top-[140px]'}`}>{technologyList}</div>
         <h2 className={`absolute  text-[16px] font-semibold  text-right ${listStyle ? 'top-[1.166666666666667vw] right-[0.78125vw]' : 'top-[168px] '}`}>{title}</h2>
         <span className={`text-[14px] text-[#5E5E5E] absolute top-[4.166666666666667vw] right-[0.78125vw] ${listStyle ? 'block' : 'hidden'}`}>عنوان دسته بندی</span>
-        <p className={`absolute mr-[10px] text-[11px] text-right  break-words  text-[#9A9A9A] ${listStyle ? 'top-[6.25vw] right-0 w-[32.552083333333336vw]' : 'top-[202px] right-[-5px] w-[100%] '}`}>{description}</p>
+        <p className={`absolute mr-[10px] text-[11px] text-right break-words text-[#9A9A9A] ${listStyle ? 'top-[6.25vw] right-0 w-[32.552083333333336vw]' : 'top-[202px] right-[-5px] w-[100%]'} line-clamp-3`}>{description}</p>
         
         <div className={`flex justify-center items-center gap-[5.208333333333333vw] flex-nowrap w-[31.25vw] absolute top-[11.6041666666666665vw] right-[0.78125vw] ${listStyle ? 'flex' : 'hidden'}`}>
         <div className='w-[7.096354166666667vw] h-[2.5390625vw]  flex flex-nowrap justify-center items-center gap-[0.5208333333333334vw] '>

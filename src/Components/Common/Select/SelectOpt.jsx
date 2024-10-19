@@ -10,7 +10,13 @@ const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect
 
   // Sort data for sorting options
   const sortData = [
-    { id: 1, value: 'Cost' }
+    { id: 1, value: 'Cost' , label : 'بر اساس قیمت'},
+    { id: 2, value: 'StatusName', label : 'وضعیت دوره'},
+    { id: 3, value: 'InsertDate' , label : 'تاریخ '},
+    { id: 4, value: 'TeacherName', label : 'نام استاد' },
+    { id: 5, value: 'LastUpdate', label : 'آخرین آپدیت' },
+    { id: 6, value: 'LevelName' , label : 'سطح دوره'},
+    { id: 7, value: 'TypeName' , label : 'تایپ دوره'},
   ];
 
   // Fetch teacher or category list based on prop
@@ -79,7 +85,7 @@ const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect
                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer text-[12px]"
                 onClick={() => handleSelect(option)}
               >
-                {isSortSelect ? option.value : isTeacherSelect ? option.fullName : option.techName}
+                {isSortSelect ? option.label : isTeacherSelect ? option.fullName : option.techName}
               </li>
             ))}
           </motion.ul>
