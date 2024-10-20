@@ -6,6 +6,10 @@ import CommentCard from "./CommentBar/CommentBar";
 import CommentSection from "./CommentBar/CommentBar";
 import CourseTable from "./CourseList/CourseList";
 import Gauge from "../../LeftBar/LeftBarDown/PersonalInfo/ComplitingCircle";
+import Home from "./CourseListDeatail/Base";
+import Filters from "./CourseListDeatail/Filters";
+import Layout from "./CourseListDeatail/Layout";
+import Courses from "./CourseListDeatail/Courses";
 
 const Dashbord =()=>{
    
@@ -103,14 +107,18 @@ const Dashbord =()=>{
           </div>
 
           <div className="w-[20%] h-[99%] bg-white rounded-[0.5vw]">
-            <Gauge  value={5}/>
+            <Gauge value={5} />
           </div>
           <div className="h-full w-[22%] relative top-[-5vw]">
             <PersianCalender />
           </div>
         </div>
         <div>
-          <CourseTable />
+          {/* <CourseTable /> */}
+          <Layout>
+            <Filters/>
+            <Courses />
+          </Layout>
         </div>
       </div>
     );
