@@ -4,7 +4,6 @@ import { useQuery } from "react-query";
 import { setCourseList } from "../../../../../../Redux/Slice/Course/CourseList";
 import { getCourseListWithPagination } from "../../../../../../Core/Services/Api/CoursePage/getCourseListWithPagination";
 import TextLanding from "../../../../../Common/TextInLanding/TextLanding";
-import CourseItem from "../../../../../Common/CorseItem/CourseItem";
 import Pagination from "../../../../../Common/Paginate/Paginate";
 import moment from "jalali-moment";
 import PriceFilter from "../../../../../ComponentOnce/PriceFilter/PriceFilter";
@@ -12,6 +11,9 @@ import SearchBox from "./SearchBox/SearchBox";
 import SelectOpt from "./Select/SelectOpt";
 import DateModal from "./Date/Date";
 import { Tooltip } from "@nextui-org/react";
+import CourseCard from "../../../../CourseDetail/CourseCard/CourseCard";
+import { getCourseDetail } from "../../../../../../Core/Services/Api/CourseDetail/CourseDetail";
+import CourseItem from "./CorseItem/CourseItem";
 
 
 const CoursePage = () => {
@@ -40,6 +42,14 @@ const CoursePage = () => {
 
   const [minCost, setMinCost] = useState(null);
   const [maxCost, setMaxCost] = useState(null);
+
+  // course detail modal 
+  const [detailCourse,setDetailCourse]=useState(false)
+  const [detail,setDetail]=useState({})
+  const [detailId,setDetailId]=useState(null)
+
+
+
 
   const itemsPerPage =7;
   const dispatch = useDispatch();
@@ -172,6 +182,7 @@ const CoursePage = () => {
         </div>
         <div className="fw-[4%] h-full flex items-center">
           <svg
+          onClick={()=>{setDetailCourse(true);setDetailId(course.courseId);}}
             className="cursor-pointer"
             width="24"
             height="24"
@@ -195,8 +206,49 @@ const CoursePage = () => {
     ));
   };
 
+  const GetId = async (detailId) => {
+    const res = await getCourseDetail(detailId);
+    setDetail(res);
+  };
+  useEffect(() => {
+    GetId(detailId);
+  }, [detailId]);
+
+
+  const renderDetail = () => {
+    
+    if (isLoading) return <p>در حال بارگذاری...</p>;
+    if (error) return <p>خطایی رخ داده است...</p>;
+    
+
+    return (
+      <CourseItem
+        key={detail.courseId}
+        courseId={detail.courseId}
+        title={detail.title}
+        img={detail.tumbImageAddress}
+        technologyList={detail.technologyList}
+        description={detail.describe}
+        teacherName={detail.teacherName}
+        likeCount={detail.likeCount}
+        commandCount={detail.commandCount}
+        courseRate={detail.courseRate}
+        statusName={detail.statusName}
+        price={detail.cost}
+        currentRegistrants={detail.currentRegistrants}
+        date={(detail.lastUpdate)}
+        listStyle={listStyle}
+      />
+    );
+  };
+
   return (
-    <div className="m-auto w-[76vw] bg-transparent relative text-center">
+    <div className="relative m-auto w-[76vw] bg-transparent text-center">
+      <div
+        className={`absolute h-[30vw] w-[20vw] top-[1vw] right-[50%] translate-x-[50%] z-40 bg-gray-500 ${detailCourse==true? 'block' : 'block'}`}
+      >
+        {detailCourse==true? renderDetail():<div></div>}
+      </div>
       <div className="flex justify-between pb-[1vw] px-[1vw] items-start">
         <span className="text-[1.5vw] font-[600]">جدیدترین دوره ها</span>
         <div className="rounded-full border border-red-500 h-[2.2vw] w-[5vw] text-red-500 flex items-center justify-evenly cursor-pointer">
