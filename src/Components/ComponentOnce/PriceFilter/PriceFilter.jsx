@@ -32,7 +32,7 @@ const PriceFilter = ({ onFilter }) => {
   };
 
   return (
-    <div className="price-filter w-[180px] relative flex flex-nowrap justify-center items-center gap-3">
+    <div className="price-filter flex-grow-[2] relative flex flex-nowrap justify-center items-center gap-3">
         <h3 className='absolute right-0'>قیمت</h3>
         <span className='absolute text-[12px] right-16 top-[-20px]'>حداکثر:{selectedMaxPrice}</span>
         <span className='absolute text-[12px] right-40 top-[-20px]'>حداقل:{selectedMinPrice}</span>

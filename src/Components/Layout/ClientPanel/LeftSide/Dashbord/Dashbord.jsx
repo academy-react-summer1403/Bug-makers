@@ -6,17 +6,12 @@ import CommentCard from "./CommentBar/CommentBar";
 import CommentSection from "./CommentBar/CommentBar";
 import CourseTable from "./CourseList/CourseList";
 import Gauge from "../../LeftBar/LeftBarDown/PersonalInfo/ComplitingCircle";
-import Home from "./CourseListDeatail/Base";
-import Filters from "./CourseListDeatail/Filters";
-import Layout from "./CourseListDeatail/Layout";
-import Courses from "./CourseListDeatail/Courses";
-import CoursePage from "../../../../../Pages/CoursePage/CoursePage";
-import BlogPage from "../../../BlogPage/BlogPage";
+import CoursePage from "./CourseListDeatail/Base";
 
 const Dashbord =()=>{
    
     return (
-      <div className="w-full h-full">
+      <div className="relative w-full h-full">
         <div className="h-[14%] w-full flex items-center py-[1vw]">
           <span className="font-[600] text-[1.8vw]">سلام، صبح‌ بخیر پارسا</span>
           <div className="h-full w-[6%] flex justify-between items-center mr-[30%]">
@@ -115,7 +110,7 @@ const Dashbord =()=>{
             <PersianCalender />
           </div>
         </div>
-        <div>
+        <div className="W-[100%] h-[41vw] pb-[1vw] pt-[1vw] px-[0.5vw] bg-white overflow-auto absolute z-[5000] top-[0vw] right-[0vw]">
           {/* <CourseTable /> */}
           <CoursePage />
           {/* <BlogPage/> */}

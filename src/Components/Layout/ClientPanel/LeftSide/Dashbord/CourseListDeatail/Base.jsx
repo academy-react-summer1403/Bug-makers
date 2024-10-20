@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { setCourseList } from "../../../../../../Redux/Slice/Course/CourseList";
 import { getCourseListWithPagination } from "../../../../../../Core/Services/Api/CoursePage/getCourseListWithPagination";
-import SearchBox from "../../../../../Common/SearchBox/SearchBox";
 import TextLanding from "../../../../../Common/TextInLanding/TextLanding";
 import CourseItem from "../../../../../Common/CorseItem/CourseItem";
 import Pagination from "../../../../../Common/Paginate/Paginate";
-import SelectOpt from "../../../../../Common/Select/SelectOpt";
-import DateModal from "../../../../../ComponentOnce/Date/Date";
 import moment from "jalali-moment";
 import PriceFilter from "../../../../../ComponentOnce/PriceFilter/PriceFilter";
+import SearchBox from "./SearchBox/SearchBox";
+import SelectOpt from "./Select/SelectOpt";
+import DateModal from "./Date/Date";
+import { Tooltip } from "@nextui-org/react";
+
 
 const CoursePage = () => {
   // stateForCategoryFilter
@@ -39,7 +41,7 @@ const CoursePage = () => {
   const [minCost, setMinCost] = useState(null);
   const [maxCost, setMaxCost] = useState(null);
 
-  const itemsPerPage = 8;
+  const itemsPerPage =7;
   const dispatch = useDispatch();
 
   // getCourseListFromRedux
@@ -138,36 +140,89 @@ const CoursePage = () => {
     return CourseListItem.slice(
       currentPage * itemsPerPage,
       (currentPage + 1) * itemsPerPage
-    ).map((course) => (
-      <CourseItem
-        key={course.courseId}
-        courseId={course.courseId}
-        title={course.title}
-        img={course.tumbImageAddress}
-        technologyList={course.technologyList}
-        description={course.describe}
-        teacherName={course.teacherName}
-        likeCount={course.likeCount}
-        commandCount={course.commandCount}
-        courseRate={course.courseRate}
-        statusName={course.statusName}
-        price={course.cost}
-        currentRegistrants={course.currentRegistrants}
-        date={convertToJalali(course.lastUpdate)}
-        listStyle={listStyle}
-      />
+    ).map((course, index) => (
+      <div
+        key={index}
+        className="w-full h-[3.6vw] rounded-[0.4vw] flex items-center border-b border-gray-200 text-[#272727] hover:bg-gray-100"
+      >
+        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+          {course.title}
+        </div>
+        <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...">
+          <Tooltip
+            className="text-gray-700"
+            content={`${course.describe}`}
+          >
+            <span>{course.describe}</span>
+          </Tooltip>
+        </div>
+        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+          <Tooltip
+            className="text-gray-700"
+            content={`استاد: ${course.teacherName}`}
+          >
+            {course.teacherName}
+          </Tooltip>
+        </div>
+        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+          {convertToJalali(course.lastUpdate)}
+        </div>
+        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+          {course.cost} تومان
+        </div>
+        <div className="fw-[4%] h-full flex items-center">
+          <svg
+            className="cursor-pointer"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
+              stroke="#787878"
+              stroke-width="1.5"
+            />
+            <path
+              d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
+              stroke="#787878"
+              stroke-width="1.5"
+            />
+          </svg>
+        </div>
+      </div>
     ));
   };
 
   return (
-    <div className="m-auto w-full bg-transparent relative text-center">
-      <div className="w-[90%] lg:w-[76%] mt-[5vw] m-auto">
-        <TextLanding h3Text="دوره های آموزشی" pText="دوره های ما" />
-
+    <div className="m-auto w-[76vw] bg-transparent relative text-center">
+      <div className="flex justify-between pb-[1vw] px-[1vw] items-start">
+        <span className="text-[1.5vw] font-[600]">جدیدترین دوره ها</span>
+        <div className="rounded-full border border-red-500 h-[2.2vw] w-[5vw] text-red-500 flex items-center justify-evenly cursor-pointer">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19.001 5L5.00098 19M5.00098 5L19.001 19"
+              stroke="#FF4242"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>بستن</span>
+        </div>
+      </div>
+      <div className="w-[100%] selection: mt-[0vw] ">
         {/* searchAndFilterSection */}
-        <div className="h-[55px] max-sm:h-[220px] relative max-lg:h-[130px] flex flex-row flex-wrap lg:flex-row justify-center items-center gap-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3">
+        <div className="h-[60px]  relative flex flex-row flex-wrap justify-center items-center gap-x-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3">
           <SearchBox
-            width={"100%"}
+            width={"20%"}
             lgWidth={"160px"}
             placeHolder="دنبال چی میگردی"
             value={`${filterValue ? "" : queryValue}`}
@@ -181,9 +236,9 @@ const CoursePage = () => {
             onChange={(value) => setTeacherId(value)}
             FilterValue={filterValue}
           />
-          
+
           <DateModal onFilter={filterByDateRange} />
-          
+
           <PriceFilter
             width={"%"}
             lgWidth={"160px"}
@@ -202,51 +257,19 @@ const CoursePage = () => {
         </div>
 
         {/* filterActionSection */}
-        <div className="relative w-full h-auto lg:h-[90px] flex flex-wrap lg:flex-nowrap gap-3 justify-end items-center mt-5">
-          <span className="hidden lg:block text-[10px] text-[#978A8A] absolute right-0">
-            تعداد {CourseListItem.length} نتیجه از {data?.totalCount || 0} دوره
-            طبق جستجوی شما یافت شد
-          </span>
-          <span
-            className=" hidden lg:block w-[106px] h-[20px] rounded-[16px] text-center text-[10px] leading-6 m-auto relative top-10 text-[#FE8E8E] cursor-pointer bg-white lg:mt-0 "
-            onClick={handleRemoveFilter}
-          >
-            حذف تمامی فیلتر
-          </span>
 
-          {/* listStyleToggle */}
-          <div
-            className={` w-fit p-2 h-[44px] rounded-[9px] bg-white flex justify-center items-center gap-3 lg:absolute left-0 ${
-              listStyle ? "bg-[76%_100%]" : "bg-[28%_100%]"
-            }`}
-          >
-            <img
-              src="../../../public/Image/Icon/list.png"
-              className="cursor-pointer  max-custom:hidden "
-              onClick={() => setListStyle(true)}
-            />
-            <img
-              src="../../../public/Image/Icon/apps.png"
-              className="cursor-pointer"
-              onClick={() => setListStyle(false)}
-            />
-          </div>
-
-          {/* additionalActionButtons */}
-          <div className="w-[87px] h-[44px] rounded-[9px] bg-white flex justify-center items-center gap-3 lg:absolute left-[100px]">
-            <span className="text-[#808080] text-[15px]">
-              {data?.totalCount}
-            </span>
-            <img src="../../../public/Image/Icon/eye.png" />
-          </div>
-          <div className="w-[87px] h-[44px] rounded-[9px] bg-white flex justify-center items-center gap-3 lg:absolute left-[200px]">
-            <span className="text-[#808080] text-[15px]">وضعیت</span>
-            <img src="../../../public/Image/Icon/eye.png" />
+        <div className=" w-full mt-[0.5vw]">
+          <div className="flex items-center w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600 text-sm leading-normal">
+            <div className="w-[16%]  py-3 px-6 text-right">نام دوره</div>
+            <div className="w-[32%]   py-3 px-6 text-right">درباره دوره</div>
+            <div className="w-[16%]  py-3 px-6 text-right">استاد دوره</div>
+            <div className="w-[16%]  py-3 px-6 text-right">تاریخ برگزاری</div>
+            <div className="w-[16%] py-3 px-6 text-right">قیمت دوره</div>
+            <div className="w-[4%]  py-3 px-4 text-center"></div>
           </div>
         </div>
-
         {/* courseItemsSection */}
-        <div className="flex flex-wrap justify-center gap-[30px] lg:gap-[50px] mt-3">
+        <div className="flex flex-wrap justify-center items-center  mt-3">
           {renderCourses()}
         </div>
 

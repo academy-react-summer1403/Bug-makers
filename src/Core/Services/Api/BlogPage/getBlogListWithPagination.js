@@ -33,3 +33,4 @@ export const getBlogListWithPagination = async (queryValue,categoryQuery,sorting
   const response = await instance.get(url);
   return response.news; 
 };
+

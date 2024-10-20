@@ -29,5 +29,5 @@ export const getCourseListWithPagination = async (query, teacherId, categoryQuer
   }
 
   const response = await instance.get(url);
-  return response.data; 
+  return response; 
 };

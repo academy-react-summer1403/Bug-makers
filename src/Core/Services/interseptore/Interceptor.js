@@ -13,7 +13,7 @@ const onSuccess = (response) => {
     response.data.message?toast.success(response.data.message):console.log(response.data)
     return response.data;
 }
-
+// response or responce.data
 const onError = (err) => {
     console.log(err);
 
@@ -38,3 +38,26 @@ instance.interceptors.request.use((opt)=>{
 });
 
 export default instance;
+
+
+
+// .......................
+// import axios from 'axios';
+
+// const baseURL = import.meta.env.VITE_BASE_URL;
+
+// const instance = axios.create({
+//   baseURL: baseURL,
+// });
+
+// instance.interceptors.request.use(
+//   (config) => {
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
+
+// export default instance;
+
