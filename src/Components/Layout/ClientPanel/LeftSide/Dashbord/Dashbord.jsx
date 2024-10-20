@@ -10,6 +10,8 @@ import Home from "./CourseListDeatail/Base";
 import Filters from "./CourseListDeatail/Filters";
 import Layout from "./CourseListDeatail/Layout";
 import Courses from "./CourseListDeatail/Courses";
+import CoursePage from "../../../../../Pages/CoursePage/CoursePage";
+import BlogPage from "../../../BlogPage/BlogPage";
 
 const Dashbord =()=>{
    
@@ -115,10 +117,8 @@ const Dashbord =()=>{
         </div>
         <div>
           {/* <CourseTable /> */}
-          <Layout>
-            <Filters/>
-            <Courses />
-          </Layout>
+          <CoursePage />
+          {/* <BlogPage/> */}
         </div>
       </div>
     );

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import './App.css'
 import Header from '../Components/Layout/Header/Header'
 import LoginPage from '../Components/Layout/LoginPages/LoginPage.jsx'
@@ -10,17 +10,20 @@ import CourseDetail from '../Components/Layout/CourseDetail/CourseDetail.jsx'
 import { Toaster } from 'react-hot-toast'
 import { NextUIProvider } from '@nextui-org/react'
 
+
+
 function App() {
 
   return (
     <>
+      <Suspense fallback={<>loading</>}>
       {/* <BlogDetail/> */}
       <NextUIProvider>
-      <Outlet />
-      <Toaster />
-     
+        <Outlet />
+        <Toaster />
       </NextUIProvider>
       {/* <CourseDetail/> */}
+      </Suspense>
     </>
   );
 }

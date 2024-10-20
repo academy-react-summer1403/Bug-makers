@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from '../src/App/App.jsx'
 import './index.css'
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
             errorElement: <Error />,
             children: [
               {
-                index:true,
+                
                 path: "Personal",
                 element: <PersonalInfo />,
                 errorElement: <Error />,
@@ -162,14 +162,14 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    
     <Provider store={Store}>
       <QueryClientProvider client={queryClient}>
-
-    
     <RouterProvider router={router}>
       <App/>
     </RouterProvider>
     </QueryClientProvider>
     </Provider>
+    
   </StrictMode>,
 )

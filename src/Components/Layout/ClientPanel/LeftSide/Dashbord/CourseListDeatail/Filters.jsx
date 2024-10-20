@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Slider from "react-slider";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Modal, Input, Button, Select } from "@nextui-org/react";
+import { Modal, Input, Button, Select, SelectItem } from "@nextui-org/react";
 
 const Filters = () => {
   // State management for date picker modal
@@ -52,8 +52,8 @@ const Filters = () => {
           onChange={(e) => setSelectedInstructor(e.target.value)}
           fullWidth
         >
-          {/* <ption value="محسن اسفندیاری">محسن اسفندیاری</ption> */}
-          {/* <option value="استاد دیگری">استاد دیگری</option> */}
+          <SelectItem value="محسن اسفندیاری">محسن اسفندیاری</SelectItem>
+          <SelectItem value="استاد دیگری">استاد دیگری</SelectItem>
         </Select>
       </div>
 
