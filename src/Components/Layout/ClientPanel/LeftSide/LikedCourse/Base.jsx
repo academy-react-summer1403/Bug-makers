@@ -15,38 +15,19 @@ import CourseCard from "../../../CourseDetail/CourseCard/CourseCard";
 import { getCourseDetail } from "../../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CourseItem from "./CorseItem/CourseItem";
 import convertToJalali from "../../../../Common/TimeChanger/TimeToShamsi";
+import { getLikedCourse } from "../../../../../Core/Services/Api/Client/getCourseListWithPagination";
 
 
 const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
-  // stateForCategoryFilter
-  const [categoryQuery, setCategoryQuery] = useState("");
-
-  // stateForTeacherFilter
-  const [teacherId, setTeacherId] = useState(null);
-
-  // stateForSearchQuery
-  const [queryValue, setQueryValue] = useState("");
-
-  // stateForCurrentPage
-  const [currentPage, setCurrentPage] = useState(0);
-
+ 
   // stateForListStyle
   const [listStyle, setListStyle] = useState(false);
 
-  // state value
-  const [filterValue, setFilterValue] = useState(false);
-
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-
-  const [sorting, setSorting] = useState("");
-
-  const [minCost, setMinCost] = useState(null);
-  const [maxCost, setMaxCost] = useState(null);
+  const [response,setResponse]=useState([])
 
   // course detail modal
   const [detailCourse, setDetailCourse] = useState(false);
-  const [detail, setDetail] = useState({});
+  const [detail, setDetail] = useState();
   const [detailId, setDetailId] = useState(null);
 
   const itemsPerPage = itemPerpage;
@@ -56,75 +37,22 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
   const CourseListItem = useSelector((state) => state.CourseSlice.CourseList);
 
   // fetchCoursesWithFilters
-  const { isLoading, error, data } = useQuery(
-    [
-      "getCourse",
-      queryValue,
-      teacherId,
-      categoryQuery,
-      startDate,
-      endDate,
-      sorting,
-      minCost,
-      maxCost,
-    ],
-    () =>
-      getCourseListWithPagination(
-        queryValue,
-        teacherId,
-        categoryQuery,
-        startDate,
-        endDate,
-        sorting,
-        minCost,
-        maxCost
-      ),
-    {
-      onSuccess: (data) => {
-        dispatch(setCourseList(data.courseFilterDtos || data));
-      },
-      keepPreviousData: true,
-    }
-  );
+  const fetch = async ()=>{
+    const data = await getLikedCourse();
+    setResponse(data.favoriteCourseDto);
+    
 
-  // handleSearchQueryChange
-  const handleSearch = (e) => {
-    setQueryValue(e.target.value);
-  };
+  }
+  useEffect(()=>{
+    fetch()
+  },[])
+    
 
-  // handleRemoveFilters
-  const handleRemoveFilter = () => {
-    setQueryValue("");
-    setTeacherId(null);
-    setCategoryQuery("");
-    setSorting("Active");
-    setStartDate("");
-    setEndDate("");
 
-    setFilterValue(true);
-    setMinCost(null);
-    setMaxCost(null);
-    setTimeout(() => {
-      setFilterValue(false);
-    }, 100);
-  };
 
-  const filterByDateRange = (startDate, endDate) => {
-    setStartDate(startDate);
-    setEndDate(endDate);
-  };
-
-  // Converting Date
-  // const convertToJalali = (miladiDate) => {
-  //   return moment(miladiDate, "YYYY-MM-DD").locale("fa").format("YYYY/MM/DD");
-  // };
-
-  const handlePriceFilter = (min, max) => {
-    setMinCost(min);
-    setMaxCost(max);
-  };
 
   useEffect(() => {
+    
     const handleResize = () => {
       if (window.innerWidth <= 952) {
         setListStyle(false);
@@ -142,70 +70,73 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
   }, []);
   // renderCourseItems
   const renderCourses = () => {
-    if (isLoading) return <p>در حال بارگذاری...</p>;
-    if (error) return <p>خطایی رخ داده است...</p>;
 
-    return CourseListItem.slice(
-      currentPage * itemsPerPage,
-      (currentPage + 1) * itemsPerPage
-    ).map((course, index) => (
-      <div
-        key={index}
-        className="w-full h-[3vw] rounded-[0.4vw] flex items-center  text-[#272727] hover:bg-gray-100"
-      >
-        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
-          {course.title}
-        </div>
-        <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...">
-          <Tooltip className="text-gray-700" content={`${course.describe}`}>
-            <span>{course.describe}</span>
-          </Tooltip>
-        </div>
-        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
-          <Tooltip
-            className="text-gray-700"
-            content={`استاد: ${course.teacherName}`}
-          >
-            {course.teacherName}
-          </Tooltip>
-        </div>
-        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
-          {convertToJalali(course.lastUpdate)}
-        </div>
-        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
-          {course.cost} تومان
-        </div>
-        <div
-          className={`w-[4%] h-full items-center ${
-            show == true ? "flex" : "hidden"
-          }`}
-        >
-          <svg
-            onClick={() => {
-              setDetailId(course.courseId);
-              setDetailCourse(true);
-            }}
-            className="cursor-pointer"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
-              stroke="#787878"
-              stroke-width="1.5"
-            />
-            <path
-              d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
-              stroke="#787878"
-              stroke-width="1.5"
-            />
-          </svg>
-        </div>
-      </div>
-    ));
+       return response.map((course, index) => (
+         <div
+           key={index}
+           className="w-full h-[3vw] rounded-[0.4vw] flex items-center  text-[#272727] hover:bg-gray-100"
+         >
+           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+             {course.courseTitle}
+           </div>
+           <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...">
+             <Tooltip className="text-gray-700 w-[10vw] leading-[1.5vw]" content={`${course.describe}`}>
+               <span>{course.describe}</span>
+             </Tooltip>
+           </div>
+           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+             <Tooltip
+               className="text-gray-700"
+               content={`استاد: ${course.teacheName}`}
+             >
+               {course.teacheName}
+             </Tooltip>
+           </div>
+           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+             {convertToJalali(course.lastUpdate)}
+           </div>
+           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+             {course.levelName} 
+           </div>
+           <div
+             className={`w-[4%] h-full items-center ${
+                true ? "flex" : "hidden"
+             }`}
+           >
+             <svg
+               onClick={() => {
+                GetId(course.courseId);
+                 setDetailId(course.courseId);
+                 setTimeout(() => {
+                  setDetailCourse(true);
+                 }, 1200); 
+                 
+                 console.log(detailCourse)
+               }}
+               className="cursor-pointer"
+               width="24"
+               height="24"
+               viewBox="0 0 24 24"
+               fill="none"
+               xmlns="http://www.w3.org/2000/svg"
+             >
+               <path
+                 d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
+                 stroke="#787878"
+                 stroke-width="1.5"
+               />
+               <path
+                 d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
+                 stroke="#787878"
+                 stroke-width="1.5"
+               />
+             </svg>
+           </div>
+         </div>
+       ));
+
+
+   
   };
 
   const GetId = async (detailId) => {
@@ -218,52 +149,50 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
   }, [detailId]);
 
   const renderDetail = () => {
-    if (isLoading) return <p>در حال بارگذاری...</p>;
-    if (error) return <p>خطایی رخ داده است...</p>;
 
-    {
-      detail == null ? alert() : "";
-    }
 
-    return (
-      <CourseItem
-        key={detail.courseId}
-        id={detail.courseId}
-        courseId={detail.courseId}
-        title={detail.title}
-        img={detail.imageAddress}
-        technologyList={detail.techs != null ? detail.techs : "برنامه نویسی"}
-        description={detail.describe}
-        teacherName={detail.teacherName}
-        likeCount={detail.likeCount}
-        commandCount={detail.commandCount}
-        courseRate={detail.currentRate}
-        statusName={detail.statusName}
-        price={detail.cost}
-        currentRegistrants={detail.currentRegistrants}
-        date={detail.lastUpdate}
-        listStyle={listStyle}
-        level={detail.courseLevelName}
-        state={detail.courseStatusName}
-        courseGroupCount={detail.courseGroupCount}
-        capacity={detail.capacity}
-        startDate={convertToJalali(detail.startTime)}
-        endDate={convertToJalali(detail.endTime)}
-        setDetailCourse={setDetailCourse}
-        detailCourse={detailCourse}
-        GetId={GetId}
-        userIsLiked={detail.currentUserLike}
-        currentUserDissLike={detail.currentUserDissLike}
-        userLikeId={detail.userLikeId}
-      />
-    );
+     return (
+       <CourseItem
+         key={detail.courseId}
+         id={detail.courseId}
+         courseId={detail.courseId}
+         title={detail.title}
+         img={detail.imageAddress}
+         technologyList={detail.techs != null ? detail.techs : "برنامه نویسی"}
+         description={detail.describe}
+         teacherName={detail.teacherName}
+         likeCount={detail.likeCount}
+         commandCount={detail.commandCount}
+         courseRate={detail.currentRate}
+         statusName={detail.statusName}
+         price={detail.cost}
+         currentRegistrants={detail.currentRegistrants}
+         date={detail.lastUpdate}
+         listStyle={listStyle}
+         level={detail.courseLevelName}
+         state={detail.courseStatusName}
+         courseGroupCount={detail.courseGroupCount}
+         capacity={detail.capacity}
+         startDate={convertToJalali(detail.startTime)}
+         endDate={convertToJalali(detail.endTime)}
+         setDetailCourse={setDetailCourse}
+         detailCourse={detailCourse}
+         GetId={GetId}
+         userIsLiked={detail.currentUserLike}
+         currentUserDissLike={detail.currentUserDissLike}
+         userLikeId={detail.userLikeId}
+       />
+     );
+
   };
+  
 
   return (
-    <div className="relative m-auto w-[76vw] bg-transparent text-center ">
+    <div className="relative  m-auto w-[76vw] bg-transparent text-center ">
       <div
         className={`absolute z-[1000]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%] ${
           detailCourse == true ? "block" : "hidden"
+          
         }`}
       >
         <div
@@ -280,7 +209,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
           show == true ? "flex" : "hidden"
         }`}
       >
-        <span className="text-[1.5vw] font-[600]">جدیدترین دوره ها</span>
+        <span className="text-[1.5vw] font-[600]"></span>
         <div
           onClick={() => {
             setShowMoreCourse(false);
@@ -347,16 +276,16 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
         </div> */}
 
         {/* for dashbord........  */}
-        <div className={` justify-between items-center mb-[0.2vw] ${show == false ? "flex" : "hidden"}`}>
+        <div className={` justify-between items-center my-[1vw] ${show == false ? "flex" : "hidden"}`}>
           <div className="text-[1.5vw] font-[600]">جدیدترین دوره‌ها</div>
-          <span
+          {/* <span
             onClick={() => {
               setShowMoreCourse(true);
             }}
             className="text-[#E1C461] cursor-pointer"
           >
             مشاهده همه
-          </span>
+          </span> */}
         </div>
 
         {/* filterActionSection */}
@@ -367,7 +296,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
             <div className="w-[32%]   py-3 px-6 text-right">درباره دوره</div>
             <div className="w-[16%]  py-3 px-6 text-right">استاد دوره</div>
             <div className="w-[16%]  py-3 px-6 text-right">تاریخ برگزاری</div>
-            <div className="w-[16%] py-3 px-6 text-right">قیمت دوره</div>
+            <div className="w-[16%] py-3 px-6 text-right">سطح دوره</div>
             <div className="w-[4%]  py-3 px-4 text-center"></div>
           </div>
         </div>
