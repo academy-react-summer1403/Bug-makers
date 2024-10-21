@@ -92,7 +92,7 @@ const RightBar = () => {
     },
     {
       id: 2,
-      name: "Reserve",
+      name: "MyReserve",
       label: "رزرو من",
       icon: (
         <svg
@@ -159,7 +159,7 @@ const RightBar = () => {
     },
     {
       id: 4,
-      name: "LikedBlogs",
+      name: "LikedBlog",
       label: "علاقه‌مندی مقالات",
       icon: (
         <svg

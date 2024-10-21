@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "react-query";
-import { setCourseList } from "../../../../../../Redux/Slice/Course/CourseList";
-import { getCourseListWithPagination } from "../../../../../../Core/Services/Api/CoursePage/getCourseListWithPagination";
-import TextLanding from "../../../../../Common/TextInLanding/TextLanding";
-import Pagination from "../../../../../Common/Paginate/Paginate";
+import { setCourseList } from "../../../../../Redux/Slice/Course/CourseList";
+import { getCourseListWithPagination } from "../../../../../Core/Services/Api/CoursePage/getCourseListWithPagination";
+import TextLanding from "../../../../Common/TextInLanding/TextLanding";
+// import Pagination from "../../../../Common/Paginate/Paginate";
 import moment from "jalali-moment";
-import PriceFilter from "../../../../../ComponentOnce/PriceFilter/PriceFilter";
-import SearchBox from "./SearchBox/SearchBox";
-import SelectOpt from "./Select/SelectOpt";
-import DateModal from "./Date/Date";
+// import PriceFilter from "../../../../ComponentOnce/PriceFilter/PriceFilter";
+// import SearchBox from "./SearchBox/SearchBox";
+// import SelectOpt from "./Select/SelectOpt";
+// import DateModal from "./Date/Date";
 import { Tooltip } from "@nextui-org/react";
-import CourseCard from "../../../../CourseDetail/CourseCard/CourseCard";
-import { getCourseDetail } from "../../../../../../Core/Services/Api/CourseDetail/CourseDetail";
+import CourseCard from "../../../CourseDetail/CourseCard/CourseCard";
+import { getCourseDetail } from "../../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CourseItem from "./CorseItem/CourseItem";
-import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
+import convertToJalali from "../../../../Common/TimeChanger/TimeToShamsi";
 
 
 const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
@@ -307,7 +307,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
       </div>
       <div className="w-[100%] selection: mt-[0vw] ">
         {/* searchAndFilterSection */}
-        <div
+        {/* <div
           className={`h-[60px]  relative flex-row flex-wrap justify-center items-center gap-x-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
             ${show == true ? "flex" : "hidden"}`}
         >
@@ -344,7 +344,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
           >
             حذف تمامی فیلتر
           </span>
-        </div>
+        </div> */}
 
         {/* for dashbord........  */}
         <div className={` justify-between items-center mb-[0.2vw] ${show == false ? "flex" : "hidden"}`}>
@@ -377,10 +377,10 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
         </div>
 
         {/* paginationSection */}
-        <Pagination
+        {/* <Pagination
           pageCount={Math.ceil(CourseListItem.length / itemsPerPage)}
           handlePageClick={(data) => setCurrentPage(data.selected)}
-        />
+        /> */}
       </div>
     </div>
   );

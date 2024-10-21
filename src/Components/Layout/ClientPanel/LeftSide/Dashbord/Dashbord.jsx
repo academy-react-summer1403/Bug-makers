@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TehranClock from "../../../../Common/TimeChanger/TimeHours";
 import TodayDate from "../../../../Common/TimeChanger/TodayDate";
 import PersianCalender from "../../../../Common/TimeChanger/PersianCalender";
@@ -9,10 +9,11 @@ import Gauge from "../../LeftBar/LeftBarDown/PersonalInfo/ComplitingCircle";
 import CoursePage from "./CourseListDeatail/Base";
 
 const Dashbord =()=>{
+  const [showMoreCourse,setShowMoreCourse]=useState(false)
    
     return (
       <div className="relative w-full h-full">
-        <div className="h-[14%] w-full flex items-center py-[1vw]">
+        <div className="h-[10%] w-full flex items-center py-[1vw]">
           <span className="font-[600] text-[1.8vw]">سلام، صبح‌ بخیر پارسا</span>
           <div className="h-full w-[6%] flex justify-between items-center mr-[30%]">
             <div className="size-[1.7vw] rounded-full bg-white flex items-center justify-center">
@@ -110,9 +111,24 @@ const Dashbord =()=>{
             <PersianCalender />
           </div>
         </div>
-        <div className="W-[100%] h-[41vw] pb-[1vw] pt-[1vw] px-[0.5vw] bg-white overflow-auto absolute z-[5000] top-[0vw] right-[0vw]">
+        <div className="w-full h-[23vw] rounded-[0.5vw] pb-[0.2vw] pt-[0.2vw] px-[0.5vw] bg-white overflow-auto mt-[0.2vw] shadow-lg">
+          <CoursePage
+            show={false}
+            itemPerpage={4}
+            setShowMoreCourse={setShowMoreCourse}
+          />
+        </div>
+        <div
+          className={`W-[100%] h-[41vw] pb-[1vw] pt-[1vw] px-[0.5vw] bg-white overflow-auto absolute z-[5000] top-[0vw] right-[0vw]
+            ${showMoreCourse == true ? "block" : "hidden"}
+            `}
+        >
           {/* <CourseTable /> */}
-          <CoursePage />
+          <CoursePage
+            show={true}
+            itemPerpage={9}
+            setShowMoreCourse={setShowMoreCourse}
+          />
           {/* <BlogPage/> */}
         </div>
       </div>
