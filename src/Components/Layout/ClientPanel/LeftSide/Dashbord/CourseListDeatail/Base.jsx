@@ -182,7 +182,7 @@ const CoursePage = () => {
         </div>
         <div className="fw-[4%] h-full flex items-center">
           <svg
-          onClick={()=>{setDetailCourse(true);setDetailId(course.courseId);}}
+          onClick={()=>{setDetailId(course.courseId);setDetailCourse(true);}}
             className="cursor-pointer"
             width="24"
             height="24"
@@ -219,6 +219,8 @@ const CoursePage = () => {
     
     if (isLoading) return <p>در حال بارگذاری...</p>;
     if (error) return <p>خطایی رخ داده است...</p>;
+
+    {detail ==null ? alert():""}
     
 
     return (
@@ -227,7 +229,7 @@ const CoursePage = () => {
         courseId={detail.courseId}
         title={detail.title}
         img={detail.tumbImageAddress}
-        technologyList={detail.technologyList}
+        technologyList={detail.techs[0]}
         description={detail.describe}
         teacherName={detail.teacherName}
         likeCount={detail.likeCount}
@@ -236,7 +238,7 @@ const CoursePage = () => {
         statusName={detail.statusName}
         price={detail.cost}
         currentRegistrants={detail.currentRegistrants}
-        date={(detail.lastUpdate)}
+        date={detail.lastUpdate}
         listStyle={listStyle}
       />
     );

@@ -19,17 +19,23 @@ const CourseItem = ({
 }) => {
   return (
     <div
-      dir={`${listStyle ? "ltr" : "rtl"}`}
-      className={`relative shadow-[-15px_15px_15px_0px_#0000000D] bg-white rounded-2xl p-[5px] overflow-hidden cursor-pointer 
+      className={`p-[0.5vw] relative shadow-[-15px_15px_15px_0px_#0000000D] bg-white rounded-2xl  overflow-hidden cursor-pointer 
          "w-[100%]  h-[100%]`}
     >
-      
-      <img
-        src={img}
-        className={` bg-poster rounded-[11px] ${
-          listStyle ? "w-[550px] h-[340px]" : "w-[100%] h-[147px]"
-        }`}
-      />
+      <div
+        className={`rounded-[0.5vw] bg-gray-300 overflow-hidden
+          w-[100%] h-[30%]
+        `}
+      >
+        <img className="h-full" src={img} />
+      </div>
+
+      <div className="absolute top-[1vw] right-[1vw] rounded-full h-[1.2vw] w-[4vw] bg-blue-500 text-white text-[0.7vw]">
+        {technologyList}
+      </div>
+      <div className="absolute top-[1vw] right-[5.5vw] rounded-full h-[1.2vw] w-[3vw] bg-blue-500 text-white text-[0.7vw]">
+        {technologyList}
+      </div>
       <div
         className={`absolute  w-[70px] h-[25px] rounded-[15px] bg-[#F5F5F4] text-[11px] shadow-[0px_3px_3px_0px_#0000001F] text-[#DEDEDE] leading-[25px] ${
           listStyle ? "top-7 left-[520px]" : "left-5 top-[140px]"
