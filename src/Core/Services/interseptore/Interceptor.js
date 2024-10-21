@@ -18,7 +18,7 @@ const onError = (err) => {
     console.log(err);
 
     if(err.response.status===401){
-        toast.error( err.message);
+        console.log( err.message);
         removeItem("token")
         window.location.pathname="/sign/login"
     }

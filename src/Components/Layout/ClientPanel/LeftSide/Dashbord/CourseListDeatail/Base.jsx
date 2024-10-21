@@ -14,6 +14,7 @@ import { Tooltip } from "@nextui-org/react";
 import CourseCard from "../../../../CourseDetail/CourseCard/CourseCard";
 import { getCourseDetail } from "../../../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CourseItem from "./CorseItem/CourseItem";
+import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
 
 
 const CoursePage = () => {
@@ -47,6 +48,8 @@ const CoursePage = () => {
   const [detailCourse,setDetailCourse]=useState(false)
   const [detail,setDetail]=useState({})
   const [detailId,setDetailId]=useState(null)
+
+
 
 
 
@@ -117,9 +120,9 @@ const CoursePage = () => {
   };
 
   // Converting Date
-  const convertToJalali = (miladiDate) => {
-    return moment(miladiDate, "YYYY-MM-DD").locale("fa").format("YYYY/MM/DD");
-  };
+  // const convertToJalali = (miladiDate) => {
+  //   return moment(miladiDate, "YYYY-MM-DD").locale("fa").format("YYYY/MM/DD");
+  // };
 
   const handlePriceFilter = (min, max) => {
     setMinCost(min);
@@ -207,11 +210,12 @@ const CoursePage = () => {
   };
 
   const GetId = async (detailId) => {
+    console.log(detailId)
     const res = await getCourseDetail(detailId);
     setDetail(res);
   };
   useEffect(() => {
-    GetId(detailId);
+    if (detailId) GetId(detailId);
   }, [detailId]);
 
 
@@ -226,20 +230,33 @@ const CoursePage = () => {
     return (
       <CourseItem
         key={detail.courseId}
+        id={detail.courseId}
         courseId={detail.courseId}
         title={detail.title}
-        img={detail.tumbImageAddress}
-        technologyList={detail.techs[0]}
+        img={detail.imageAddress}
+        technologyList={detail.techs != null ? detail.techs : "برنامه نویسی"}
         description={detail.describe}
         teacherName={detail.teacherName}
         likeCount={detail.likeCount}
         commandCount={detail.commandCount}
-        courseRate={detail.courseRate}
+        courseRate={detail.currentRate}
         statusName={detail.statusName}
         price={detail.cost}
         currentRegistrants={detail.currentRegistrants}
         date={detail.lastUpdate}
         listStyle={listStyle}
+        level={detail.courseLevelName}
+        state={detail.courseStatusName}
+        courseGroupCount={detail.courseGroupCount}
+        capacity={detail.capacity}
+        startDate={convertToJalali(detail.startTime)}
+        endDate={convertToJalali(detail.endTime)}
+        setDetailCourse={setDetailCourse}
+        detailCourse={detailCourse}
+        GetId={GetId}
+        userIsLiked={detail.currentUserLike}
+        currentUserDissLike={detail.currentUserDissLike}
+        userLikeId={detail.userLikeId}
       />
     );
   };
@@ -247,10 +264,18 @@ const CoursePage = () => {
   return (
     <div className="relative m-auto w-[76vw] bg-transparent text-center">
       <div
-        className={`absolute h-[30vw] w-[20vw] top-[1vw] right-[50%] translate-x-[50%] z-40 bg-gray-500 ${detailCourse==true? 'block' : 'block'}`}
+        className={`absolute z-[1000]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%] ${detailCourse == true ?'block':'hidden'}`}
       >
-        {detailCourse==true? renderDetail():<div></div>}
+        
+        <div
+          className={`absolute h-[38.4vw] w-[20vw] top-[2vw] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
+            detailCourse == true ? "block" : "hidden"
+          }`}
+        >
+          {detailCourse == true ? renderDetail() : <div></div>}
+        </div>
       </div>
+
       <div className="flex justify-between pb-[1vw] px-[1vw] items-start">
         <span className="text-[1.5vw] font-[600]">جدیدترین دوره ها</span>
         <div className="rounded-full border border-red-500 h-[2.2vw] w-[5vw] text-red-500 flex items-center justify-evenly cursor-pointer">
