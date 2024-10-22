@@ -24,8 +24,10 @@ import Address from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Address
 import Links from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Links/Links.jsx'
 import DashbordEdit from './Components/Layout/ClientPanel/LeftBar/DashbordEdit.jsx'
 import Dashbord from './Components/Layout/ClientPanel/LeftSide/Dashbord/Dashbord.jsx'
-import MyReserve from './Components/Layout/ClientPanel/LeftSide/MyReserve/MyReserve.jsx'
 import LikedCourse from './Components/Layout/ClientPanel/LeftSide/LikedCourse/LikedCourse.jsx'
+import LikedBlog from './Components/Layout/ClientPanel/LeftSide/LikedBlog/LikedBlog.jsx'
+import MyReserve from './Components/Layout/ClientPanel/LeftSide/MyReserve/MyReserve.jsx'
+import MyCourses from './Components/Layout/ClientPanel/LeftSide/MyCoursess/MyCourses.jsx'
 
 
 const queryClient = new QueryClient();
@@ -54,7 +56,7 @@ const router = createBrowserRouter([
           },
           {
             path: "MyCourse",
-            element: <Dashbord />,
+            element: <MyCourses />,
             errorElement: <Error />,
           },
           {
@@ -69,7 +71,7 @@ const router = createBrowserRouter([
           },
           {
             path: "LikedBlog",
-            element: <Dashbord />,
+            element: <LikedBlog />,
             errorElement: <Error />,
           },
           {

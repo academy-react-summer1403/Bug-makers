@@ -15,10 +15,15 @@ import CourseCard from "../../../CourseDetail/CourseCard/CourseCard";
 import { getCourseDetail } from "../../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CourseItem from "./CorseItem/CourseItem";
 import convertToJalali from "../../../../Common/TimeChanger/TimeToShamsi";
-import { getLikedCourse } from "../../../../../Core/Services/Api/Client/getCourseListWithPagination";
+import { getCourseServ, getLikedCourse, getLikedNews } from "../../../../../Core/Services/Api/Client/clientLiked";
+import { delBlogFav, delCourseFav, delCourseServ } from "../../../../../Core/Services/Api/Client/Delete";
+
+import { getBlogDetail } from "../../../../../Core/Services/Api/BlogDetail/BlogDetail";
+import BlogIthem from "../LikedBlog/CorseItem/BlogIthem";
 
 
-const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
+
+const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
  
   // stateForListStyle
   const [listStyle, setListStyle] = useState(false);
@@ -37,16 +42,50 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
   const CourseListItem = useSelector((state) => state.CourseSlice.CourseList);
 
   // fetchCoursesWithFilters
-  const fetch = async ()=>{
+  const GetLikedCourse = async ()=>{
     const data = await getLikedCourse();
     setResponse(data.favoriteCourseDto);
-    
-
   }
+  const GetLikedNews = async () => {
+    const data = await getLikedNews();
+    setResponse(data.myFavoriteNews);
+  };
+  const GetCourseServ = async () => {
+    const data = await getCourseServ();
+    setResponse(data);
+  };
   useEffect(()=>{
-    fetch()
+    if (location == "BlogFav") {
+      GetLikedNews()
+    }
+    if (location == "CourseFav") {
+      GetLikedCourse()
+    }
+    if (location == "CourseServ") {
+      GetCourseServ()
+    }
   },[])
     
+  const DelCourseFav = async (id)=>{
+    const res = delCourseFav(id)
+    console.log(res)
+    GetLikedCourse()
+  }
+
+
+  const DelBlogFav = async (id)=>{
+    console.log(id)
+    const res = await delBlogFav(id)
+    
+    GetLikedNews();
+
+  }
+
+
+  const DelCourseServ = async (id)=>{
+    const res = delCourseServ(id)
+  }
+  
 
 
 
@@ -71,20 +110,50 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
   // renderCourseItems
   const renderCourses = () => {
 
+      if(response.length==0){return(
+          <div className="w-full mt-[2vw] text-gray-700 font-[500] text-[1.5vw]" >لیست{" "}{ name }{" "}خالی است</div>
+         )}
+
        return response.map((course, index) => (
          <div
            key={index}
            className="w-full h-[3vw] rounded-[0.4vw] flex items-center  text-[#272727] hover:bg-gray-100"
          >
-           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
-             {course.courseTitle}
+           <div
+             className={`w-[8%] justify-center h-full rounded-[0.5vw] overflow-hidden   ${
+               location == "BlogFav" ? "flex" : "hidden"
+             }`}
+           >
+             <img
+               className=" h-full rounded-[0.5vw]"
+               src={course.currentImageAddressTumb}
+               alt=""
+             />
            </div>
-           <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...">
-             <Tooltip className="text-gray-700 w-[10vw] leading-[1.5vw]" content={`${course.describe}`}>
+           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+             {course.courseTitle ? course.courseTitle : null}
+             {course.title ? course.title : null}
+           </div>
+           <div
+             className={`w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+              ${location == "BlogFav" ? "hidden" : "block"}`}
+           >
+             <Tooltip
+               className="text-gray-700 w-[10vw] leading-[1.5vw]"
+               content={`${course.describe}`}
+             >
                <span>{course.describe}</span>
              </Tooltip>
            </div>
-           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+           <div
+             className={`w-[50%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+              ${location == "BlogFav" ? "block" : "hidden"}`}
+           ></div>
+           <div
+             className={`w-[16%] h-full py-3 px-6 text-right whitespace-nowrap ${
+               location == "BlogFav" ? "hidden" : "block"
+             }`}
+           >
              <Tooltip
                className="text-gray-700"
                content={`استاد: ${course.teacheName}`}
@@ -92,45 +161,95 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
                {course.teacheName}
              </Tooltip>
            </div>
-           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
-             {convertToJalali(course.lastUpdate)}
+           <div className="w-[16%] h-full py-3 px-6 text-center whitespace-nowrap">
+             {course.lastUpdate
+               ? convertToJalali(course.lastUpdate)
+               : convertToJalali(course.updateDate)}
            </div>
-           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
-             {course.levelName} 
+           <div
+             className={`w-[12%] h-full py-3 px-6 text-center whitespace-nowrap ${
+               location == "BlogFav" ? "hidden" : "block"
+             }`}
+           >
+             {course.levelName}
            </div>
            <div
              className={`w-[4%] h-full items-center ${
-                true ? "flex" : "hidden"
+               true ? "flex" : "hidden"
              }`}
            >
-             <svg
-               onClick={() => {
-                GetId(course.courseId);
-                 setDetailId(course.courseId);
-                 setTimeout(() => {
-                  setDetailCourse(true);
-                 }, 1200); 
-                 
-                 console.log(detailCourse)
-               }}
-               className="cursor-pointer"
-               width="24"
-               height="24"
-               viewBox="0 0 24 24"
-               fill="none"
-               xmlns="http://www.w3.org/2000/svg"
+             {" "}
+             <Tooltip
+               className="text-gray-700 w-[7vw] leading-[1.5vw]"
+               content={"نمایش جزییات"}
              >
-               <path
-                 d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
-                 stroke="#787878"
-                 stroke-width="1.5"
-               />
-               <path
-                 d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
-                 stroke="#787878"
-                 stroke-width="1.5"
-               />
-             </svg>
+               <svg
+                 onClick={() => {
+                  {location == "BlogFav"
+                    ? GetNewsId(course.newsId)
+                    : GetId(course.courseId);}
+                   
+                   {location == "BlogFav"
+                     ? setDetailId(course.newsId)
+                     : setDetailId(course.courseId);}
+                   setTimeout(() => {
+                     setDetailCourse(true);
+                   }, 2000);
+
+                   console.log(detailCourse);
+                 }}
+                 className="cursor-pointer"
+                 width="24"
+                 height="24"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg"
+               >
+                 <path
+                   d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
+                   stroke="#787878"
+                   stroke-width="1.5"
+                 />
+                 <path
+                   d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
+                   stroke="#787878"
+                   stroke-width="1.5"
+                 />
+               </svg>
+             </Tooltip>
+           </div>
+           <div className="w-[4%] h-full flex items-center justify-center cursor-pointer">
+             <Tooltip
+               className="text-gray-700 w-[7vw] leading-[1.5vw]"
+               content={"حذف از لیست"}
+             >
+               <svg
+                 onClick={() => {
+                   if (location == "BlogFav") {
+                     DelBlogFav(course.favoriteId);
+                   }
+                   if (location == "CourseFav") {
+                     DelCourseFav(course.favoriteId);
+                   }
+                   if (location == "CourseServ") {
+                     DelCourseServ(course.id);
+                   }
+                 }}
+                 width="24"
+                 height="24"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg"
+               >
+                 <path
+                   d="M19.001 5L5.00098 19M5.00098 5L19.001 19"
+                   stroke="#FF4242"
+                   stroke-width="1.5"
+                   stroke-linecap="round"
+                   stroke-linejoin="round"
+                 />
+               </svg>
+             </Tooltip>
            </div>
          </div>
        ));
@@ -139,50 +258,95 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
    
   };
 
+  const GetNewsId = async (detailId) => {
+    console.log(detailId);
+    const res = await getBlogDetail(detailId);
+    setDetail(res);
+  };
   const GetId = async (detailId) => {
     console.log(detailId);
     const res = await getCourseDetail(detailId);
     setDetail(res);
   };
   useEffect(() => {
-    if (detailId) GetId(detailId);
+    if (detailId&& location != "BlogFav") GetId(detailId);
+    if (detailId&& location == "BlogFav") GetNewsId(detailId);
   }, [detailId]);
 
   const renderDetail = () => {
 
-
-     return (
-       <CourseItem
-         key={detail.courseId}
-         id={detail.courseId}
-         courseId={detail.courseId}
-         title={detail.title}
-         img={detail.imageAddress}
-         technologyList={detail.techs != null ? detail.techs : "برنامه نویسی"}
-         description={detail.describe}
-         teacherName={detail.teacherName}
-         likeCount={detail.likeCount}
-         commandCount={detail.commandCount}
-         courseRate={detail.currentRate}
-         statusName={detail.statusName}
-         price={detail.cost}
-         currentRegistrants={detail.currentRegistrants}
-         date={detail.lastUpdate}
-         listStyle={listStyle}
-         level={detail.courseLevelName}
-         state={detail.courseStatusName}
-         courseGroupCount={detail.courseGroupCount}
-         capacity={detail.capacity}
-         startDate={convertToJalali(detail.startTime)}
-         endDate={convertToJalali(detail.endTime)}
-         setDetailCourse={setDetailCourse}
-         detailCourse={detailCourse}
-         GetId={GetId}
-         userIsLiked={detail.currentUserLike}
-         currentUserDissLike={detail.currentUserDissLike}
-         userLikeId={detail.userLikeId}
-       />
-     );
+    if (location == "BlogFav"){
+      console.log(detail)
+      return (
+        <BlogIthem
+          key={detail.id}
+          id={detail.id}
+          courseId={detail.courseId}
+          title={detail.title}
+          img={detail.currentImageAddress}
+          technologyList={detail.techs != null ? detail.techs : "برنامه نویسی"}
+          description={detail.describe}
+          teacherName={detail.addUserFullName}
+          likeCount={detail.likeCount}
+          commandCount={detail.commandCount}
+          courseRate={detail.currentRate}
+          statusName={detail.statusName}
+          price={detail.cost}
+          currentRegistrants={detail.currentRegistrants}
+          date={detail.lastUpdate}
+          listStyle={listStyle}
+          level={detail.newsCatregoryName}
+          state={detail.courseStatusName}
+          courseGroupCount={detail.courseGroupCount}
+          capacity={detail.capacity}
+          startDate={convertToJalali(detail.insertDate)}
+          endDate={convertToJalali(detail.endTime)}
+          setDetailCourse={setDetailCourse}
+          detailCourse={detailCourse}
+          GetId={GetNewsId}
+          userIsLiked={detail.currentUserIsLike}
+          currentUserDissLike={detail.currentUserIsDissLike}
+          userLikeId={detail.userLikeId}
+          view={detail.currentView}
+        />
+      );
+    }
+      if(location != "BlogFav"){
+        return (
+          <CourseItem
+            key={detail.courseId}
+            id={detail.courseId}
+            courseId={detail.courseId}
+            title={detail.title}
+            img={detail.imageAddress}
+            technologyList={
+              detail.techs != null ? detail.techs : "برنامه نویسی"
+            }
+            description={detail.describe}
+            teacherName={detail.teacherName}
+            likeCount={detail.likeCount}
+            commandCount={detail.commandCount}
+            courseRate={detail.currentRate}
+            statusName={detail.statusName}
+            price={detail.cost}
+            currentRegistrants={detail.currentRegistrants}
+            date={detail.lastUpdate}
+            listStyle={listStyle}
+            level={detail.courseLevelName}
+            state={detail.courseStatusName}
+            courseGroupCount={detail.courseGroupCount}
+            capacity={detail.capacity}
+            startDate={convertToJalali(detail.startTime)}
+            endDate={convertToJalali(detail.endTime)}
+            setDetailCourse={setDetailCourse}
+            detailCourse={detailCourse}
+            GetId={GetId}
+            userIsLiked={detail.currentUserLike}
+            currentUserDissLike={detail.currentUserDissLike}
+            userLikeId={detail.userLikeId}
+          />
+        );
+      }
 
   };
   
@@ -192,7 +356,6 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
       <div
         className={`absolute z-[1000]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%] ${
           detailCourse == true ? "block" : "hidden"
-          
         }`}
       >
         <div
@@ -235,68 +398,59 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
         </div>
       </div>
       <div className="w-[100%] selection: mt-[0vw] ">
-        {/* searchAndFilterSection */}
-        {/* <div
-          className={`h-[60px]  relative flex-row flex-wrap justify-center items-center gap-x-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
-            ${show == true ? "flex" : "hidden"}`}
-        >
-          <SearchBox
-            width={"20%"}
-            lgWidth={"160px"}
-            placeHolder="دنبال چی میگردی"
-            value={`${filterValue ? "" : queryValue}`}
-            onChange={handleSearch}
-          />
-          <SelectOpt
-            width={"100%"}
-            lgWidth={"160px"}
-            placeholder="استاد دوره"
-            isTeacherSelect={true}
-            onChange={(value) => setTeacherId(value)}
-            FilterValue={filterValue}
-          />
-
-          <DateModal onFilter={filterByDateRange} />
-
-          <PriceFilter
-            width={"%"}
-            lgWidth={"160px"}
-            onFilter={handlePriceFilter}
-          />
-          <span className="block lg:hidden text-[10px] text-[#978A8A] absolute bottom-2 right-4">
-            تعداد {CourseListItem.length} نتیجه از {data?.totalCount || 0} دوره
-            طبق جستجوی شما یافت شد
-          </span>
-          <span
-            className="block lg:hidden w-[106px] h-[20px] rounded-[16px] text-center text-[10px] bottom-2 m-auto relative  text-[#FE8E8E] cursor-pointer bg-white  "
-            onClick={handleRemoveFilter}
-          >
-            حذف تمامی فیلتر
-          </span>
-        </div> */}
-
         {/* for dashbord........  */}
-        <div className={` justify-between items-center my-[1vw] ${show == false ? "flex" : "hidden"}`}>
-          <div className="text-[1.5vw] font-[600]">جدیدترین دوره‌ها</div>
-          {/* <span
-            onClick={() => {
-              setShowMoreCourse(true);
-            }}
-            className="text-[#E1C461] cursor-pointer"
-          >
-            مشاهده همه
-          </span> */}
+        <div
+          className={` justify-between items-center my-[1vw] ${
+            show == false ? "flex" : "hidden"
+          }`}
+        >
+          <div className="text-[1.5vw] font-[600]">{name}</div>
         </div>
 
         {/* filterActionSection */}
 
         <div className=" w-full mt-[0.5vw]">
           <div className="flex items-center w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600 text-sm leading-normal">
-            <div className="w-[16%]  py-3 px-6 text-right">نام دوره</div>
-            <div className="w-[32%]   py-3 px-6 text-right">درباره دوره</div>
-            <div className="w-[16%]  py-3 px-6 text-right">استاد دوره</div>
-            <div className="w-[16%]  py-3 px-6 text-right">تاریخ برگزاری</div>
-            <div className="w-[16%] py-3 px-6 text-right">سطح دوره</div>
+            <div
+              className={`w-[8%]  py-3 px-4 text-center ${
+                location == "BlogFav" ? "block" : "hidden"
+              }`}
+            >
+              عکس
+            </div>
+            <div className="w-[16%]  py-3 px-6 text-right">
+              {" "}
+              {location == "BlogFav" ? "عنوان خبر" : "عنوان دوره"}{" "}
+            </div>
+            <div
+              className={`w-[32%]   py-3 px-6 text-right ${
+                location == "BlogFav" ? "hidden" : "block"
+              }`}
+            >
+              درباره دوره
+            </div>
+            <div
+              className={`w-[50%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+              ${location == "BlogFav" ? "block" : "hidden"}`}
+            ></div>
+            <div
+              className={`w-[16%]  py-3 px-6 text-right ${
+                location == "BlogFav" ? "hidden" : "block"
+              }`}
+            >
+              استاد دوره
+            </div>
+            <div className={`w-[16%]  py-3 px-6 text-center`}>
+              {location == "BlogFav" ? "تاریخ" : "تاریخ برگذاری"}
+            </div>
+            <div
+              className={`w-[12%]  py-3 px-6 text-right ${
+                location == "BlogFav" ? "hidden" : "block"
+              }`}
+            >
+              سطح دوره
+            </div>
+            <div className="w-[4%]  py-3 px-4 text-center"></div>
             <div className="w-[4%]  py-3 px-4 text-center"></div>
           </div>
         </div>

@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Button, Input } from "@nextui-org/react";
+import { ProfileGet, ProfileStep2 } from "../../../../../../Core/Services/Api/Client/Profile";
+
 
 // Validation schema
 const validationSchema = Yup.object().shape({
   telegram: Yup.string()
-    .url("لینک تلگرام معتبر وارد کنید")
+    // .url("لینک تلگرام معتبر وارد کنید")
     .required("لطفا لینک تلگرام خود را وارد کنید"),
   linkedin: Yup.string()
-    .url("لینک لینکدین معتبر وارد کنید")
+    // .url("لینک لینکدین معتبر وارد کنید")
     .required("لطفا لینک لینکدین خود را وارد کنید"),
 });
+
+const onSubmit = async (val) => {
+  console.log(val);
+  const res = ProfileStep2(val);
+};
+
+
+// useEffect(()=>{
+//   const getProfile=async ()=>{
+//     const res = await ProfileGet();
+//     console.log(res)
+//   }
+//     getProfile()
+// },[])
 
 const Links = () => {
   return (
@@ -19,6 +35,7 @@ const Links = () => {
       initialValues={{ telegram: "", linkedin: "" }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
+        onSubmit(values)
         console.log(values);
       }}
     >

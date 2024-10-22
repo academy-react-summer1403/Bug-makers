@@ -1,10 +1,8 @@
 import React from "react";
 
-const MyReserve =()=>{
+const MyReserve = ()=>{
     return(
-        <div>
-            sssss
-        </div>
+        <div></div>
     )
 }
 export default MyReserve
