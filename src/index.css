@@ -73,6 +73,8 @@ button:focus-visible {
 }
 
 
+
+
     
 .bgg{
    background: repeating-conic-gradient(
@@ -99,4 +101,88 @@ button:focus-visible {
     --aa:360deg;
   }
 
+}
+
+
+/* sina branch */
+
+
+:root {
+  --background-color: #f5f5f4; 
+  --text-color: #7E7E7E;
+  width: 100vw;
+  margin: 0 auto;
+  background: #F3F3F3;
+}
+
+body {
+  font-family: Iransans; 
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-color); 
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Iransans;
+  src: url(../public/Fonts/IRANSans.ttf);
+}
+
+@font-face {
+  font-family: IranSansNumber;
+  src: url(../public/Fonts/IRANSansXFaNum-Bold.ttf);
+}
+
+.price{font-family: IranSansNumber;}
+
+.range-slider {
+  position: relative;
+}
+
+.range-slider input[type="range"] {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+}
+
+.range-slider input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px;
+  background: linear-gradient(to right, blue 0%, blue calc((var(--min) - var(--min-value)) / (var(--max-value) - var(--min-value)) * 100%), #4CAF50 calc((var(--min) - var(--min-value)) / (var(--max-value) - var(--min-value)) * 100%), #4CAF50 calc((var(--max) - var(--min-value)) / (var(--max-value) - var(--min-value)) * 100%), #ddd calc((var(--max) - var(--min-value)) / (var(--max-value) - var(--min-value)) * 100%));
+  pointer-events: auto;
+}
+
+.range-slider input[type="range"]::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  background: #91ACCF;
+  border-radius: 100%;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-appearance: none;
+}
+
+.range-slider input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border: 3px solid #91ACCF;
+  border-radius: 100%;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-appearance: none;
+}
+
+.range-slider input[type="range"]:focus {
+  outline: none;
+}
+
+.range-slider input[type="range"]::-webkit-slider-runnable-track:active {
+  background: #4CAF50;
 }
