@@ -30,7 +30,7 @@ import MyReserve from './Components/Layout/ClientPanel/LeftSide/MyReserve/MyRese
 import MyCourses from './Components/Layout/ClientPanel/LeftSide/MyCoursess/MyCourses.jsx'
 import CoursePage from './Pages/CoursePage/CoursePage.jsx'
 import LandingPage from './Pages/Landing Page/LandingPage.jsx'
-
+import NotFoundPage from './Pages/NotFound/NotFoundPage.jsx'
 
 const queryClient = new QueryClient();
 
@@ -103,6 +103,7 @@ const router = createBrowserRouter([
                 element: <Links />,
                 errorElement: <Error />,
               },
+              
             ],
           },
         ],
@@ -159,11 +160,11 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "*",
+        element: <NotFoundPage />,
+      },
     ],
-  },
-  {
-    path: "*",
-    // element: <NotFound />,
   },
 ]);
 
