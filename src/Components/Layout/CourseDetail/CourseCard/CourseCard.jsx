@@ -122,7 +122,7 @@ function CourseCard({id}) {
     <div className="mx-auto w-full shadow-lg text-[#5E5E5E] ">
       <div className="relative w-full h-[20vw] flex justify-between mt-[3vw]">
         <div className="w-1/2 mr-[2vw] h-full text-right mt-[1vw] relative">
-          <span className="block text-[30px] mb-[1.82vw]">
+          <span className="block text-[2.5vw] mb-[1.82vw]">
             {response.title}
           </span>
           <span className="block w-[70%] text-[16px]">
@@ -133,14 +133,14 @@ function CourseCard({id}) {
             src="../../../../../public/images/Course/Image 12.png"
             alt=""
           />
-          <div className="relative top-[-3vw] w-1/2 flex items-end flex-row justify-start">
-            <div className=" size-[4.17vw] rounded-full bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5] shadow-[-0.16vw_0.16vw_0.16vw_0_rgba(0,0,0,0.1)]"></div>
-            <span className="mr-[0.6vw] text-[#6E6E6E] text-[17px]">
+          <div className="relative top-[-3vw] w-1/2 flex items-end flex-row justify-start items-center">
+            <div className=" size-[4.17vw] rounded-full bg-gradient-to-b mt-[0.5vw] from-[#F2F2F2] to-[#C4CDD5] shadow-[-0.16vw_0.16vw_0.16vw_0_rgba(0,0,0,0.1)]"></div>
+            <span className="mr-[0.6vw]  text-[#6E6E6E] text-[1vw]">
               مدرس دوره: {response.teacherName}
             </span>
           </div>
         </div>
-        <div className="w-1/2 ml-[2vw] h-[460px] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] rounded-[1vw] shadow-[-0.78vw_0.78vw_0.78vw_0_rgba(100,100,100,0.1)]">
+        <div className="w-1/2 ml-[2vw] max-h-[460px] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] rounded-[1vw] shadow-[-0.78vw_0.78vw_0.78vw_0_rgba(100,100,100,0.1)]">
           <img className="h-full mx-auto" src={response.imageAddress} alt="" />
         </div>
         <div className="h-[2vw] w-[15vw] absolute top-[25vw] left-[2vw] flex flex-row-reverse justify-between">
@@ -153,8 +153,8 @@ function CourseCard({id}) {
                     ? delLikeNews2()
                     : setNewsLike();
                 }}
-                width="29"
-                height="25"
+                width="3vw"
+                height="3vw"
                 viewBox="0 0 29 25"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -174,8 +174,8 @@ function CourseCard({id}) {
                     ? delLikeNews2()
                     : setNewsDissLike();
                 }}
-                width="29"
-                height="25"
+                width="3vw"
+                height="3vwy"
                 viewBox="0 0 29 25"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

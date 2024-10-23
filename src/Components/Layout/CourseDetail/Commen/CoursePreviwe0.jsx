@@ -3,21 +3,21 @@ import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 
 const CoursePreviwe0 = ({ response, CorseReserve }) => {
   return (
-    <div className="h-[8.9vw] w-[40%] shadow-md p-[0.5vw] mt-[11.7vw] text-right">
-      <div className="mb-[1vw]">
+    <div className="h-auto w-full max-w-[550px]  shadow-md p-4 mt-[10vw] whitespace-nowrap text-right mx-auto">
+      <div className="mb-4">
         <h2 className="text-lg font-semibold">مشخصات دوره</h2>
       </div>
-      <div className="flex justify-evenly h-[60%]">
-        <div className="flex flex-col items-start justify-evenly h-full">
+      <div className="flex flex-col  md:flex-row justify-between h-full">
+        <div className="flex flex-col items-start justify-evenly mb-4 md:mb-0">
           <span className="text-gray-700">
             سطح دوره : {response.courseLevelName}
           </span>
           <span className="text-gray-700">
-            وضعیت : {response.courseStatusName}{" "}
+            وضعیت : {response.courseStatusName}
           </span>
         </div>
-        <div className="flex flex-col justify-evenly items-start w-[31%]">
-          <div className="w-full flex items-center justify-between">
+        <div className="flex flex-col justify-evenly items-start w-full md:w-1/3 mb-4 md:mb-0">
+          <div className="flex items-center justify-between">
             <svg
               width="17"
               height="17"
@@ -33,13 +33,12 @@ const CoursePreviwe0 = ({ response, CorseReserve }) => {
               <circle cx="5.1665" cy="10.5" r="1.5" fill="#7A7A7A" />
               <circle cx="11.8335" cy="10.5" r="1.5" fill="#7A7A7A" />
             </svg>
-
             <span className="text-gray-700">تاریخ شروع:</span>
             <span className="ml-2 text-gray-500">
               {convertToJalali(response.startTime)}
             </span>
           </div>
-          <div className="w-full flex items-center justify-between">
+          <div className="flex items-center justify-between">
             <svg
               width="17"
               height="17"
@@ -55,18 +54,17 @@ const CoursePreviwe0 = ({ response, CorseReserve }) => {
               <circle cx="5.1665" cy="10.5" r="1.5" fill="#7A7A7A" />
               <circle cx="11.8335" cy="10.5" r="1.5" fill="#7A7A7A" />
             </svg>
-
             <span className="text-gray-700">تاریخ پایان:</span>
             <span className="ml-2 text-gray-500">
               {convertToJalali(response.endTime)}
             </span>
           </div>
         </div>
-        <div className="flex flex-col justify-evenly items-center">
+        <div className="flex flex-col justify-center items-center">
           <span className="text-gray-700">قیمت: {response.cost} تومان</span>
           <button
-            onClick={()=>{CorseReserve()}}
-            className="w-[10vw] bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
+            onClick={() => { CorseReserve(); }}
+            className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 mt-2"
           >
             ثبت نام در این دوره
           </button>

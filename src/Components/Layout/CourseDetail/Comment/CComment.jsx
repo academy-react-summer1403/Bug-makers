@@ -18,9 +18,7 @@ const CComment = ({
   };
   
 
-  // تابعی برای رندر کردن کامنت‌ها
   const renderCourses = (comment,id) => {
-    // بررسی اگر comment خالی است
     if (!Array.isArray(comment) || comment.length === 0) {
       return <p></p>; // در صورتی که comment خالی یا undefined باشد، پیام نشان داده می‌شود.
     }

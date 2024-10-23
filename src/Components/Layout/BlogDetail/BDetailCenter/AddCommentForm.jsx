@@ -1,87 +1,76 @@
 import { Field, Form, Formik, ErrorMessage } from "formik";
-import * as Yup from "yup";  // Import Yup for validation
+import * as Yup from "yup";
 import React from "react";
 
 const AddCommentForm = ({ onSubmit, userId, newsId, parentId }) => {
-  // Define validation schema using Yup
-const validationSchema = Yup.object({
+  const validationSchema = Yup.object({
     title: Yup.string()
-        .min(7, "عنوان باید حداقل 7 حرف باشد")
-        .required("عنوان اجباری است"),
+      .min(7, "عنوان باید حداقل 7 حرف باشد")
+      .required("عنوان اجباری است"),
     describe: Yup.string()
-        .min(10, "دیدگاه باید حداقل 10 حرف باشد")
-        .required("دیدگاه اجباری است"),
-});
+      .min(10, "دیدگاه باید حداقل 10 حرف باشد")
+      .required("دیدگاه اجباری است"),
+  });
 
-return (
+  return (
     <Formik
-    initialValues={
-        parentId
-            ? {
-                title: "",
-                describe: "",
-                newsId: `${newsId}`,
-                userIpAddress: "1.1.1.1",
-                userId: `${userId}`,
-                parentId: parentId,
-            }
-            : {
-                title: "",
-                describe: "",
-                newsId: `${newsId}`,
-                userIpAddress: "1.1.1.1",
-                userId: `${userId}`,
-            }
-        }
-    validationSchema={validationSchema} // Attach validation schema
-    onSubmit={(values) => {
+      initialValues={{
+        title: "",
+        describe: "",
+        newsId: `${newsId}`,
+        userIpAddress: "1.1.1.1",
+        userId: `${userId}`,
+        ...(parentId && { parentId: parentId }),
+      }}
+      validationSchema={validationSchema}
+      onSubmit={(values) => {
         onSubmit(values);
-    }}
+      }}
     >
-    {({ errors, touched }) => (
-        <Form className="w-full h-max px-[2vw] mt-[1vw] mb-[2vw]">
-        <div className="mb-[1vw]">
+      {({ errors, touched }) => (
+        <Form className="w-full h-max px-4 mt-4 mb-4">
+          <div className="mb-4">
             <Field
-                placeholder="عنوان دیدگاه خود را وارد کنید"
-                type="text"
-                name="title"
-                className={`bg-white border-[0.1vw] text-gray-600 border-[#C4CDD5] w-1/2 h-[2vw] rounded-[0.57vw] mb-[1vw] ${
+              placeholder="عنوان دیدگاه خود را وارد کنید"
+              type="text"
+              name="title"
+              className={`bg-white border text-gray-600 border-[#C4CDD5] w-full md:w-1/2 h-10 rounded-md mb-2 ${
                 errors.title && touched.title ? "border-red-500" : ""
-            }`}
+              }`}
             />
             <ErrorMessage
-                name="title"
-                component="div"
-                className="text-red-500 text-sm"
+              name="title"
+              component="div"
+              className="text-red-500 text-sm"
             />
-        </div>
+          </div>
 
-        <div className="mb-[1vw]">
+          <div className="mb-4">
             <Field
-                as="textarea"
-                name="describe"
-                placeholder="دیدگاه خود را وارد کنید"
-                className={`max-h-[14vw] min-h-[14vw] p-[0.5vw] bg-white border-[0.15vw] text-gray-600 border-[#C4CDD5] w-full h-[9.58vw] rounded-[0.57vw] ${
+              as="textarea"
+              name="describe"
+              placeholder="دیدگاه خود را وارد کنید"
+              className={`max-h-[14vw] min-h-[14vw] p-2 bg-white border text-gray-600 border-[#C4CDD5] w-full h-32 rounded-md ${
                 errors.describe && touched.describe ? "border-red-500" : ""
-            }`}
+              }`}
             />
             <ErrorMessage
-                name="describe"
-                component="div"
-                className="text-red-500 text-sm"
+              name="describe"
+              component="div"
+              className="text-red-500 text-sm"
             />
-        </div>
+          </div>
 
-        <button
-            className="mt-[0.7vw] rounded-[0.42vw] bg-[#C4CDD5] cursor-pointer w-[6.61vw] h-[1.82vw] leading-[0.8vw]"
+          <button
+            className="mt-2 rounded-md bg-[#C4CDD5] cursor-pointer w-full md:w-1/4 h-10 leading-5"
             type="submit"
-        >
+          >
             ثبت نظر
-        </button>
+          </button>
         </Form>
-    )}
+      )}
     </Formik>
-);
+  );
 };
 
 export default AddCommentForm;

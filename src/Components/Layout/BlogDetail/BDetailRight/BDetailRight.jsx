@@ -35,7 +35,7 @@ const BDetailRight = ()=>{
 
 
     return(
-        <div className="w-[19%] h-[48vw] flex flex-col items-center gap-[1vw]">
+        <div className="w-[19%] h-[48vw]  flex-col items-center hidden md:flex gap-[1vw]">
             <BlogDetailRightTop/>
             <BDMore/>
             {renderCourses()}
