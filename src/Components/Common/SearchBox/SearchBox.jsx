@@ -1,14 +1,13 @@
 const SearchBox = ({width, placeHolder, icon, value, onChange }) => {
-    return (
-      <input
-        type="text"
-        className={ ` text-gray-900 flex-grow-[4] h-[40px] rounded-[10px] text-[12px] bg-no-repeat bg-[5%_50%] indent-3 bg-[#F2F2F2] ${icon}`}
-        placeholder={placeHolder}
-        value={value} 
-        onChange={onChange} 
-      />
-    );
-  };
-  
-  export default SearchBox;
-  
+  return (
+    <input
+      type="text"
+      className="w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
+      placeholder={placeHolder}
+      value={value} 
+      onChange={onChange} 
+    />
+  );
+};
+
+export default SearchBox;

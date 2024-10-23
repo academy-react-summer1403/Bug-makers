@@ -13,7 +13,7 @@ const MenuOption = ({ className }) => {
 
   return (
     <>
-      <NavLink 
+      <NavLink
         to='/CoursePage' 
         className={({ isActive }) => 
           isActive ? `${className} ${selectNavLink}` : `curses ${className}`
@@ -21,7 +21,14 @@ const MenuOption = ({ className }) => {
       >
         دوره ها
       </NavLink>         
-      <div className={`Articles ${className}`}>مقالات</div>
+      <NavLink
+        to='/BlogPage' 
+        className={({ isActive }) => 
+          isActive ? `${className} ${selectNavLink}` : `curses ${className}`
+        }
+      >
+       مقالات
+      </NavLink>         
       <div className={`Events ${className}`}>رویداد ها</div>
       <div className={`contactUs ${className}`}>تماس با ما</div>
     </>

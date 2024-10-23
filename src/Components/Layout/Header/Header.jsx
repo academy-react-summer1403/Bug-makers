@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CiSearch, CiUser, CiMenuBurger } from "react-icons/ci";
 import MenuOption from './MenuOption';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -44,9 +45,9 @@ const Header = () => {
           />
         </ul>
       </div>
-
-      <img src='../../../../../../public/Image/Icon/Logo.png' className='max-[842px]:w-[100px] max-[842px]:h-[25px] max-[625px]:m-auto /*end responsive*/ logo h-[40px] w-[170px] absolute right-[80px]' />
-      
+      <Link to={'/'}>
+      <img src='../../../../../../public/images/icon/Logo.png' className='max-[842px]:w-[100px] max-[842px]:h-[25px] max-[842px]:top-5 max-[625px]:m-auto /*end responsive*/ logo h-[40px] w-[170px] absolute top-3 right-[80px]' />
+      </Link>
       <div className='max-[710px]:text-[13px] max-[710px]:gap-5 max-[394px]:text-[10px] max-[394px]:gap-3 max-[652px]:hidden /*end responsive*/ menu w-[42vw] whitespace-nowrap text-[14px] flex justify-center items-center flex-row flex-nowrap gap-10'>
         <MenuOption 
           className={`cursor-pointer 

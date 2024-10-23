@@ -9,12 +9,12 @@ const MiniSlider = ({ isHovered  }) => {
   const [currentSlide, setCurrentSlide] = useState(2); 
 
   const logos = [
-    { id: 1, img: '/Image/Icon/alibaba.png' },
-    { id: 2, img: '/Image/Icon/digikala.png' },
-    { id: 3, img: '/Image/Icon/khdokar.png' },
-    { id: 4, img: '/Image/Icon/snap.png' },
-    { id: 5, img: '/Image/Icon/agagh.png' },
-    { id: 6, img: '/Image/Icon/game.png' },
+    { id: 1, img: '/images/icon/alibaba.png' },
+    { id: 2, img: '/images/icon/digikala.png' },
+    { id: 3, img: '/images/icon/khdokar.png' },
+    { id: 4, img: '/images/icon/snap.png' },
+    { id: 5, img: '/images/icon/agagh.png' },
+    { id: 6, img: '/images/icon/game.png' },
   ];
 
   const nextSlide = () => {

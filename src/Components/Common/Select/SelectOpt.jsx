@@ -4,13 +4,19 @@ import { useQuery } from 'react-query';
 import { getTeacherList } from '../../../Core/Services/Api/CoursePage/TeacherList';
 import { getCategoryList } from '../../../Core/Services/Api/CoursePage/Category';
 
-const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect, FilterValue }) => {
+const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect, FilterValue }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
   // Sort data for sorting options
   const sortData = [
-    { id: 1, value: 'آخرین آپدیت' }
+    { id: 1, value: 'Cost' , label : 'بر اساس قیمت'},
+    { id: 2, value: 'StatusName', label : 'وضعیت دوره'},
+    { id: 3, value: 'InsertDate' , label : 'تاریخ '},
+    { id: 4, value: 'TeacherName', label : 'نام استاد' },
+    { id: 5, value: 'LastUpdate', label : 'آخرین آپدیت' },
+    { id: 6, value: 'LevelName' , label : 'سطح دوره'},
+    { id: 7, value: 'TypeName' , label : 'تایپ دوره'},
   ];
 
   // Fetch teacher or category list based on prop
@@ -49,7 +55,7 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
   }
 
   return (
-    <div className={`text-gray-600 relative flex-grow-[2] ${isOpen ? 'z-10' : 'z-0'}`}>
+    <div className={`relative  max-[1312px]:w-[100%] ${isOpen ? 'z-10' : 'z-0'}`}>
       {selectedOption && (
         <span
           className="cursor-pointer p-3 absolute left-0 top-0"
@@ -59,7 +65,7 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
         </span>
       )}
       <div
-        className="w-full h-[40px] rounded-[10px] text-[12px] bg-[#F2F2F2] indent-3 cursor-pointer flex items-center justify-between"
+        className="w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{selectedOption ? (selectedOption.fullName || selectedOption.techName || selectedOption.value) : placeholder}</span>
@@ -79,7 +85,7 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer text-[12px]"
                 onClick={() => handleSelect(option)}
               >
-                {isSortSelect ? option.value : isTeacherSelect ? option.fullName : option.techName}
+                {isSortSelect ? option.label : isTeacherSelect ? option.fullName : option.techName}
               </li>
             ))}
           </motion.ul>

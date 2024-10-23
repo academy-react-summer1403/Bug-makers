@@ -149,7 +149,7 @@ const CoursePage = () => {
     <TextLanding h3Text='دوره های آموزشی' pText='دوره های ما' />
 
     {/* searchAndFilterSection */}
-    <div className='h-[55px] max-sm:h-[220px] relative max-lg:h-[130px] flex flex-row flex-wrap lg:flex-row justify-center items-center gap-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3'>
+    <div className='h-[380px] relative lg:h-[55px] flex flex-col lg:flex-row justify-center items-center gap-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3'>
       <SearchBox
         width={"100%"} 
         lgWidth={"160px"} 
@@ -204,18 +204,18 @@ const CoursePage = () => {
 
       {/* listStyleToggle */}
       <div className={` w-fit p-2 h-[44px] rounded-[9px] bg-white flex justify-center items-center gap-3 lg:absolute left-0 ${listStyle ? 'bg-[76%_100%]' : 'bg-[28%_100%]'}`}>
-        <img src='../../../public/Image/Icon/list.png' className='cursor-pointer  max-custom:hidden ' onClick={() => setListStyle(true)} />
-        <img src='../../../public/Image/Icon/apps.png' className='cursor-pointer' onClick={() => setListStyle(false)} />
+        <img src='../../../public/images/icon/list.png' className='cursor-pointer  max-custom:hidden ' onClick={() => setListStyle(true)} />
+        <img src='../../../public/images/icon/apps.png' className='cursor-pointer' onClick={() => setListStyle(false)} />
       </div>
 
       {/* additionalActionButtons */}
       <div className='w-[87px] h-[44px] rounded-[9px] bg-white flex justify-center items-center gap-3 lg:absolute left-[100px]'>
         <span className='text-[#808080] text-[15px]'>{data?.totalCount}</span>
-        <img src='../../../public/Image/Icon/eye.png' />
+        <img src='../../../public/images/icon/eye.png' />
       </div>
       <div className='w-[87px] h-[44px] rounded-[9px] bg-white flex justify-center items-center gap-3 lg:absolute left-[200px]'>
         <span className='text-[#808080] text-[15px]'>وضعیت</span>
-        <img src='../../../public/Image/Icon/eye.png' />
+        <img src='../../../public/images/icon/eye.png' />
       </div>
     </div>
 

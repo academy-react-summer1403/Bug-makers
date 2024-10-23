@@ -10,25 +10,25 @@ const WorkshopTarget = () => {
       id: 1,
       title: 'استعداد یابی',
       description: 'یافتن رگه های علاقه و استعداد در دوره های پایلوت استعدادیابی و سپس چینش مسیری برای شکوفا نمودن ذوق برنامه سازی در دانش پژوهان.',
-      img: <img src='../../../../public/Image/Icon/personal.png' className='block w-[8vw] h-[8vw] ' />
+      img: <img src='../../../../public/images/icon/personal.png' className='block w-[8vw] h-[8vw] ' />
     },
     {
       id: 2,
       title: 'راهنمایی و ایجاد انگیزه',
       description: 'آشنایی با پشته ای تکنولوژیک از زبان های کدنویسی با نگاهی عمل محور برای تحریک ذهنیت خلاق در طول فرایند آموزش.',
-      img: <img src='../../../../public/Image/Icon/estedad.png' className='block w-[8vw] h-[8vw]' />
+      img: <img src='../../../../public/images/icon/estedad.png' className='block w-[8vw] h-[8vw]' />
     },
     {
       id: 3,
       title: 'آموزش های تخصصی',
       description: 'کارگاه های تخصصی و تکمیلی برای کار با پلتفرم های بازاری مورد اقبال و برگزاری تورنمت های تیمی رقابتی برای تقویت روحیه کار تیمی و آشنایی عمیق با ابزارهای مدیریت پروژه ، مدیریت سورس تیمی و دورکاری',
-      img: <img src='../../../../public/Image/Icon/amozesh.png' className='block w-[8vw] h-[8vw] mt-[1vw]' />
+      img: <img src='../../../../public/images/icon/amozesh.png' className='block w-[8vw] h-[8vw] mt-[1vw]' />
     },
     {
       id: 4,
       title: 'آماده سازی برای بازار کار',
       description: 'جلسات تنظیم cv برای ساخت و اشتراک رزومه فنی در بسترهای داخلی و بین المللی کاریابی و آماده سازی دانش پژوهان برای شرکت در مصاحبه های کاری حضوری و راه دور',
-      img: <img src='../../../../public/Image/Icon/work.png' className='block w-[8vw] h-[8vw] ' />
+      img: <img src='../../../../public/images/icon/work.png' className='block w-[8vw] h-[8vw] ' />
     },
   ];
 
