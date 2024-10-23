@@ -14,7 +14,16 @@ export const ProfileStep1 = async (id) => {
     formData.append("Gender", id.gender);
     // formData.append("CourseFavoriteId", id.email);
     formData.append("HomeAdderess", id.address);
-  console.log(formData);
+
+    if (id.telegram) {formData.append("TelegramLink", id.telegram);}
+    if (id.linkedin) {
+      formData.append("LinkdinProfile", id.linkedin);
+    }  
+      
+      
+      
+      
+      console.log(formData);
   const response = await instance.put(url,  formData );
 
   return response;
@@ -39,3 +48,16 @@ export const ProfileGet = async () => {
 
   return response;
 };
+
+export const setProfilePic = async (id) => {
+  let url = "/SharePanel/AddProfileImage";
+  const formData = new FormData();
+    formData.append("formFile", id);
+    
+  console.log(formData);
+  const response = await instance.put(url,  formData );
+
+  return response;
+};
+
+

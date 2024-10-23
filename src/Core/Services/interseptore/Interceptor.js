@@ -24,7 +24,11 @@ const onError = (err) => {
     }
 
     if(err.response.status >= 400 && err.response.status < 500){
-        notifyError(err.message);
+        {
+          err.response.data.ErrorMessage[0]
+            ? notifyError(err.response.data.ErrorMessage[0])
+            : notifyError(err.message)
+        }
     }
     return Promise.reject(err);
 };

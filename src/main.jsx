@@ -28,6 +28,8 @@ import LikedCourse from './Components/Layout/ClientPanel/LeftSide/LikedCourse/Li
 import LikedBlog from './Components/Layout/ClientPanel/LeftSide/LikedBlog/LikedBlog.jsx'
 import MyReserve from './Components/Layout/ClientPanel/LeftSide/MyReserve/MyReserve.jsx'
 import MyCourses from './Components/Layout/ClientPanel/LeftSide/MyCoursess/MyCourses.jsx'
+import CoursePage from './Pages/CoursePage/CoursePage.jsx'
+import LandingPage from './Pages/Landing Page/LandingPage.jsx'
 
 
 const queryClient = new QueryClient();
@@ -40,9 +42,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        path: "/",
-        element: <App />,
-        errorElement: <Error />,
+        element: <LandingPage />,
+      },
+      {
+        path: "/CoursePage",
+        element: <CoursePage />,
       },
       {
         path: "/ClientPanel",

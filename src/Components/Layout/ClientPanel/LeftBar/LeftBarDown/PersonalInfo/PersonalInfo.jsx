@@ -20,6 +20,13 @@ const PersonalInfo = () => {
       .email("ایمیل معتبر وارد کنید")
       .required("ایمیل را وارد کنید"),
     address: Yup.string(),
+    telegram: Yup.string()
+      .url("لینک تلگرام معتبر وارد کنید")
+      // .required("لطفا لینک تلگرام خود را وارد کنید"),
+      ,
+    linkedin: Yup.string()
+      .url("لینک لینکدین معتبر وارد کنید")
+      // .required("لطفا لینک لینکدین خود را وارد کنید"),
   });
   const onSubmit =async (val)=>{
     console.log(val)
@@ -41,10 +48,12 @@ const PersonalInfo = () => {
             gender: "",
             email: "",
             address: "",
+            linkedin: "",
+            telegram:""
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            onSubmit(values)
+            onSubmit(values);
             // console.log(values);
             // alert("اطلاعات با موفقیت ذخیره شد!");
           }}
@@ -212,6 +221,55 @@ const PersonalInfo = () => {
                   name="address"
                   component="div"
                   className="text-red-500 text-sm"
+                />
+              </div>
+              <div className="flex flex-col gap-y-[0.5vw]">
+                <label>تلگرام</label>
+                <Field name="telegram">
+                  {({ field }) => (
+                    <Input
+                      {...field}
+                      clearable
+                      bordered
+                      fullWidth
+                      placeholder="لینک تلگرام خود را وارد کنید"
+                      // color={
+                      //   errors.telegram && touched.telegram
+                      //     ? "error"
+                      //     : "default"
+                      // }
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  className="text-red-500 text-[0.7vw]"
+                  name="telegram"
+                  component="div"
+                />
+              </div>
+
+              <div className="flex flex-col gap-y-[0.5vw]">
+                <label>لینکدین</label>
+                <Field name="linkedin">
+                  {({ field }) => (
+                    <Input
+                      {...field}
+                      clearable
+                      bordered
+                      fullWidth
+                      placeholder="لینک لینکدین خود را وارد کنید"
+                      // color={
+                      //   errors.linkedin && touched.linkedin
+                      //     ? "error"
+                      //     : "default"
+                      // }
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  className="text-red-500 text-[0.7vw]"
+                  name="linkedin"
+                  component="div"
                 />
               </div>
 

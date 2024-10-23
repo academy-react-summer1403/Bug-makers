@@ -40,6 +40,10 @@ const ProfilePic = () => {
     }
   };
 
+  const onSubmit =()=>{
+    
+  }
+
   return (
     <div className="flex flex-wrap w-full h-full p-[1.5vw] gap-[1vw] overflow-auto cursor-pointer">
       {images.map((image) => (
