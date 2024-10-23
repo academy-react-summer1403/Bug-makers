@@ -7,14 +7,39 @@ import CommentSection from "./CommentBar/CommentBar";
 import CourseTable from "./CourseList/CourseList";
 import Gauge from "../../LeftBar/LeftBarDown/PersonalInfo/ComplitingCircle";
 import CoursePage from "./CourseListDeatail/Base";
+import { useSelector } from "react-redux";
+
+import { useDispatch } from "react-redux";
+import { useQuery } from "react-query";
+import { ProfileGet } from "../../../../../Core/Services/Api/Client/Profile";
+import { setClientInfo } from "../../../../../Redux/Slice/ClientInfo/ClientInfo";
 
 const Dashbord =()=>{
+
+  const dispatch = useDispatch();
+
+  const { data: getProfileInfo } = useQuery({
+    queryKey: ["getProfileInfo"],
+    queryFn: ProfileGet,
+    onSuccess: (data) => {
+      dispatch(setClientInfo(data || []));
+    },
+  });
+
+
+
   const [showMoreCourse,setShowMoreCourse]=useState(false)
+  const CourseListItem = useSelector(
+    (state) => state.ClientInfoSlice.ClientInfo
+  );
+  console.log(CourseListItem);
    
     return (
       <div className="relative w-full h-full">
         <div className="h-[10%] w-full flex items-center py-[1vw]">
-          <span className="font-[600] text-[1.8vw]">سلام، صبح‌ بخیر پارسا</span>
+          <span className="font-[600] text-[1.8vw]">
+            سلام، صبح‌ بخیر {CourseListItem.fName}
+          </span>
           <div className="h-full w-[6%] flex justify-between items-center mr-[30%]">
             <div className="size-[1.7vw] rounded-full bg-white flex items-center justify-center">
               <svg
@@ -105,7 +130,7 @@ const Dashbord =()=>{
           </div>
 
           <div className="w-[20%] h-[99%] bg-white rounded-[0.5vw]">
-            <Gauge value={5} />
+            <Gauge value={CourseListItem.profileCompletionPercentage} />
           </div>
           <div className="h-full w-[22%] relative top-[-5vw]">
             <PersianCalender />

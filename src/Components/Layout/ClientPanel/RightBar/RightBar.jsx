@@ -240,8 +240,11 @@ const RightBar = () => {
           <Button
             radius="full"
             key={item.id}
-            onClick={() => {setActiveIndex(item.id);navigator(`${item.name}`);}}
-            className={`flex items-center gap-x-[1vw] justify-start w-full h-[54px] hover:border-[#E1C461] ${
+            onClick={() => {
+              setActiveIndex(item.id);
+              navigator(`${item.name}`);
+            }}
+            className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[54px] hover:border-[#E1C461] ${
               activeIndex === item.id
                 ? "bg-[#E1C461] text-white"
                 : "bg-white text-gray-700"
@@ -260,7 +263,7 @@ const RightBar = () => {
         <Button
           radius="full"
           onClick={() => setActiveIndex(6)}
-          className={`flex items-center gap-x-[1vw] justify-start w-full h-[54px]  hover:border-[#E1C461] ${
+          className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[54px]  hover:border-[#E1C461] ${
             activeIndex === 6
               ? "bg-[#E1C461] text-white"
               : "bg-white text-gray-700"

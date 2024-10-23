@@ -3,7 +3,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const Gauge = ({ value }) => {
-  const percentage = (value - 1) * 20 + 20;
+  const percentage = (value);
   const color = `rgba(${255 - percentage * 2.55}, ${percentage * 2.55}, 0, 1)`;
 
   return (

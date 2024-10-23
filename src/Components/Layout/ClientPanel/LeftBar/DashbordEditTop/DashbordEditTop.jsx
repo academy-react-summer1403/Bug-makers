@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Button, Avatar } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const DashbordEditTop = () => {
   const [activeTab, setActiveTab] = useState("personal");
   const navigator = useNavigate();
-
+  const CourseListItem = useSelector(
+    (state) => state.ClientInfoSlice.ClientInfo
+  );
     const tabs = [
       { id: "Personal", label: "اطلاعات شخصی" },
       { id: "Picture", label: "عکس پروفایل" },
@@ -16,14 +19,18 @@ const DashbordEditTop = () => {
     <div className="bg-white shadow-md rounded-lg p-6 w-full h-full relative">
       {/* Header Section */}
       <div className="bg-[#E1C461] h-[40%] rounded-t-lg -mx-6 -mt-6"></div>
-      <div className="rounded-full size-[6vw] absolute top-[2.5vw] right-[1vw] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]"></div>
-      <div className="flex items-center justify-between mt-[3.5vw] px-[1vw]">
-        <div className="w-[40%]">
+      <div className="rounded-full flex justify-center items-center size-[6vw] absolute top-[2.5vw] right-[1vw] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]">
+        <img className="h-full " src={CourseListItem.currentPictureAddress} alt="" />
+      </div>
+      <div className="flex items-center justify-between mt-[4.6vw] px-[1vw]">
+        <div className="w-[45%]">
           <div className="flex items-center gap-x-[0.5vw]">
-            <p className="text-2xl font-semibold text-gray-800">پارسا آقایی</p>
-            <p className="text-sm text-gray-500">( ادمین ، دانشجو )</p>
+            <p className="text-2xl font-semibold text-gray-800">
+              {CourseListItem.fName} {CourseListItem.lName}
+            </p>
+            <p className="text-sm text-gray-500">( دانشجو )</p>
           </div>
-          <div className="flex items-center text-gray-500 mt-2 justify-between w-[95%]">
+          <div className="flex items-center text-gray-500 mt-2 justify-between w-[100%]">
             <svg
               width="20"
               height="20"
@@ -52,7 +59,7 @@ const DashbordEditTop = () => {
               />
             </svg>
 
-            <span>09121231234</span>
+            <span>{CourseListItem.phoneNumber}</span>
             <svg
               width="4"
               height="4"
@@ -90,7 +97,7 @@ const DashbordEditTop = () => {
               </defs>
             </svg>
 
-            <span>0372235050</span>
+            <span>{CourseListItem.nationalCode}</span>
             <svg
               width="4"
               height="4"
@@ -122,9 +129,10 @@ const DashbordEditTop = () => {
                 stroke-linejoin="round"
               />
             </svg>
-            <span>Example@gmail.com</span>
+            <span>{CourseListItem.email}</span>
 
             <svg
+            onClick={()=>{navigator(`/ClientPanel/DashbordEdit/Personal`);}}
               className="mr-[2vw] cursor-pointer"
               width="24"
               height="24"
@@ -152,11 +160,7 @@ const DashbordEditTop = () => {
           <span className="block  mb-[0.5vw] text-[1vw] text-[#787878]">
             درباره من
           </span>
-          <p className="text-[0.8vw]">
-            من پارسا آقایی دانشجوی نوب سگ هستم که اخیرا دارم یاد میگیرم برنامه
-            نویسی رو و امیدوارم از نوبیت دربیام و بتونم یه کاری پیدا کنم تو
-            دنیای دیجیتال ، ممنون از همه
-          </p>
+          <p className="text-[0.8vw]">{CourseListItem.userAbout}</p>
         </div>
       </div>
 

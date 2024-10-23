@@ -20,13 +20,7 @@ const PersonalInfo = () => {
       .email("ایمیل معتبر وارد کنید")
       .required("ایمیل را وارد کنید"),
     address: Yup.string(),
-    telegram: Yup.string()
-      .url("لینک تلگرام معتبر وارد کنید")
-      // .required("لطفا لینک تلگرام خود را وارد کنید"),
-      ,
-    linkedin: Yup.string()
-      .url("لینک لینکدین معتبر وارد کنید")
-      // .required("لطفا لینک لینکدین خود را وارد کنید"),
+
   });
   const onSubmit =async (val)=>{
     console.log(val)
@@ -48,8 +42,7 @@ const PersonalInfo = () => {
             gender: "",
             email: "",
             address: "",
-            linkedin: "",
-            telegram:""
+
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
@@ -80,7 +73,7 @@ const PersonalInfo = () => {
 
               <div
                 onChange={() => {
-                  setStep(1);
+                  setStep(10);
                 }}
               >
                 <label className="block mb-[0.5vw] mr-[0.3vw]">
@@ -103,7 +96,7 @@ const PersonalInfo = () => {
 
               <div
                 onChange={() => {
-                  setStep(2);
+                  setStep(20);
                 }}
                 className="col-span-2"
               >
@@ -134,7 +127,7 @@ const PersonalInfo = () => {
 
               <div
                 onChange={() => {
-                  setStep(3);
+                  setStep(30);
                 }}
               >
                 <label className="block mb-[0.5vw] mr-[0.3vw]">
@@ -171,7 +164,7 @@ const PersonalInfo = () => {
 
               <div
                 onChange={() => {
-                  setStep(4);
+                  setStep(40);
                 }}
                 className="flex items-center gap-x-[1vw]"
               >
@@ -202,7 +195,7 @@ const PersonalInfo = () => {
 
               <div
                 onChange={() => {
-                  setStep(5);
+                  setStep(50);
                 }}
                 className="col-span-2"
               >
@@ -223,55 +216,7 @@ const PersonalInfo = () => {
                   className="text-red-500 text-sm"
                 />
               </div>
-              <div className="flex flex-col gap-y-[0.5vw]">
-                <label>تلگرام</label>
-                <Field name="telegram">
-                  {({ field }) => (
-                    <Input
-                      {...field}
-                      clearable
-                      bordered
-                      fullWidth
-                      placeholder="لینک تلگرام خود را وارد کنید"
-                      // color={
-                      //   errors.telegram && touched.telegram
-                      //     ? "error"
-                      //     : "default"
-                      // }
-                    />
-                  )}
-                </Field>
-                <ErrorMessage
-                  className="text-red-500 text-[0.7vw]"
-                  name="telegram"
-                  component="div"
-                />
-              </div>
-
-              <div className="flex flex-col gap-y-[0.5vw]">
-                <label>لینکدین</label>
-                <Field name="linkedin">
-                  {({ field }) => (
-                    <Input
-                      {...field}
-                      clearable
-                      bordered
-                      fullWidth
-                      placeholder="لینک لینکدین خود را وارد کنید"
-                      // color={
-                      //   errors.linkedin && touched.linkedin
-                      //     ? "error"
-                      //     : "default"
-                      // }
-                    />
-                  )}
-                </Field>
-                <ErrorMessage
-                  className="text-red-500 text-[0.7vw]"
-                  name="linkedin"
-                  component="div"
-                />
-              </div>
+             
 
               {/* دکمه ثبت تغییرات */}
               <div className="col-span-2 flex justify-end mt-4">

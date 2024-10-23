@@ -20,6 +20,12 @@ export const ProfileStep1 = async (id) => {
       formData.append("LinkdinProfile", id.linkedin);
     }  
       
+    if (id.longitude) {
+      formData.append("Longitude", id.longitude);
+    }
+    if (id.latitude) {
+      formData.append("Latitude", id.latitude);
+    }  
       
       
       
@@ -29,17 +35,6 @@ export const ProfileStep1 = async (id) => {
   return response;
 };
 
-export const ProfileStep2 = async (id) => {
-  let url = "/SharePanel/UpdateProfileInfo";
-  const formData = new FormData();
-    formData.append("TelegramLink", id.telegram);
-    formData.append("LinkdinProfile", id.linkedin);
-    
-  console.log(formData);
-  const response = await instance.put(url,  formData );
-
-  return response;
-};
 
 export const ProfileGet = async () => {
   let url = "/SharePanel/GetProfileInfo";

@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import CoursePage from "../Dashbord/CourseListDeatail/Base";
 
 const MyCourses = () => {
+
   const [showMoreCourse, setShowMoreCourse] = useState(false);
+
+  
 
   return (
     <div className="relative w-full h-full">
