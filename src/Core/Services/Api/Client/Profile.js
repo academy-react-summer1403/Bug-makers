@@ -56,3 +56,14 @@ export const setProfilePic = async (id) => {
 };
 
 
+export const delProfilePic = async (id) => {
+  let url = "/SharePanel/DeleteProfileImage";
+  const formData = new FormData();
+  formData.append("DeleteEntityId", id);
+
+  console.log(formData);
+  const response = await instance.delete(url, { data: formData });
+
+  return response;
+};
+

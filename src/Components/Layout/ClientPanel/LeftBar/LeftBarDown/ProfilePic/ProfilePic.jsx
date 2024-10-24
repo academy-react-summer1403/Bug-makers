@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
+import { delProfilePic } from "../../../../../../Core/Services/Api/Client/Profile";
 
 const ProfilePic = () => {
   const CourseListItem = useSelector(
@@ -30,19 +31,24 @@ const ProfilePic = () => {
     if (CourseListItem.userImage) {
       console.log(CourseListItem.userImage);
       const initialImages = CourseListItem.userImage.map((img) => ({
-        img
+        id: img.id,
+        inserDate: img.inserDate,
+        pictureName: img.pictureName,
+        puctureAddress: img.puctureAddress,
       }));
       console.log(initialImages);
       setImages(initialImages); // Update the images state
-      console.log("thissss" + images);
+      
     }
   }, [CourseListItem.userImage]); // Dependency array to run effect when userImage changes
 
+  console.log(images);
   const handleImageClick = (id) => {
     setSelectedImage(id);
   };
 
   const handleImageDelete = (id) => {
+    const res = delProfilePic(id)
     setImages(images.filter((image) => image.id !== id));
     if (selectedImage === id) {
       setSelectedImage(null);
@@ -73,13 +79,13 @@ const ProfilePic = () => {
       <div className="flex flex-wrap w-[100%] h-[24vw]  p-[1.5vw] gap-[1vw] overflow-auto cursor-pointer">
         {images.map((image) => (
           <div
-            key={image.img.id}
+            key={image.id}
             className="relative rounded-[1vw] h-[45%] w-[10vw]"
           >
             <div className="duration-300 rounded-full size-[1.5vw] bg-white absolute top-[0.2vw] right-[0.2vw] flex items-center justify-center cursor-pointer">
               <svg
                 onClick={() => {
-                  setSelectPic(image.img.id);
+                  setSelectPic(image.id);
                 }}
                 width="20"
                 height="20"
@@ -105,11 +111,11 @@ const ProfilePic = () => {
               </svg>
               <div
                 className={`duration-300 absolute z-30 top-[0vw] right-[0vw] w-[8vw] h-[5vw] bg-white rounded-[0.5vw] p-[0.5vw] flex-col justify-between ${
-                  selectPic === image.img.id ? "flex" : "hidden"
+                  selectPic === image.id ? "flex" : "hidden"
                 }`}
               >
                 <div
-                  onClick={() => handleSetMainImage(image.img.id)} // Set main image
+                  onClick={() => handleSetMainImage(image.id)} // Set main image
                   className="w-full h-[40%] flex justify-between items-center text-[0.7vw] font-[600]"
                 >
                   <svg
@@ -137,7 +143,7 @@ const ProfilePic = () => {
                 <hr />
                 <div
                   onClick={() => {
-                    handleImageDelete(image.img.id);
+                    handleImageDelete(image.id);
                     setSelectPic(0);
                   }}
                   className="w-full h-[40%] flex justify-start gap-x-[0.5vw] items-center text-[0.7vw] font-[600] text-[#FF5454]"
@@ -167,37 +173,66 @@ const ProfilePic = () => {
             </div>
             <img
               className={`rounded-[1vw] h-full w-full object-cover ${
-                selectedImage === image.img.id
-                  ? "border-2 border-[#FF5454]"
-                  : ""
-              } ${
-                mainImageId === image.img.id ? "border-2 border-green-500" : ""
-              }`}
-              src={image.img.pictureAddress}
-              alt="Profile"
-              onClick={() => handleImageClick(image[0].id)}
+                selectedImage === image.id ? "border-2 border-[#FF5454]" : ""
+              } ${mainImageId === image.id ? "border-2 border-green-500" : ""}`}
+              src={image.puctureAddress}
+              alt={`${image.puctureAddress}`}
+              onClick={() => handleImageClick(image.id)}
             />
           </div>
         ))}
-      </div>
-      <div className="flex justify-start mb-2">
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          multiple
-          id="file-upload"
-          className="hidden"
-        />
-        <label htmlFor="file-upload">
-          <Button auto className="bg-[#E7E7E7] hover:bg-gray-300" size="lg">
-            Upload Images
+        <div className="w-[15%] h-[45%] flex flex-col gap-y-[0.5vw] justify-center items-center border-[0.1vw] border-[#E1C461] rounded-[0.5vw]">
+          <label htmlFor=" file-upload">
+            <Button auto className="bg-[#E7E7E7] hover:bg-gray-300" size="lg">
+              اضافه کردن عکس
+            </Button>
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            multiple
+            id="file-upload"
+            className="hidden"
+          />
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M29.3327 8.99996C29.8849 8.99996 30.3327 8.55224 30.3327 7.99996C30.3327 7.44768 29.8849 6.99996 29.3327 6.99996V8.99996ZM18.666 6.99996C18.1137 6.99996 17.666 7.44768 17.666 7.99996C17.666 8.55224 18.1137 8.99996 18.666 8.99996V6.99996ZM24.9993 2.66663C24.9993 2.11435 24.5516 1.66663 23.9993 1.66663C23.4471 1.66663 22.9993 2.11435 22.9993 2.66663H24.9993ZM22.9993 13.3333C22.9993 13.8856 23.4471 14.3333 23.9993 14.3333C24.5516 14.3333 24.9993 13.8856 24.9993 13.3333H22.9993ZM29.3327 6.99996H23.9993V8.99996H29.3327V6.99996ZM23.9993 6.99996H18.666V8.99996H23.9993V6.99996ZM22.9993 2.66663V7.99996H24.9993V2.66663H22.9993ZM22.9993 7.99996V13.3333H24.9993V7.99996H22.9993Z"
+              fill="#E1C461"
+            />
+            <path
+              d="M15.3327 4C9.36156 4 6.376 4 4.521 5.85499C2.66602 7.70999 2.66602 10.6955 2.66602 16.6667C2.66602 22.6377 2.66602 25.6233 4.521 27.4784C6.376 29.3333 9.36156 29.3333 15.3327 29.3333C21.3037 29.3333 24.2894 29.3333 26.1444 27.4784C27.9994 25.6233 27.9993 22.6377 27.9993 16.6667V16"
+              stroke="#E1C461"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+            <path
+              d="M2.66602 18.8473C3.49138 18.7274 4.3258 18.6682 5.16163 18.6703C8.69755 18.5955 12.1469 19.6973 14.8941 21.779C17.442 23.7095 19.2323 26.3666 19.9993 29.3334"
+              stroke="#E1C461"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M28 22.5283C26.4328 21.7345 24.8117 21.3317 23.1816 21.3335C20.7127 21.3237 18.2687 22.2311 16 24"
+              stroke="#E1C461"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <Button auto className="bg-[#E7E7E7] hover:bg-gray-300" size="sm">
+            تایید کردن عکس
           </Button>
-        </label>
+          <span className="text-[0.7vw] text-gray-500">
+            اندازه فریم ( 236*236 )
+          </span>
+        </div>
       </div>
-      <Button type="submit" auto className="bg-[#E7E7E7] hover:bg-gray-300">
-        Submit
-      </Button>
     </form>
   );
 };
