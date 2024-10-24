@@ -1,77 +1,105 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { Button } from "@nextui-org/react";
-import { useSelector } from "react-redux";
-import { delProfilePic } from "../../../../../../Core/Services/Api/Client/Profile";
+import { useDispatch } from "react-redux";
+import {
+  delProfilePic,
+  setProfilePic,
+  ProfileGet,
+  selectCurentProfilePic, // assuming this is the API function to get profile info
+} from "../../../../../../Core/Services/Api/Client/Profile";
+import { useQuery } from "react-query";
+import { Button, Input } from "@nextui-org/react";
+import { setClientInfo } from "../../../../../../Redux/Slice/ClientInfo/ClientInfo";
+// import { setClientInfo } from "../../../../../../Core/Store/Slices/ClientInfoSlice"; // Assuming this is the correct action
 
 const ProfilePic = () => {
-  const CourseListItem = useSelector(
-    (state) => state.ClientInfoSlice.ClientInfo
-  );
-
-
-  // State to hold images
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectPic, setSelectPic] = useState(0);
-  const [mainImageId, setMainImageId] = useState(null); // State for main image
+  const [mainImageId, setMainImageId] = useState(null);
+  const dispatch = useDispatch();
 
-  // Formik setup
+  // Fetch the profile info with react-query, auto-refetching every 6 seconds
+  const { data: CourseListItem, refetch } = useQuery({
+    queryKey: ["getProfileInfo"],
+    queryFn: ProfileGet, // Assuming ProfileGet is the function to get the profile info
+    onSuccess: (data) => {
+      dispatch(setClientInfo(data || []));
+      if (data && data.userImage) {
+        const initialImages = data.userImage.map((img) => ({
+          id: img.id,
+          inserDate: img.inserDate,
+          pictureName: img.pictureName,
+          puctureAddress: img.puctureAddress,
+        }));
+        setImages(initialImages);
+      }
+    },
+    refetchInterval: 6000, // refetch data every 6 seconds
+  });
+
   const formik = useFormik({
     initialValues: {
       files: [],
     },
-    onSubmit: (values) => {
-      console.log("Uploaded images: ", values.files);
+    onSubmit: async (values) => {
+      try {
+        const files = values.files;
+        if (files.length > 0) {
+          await handleFileUpload(files); // فراخوانی تابع آپلود
+          setTimeout(() => {
+            refetch(); // Refetch after 2 seconds of form submission
+          }, 2000);
+        }
+      } catch (error) {
+        console.error("Error uploading images:", error);
+      }
     },
   });
 
-  // useEffect to update images when CourseListItem changes
-  useEffect(() => {
-    if (CourseListItem.userImage) {
-      console.log(CourseListItem.userImage);
-      const initialImages = CourseListItem.userImage.map((img) => ({
-        id: img.id,
-        inserDate: img.inserDate,
-        pictureName: img.pictureName,
-        puctureAddress: img.puctureAddress,
-      }));
-      console.log(initialImages);
-      setImages(initialImages); // Update the images state
-      
-    }
-  }, [CourseListItem.userImage]); // Dependency array to run effect when userImage changes
-
-  console.log(images);
   const handleImageClick = (id) => {
     setSelectedImage(id);
   };
 
-  const handleImageDelete = (id) => {
-    const res = delProfilePic(id)
-    setImages(images.filter((image) => image.id !== id));
-    if (selectedImage === id) {
-      setSelectedImage(null);
-    }
-    if (mainImageId === id) {
-      setMainImageId(null); // Reset main image if deleted
+  const handleImageDelete = async (id) => {
+    try {
+      await delProfilePic(id); // API call to delete the image
+      // setImages(images.filter((image) => image.id !== id));
+      // if (selectedImage === id) setSelectedImage(null);
+      // if (mainImageId === id) setMainImageId(null); // Reset if main image is deleted
+    } catch (error) {
+      console.error("Error deleting image:", error);
     }
   };
 
   const handleFileChange = (event) => {
     const files = event.target.files;
-    const newImages = Array.from(files).map((file, index) => ({
-      id: images.length + index + 1,
-      pictureAddress: URL.createObjectURL(file),
-    }));
-
-    setImages([...images, ...newImages]);
-    formik.setFieldValue("files", [...formik.values.files, ...files]);
+    formik.setFieldValue("files", files); // Update files in formik
   };
 
-  const handleSetMainImage = (id) => {
+  const handleFileUpload = async (files) => {
+    try {
+      const file = files[0]; // Assuming a single file
+      await setProfilePic(file); // Upload the file
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
+  const handleSetMainImage = async (id) => {
     setMainImageId(id); // Set main image
     setSelectPic(0); // Close the selection menu
+    const res = await selectCurentProfilePic(id)
+
+    const dispatch = useDispatch();
+
+    const { data: getProfileInfo } = useQuery({
+      queryKey: ["getProfileInfo"],
+      queryFn: ProfileGet,
+      onSuccess: (data) => {
+        dispatch(setClientInfo(data || []));
+      },
+    });
   };
 
   return (
@@ -182,18 +210,13 @@ const ProfilePic = () => {
           </div>
         ))}
         <div className="w-[15%] h-[45%] flex flex-col gap-y-[0.5vw] justify-center items-center border-[0.1vw] border-[#E1C461] rounded-[0.5vw]">
-          <label htmlFor=" file-upload">
-            <Button auto className="bg-[#E7E7E7] hover:bg-gray-300" size="lg">
-              اضافه کردن عکس
-            </Button>
-          </label>
-          <input
+          <Input
             type="file"
             accept="image/*"
             onChange={handleFileChange}
             multiple
-            id="file-upload"
-            className="hidden"
+            id="file"
+            className=""
           />
           <svg
             width="32"
@@ -225,7 +248,12 @@ const ProfilePic = () => {
               stroke-linejoin="round"
             />
           </svg>
-          <Button auto className="bg-[#E7E7E7] hover:bg-gray-300" size="sm">
+          <Button
+            type="submit"
+            auto
+            className="bg-[#E7E7E7] hover:bg-gray-300"
+            size="sm"
+          >
             تایید کردن عکس
           </Button>
           <span className="text-[0.7vw] text-gray-500">

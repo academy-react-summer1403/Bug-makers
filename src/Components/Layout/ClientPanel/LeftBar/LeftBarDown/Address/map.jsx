@@ -74,14 +74,13 @@ function LocationMarkers() {
 // ​
 // userAbout: "dbgdbdxgn dgbdgbfdgbf"
   const CourseListItem = useSelector((state) => state.ClientInfoSlice.ClientInfo);
-  console.log(CourseListItem);
+  // console.log(CourseListItem);
   const map = useMapEvents({
-    click(e) {
+    async click(e) {
       setMarkers([[e.latlng.lat, e.latlng.lng]]);
 
-
-      alert(e.latlng.lng)
-      alert(e.latlng.lat)
+      alert(e.latlng.lng);
+      alert(e.latlng.lat);
       const date = "2004-07-17";
       const data = {
         firstName: `${CourseListItem.fName}`,
@@ -95,12 +94,14 @@ function LocationMarkers() {
         address: `${CourseListItem.homeAdderess}`,
         longitude: `${e.latlng.lng}`,
         latitude: `${e.latlng.lat}`,
-
       };
+      console.log(date);
 
-      const res = ProfileStep1(data);
-      
-      
+      const setdata= async ()=>{
+        const res = await ProfileStep1(data);
+      }
+      setdata()
+
       // update.mutate(fm);or
     },
     locationfound(e) {

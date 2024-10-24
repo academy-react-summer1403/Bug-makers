@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { removeItem } from "../../../../Core/Services/common/storage.services";
+import toast from "react-hot-toast";
 
 const RightBar = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(5);
   const navigator = useNavigate();
 
   // لیست آیتم‌های منو
@@ -188,7 +190,7 @@ const RightBar = () => {
     },
     {
       id: 5,
-      name: "DashbordEdit",
+      name: "DashbordEdit/Personal",
       label: "پروفایل",
       icon: (
         <svg
@@ -351,6 +353,13 @@ const RightBar = () => {
           حساب‌های کاربری
         </Button>
         <Button
+        onClick={()=>{
+          removeItem("token")
+
+          toast.success("با موفقیت از اکانت خود خارج شدید")
+          navigator("/");
+
+        }}
           radius="full"
           className="flex items-center justify-start w-full border bg-white border-gray-200 text-red-500"
           auto

@@ -15,10 +15,13 @@ export const ProfileStep1 = async (id) => {
     // formData.append("CourseFavoriteId", id.email);
     formData.append("HomeAdderess", id.address);
 
-    if (id.telegram) {formData.append("TelegramLink", id.telegram);}
-    if (id.linkedin) {
-      formData.append("LinkdinProfile", id.linkedin);
-    }  
+    id.telegram
+      ? formData.append("TelegramLink", id.telegram)
+      : "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://t.me/varzesh3&ved=2ahUKEwiJlNeQr6eJAxUm48kDHXXJHpwQFnoECBYQAw&usg=AOvVaw2ymPXxyfd7EBHui8oJjzOX";
+    id.linkedin
+      ? formData.append("LinkdinProfile", id.linkedin)
+      : "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://t.me/varzesh3&ved=2ahUKEwiJlNeQr6eJAxUm48kDHXXJHpwQFnoECBYQAw&usg=AOvVaw2ymPXxyfd7EBHui8oJjzOX";
+      
       
     if (id.longitude) {
       formData.append("Longitude", id.longitude);
@@ -50,7 +53,7 @@ export const setProfilePic = async (id) => {
     formData.append("formFile", id);
     
   console.log(formData);
-  const response = await instance.put(url,  formData );
+  const response = await instance.post(url, formData);
 
   return response;
 };
@@ -66,4 +69,16 @@ export const delProfilePic = async (id) => {
 
   return response;
 };
+
+export const selectCurentProfilePic = async (id) => {
+  let url = "/SharePanel/SelectProfileImage";
+  const formData = new FormData();
+    formData.append("ImageId", id);
+    
+  console.log(formData);
+  const response = await instance.post(url, formData);
+
+  return response;
+};
+
 

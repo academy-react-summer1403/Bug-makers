@@ -17,7 +17,8 @@ import CourseItem from "./CorseItem/CourseItem";
 import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
 
 
-const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
+const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
+  const [myCourseList,setMyCourseList]=useState([])
   // stateForCategoryFilter
   const [categoryQuery, setCategoryQuery] = useState("");
 
@@ -56,6 +57,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
   const CourseListItem = useSelector((state) => state.CourseSlice.CourseList);
 
   // fetchCoursesWithFilters
+
   const { isLoading, error, data } = useQuery(
     [
       "getCourse",
@@ -86,6 +88,37 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
       keepPreviousData: true,
     }
   );
+    const { IsLoading, Error, Data } = useQuery(
+      [
+        "getCourse",
+        queryValue,
+        teacherId,
+        categoryQuery,
+        startDate,
+        endDate,
+        sorting,
+        minCost,
+        maxCost,
+      ],
+      () =>
+        getCourseListWithPagination(
+          queryValue,
+          teacherId,
+          categoryQuery,
+          startDate,
+          endDate,
+          sorting,
+          minCost,
+          maxCost
+        ),
+      {
+        onSuccess: (data) => {
+          dispatch(setMyCourseList(data.courseFilterDtos || data));
+        },
+        keepPreviousData: true,
+      }
+    );
+
 
   // handleSearchQueryChange
   const handleSearch = (e) => {
@@ -144,8 +177,14 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
   const renderCourses = () => {
     if (isLoading) return <p>در حال بارگذاری...</p>;
     if (error) return <p>خطایی رخ داده است...</p>;
+    if (IsLoading) return <p>در حال بارگذاری...</p>;
+    if (Error) return <p>خطایی رخ داده است...</p>;
 
-    return CourseListItem.slice(
+    let ithem = null
+    if(point=="dashbord") { ithem = CourseListItem}
+    else if (point == "myCourse"){ithem = myCourseList}
+     
+    return ithem.slice(
       currentPage * itemsPerPage,
       (currentPage + 1) * itemsPerPage
     ).map((course, index) => (
@@ -280,12 +319,14 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
           show == true ? "flex" : "hidden"
         }`}
       >
-        <span className="text-[1.5vw] font-[600]">جدیدترین دوره ها</span>
+        <span className="text-[1.5vw] font-[600]"> {name} </span>
         <div
           onClick={() => {
             setShowMoreCourse(false);
           }}
-          className="rounded-full border border-red-500 h-[2.2vw] w-[5vw] text-red-500 flex items-center justify-evenly cursor-pointer"
+          className={`rounded-full border border-red-500 h-[2.2vw] w-[5vw] text-red-500  items-center justify-evenly cursor-pointer ${
+            point == "myCourse" ? "hidden" : "flex"
+          }`}
         >
           <svg
             width="24"
@@ -319,7 +360,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
             onChange={handleSearch}
           />
           <SelectOpt
-            width={"100%"}
+            width={point == "myCourse" ? "myCourse" : "100%"}
             lgWidth={"160px"}
             placeholder="استاد دوره"
             isTeacherSelect={true}
@@ -327,12 +368,14 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
             FilterValue={filterValue}
           />
 
-          <DateModal onFilter={filterByDateRange} />
+          <DateModal
+            onFilter={point == "myCourse" ? "myCourse" : filterByDateRange}
+          />
 
           <PriceFilter
-            width={"%"}
+            width={"100%"}
             lgWidth={"160px"}
-            onFilter={handlePriceFilter}
+            onFilter={point == "myCourse" ? "myCourse" : handlePriceFilter}
           />
           <span className="block lg:hidden text-[10px] text-[#978A8A] absolute bottom-2 right-4">
             تعداد {CourseListItem.length} نتیجه از {data?.totalCount || 0} دوره
@@ -347,7 +390,11 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
         </div>
 
         {/* for dashbord........  */}
-        <div className={` justify-between items-center mb-[0.2vw] ${show == false ? "flex" : "hidden"}`}>
+        <div
+          className={` justify-between items-center mb-[0.2vw] ${
+            show == false ? "flex" : "hidden"
+          }`}
+        >
           <div className="text-[1.5vw] font-[600]">جدیدترین دوره‌ها</div>
           <span
             onClick={() => {
@@ -367,7 +414,10 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
             <div className="w-[32%]   py-3 px-6 text-right">درباره دوره</div>
             <div className="w-[16%]  py-3 px-6 text-right">استاد دوره</div>
             <div className="w-[16%]  py-3 px-6 text-right">تاریخ برگزاری</div>
-            <div className="w-[16%] py-3 px-6 text-right">قیمت دوره</div>
+            <div className="w-[16%] py-3 px-6 text-right">
+              {" "}
+              {point == "dashbord" ? "قیمت دوره " : "درصد پرداختی"}{" "}
+            </div>
             <div className="w-[4%]  py-3 px-4 text-center"></div>
           </div>
         </div>

@@ -141,6 +141,8 @@ const Dashbord =()=>{
             show={false}
             itemPerpage={4}
             setShowMoreCourse={setShowMoreCourse}
+            name={"جدیدترین دوره ها "}
+            point={"dashbord"}
           />
         </div>
         <div
@@ -153,6 +155,8 @@ const Dashbord =()=>{
             show={true}
             itemPerpage={9}
             setShowMoreCourse={setShowMoreCourse}
+            name={"جدیدترین دوره ها "}
+            point={"dashbord"}
           />
           {/* <BlogPage/> */}
         </div>

@@ -35,7 +35,7 @@ const Links = () => {
 
   const onSubmit = async (val) => {
 
-    const date = new Date("2004-07-17T00:00:00");
+    const date = "2004-07-17T00:00:00";
     let data = {
       firstName: `${CourseListItem.fName}`,
       lastName: `${CourseListItem.lName}`,

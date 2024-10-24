@@ -4,7 +4,7 @@ import Map from "./map";
 const Address =()=>{
     return (
       <div className=" w-full h-full p-[2vw">
-        <span className="block mb-[2vw]">
+        <span className="block my-[1vw]">
           داخل نقشه موقعیت مکانی محل سکونت خود را انتخاب کنید
         </span>
 

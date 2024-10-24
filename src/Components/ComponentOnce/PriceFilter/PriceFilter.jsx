@@ -32,10 +32,18 @@ const PriceFilter = ({ onFilter }) => {
   };
 
   return (
-    <div className="price-filter flex-grow-[2] relative flex flex-nowrap justify-center items-center gap-3">
-        <h3 className='absolute right-0'>قیمت</h3>
-        <span className='absolute text-[12px] right-16 top-[-20px]'>حداکثر:{selectedMaxPrice}</span>
-        <span className='absolute text-[12px] right-40 top-[-20px]'>حداقل:{selectedMinPrice}</span>
+    <div
+      className={`price-filter  relative  flex-nowrap justify-center items-center gap-3 ${
+        onFilter == "myCourse" ? "hidden" : "flex flex-grow-[2]"
+      }`}
+    >
+      <h3 className="absolute right-0">قیمت</h3>
+      <span className="absolute text-[12px] right-16 top-[-20px]">
+        حداکثر:{selectedMaxPrice}
+      </span>
+      <span className="absolute text-[12px] right-40 top-[-20px]">
+        حداقل:{selectedMinPrice}
+      </span>
       <div className="range-slider relative top-2 right-14 h-[4px] rounded-3xl border-[4px] border-[#C7C7C7]">
         <input
           type="range"
@@ -46,7 +54,7 @@ const PriceFilter = ({ onFilter }) => {
           onChange={handlePriceChange}
           step={10000}
           className="absolute right-0 top-[-10px]"
-          style={{ zIndex: selectedMinPrice < maxPrice ? '2' : '0' }}
+          style={{ zIndex: selectedMinPrice < maxPrice ? "2" : "0" }}
         />
         <input
           type="range"

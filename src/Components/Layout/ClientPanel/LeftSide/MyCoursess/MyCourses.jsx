@@ -13,8 +13,10 @@ const MyCourses = () => {
         <CoursePage
           location={"CourseServ"}
           show={true}
-          itemPerpage={10}
+          itemPerpage={9}
           setShowMoreCourse={setShowMoreCourse}
+          name={"دوره های من"}
+          point={"myCourse"}
         />
       </div>
     </div>

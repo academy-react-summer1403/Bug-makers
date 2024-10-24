@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const DashbordEditTop = () => {
-  const [activeTab, setActiveTab] = useState("personal");
+  const [activeTab, setActiveTab] = useState("Personal");
   const navigator = useNavigate();
   const CourseListItem = useSelector(
     (state) => state.ClientInfoSlice.ClientInfo
@@ -19,7 +19,7 @@ const DashbordEditTop = () => {
     <div className="bg-white shadow-md rounded-lg p-6 w-full h-full relative">
       {/* Header Section */}
       <div className="bg-[#E1C461] h-[40%] rounded-t-lg -mx-6 -mt-6"></div>
-      <div className="rounded-full flex justify-center items-center size-[6vw] absolute top-[2.5vw] right-[1vw] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]">
+      <div className="rounded-full flex justify-center items-center size-[6vw] overflow-hidden absolute top-[2.5vw] right-[1vw] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]">
         <img className="h-full " src={CourseListItem.currentPictureAddress} alt="" />
       </div>
       <div className="flex items-center justify-between mt-[4.6vw] px-[1vw]">
