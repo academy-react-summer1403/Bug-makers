@@ -10,10 +10,16 @@ const instance = axios.create({
 });
 
 const onSuccess = (response) => {
-    response.data.message?toast.success(response.data.message):console.log(response.data)
+    const message = response.data.message || 'عملیات با موفقیت انجام شد'
+    if(response.data.status === 200){
+        toast.success(message)
+    }
+    else{
+        // toast.success( 'عملیات با موفقیت انجام شد')
+    }
     return response.data;
 }
-// response or responce.data
+
 const onError = (err) => {
     console.log(err);
 

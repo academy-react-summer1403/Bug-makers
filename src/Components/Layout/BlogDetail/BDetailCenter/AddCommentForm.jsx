@@ -1,6 +1,7 @@
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import React from "react";
+import { Button } from '@nextui-org/react';
 
 const AddCommentForm = ({ onSubmit, userId, newsId, parentId }) => {
   const validationSchema = Yup.object({
@@ -28,7 +29,7 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId }) => {
       }}
     >
       {({ errors, touched }) => (
-        <Form className="w-full h-max px-4 mt-4 mb-4">
+        <Form className="w-full  h-max px-4 mt-4 mb-4">
           <div className="mb-4">
             <Field
               placeholder="عنوان دیدگاه خود را وارد کنید"
@@ -61,12 +62,12 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId }) => {
             />
           </div>
 
-          <button
+          <Button
             className="mt-2 rounded-md bg-[#C4CDD5] cursor-pointer w-full md:w-1/4 h-10 leading-5"
             type="submit"
           >
             ثبت نظر
-          </button>
+          </Button>
         </Form>
       )}
     </Formik>

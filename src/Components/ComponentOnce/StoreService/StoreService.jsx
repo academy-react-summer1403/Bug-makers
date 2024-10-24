@@ -22,7 +22,7 @@ const StoreService = () => {
   };
 
   return (
-    <div className=' m-auto w-[100%] mt-[22.786458333333332vw] bg-transparent z-10 relative text-center'>
+    <div className='max-[714px]:scale-150 max-[714px]:mt-[30vw] m-auto w-[100%] mt-[25.786458333333332vw] bg-transparent z-10 relative text-center'>
       
       <TextLanding 
         h3Text='خدمات پژوهشگاه'

@@ -25,7 +25,7 @@ const CursesAcademyLanding = () => {
   ];
 
   return (
-    <div className={`m-auto w-[100%] relative text-center mt-[85.63541666666667vw] bg-transparent ${selectedButton === 1 ? 'mt-[123.111vw]' : ''}`}>
+    <div className={`max-[714px]:mt-[100  vw] m-auto w-[100%] relative text-center mt-[85.63541666666667vw] bg-transparent ${selectedButton === 1 ? 'mt-[123.111vw]' : ''}`}>
         <TextLanding 
             h3Text='دوره های آموزشی ما'
             pText='دوره'

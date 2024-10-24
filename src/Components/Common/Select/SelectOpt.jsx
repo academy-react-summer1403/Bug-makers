@@ -53,6 +53,7 @@ const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect
   if (error) {
     return <p>خطایی رخ داده است، لطفا دوباره تلاش کنید.</p>;
   }
+  console.log(optionsList);
 
   return (
     <div className={`relative  max-[1312px]:w-[100%] ${isOpen ? 'z-10' : 'z-0'}`}>
@@ -65,7 +66,7 @@ const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect
         </span>
       )}
       <div
-        className="w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
+        className=" outline-none min-[2015px]:w-[250px] min-[3000px]:w-[350px] min-[4500px]:w-[450px] /* end responsive */ w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{selectedOption ? (selectedOption.fullName || selectedOption.techName || selectedOption.value) : placeholder}</span>
@@ -81,7 +82,7 @@ const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect
           >
             {optionsList?.map((option) => (
               <li
-                key={isSortSelect ? option.id : isTeacherSelect ? option.teacherId : option.id}
+                key={isSortSelect ? option.id : isTeacherSelect ? option.teacherId : option.id }
                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer text-[12px]"
                 onClick={() => handleSelect(option)}
               >
