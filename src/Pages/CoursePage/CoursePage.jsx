@@ -11,7 +11,7 @@ import SelectOpt from '../../Components/Common/Select/SelectOpt';
 import DateModal from '../../Components/ComponentOnce/Date/Date';
 import moment from 'jalali-moment'; 
 import PriceFilter from '../../Components/ComponentOnce/PriceFilter/PriceFilter';
-import { motion } from 'framer-motion'; // Import motion from framer-motion
+
 const CoursePage = () => {
   // stateForCategoryFilter
   const [categoryQuery, setCategoryQuery] = useState('');
@@ -123,30 +123,23 @@ const CoursePage = () => {
     return CourseListItem
       .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
       .map((course) => (
-        <motion.div
+        <CourseItem
           key={course.courseId}
-          initial={{ opacity: 0, y: 20 }} 
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }} 
-          transition={{ duration: 0.5 }} 
-        >
-          <CourseItem
-            courseId={course.courseId}
-            title={course.title}
-            img={course.tumbImageAddress}
-            technologyList={course.technologyList}
-            description={course.describe}
-            teacherName={course.teacherName}
-            likeCount={course.likeCount}
-            commandCount={course.commandCount}
-            courseRate={course.courseRate}
-            statusName={course.statusName}
-            price={course.cost}
-            currentRegistrants={course.currentRegistrants}
-            date={convertToJalali(course.lastUpdate)}
-            listStyle={listStyle}
-          />
-        </motion.div>
+          courseId={course.courseId}
+          title={course.title}
+          img={course.tumbImageAddress}
+          technologyList={course.technologyList}
+          description={course.describe}
+          teacherName={course.teacherName}
+          likeCount={course.likeCount}
+          commandCount={course.commandCount}
+          courseRate={course.courseRate}
+          statusName={course.statusName}
+          price={course.cost}
+          currentRegistrants={course.currentRegistrants}
+          date={convertToJalali(course.lastUpdate)}
+          listStyle={listStyle}
+        />
       ));
   };
 
@@ -156,7 +149,7 @@ const CoursePage = () => {
     <TextLanding h3Text='دوره های آموزشی' pText='دوره های ما' />
 
     {/* searchAndFilterSection */}
-    <div className='h-[380px] relative lg:h-[55px] flex flex-col lg:flex-row justify-center items-center gap-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3'>
+    <div className='min-[1600px]:gap-8   min-[2000px]:scale-[100%]  min-[2639px]:scale-[120%]  min-[2800px]:scale-[130%] min-[2015px]:gap-12 h-[380px] relative lg:h-[55px] flex flex-col lg:flex-row justify-center items-center gap-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3'>
       <SearchBox
         width={"100%"} 
         lgWidth={"160px"} 
@@ -201,7 +194,7 @@ const CoursePage = () => {
     </div>
 
     {/* filterActionSection */}
-    <div className='relative w-full h-auto lg:h-[90px] flex flex-wrap lg:flex-nowrap gap-3 justify-end items-center mt-5'>
+    <div className='min-[2000px]:scale-[100%]  min-[2639px]:scale-[120%]  min-[2800px]:scale-[130%] /* end responsive */ relative w-full h-auto lg:h-[90px] flex flex-wrap lg:flex-nowrap gap-3 justify-end items-center mt-5'>
       <span className='hidden lg:block text-[10px] text-[#978A8A] absolute right-0'>
         تعداد {CourseListItem.length} نتیجه از {data?.totalCount || 0} دوره طبق جستجوی شما یافت شد
       </span>
@@ -210,7 +203,7 @@ const CoursePage = () => {
       </span>
 
       {/* listStyleToggle */}
-      <div className={` w-fit p-2 h-[44px] rounded-[9px] bg-white flex justify-center items-center gap-3 lg:absolute left-0 ${listStyle ? 'bg-[76%_100%]' : 'bg-[28%_100%]'}`}>
+      <div className={` w-fit p-2 h-[44px] rounded-[9px] bg-white flex justify-center items-center bg-[url(../../../../../public/images/icon/Subtraction.png)] bg-no-repeat gap-3 lg:absolute left-0 ${listStyle ? 'bg-[80%_100%]' : 'bg-[25%_100%]'}`}>
         <img src='../../../public/images/icon/list.png' className='cursor-pointer  max-custom:hidden ' onClick={() => setListStyle(true)} />
         <img src='../../../public/images/icon/apps.png' className='cursor-pointer' onClick={() => setListStyle(false)} />
       </div>
@@ -232,10 +225,12 @@ const CoursePage = () => {
     </div>
 
     {/* paginationSection */}
+    <div className='min-[2000px]:scale-[100%] min-[2000px]:mt-24  min-[2639px]:scale-[120%]  min-[2800px]:scale-[130%] min-[2800px]:mt-36  /* end responsive */'>
     <Pagination
       pageCount={Math.ceil(CourseListItem.length / itemsPerPage)}
       handlePageClick={(data) => setCurrentPage(data.selected)}
     />
+    </div>
   </div>
 </div>
 

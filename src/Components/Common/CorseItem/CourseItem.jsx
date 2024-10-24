@@ -62,6 +62,7 @@ const CourseItem = ({
 
     const handleNavigate = () => {
         navigate(`/CourseDetail/${courseId}`)
+        window.scrollTo({top:0 , behavior: 'smooth'})
     }
   return (
     <div onClick={handleNavigate} dir={`${listStyle ? 'ltr' : 'rtl'}`}  className={`relative shadow-[-15px_15px_15px_0px_#0000000D] bg-white rounded-2xl p-[5px] overflow-hidden group hover:scale-110 cursor-pointer transition-all duration-300  ${listStyle ? 'w-[100%]  h-[22.786458333333332vw]' : 'w-[250px]  h-[405px]   '}`}>
@@ -89,7 +90,7 @@ const CourseItem = ({
 
 
         <div className={`absolute  h-[2.6041666666666665vw]  flex flex-row gap-[0.5208333333333334vw] justify-center items-center ${listStyle ? 'top-[14.583333333333334vw] right-[0.78125vw]' : 'top-[261px] left-[15px]'}`}>
-            <span className='text-[0.7161458333333334vw] text-[#8A8A8A]'>{teacherName}</span>
+            <span className='text-[13px] text-[#8A8A8A]'>{teacherName}</span>
             <span className={`text-[0.5808333333333334vw] text-[#8A8A8A] absolute bottom-0 right-12 ${listStyle ? 'block' : 'hidden'}`}>12دوره فعال</span>
             <img src={img2} className={` bg-drop-gradient shadow-drop-shadow  ${listStyle ? 'rounded-[10px] h-[2.6041666666666665vw] w-[2.6041666666666665vw]' : 'rounded-[100%] w-[40px] h-[40px]'} `} />
         </div>

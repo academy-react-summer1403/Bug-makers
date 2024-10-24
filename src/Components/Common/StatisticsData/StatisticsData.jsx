@@ -37,7 +37,7 @@ const StatisticsData = () => {
   }
 
   return (
-    <div className='m-auto w-[100%] relative text-center mt-[56.63541666666667vw] bg-transparent'>
+    <div className='max-[714px]:scale-150 m-auto w-[100%] relative text-center mt-[56.63541666666667vw] bg-transparent'>
       <TextLanding
         h3Text='آکادمی بحر العلوم از دید آمار'
         pText='اطلاعات دوره ها'

@@ -40,8 +40,8 @@ const MiniSlider = ({ isHovered  }) => {
   return (
     <>
       {/* Slider */}
-      <motion.div className='slider w-[80%] mt-[5vw] m-auto h-[15vw] z-10 overflow-hidden relative'>
-        <div className='w-[100%] h-[100%] flex justify-center items-center flex-row gap-[5vw]'>
+      <motion.div className='slider max-[714px]:scale-150 max-[714px]:w-[80%]    max-[714px]:mr-[11vw] max-[714px]:overflow-x-scroll  w-[80%] mt-[5vw] m-auto h-[15vw] z-10 overflow-hidden relative'>
+        <div className='w-[100%] max-[714px]:w-[120%]  h-[100%] flex justify-center items-center flex-row gap-[5vw]'>
           {logos.map((logo, index) => {
             const isCenter = index === currentSlide;
             
@@ -64,20 +64,20 @@ const MiniSlider = ({ isHovered  }) => {
       {/* Right & Left Buttons */}
       <motion.button 
         onClick={nextSlide} 
-        className='text-gray-500 absolute left-[5vw] top-[25vw]'
+        className='max-[714px]:hidden text-gray-500 absolute left-[5vw] top-[25vw]'
       >
         <FaChevronLeft className='w-[6vw] h-[6vw]' />
       </motion.button>
 
       <motion.button 
         onClick={prevSlide} 
-        className='text-gray-500 absolute right-[5vw] top-[24.5vw]'
+        className='max-[714px]:hidden text-gray-500 absolute right-[5vw] top-[24.5vw]'
       >
         <FaChevronRight className='w-[6vw] h-[6vw]' />
       </motion.button>
 
       {/* Item Status */}
-      <motion.ul className='flex justify-center gap-[1vw] mt-[2vw]'>
+      <motion.ul className='max-[714px]:hidden flex justify-center gap-[1vw] mt-[2vw]'>
         {logos.map((logo, index) => {
           const isActive = index === currentSlide;
 

@@ -39,23 +39,21 @@ const Comments = ({
     setResponse2(res);
     console.log(res);
   };
-  console.log(currentUserIsLike);
-
+  
   return (
     <>
-      <div className="p-[0.1vw] py-[1vw] border-b-[0.15vw] border-[#C2C2C2]  bg-white flex items-start justify-between h-full w-full ">
+      <div className=" p-[0.1vw] py-[1vw] border-b-[0.15vw] border-[#C2C2C2]  bg-white flex items-start justify-between h-full w-full ">
         <div className="overflow-hidden size-[3vw] ml-[1vw] rounded-[0.42vw] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] flex justify-center">
           <img src={pictureAddress} alt="" className="h-full" />
         </div>
         <div className="w-[95%] text-right">
-          {/* Header: نام نویسنده، تاریخ، ساعت */}
           <div className="flex justify-between items-center mb-2">
             <div className="text-[0.7vw] text-[#5E5E5E] flex justify-between w-[50%] max-w-[20vw]">
-              <span className="max-w-[10vw]">{title}</span>|<span>{date}</span>|
+              <span className="max-w-[10vw] text-[9px]">{title}</span>|<span>{date}</span>|
               <span>ساعت ۱۶:۲۴ </span>
               <span className="mr-[0.5vw]">{pass}</span>
             </div>
-            <div className="text-[0.8vw] gap-[1vw] text-gray-800 w-1/3  max-w-[15vw]  h-[1.46vw]  flex justify-end">
+            <div className="text-[10px] gap-[1vw] text-gray-800 w-1/3  max-w-[15vw]  h-[1.46vw]  flex justify-end">
               <div className="flex justify-evenly h-full w-[25%] items-center">
                 <span>{likeCount}</span>
                 <svg
@@ -103,7 +101,7 @@ const Comments = ({
           </div>
 
           {/* Body: متن نظر */}
-          <div className="text-sm text-gray-700 mt-[1vw] h-[4vw]">
+          <div className="text-[12px] text-gray-700 mt-[1vw] h-[4vw]">
             {describe}
           </div>
 
@@ -113,18 +111,19 @@ const Comments = ({
               onClick={() => {
                 showRepley(id);
               }}
-              className="text-[0.7vw] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-[0.78vw] w-[7vw] h-[1.7vw] p-0"
+              className="text-[8px] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-[0.78vw] w-[7vw] h-[1.7vw] p-0"
             >
               مشاهده پاسخ ها ({replyCount})
             </button>
-            <div className="w-[30vw] h-[1.7vw] rounded-[0.7vw] bg-[#F6F6F6] text-[0.7vw] leading-[1.5vw] px-[1vw] hidden">
+            <div className="w-[30vw] h-[1.7vw] rounded-[0.7vw] bg-[#F6F6F6] text-[8px] leading-[1.5vw] px-[1vw] hidden">
               <span className="overflow-hidden text-ellipsis ...">{}</span>
             </div>
             <button
               onClick={() => {
+                window.scrollTo({top:780 , behavior: 'smooth'})
                 setRepleyModal(true);
               }}
-              className="flex justify-evenly items-center text-[0.7vw] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-[0.78vw] w-[5vw] h-[1.7vw] p-0"
+              className="flex justify-evenly items-center text-[8px] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-[0.78vw] w-[5vw] h-[1.7vw] p-0"
             >
               <span>پاسخ دادن</span>
               <svg
@@ -144,38 +143,34 @@ const Comments = ({
         </div>
       </div>
       <div
-        className={
-          repleyModal
-            ? "fixed z-0 top-0 left-0 h-screen w-screen bg-[#8a8a8a96] backdrop-blur-[3px]"
-            : "hidden"
-        }
-        onClick={() => {
-          setRepleyModal(false);
-        }}
-      >
-        <div
-          className={
-            repleyModal
-              ? "h-max w-[50vw] rounded-[1vw] bg-white absolute z-40 top-1/4 left-1/4"
-              : "hidden"
-          }
-          onClick={(e) => e.stopPropagation()}
-        >
-          <AddCommentForm
-            userId={userId}
-            onSubmit={onSubmit}
-            newsId={newsId}
-            parentId={parentId}
-          />
-        </div>
-      </div>
-      <div>
-        {response2 ? (
-          <div className="pr-[5vw] w-full">{renderCourses(response2)} </div>
-        ) : (
-          <div className="text-[1vw] text-center"></div>
-        )}
-      </div>
+  className={
+    repleyModal
+      ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center"
+      : "hidden"
+  }
+  onClick={() => {
+    setRepleyModal(false);
+  }}
+>
+  <div
+    className={
+      repleyModal
+        ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40"
+        : "hidden"
+    }
+    onClick={(e) => e.stopPropagation()}
+  >
+    <AddCommentForm
+      userId={userId}
+      onSubmit={onSubmit}
+      newsId={newsId}
+      parentId={parentId}
+    />
+  </div>
+</div>
+
+
+
     </>
   );
 };

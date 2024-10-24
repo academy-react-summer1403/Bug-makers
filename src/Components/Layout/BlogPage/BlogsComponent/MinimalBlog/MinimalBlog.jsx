@@ -2,15 +2,19 @@ import React from 'react';
 import BlogLikeSvg from '../../BlogForAll/BlogLikeSvg/BlogLikeSvg';
 import { useNavigate } from 'react-router-dom';
 import calculateDateDifference from '../../../../Common/TimeChanger/TimeChanger';
-
+import img2 from '../../../../../../public/images/icon/image.jpg'
 
 
 const MinimalBlog = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,date,datePass}) => {
-    const navigator=useNavigate()
+    const navigate = useNavigate()
     const pass = calculateDateDifference(datePass)
     
+    const handleNavigate = () => {
+        navigate(`/BlogDetail/${id}`)
+        window.scrollTo({top:0 , behavior: 'smooth'})
+    }
     return (
-    <div onClick={()=>{navigator(`/BlogDetail/${id}`)}} className="shadow-[-15px_15px_15px_0px_#0000000D] w-[240px] h-[330px] bg-white rounded-[15px]  overflow-hidden relative p-[3px] hover:scale-110 cursor-pointer transition-all duration-300 ">
+    <div onClick={handleNavigate} className="shadow-[-15px_15px_15px_0px_#0000000D] w-[240px] h-[330px] bg-white rounded-[15px]  overflow-hidden relative p-[3px] hover:scale-110 cursor-pointer transition-all duration-300 ">
                 <div className={`w-[600px] h-40 bg-[rgba(245,245,245,0.5)] absolute  transition-all duration-500 hoverr:translate-x-[-150px]  ${false ? 'rotate-45 translate-x-[1000px] translate-y-[-100px] hoverr:translate-y-[250px] hoverr:translate-x-[-450px]' : 'rotate-45 translate-x-[450px] translate-y-[-50px] hoverr:translate-y-[200px]'}`}></div>
 
         <div className="absolute top-[110px] left-[17px] w-[80px] h-[25px] bg-gray-200 rounded-full text-center text-[11px] leading-[20px] text-black">{cat}</div>
@@ -27,7 +31,7 @@ const MinimalBlog = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,date
             <div className="mt-[18px] w-full h-[64px] flex items-center justify-between flex-row">
                 <div className="w-[55%] h-full flex justify-between items-center">
                     <div className="size-[35px] rounded-[8px] bg-gray-300 overflow-hidden">
-                        <img className="w-full h-full" src={userImg} alt="" />    
+                        <img className="w-full h-full" src={userImg ? userImg : img2} onError={(e) => {e.target.src = img2}} />    
                     </div>  
                     <p className="w-[62px] text-[11px] font-[400] text-gray-600">{writer}</p>
                 </div>  

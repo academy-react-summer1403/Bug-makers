@@ -118,7 +118,7 @@ const BDetailCenter = ({ id }) => {
             <span className="text-gray-700 text-lg">
               {response.newsCatregoryName}
             </span>
-            <div className="text-gray-500 text-[1.5vw]">
+            <div className="text-gray-500 max-[560px]:text-[1.7vw] text-[1vw]">
               <span>{convertToJalali(response.updateDate)}</span> |
               <span>
                 {calculateDateDifference(convertToJalali(response.updateDate))}{" "}
@@ -192,7 +192,7 @@ const BDetailCenter = ({ id }) => {
           </div>
           <AddCommentForm userId={userId} onSubmit={onSubmit} newsId={newsId} />
         </div>
-
+        <div >
         <BComment
           comment={comment}
           onSubmit={onSubmit}
@@ -202,7 +202,7 @@ const BDetailCenter = ({ id }) => {
           setNewsDissLikeComment={setNewsDissLikeComment}
           setNewsLikeComment={setNewsLikeComment}
           delLikeNews2Comment={delLikeNews2Comment}
-        />
+        /></div>
       </div>
     );
     

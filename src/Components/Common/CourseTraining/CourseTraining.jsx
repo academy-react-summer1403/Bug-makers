@@ -26,7 +26,7 @@ const CourseTraining = () => {
   };
 
   return (
-    <div className={`m-auto w-[100%] text-center  mt-[22.63541666666667vw] bg-transparent
+    <div className={` m-auto w-[100%] text-center  mt-[22.63541666666667vw] bg-transparent
         ${selectedButton === 0 ? 'max-[750px]:mt-[30vw]' : 'mt-[28.63541666666667vw]'}
         `}>
           {/* title  */}
@@ -36,7 +36,7 @@ const CourseTraining = () => {
       />
       
       {/* wrapper  */}
-      <div className='w-[31.705729166666668vw] mr-[10vw] text-right indent-[4vw] '>
+      <div className=' max-[714px]:scale-150   w-[31.705729166666668vw] mr-[10vw] text-right indent-[4vw] '>
         {courses.map(({ title, description, key }) => (
           <motion.div
             key={key}
