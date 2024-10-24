@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { CiSearch, CiUser, CiMenuBurger } from "react-icons/ci";
+import { CiSearch, CiUser, CiMenuBurger, CiLogin } from "react-icons/ci";
 import MenuOption from './MenuOption';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getItem } from '../../../Core/Services/common/storage.services';
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const { selectedButton } = useSelector((state) => state.themeColor);
 
+  const getItem = useSelector((state) => state.LoginToken.token)
   // Handle scroll event
   const handleScroll = () => {
     if (window.scrollY > 200) {
@@ -24,7 +26,7 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
+const navigate = useNavigate()
   return (
     <div className={`z-[1000] h-16 flex items-center justify-center flex-row flex-nowrap shadow-[0px_10px_10px_0px_#00000008] transition-all duration-300 
       ${isSticky ? 'fixed top-0 left-0 w-full bg-[#F5F5F4]' : 'relative bg-[#F5F5F4]'}`}>
@@ -63,7 +65,10 @@ const Header = () => {
       </div>
       
       <div className='cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[30px] max-[465px]:left-[8px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[80px] bg-custom-gradient-Header shadow-custom-shadow'>
-        <CiUser className='m-auto h-5 w-5 mt-1' />
+        {getItem ? (
+        <CiUser className='m-auto h-5 w-5 mt-1' onClick={() => navigate('/ClientPanel/dashbord')} />) : (
+        <CiLogin className='m-auto h-5 w-5 mt-1' onClick={() => navigate('/sign/login')} />
+        ) }
       </div>
     </div>
   );
