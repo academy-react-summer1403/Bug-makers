@@ -11,7 +11,7 @@ import SelectOpt from '../../Components/Common/Select/SelectOpt';
 import DateModal from '../../Components/ComponentOnce/Date/Date';
 import moment from 'jalali-moment'; 
 import PriceFilter from '../../Components/ComponentOnce/PriceFilter/PriceFilter';
-
+import { motion } from 'framer-motion'; // Import motion from framer-motion
 const CoursePage = () => {
   // stateForCategoryFilter
   const [categoryQuery, setCategoryQuery] = useState('');
@@ -123,23 +123,30 @@ const CoursePage = () => {
     return CourseListItem
       .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
       .map((course) => (
-        <CourseItem
+        <motion.div
           key={course.courseId}
-          courseId={course.courseId}
-          title={course.title}
-          img={course.tumbImageAddress}
-          technologyList={course.technologyList}
-          description={course.describe}
-          teacherName={course.teacherName}
-          likeCount={course.likeCount}
-          commandCount={course.commandCount}
-          courseRate={course.courseRate}
-          statusName={course.statusName}
-          price={course.cost}
-          currentRegistrants={course.currentRegistrants}
-          date={convertToJalali(course.lastUpdate)}
-          listStyle={listStyle}
-        />
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }} 
+          transition={{ duration: 0.5 }} 
+        >
+          <CourseItem
+            courseId={course.courseId}
+            title={course.title}
+            img={course.tumbImageAddress}
+            technologyList={course.technologyList}
+            description={course.describe}
+            teacherName={course.teacherName}
+            likeCount={course.likeCount}
+            commandCount={course.commandCount}
+            courseRate={course.courseRate}
+            statusName={course.statusName}
+            price={course.cost}
+            currentRegistrants={course.currentRegistrants}
+            date={convertToJalali(course.lastUpdate)}
+            listStyle={listStyle}
+          />
+        </motion.div>
       ));
   };
 

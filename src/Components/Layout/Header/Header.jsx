@@ -27,6 +27,10 @@ const Header = () => {
     };
   }, []);
 const navigate = useNavigate()
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
   return (
     <div className={`z-[1000] h-16 flex items-center justify-center flex-row flex-nowrap shadow-[0px_10px_10px_0px_#00000008] transition-all duration-300 
       ${isSticky ? 'fixed top-0 left-0 w-full bg-[#F5F5F4]' : 'relative bg-[#F5F5F4]'}`}>
@@ -47,7 +51,7 @@ const navigate = useNavigate()
           />
         </ul>
       </div>
-      <Link to={'/'}>
+      <Link to={'/'} onClick={handleScrollToTop}>
       <img src='../../../../../../public/images/icon/Logo.png' className='max-[842px]:w-[100px] max-[842px]:h-[25px] max-[842px]:top-5 max-[625px]:m-auto /*end responsive*/ logo h-[40px] w-[170px] absolute top-3 right-[80px]' />
       </Link>
       <div className='max-[710px]:text-[13px] max-[710px]:gap-5 max-[394px]:text-[10px] max-[394px]:gap-3 max-[652px]:hidden /*end responsive*/ menu w-[42vw] whitespace-nowrap text-[14px] flex justify-center items-center flex-row flex-nowrap gap-10'>
