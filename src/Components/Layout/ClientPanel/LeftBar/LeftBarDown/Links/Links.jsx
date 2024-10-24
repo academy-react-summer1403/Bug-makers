@@ -46,8 +46,7 @@ const Links = () => {
       gender: CourseListItem.gender,
       email: `${CourseListItem.email}`,
       address: `${CourseListItem.homeAdderess}`,
-      longitude: "35.7219",
-      latitude: "51.3347",
+      
       linkedin: val.linkedin,
       telegram: val.telegram,
     };
