@@ -2,7 +2,6 @@ import instance from "../../interseptore/Interceptor";
 
 export const getRepleyCommentCorse = async (id, NewsId) => {
   let url = `/Course/GetCourseReplyCommnets/${NewsId}/${id}`;
-  console.log(url);
 
   const response = await instance.get(url);
   return response;

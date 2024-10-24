@@ -50,8 +50,11 @@ const CourseItem = ({
         }
     });
 
-    const handleLike = () => {
+    const handleLike = (e) => {
         // Call API to add like
+        e.stopPropagation();
+        e.preventDefault();    
+        e.preventDefault();
         mutation.mutate(courseId);
         toast.error('ابتدا به حساب کاربری خود ورود کنید')
     };
@@ -111,7 +114,7 @@ const CourseItem = ({
             </div>
             <div className='w-[40px] h-[17px] flex flex-row justify-center items-center gap-2 text-[11px]  text-[#8A8A8A]'>
                 <span>{currentLikeCount}</span>
-                <img src={likeBtn ? '../../../../public/images/icon/Likeing.png' : '../../../../public/images/icon/Like.png'} onClick={handleLike} />
+                <img className='relative z-10 active:scale-150 transition-all duration-150' src={likeBtn ? '../../../../public/images/icon/Likeing.png' : '../../../../public/images/icon/Like.png'} onClick={handleLike} />
             </div>
             <div className='w-[40px] h-[17px] flex flex-row justify-center items-center gap-2 text-[11px]  text-[#8A8A8A]'>
                 <span>{courseRate}</span>
