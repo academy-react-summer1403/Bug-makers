@@ -143,8 +143,8 @@ const PersonalInfo = () => {
                 <Field name="phone">
                   {({ field }) => (
                     <Input
-                      {...field}
-                      placeholder="شماره همراه خود را وارد کنید"
+                    {...field}
+                    placeholder="شماره همراه خود را وارد کنید"
                     />
                   )}
                 </Field>

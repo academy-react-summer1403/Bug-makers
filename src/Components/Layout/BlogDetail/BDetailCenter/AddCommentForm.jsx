@@ -34,7 +34,7 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId }) => {
               placeholder="عنوان دیدگاه خود را وارد کنید"
               type="text"
               name="title"
-              className={`bg-white border text-gray-600 border-[#C4CDD5] w-full md:w-1/2 h-10 rounded-md mb-2 ${
+              className={`bg-white border text-gray-600 border-[#C4CDD5] w-full md:w-full h-10 rounded-md mb-2 ${
                 errors.title && touched.title ? "border-red-500" : ""
               }`}
             />
