@@ -53,6 +53,7 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
   const GetCourseServ = async () => {
     const data = await getCourseServ();
     setResponse(data);
+    console.log(data)
   };
   useEffect(()=>{
     if (location == "BlogFav") {
@@ -84,6 +85,7 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
 
   const DelCourseServ = async (id)=>{
     const res = delCourseServ(id)
+    GetCourseServ();  
   }
   
 
@@ -130,9 +132,10 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
                alt=""
              />
            </div>
-           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+           <div className="w-[16%] h-full  py-3 px-6 text-right whitespace-nowrap">
              {course.courseTitle ? course.courseTitle : null}
              {course.title ? course.title : null}
+             {course.courseName ? course.courseName : null}
            </div>
            <div
              className={`w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...
@@ -162,16 +165,22 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
              </Tooltip>
            </div>
            <div className="w-[16%] h-full py-3 px-6 text-center whitespace-nowrap">
-             {course.lastUpdate
-               ? convertToJalali(course.lastUpdate)
-               : convertToJalali(course.updateDate)}
+             {course.lastUpdate ? convertToJalali(course.lastUpdate) : null}
+             {course.updateDate ? convertToJalali(course.updateDate) : null}
+             {course.reserverDate ? convertToJalali(course.reserverDate) : null}
            </div>
            <div
              className={`w-[12%] h-full py-3 px-6 text-center whitespace-nowrap ${
                location == "BlogFav" ? "hidden" : "block"
-             }`}
+             } ${course.accept == null
+               ? null : course.accept == false ? "text-red-600" : "text-green-500"}`}
            >
-             {course.levelName}
+             {course.levelName ? course.levelName : null}
+             {course.accept == null
+               ? null
+               : course.accept == false
+               ? "در انتظار تایید"
+               : "تایید شده"}
            </div>
            <div
              className={`w-[4%] h-full items-center ${
@@ -185,13 +194,17 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
              >
                <svg
                  onClick={() => {
-                  {location == "BlogFav"
-                    ? GetNewsId(course.newsId)
-                    : GetId(course.courseId);}
-                   
-                   {location == "BlogFav"
-                     ? setDetailId(course.newsId)
-                     : setDetailId(course.courseId);}
+                   {
+                     location == "BlogFav"
+                       ? GetNewsId(course.newsId)
+                       : GetId(course.courseId);
+                   }
+
+                   {
+                     location == "BlogFav"
+                       ? setDetailId(course.newsId)
+                       : setDetailId(course.courseId);
+                   }
                    setTimeout(() => {
                      setDetailCourse(true);
                    }, 2000);
@@ -232,7 +245,7 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
                      DelCourseFav(course.favoriteId);
                    }
                    if (location == "CourseServ") {
-                     DelCourseServ(course.id);
+                     DelCourseServ(course.reserveId);
                    }
                  }}
                  width="24"
@@ -424,31 +437,33 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
             </div>
             <div
               className={`w-[32%]   py-3 px-6 text-right ${
-                location == "BlogFav" ? "hidden" : "block"
+                location == "CourseFav" ? "block" : "hidden"
               }`}
             >
               درباره دوره
             </div>
             <div
               className={`w-[50%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...
-              ${location == "BlogFav" ? "block" : "hidden"}`}
+              ${location == "CourseFav" ? "hidden" : "block"}`}
             ></div>
             <div
               className={`w-[16%]  py-3 px-6 text-right ${
-                location == "BlogFav" ? "hidden" : "block"
+                location == "CourseFav" ? "block" : "hidden"
               }`}
             >
               استاد دوره
             </div>
             <div className={`w-[16%]  py-3 px-6 text-center`}>
-              {location == "BlogFav" ? "تاریخ" : "تاریخ برگذاری"}
+              {location == "BlogFav" ? "تاریخ" : null}
+              {location == "CourseFav" ? "تاریخ برگذاری" : null}
+              {location == "CourseServ" ? "تاریخ رزرو" : null}
             </div>
             <div
-              className={`w-[12%]  py-3 px-6 text-right ${
+              className={`w-[12%]  py-3 px-6 text-center ${
                 location == "BlogFav" ? "hidden" : "block"
               }`}
             >
-              سطح دوره
+              {location == "CourseServ" ? "وضعیت تایید" : "سطح دوره"}
             </div>
             <div className="w-[4%]  py-3 px-4 text-center"></div>
             <div className="w-[4%]  py-3 px-4 text-center"></div>

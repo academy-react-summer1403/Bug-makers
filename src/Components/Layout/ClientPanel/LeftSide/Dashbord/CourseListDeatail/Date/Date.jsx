@@ -27,7 +27,7 @@ const DateModal = ({ onFilter }) => {
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className={` justify-center items-center ${onFilter == "myCourse"? 'hidden':'flex'}`}>
       {/* Modal Trigger Button */}
       <div
         className="w-[160px] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
@@ -41,10 +41,10 @@ const DateModal = ({ onFilter }) => {
         {isOpen && (
           <motion.div
             className="fixed inset-0 flex items-center justify-center z-10"
-            initial={{ opacity: 0, y: -100 }}  
-            animate={{ opacity: 1, y: 0 }}    
-            exit={{ opacity: 0, y: -100 }}    
-            transition={{ duration: 0.5 }}    
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -100 }}
+            transition={{ duration: 0.5 }}
           >
             <div className="w-[514px] relative h-[303px] bg-white p-5 rounded-lg shadow-lg">
               <h2 className="text-lg mb-4 text-right">فیلتر بازه زمانی</h2>
@@ -118,23 +118,19 @@ const DateModal = ({ onFilter }) => {
                 className="bg-transparent text-[#626262] w-[106px] border-2 border-[#91ACCF] h-[40px] rounded-[8px] absolute bottom-5 left-36"
                 onClick={() => {
                   setIsOpen(false);
-                  setStartDay('');
-                  setStartMonth('');
-                  setStartYear('');
-                  setEndDay('');
-                  setEndMonth('');
-                  setEndYear('');
+                  setStartDay("");
+                  setStartMonth("");
+                  setStartYear("");
+                  setEndDay("");
+                  setEndMonth("");
+                  setEndYear("");
                   setHasData(true);
                 }}
               >
                 انصراف
               </button>
-                {/* Display message if no data */}
-                {!hasData && (
-                  <p className="text-black mt-2">
-                    دیتا یافت نشد
-                  </p>
-                )}
+              {/* Display message if no data */}
+              {!hasData && <p className="text-black mt-2">دیتا یافت نشد</p>}
             </div>
           </motion.div>
         )}

@@ -1,16 +1,34 @@
 import React from "react";
 import { Button, Avatar } from "@nextui-org/react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useQuery } from "react-query";
+import { ProfileGet } from "../../../../Core/Services/Api/Client/Profile";
+import { setClientInfo } from "../../../../Redux/Slice/ClientInfo/ClientInfo";
+
+
 
 const TopBar = () => {
+
+    const dispatch = useDispatch();
+
+    const { data: getProfileInfo } = useQuery({
+      queryKey: ["getProfileInfo"],
+      queryFn: ProfileGet,
+      onSuccess: (data) => {
+        dispatch(setClientInfo(data || []));
+      },
+    });
+
+  const CourseListItem = useSelector(
+    (state) => state.ClientInfoSlice.ClientInfo
+  );
   return (
     <div className="w-full h-full flex flex-row-reverse justify-between items-center bg-white shadow-md p-4 rounded-lg">
       {/* Left Icons */}
       <div className="flex items-center justify-center gap-x-[1vw] h-full">
         {/* Clock Icon Button */}
-        <Button
-          auto
-          className="bg-gray-100 rounded-full min-w-[3vw] w-[3vw]"
-        >
+        <Button auto className="bg-gray-100 rounded-full min-w-[3vw] w-[3vw]">
           <svg
             width="24"
             height="24"
@@ -67,12 +85,14 @@ const TopBar = () => {
       {/* User Profile Section */}
       <div className="flex items-center space-x-3 flex-row-reverse">
         <div className="text-right">
-          <p className="text-sm font-semibold text-gray-800">پارسا آقایی</p>
-          <p className="text-xs text-gray-500">ادمین، دانشجو</p>
+          <p className="text-sm font-semibold text-gray-800">
+            {CourseListItem.fName} {CourseListItem.lName}
+          </p>
+          <p className="text-xs text-gray-500"> دانشجو</p>
         </div>
         {/* User Avatar */}
         <Avatar
-          src="https://i.pravatar.cc/150?img=3" // لینک تصویر آواتار را تغییر دهید
+          src={CourseListItem.currentPictureAddress} // لینک تصویر آواتار را تغییر دهید
           size="lg"
           className="border border-white"
         />

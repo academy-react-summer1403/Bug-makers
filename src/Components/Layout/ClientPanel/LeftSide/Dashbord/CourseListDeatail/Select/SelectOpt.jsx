@@ -49,7 +49,11 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
   }
 
   return (
-    <div className={`text-gray-600 relative flex-grow-[1] ${isOpen ? 'z-10' : 'z-0'}`}>
+    <div
+      className={`text-gray-600 relative flex-grow-[1] ${
+        isOpen ? "z-10" : "z-0"
+      } ${ width == "myCourse" ? 'hidden':'block'}`}
+    >
       {selectedOption && (
         <span
           className="cursor-pointer p-3 absolute left-0 top-0"
@@ -62,24 +66,40 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
         className="w-full h-[40px] rounded-[10px] text-[12px] bg-[#F2F2F2] indent-3 cursor-pointer flex items-center justify-between"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span>{selectedOption ? (selectedOption.fullName || selectedOption.techName || selectedOption.value) : placeholder}</span>
+        <span>
+          {selectedOption
+            ? selectedOption.fullName ||
+              selectedOption.techName ||
+              selectedOption.value
+            : placeholder}
+        </span>
       </div>
       <AnimatePresence>
         {isOpen && (
           <motion.ul
             className="absolute w-full bg-white shadow-lg mt-1 max-h-[200px] overflow-y-auto rounded-lg"
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
             {optionsList?.map((option) => (
               <li
-                key={isSortSelect ? option.id : isTeacherSelect ? option.teacherId : option.id}
+                key={
+                  isSortSelect
+                    ? option.id
+                    : isTeacherSelect
+                    ? option.teacherId
+                    : option.id
+                }
                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer text-[12px]"
                 onClick={() => handleSelect(option)}
               >
-                {isSortSelect ? option.value : isTeacherSelect ? option.fullName : option.techName}
+                {isSortSelect
+                  ? option.value
+                  : isTeacherSelect
+                  ? option.fullName
+                  : option.techName}
               </li>
             ))}
           </motion.ul>

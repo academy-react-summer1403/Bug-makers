@@ -15,9 +15,11 @@ import CourseCard from "../../../../CourseDetail/CourseCard/CourseCard";
 import { getCourseDetail } from "../../../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CourseItem from "./CorseItem/CourseItem";
 import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
+import { getMyCourseListWithPagination } from "../../../../../../Core/Services/Api/Client/clientLiked";
 
 
-const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
+const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
+  const [myCourseList,setMyCourseList]=useState([])
   // stateForCategoryFilter
   const [categoryQuery, setCategoryQuery] = useState("");
 
@@ -56,6 +58,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
   const CourseListItem = useSelector((state) => state.CourseSlice.CourseList);
 
   // fetchCoursesWithFilters
+
   const { isLoading, error, data } = useQuery(
     [
       "getCourse",
@@ -86,6 +89,23 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
       keepPreviousData: true,
     }
   );
+    const { IsLoading, Error, Data } = useQuery(
+      [
+        "getCourse",
+        queryValue,
+      ],
+      () =>
+        getMyCourseListWithPagination(
+          queryValue
+        ),
+      {
+        onSuccess: (Data) => {
+          dispatch(setMyCourseList(Data.courseFilterDtos || Data));
+        },
+        keepPreviousData: true,
+      }
+    );
+
 
   // handleSearchQueryChange
   const handleSearch = (e) => {
@@ -144,68 +164,86 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
   const renderCourses = () => {
     if (isLoading) return <p>در حال بارگذاری...</p>;
     if (error) return <p>خطایی رخ داده است...</p>;
+    if (IsLoading) return <p>در حال بارگذاری...</p>;
+    if (Error) return <p>خطایی رخ داده است...</p>;
 
-    return CourseListItem.slice(
-      currentPage * itemsPerPage,
-      (currentPage + 1) * itemsPerPage
-    ).map((course, index) => (
-      <div
-        key={index}
-        className="w-full h-[3vw] rounded-[0.4vw] flex items-center  text-[#272727] hover:bg-gray-100"
-      >
-        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
-          {course.title}
-        </div>
-        <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...">
-          <Tooltip className="text-gray-700" content={`${course.describe}`}>
-            <span>{course.describe}</span>
-          </Tooltip>
-        </div>
-        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
-          <Tooltip
-            className="text-gray-700"
-            content={`استاد: ${course.teacherName}`}
-          >
-            {course.teacherName}
-          </Tooltip>
-        </div>
-        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
-          {convertToJalali(course.lastUpdate)}
-        </div>
-        <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
-          {course.cost} تومان
-        </div>
+    
+    if (myCourseList.totalCount == 0 && point == "myCourse")
+      return <p>دوره ای وجود ندارد</p>;
+    
+    let ithem = []
+    
+    point == "myCourse" && myCourseList.totalCount != 0
+      ? (ithem = myCourseList.listOfMyCourses)
+      : (ithem = []);
+    if(point=="dashbord") { ithem = CourseListItem}
+    if(!ithem){ithem = CourseListItem;}
+    console.log(ithem);
+    
+    return ithem
+      .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
+      .map((course, index) => (
         <div
-          className={`w-[4%] h-full items-center ${
-            show == true ? "flex" : "hidden"
-          }`}
+          key={index}
+          className="w-full h-[3vw] rounded-[0.4vw] flex items-center  text-[#272727] hover:bg-gray-100"
         >
-          <svg
-            onClick={() => {
-              setDetailId(course.courseId);
-              setDetailCourse(true);
-            }}
-            className="cursor-pointer"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+            {point == "myCourse" ? course.courseTitle : course.title}
+          </div>
+          <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...">
+            <Tooltip className="text-gray-700" content={`${course.describe}`}>
+              <span>{course.describe}</span>
+            </Tooltip>
+          </div>
+          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+            <Tooltip
+              className="text-gray-700"
+              content={`استاد: ${
+                point == "myCourse" ? course.fullName : course.teacherName
+              }`}
+            >
+              {point == "myCourse" ? course.fullName : course.teacherName}
+            </Tooltip>
+          </div>
+          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+            {convertToJalali(course.lastUpdate)}
+          </div>
+          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+            {point == "myCourse"
+              ? course.paymentStatus
+              : `${course.cost} تومان`}
+          </div>
+          <div
+            className={`w-[4%] h-full items-center ${
+              show == true ? "flex" : "hidden"
+            }`}
           >
-            <path
-              d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
-              stroke="#787878"
-              stroke-width="1.5"
-            />
-            <path
-              d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
-              stroke="#787878"
-              stroke-width="1.5"
-            />
-          </svg>
+            <svg
+              onClick={() => {
+                setDetailId(course.courseId);
+                setDetailCourse(true);
+              }}
+              className="cursor-pointer"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
+                stroke="#787878"
+                stroke-width="1.5"
+              />
+              <path
+                d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
+                stroke="#787878"
+                stroke-width="1.5"
+              />
+            </svg>
+          </div>
         </div>
-      </div>
-    ));
+      ));
   };
 
   const GetId = async (detailId) => {
@@ -280,12 +318,14 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
           show == true ? "flex" : "hidden"
         }`}
       >
-        <span className="text-[1.5vw] font-[600]">جدیدترین دوره ها</span>
+        <span className="text-[1.5vw] font-[600]"> {name} </span>
         <div
           onClick={() => {
             setShowMoreCourse(false);
           }}
-          className="rounded-full border border-red-500 h-[2.2vw] w-[5vw] text-red-500 flex items-center justify-evenly cursor-pointer"
+          className={`rounded-full border border-red-500 h-[2.2vw] w-[5vw] text-red-500  items-center justify-evenly cursor-pointer ${
+            point == "myCourse" ? "hidden" : "flex"
+          }`}
         >
           <svg
             width="24"
@@ -319,7 +359,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
             onChange={handleSearch}
           />
           <SelectOpt
-            width={"100%"}
+            width={point == "myCourse" ? "myCourse" : "100%"}
             lgWidth={"160px"}
             placeholder="استاد دوره"
             isTeacherSelect={true}
@@ -327,16 +367,21 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
             FilterValue={filterValue}
           />
 
-          <DateModal onFilter={filterByDateRange} />
+          <DateModal
+            onFilter={point == "myCourse" ? "myCourse" : filterByDateRange}
+          />
 
           <PriceFilter
-            width={"%"}
+            width={"100%"}
             lgWidth={"160px"}
-            onFilter={handlePriceFilter}
+            onFilter={point == "myCourse" ? "myCourse" : handlePriceFilter}
           />
           <span className="block lg:hidden text-[10px] text-[#978A8A] absolute bottom-2 right-4">
-            تعداد {CourseListItem.length} نتیجه از {data?.totalCount || 0} دوره
-            طبق جستجوی شما یافت شد
+            تعداد {CourseListItem.length} نتیجه از{" "}
+            {point == "dashbord"
+              ? Data?.totalCount || 0
+              : data?.totalCount || 0}{" "}
+            دوره طبق جستجوی شما یافت شد
           </span>
           <span
             className="block lg:hidden w-[106px] h-[20px] rounded-[16px] text-center text-[10px] bottom-2 m-auto relative  text-[#FE8E8E] cursor-pointer bg-white  "
@@ -347,7 +392,11 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
         </div>
 
         {/* for dashbord........  */}
-        <div className={` justify-between items-center mb-[0.2vw] ${show == false ? "flex" : "hidden"}`}>
+        <div
+          className={` justify-between items-center mb-[0.2vw] ${
+            show == false ? "flex" : "hidden"
+          }`}
+        >
           <div className="text-[1.5vw] font-[600]">جدیدترین دوره‌ها</div>
           <span
             onClick={() => {
@@ -367,7 +416,10 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
             <div className="w-[32%]   py-3 px-6 text-right">درباره دوره</div>
             <div className="w-[16%]  py-3 px-6 text-right">استاد دوره</div>
             <div className="w-[16%]  py-3 px-6 text-right">تاریخ برگزاری</div>
-            <div className="w-[16%] py-3 px-6 text-right">قیمت دوره</div>
+            <div className="w-[16%] py-3 px-6 text-right">
+              {" "}
+              {point == "myCourse" ? "درصد پرداختی" : "قیمت دوره "}{" "}
+            </div>
             <div className="w-[4%]  py-3 px-4 text-center"></div>
           </div>
         </div>
@@ -378,7 +430,11 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse }) => {
 
         {/* paginationSection */}
         <Pagination
-          pageCount={Math.ceil(CourseListItem.length / itemsPerPage)}
+          pageCount={
+            point == "myCourse"
+              ? Math.ceil(myCourseList.length / itemsPerPage)
+              : Math.ceil(CourseListItem.length / itemsPerPage)
+          }
           handlePageClick={(data) => setCurrentPage(data.selected)}
         />
       </div>

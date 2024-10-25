@@ -15,14 +15,24 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId }) => {
 
   return (
     <Formik
-      initialValues={{
-        title: "",
-        describe: "",
-        newsId: `${newsId}`,
-        userIpAddress: "1.1.1.1",
-        userId: `${userId}`,
-        ...(parentId && { parentId: parentId }),
-      }}
+      initialValues={
+      parentId
+        ? {
+            title: "",
+            describe: "",
+            newsId: `${newsId}`,
+            userIpAddress: "1.1.1.1",
+            userId: `${userId}`,
+            parentId: parentId,
+          }
+        : {
+            title: "",
+            describe: "",
+            newsId: `${newsId}`,
+            userIpAddress: "1.1.1.1",
+            userId: `${userId}`,
+          }
+    }
       validationSchema={validationSchema}
       onSubmit={(values) => {
         onSubmit(values);

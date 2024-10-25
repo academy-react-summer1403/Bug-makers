@@ -3,13 +3,13 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const Gauge = ({ value }) => {
-  const percentage = (value - 1) * 20 + 20;
+  const percentage = (value);
   const color = `rgba(${255 - percentage * 2.55}, ${percentage * 2.55}, 0, 1)`;
 
   return (
     <div className="flex flex-col w-full items-center border p-[0.5vw] border-[#eee] h-full rounded-[0.5vw]  text-right">
       <h2 className="text-[1vw] font-[500] text-right">وضعیت اطلاعات حساب</h2>
-      <div className="w-24 h-24 my-[1.5vw]">
+      <div className="w-28 h-28 my-[1.5vw]">
         <CircularProgressbar
           value={percentage}
           text={`${percentage}%`}

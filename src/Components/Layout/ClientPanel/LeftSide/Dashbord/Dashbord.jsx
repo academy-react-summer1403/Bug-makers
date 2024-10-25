@@ -7,14 +7,63 @@ import CommentSection from "./CommentBar/CommentBar";
 import CourseTable from "./CourseList/CourseList";
 import Gauge from "../../LeftBar/LeftBarDown/PersonalInfo/ComplitingCircle";
 import CoursePage from "./CourseListDeatail/Base";
+import { useSelector } from "react-redux";
+
+import { useDispatch } from "react-redux";
+import { useQuery } from "react-query";
+import { ProfileGet } from "../../../../../Core/Services/Api/Client/Profile";
+import { setClientInfo } from "../../../../../Redux/Slice/ClientInfo/ClientInfo";
+import { Calendar } from "@nextui-org/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { I18nProvider } from "@react-aria/i18n";
+
 
 const Dashbord =()=>{
+
+  const dispatch = useDispatch();
+
+  const { data: getProfileInfo } = useQuery({
+    queryKey: ["getProfileInfo"],
+    queryFn: ProfileGet,
+    onSuccess: (data) => {
+      dispatch(setClientInfo(data || []));
+    },
+  });
+
+function createCalendar(identifier) {
+  switch (identifier) {
+    case 'persian':
+      return new PersianCalendar();
+    default:
+      throw new Error(`Unsupported calendar ${identifier}`);
+  }
+}
+
+function PersianCalendarComponent() {
+  return (
+    <I18nProvider locale="">
+      <Calendar
+        calendarWidth={"280px"}
+        aria-label="Date (Uncontrolled)"
+        defaultValue={today(getLocalTimeZone())}
+        value={today(getLocalTimeZone())}
+        showMonthAndYearPickers
+      />
+    </I18nProvider>
+  );
+}
   const [showMoreCourse,setShowMoreCourse]=useState(false)
+  const CourseListItem = useSelector(
+    (state) => state.ClientInfoSlice.ClientInfo
+  );
+  console.log(CourseListItem);
    
     return (
       <div className="relative w-full h-full">
         <div className="h-[10%] w-full flex items-center py-[1vw]">
-          <span className="font-[600] text-[1.8vw]">سلام، صبح‌ بخیر پارسا</span>
+          <span className="font-[600] text-[1.8vw]">
+            سلام، صبح‌ بخیر {CourseListItem.fName}
+          </span>
           <div className="h-full w-[6%] flex justify-between items-center mr-[30%]">
             <div className="size-[1.7vw] rounded-full bg-white flex items-center justify-center">
               <svg
@@ -100,15 +149,16 @@ const Dashbord =()=>{
           </div>
         </div>
         <div className="relative w-full h-[35%] justify-between flex">
-          <div className="w-[55%] h-full">
+          <div className="w-[59%] h-full">
             <CommentSection />
           </div>
 
-          <div className="w-[20%] h-[99%] bg-white rounded-[0.5vw]">
-            <Gauge value={5} />
+          <div className="h-full w-[19%]">
+            {/* <PersianCalender /> */}
+            {PersianCalendarComponent()}
           </div>
-          <div className="h-full w-[22%] relative top-[-5vw]">
-            <PersianCalender />
+          <div className="w-[20%] h-[99%] bg-white rounded-[0.5vw]">
+            <Gauge value={CourseListItem.profileCompletionPercentage} />
           </div>
         </div>
         <div className="w-full h-[23vw] rounded-[0.5vw] pb-[0.2vw] pt-[0.2vw] px-[0.5vw] bg-white overflow-auto mt-[0.2vw] shadow-lg">
@@ -116,6 +166,8 @@ const Dashbord =()=>{
             show={false}
             itemPerpage={4}
             setShowMoreCourse={setShowMoreCourse}
+            name={"جدیدترین دوره ها "}
+            point={"dashbord"}
           />
         </div>
         <div
@@ -128,6 +180,8 @@ const Dashbord =()=>{
             show={true}
             itemPerpage={9}
             setShowMoreCourse={setShowMoreCourse}
+            name={"جدیدترین دوره ها "}
+            point={"dashbord"}
           />
           {/* <BlogPage/> */}
         </div>

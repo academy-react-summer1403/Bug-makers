@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { removeItem } from "../../../../Core/Services/common/storage.services";
+import toast from "react-hot-toast";
 
 const RightBar = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(5);
   const navigator = useNavigate();
 
   // لیست آیتم‌های منو
@@ -188,7 +190,7 @@ const RightBar = () => {
     },
     {
       id: 5,
-      name: "DashbordEdit",
+      name: "DashbordEdit/Personal",
       label: "پروفایل",
       icon: (
         <svg
@@ -240,8 +242,11 @@ const RightBar = () => {
           <Button
             radius="full"
             key={item.id}
-            onClick={() => {setActiveIndex(item.id);navigator(`${item.name}`);}}
-            className={`flex items-center gap-x-[1vw] justify-start w-full h-[54px] hover:border-[#E1C461] ${
+            onClick={() => {
+              setActiveIndex(item.id);
+              navigator(`${item.name}`);
+            }}
+            className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[54px] hover:border-[#E1C461] ${
               activeIndex === item.id
                 ? "bg-[#E1C461] text-white"
                 : "bg-white text-gray-700"
@@ -260,7 +265,7 @@ const RightBar = () => {
         <Button
           radius="full"
           onClick={() => setActiveIndex(6)}
-          className={`flex items-center gap-x-[1vw] justify-start w-full h-[54px]  hover:border-[#E1C461] ${
+          className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[54px]  hover:border-[#E1C461] ${
             activeIndex === 6
               ? "bg-[#E1C461] text-white"
               : "bg-white text-gray-700"
@@ -348,6 +353,13 @@ const RightBar = () => {
           حساب‌های کاربری
         </Button>
         <Button
+        onClick={()=>{
+          removeItem("token")
+
+          toast.success("با موفقیت از اکانت خود خارج شدید")
+          navigator("/");
+
+        }}
           radius="full"
           className="flex items-center justify-start w-full border bg-white border-gray-200 text-red-500"
           auto

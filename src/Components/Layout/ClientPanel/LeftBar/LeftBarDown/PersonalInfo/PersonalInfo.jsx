@@ -20,13 +20,7 @@ const PersonalInfo = () => {
       .email("ایمیل معتبر وارد کنید")
       .required("ایمیل را وارد کنید"),
     address: Yup.string(),
-    telegram: Yup.string()
-      .url("لینک تلگرام معتبر وارد کنید")
-      // .required("لطفا لینک تلگرام خود را وارد کنید"),
-      ,
-    linkedin: Yup.string()
-      .url("لینک لینکدین معتبر وارد کنید")
-      // .required("لطفا لینک لینکدین خود را وارد کنید"),
+
   });
   const onSubmit =async (val)=>{
     console.log(val)
@@ -48,8 +42,7 @@ const PersonalInfo = () => {
             gender: "",
             email: "",
             address: "",
-            linkedin: "",
-            telegram:""
+
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
@@ -80,7 +73,7 @@ const PersonalInfo = () => {
 
               <div
                 onChange={() => {
-                  setStep(1);
+                  setStep(10);
                 }}
               >
                 <label className="block mb-[0.5vw] mr-[0.3vw]">
@@ -103,7 +96,7 @@ const PersonalInfo = () => {
 
               <div
                 onChange={() => {
-                  setStep(2);
+                  setStep(20);
                 }}
                 className="col-span-2"
               >
@@ -134,7 +127,7 @@ const PersonalInfo = () => {
 
               <div
                 onChange={() => {
-                  setStep(3);
+                  setStep(30);
                 }}
               >
                 <label className="block mb-[0.5vw] mr-[0.3vw]">
@@ -171,7 +164,7 @@ const PersonalInfo = () => {
 
               <div
                 onChange={() => {
-                  setStep(4);
+                  setStep(40);
                 }}
                 className="flex items-center gap-x-[1vw]"
               >
@@ -202,7 +195,7 @@ const PersonalInfo = () => {
 
               <div
                 onChange={() => {
-                  setStep(5);
+                  setStep(50);
                 }}
                 className="col-span-2"
               >
@@ -221,55 +214,6 @@ const PersonalInfo = () => {
                   name="address"
                   component="div"
                   className="text-red-500 text-sm"
-                />
-              </div>
-              <div className="flex flex-col gap-y-[0.5vw]">
-                <label>تلگرام</label>
-                <Field name="telegram">
-                  {({ field }) => (
-                    <Input
-                      {...field}
-                      clearable
-                      bordered
-                      fullWidth
-                      placeholder="لینک تلگرام خود را وارد کنید"
-                      // color={
-                      //   errors.telegram && touched.telegram
-                      //     ? "error"
-                      //     : "default"
-                      // }
-                    />
-                  )}
-                </Field>
-                <ErrorMessage
-                  className="text-red-500 text-[0.7vw]"
-                  name="telegram"
-                  component="div"
-                />
-              </div>
-
-              <div className="flex flex-col gap-y-[0.5vw]">
-                <label>لینکدین</label>
-                <Field name="linkedin">
-                  {({ field }) => (
-                    <Input
-                      {...field}
-                      clearable
-                      bordered
-                      fullWidth
-                      placeholder="لینک لینکدین خود را وارد کنید"
-                      // color={
-                      //   errors.linkedin && touched.linkedin
-                      //     ? "error"
-                      //     : "default"
-                      // }
-                    />
-                  )}
-                </Field>
-                <ErrorMessage
-                  className="text-red-500 text-[0.7vw]"
-                  name="linkedin"
-                  component="div"
                 />
               </div>
 
@@ -299,7 +243,7 @@ export default PersonalInfo;
 // import { Formik, Form, Field, ErrorMessage } from "formik";
 // import * as Yup from "yup";
 // import { Input, Button, Textarea } from "@nextui-org/react";
-// import DatePicker from "react-multi-date-picker";
+// import { DatePicker } from "zaman";
 // import persian from "react-date-object/calendars/persian"; // وارد کردن تقویم شمسی
 // import persian_fa from "react-date-object/locales/persian_fa"; // وارد کردن زبان فارسی برای تقویم
 // import "react-multi-date-picker/styles/colors/purple.css"; // استایل پیش‌فرض تقویم
@@ -308,7 +252,7 @@ export default PersonalInfo;
 
 // const PersonalInfo = () => {
 //   const [step, setStep] = useState(0);
-
+//   const [birthday, setBirthday] = useState(null);
 //   const validationSchema = Yup.object({
 //     firstName: Yup.string().required("نام را وارد کنید"),
 //     lastName: Yup.string().required("نام خانوادگی را وارد کنید"),
@@ -322,14 +266,39 @@ export default PersonalInfo;
 //     address: Yup.string(),
 //   });
 
-//   const onSubmit =async (val)=>{
-//     console.log(val)
-//     const res = ProfileStep1(val)
-//   }
+//   const onSubmit = async (val) => {
+//     val["birthDate"]=birthday;
+//     console.log(birthday);
+//     console.log(val);
+//     const res = ProfileStep1(val);
+//   };
 
 //   return (
 //     <div className="flex justify-center overflow-hidden h-full">
 //       <div className="bg-white p-6 rounded-lg shadow-lg flex space-x-6 w-full h-full">
+//         <div className="mb-[0.5vw]">
+//           <DatePicker
+//             // value={values.birthDate} // مقدار فعلی تاریخ
+//             calendar={persian} // استفاده از تقویم شمسی
+//             locale={persian_fa} // تنظیم زبان فارسی
+//             // onsubmit={(el) => console.log(el)}
+//             // setFieldValue(
+//             //   "birthDate",
+//             //   date?.format?.("YYYY/MM/DD")
+//             // )
+//             onChange={(el) => console.log(el)}
+
+//             // render={(value, openCalendar) => {
+//             //   return (
+//             //     <Input
+//             //       value={value}
+//             //       onClick={openCalendar}
+//             //       placeholder="تاریخ تولد را انتخاب کنید"
+//             //     />
+//             //   );
+//             // }}
+//           />
+//         </div>
 //         <Formik
 //           initialValues={{
 //             firstName: "",
@@ -450,19 +419,23 @@ export default PersonalInfo;
 //                 <label className=" block mb-[0.5vw] mr-[0.3vw]">
 //                   تاریخ تولد
 //                 </label>
-//                 <Field name="birthDate">
+//                 <DatePicker className="bg-white" onChange={(e)=>{setBirthday(e.value)}}/>
+//                 {
+                
+//                 /* <Field name="birthDate">
 //                   {() => (
 //                     <div className="mb-[0.5vw]">
 //                       <DatePicker
 //                         value={values.birthDate} // مقدار فعلی تاریخ
 //                         calendar={persian} // استفاده از تقویم شمسی
 //                         locale={persian_fa} // تنظیم زبان فارسی
-//                         onChange={(date) =>
-//                           setFieldValue(
-//                             "birthDate",
-//                             date?.format?.("YYYY/MM/DD")
-//                           )
-//                         }
+                       
+//                         onsubmit={el=>console.log(el)}
+//                           // setFieldValue(
+//                           //   "birthDate",
+//                           //   date?.format?.("YYYY/MM/DD")
+//                           // )
+                        
 //                         render={(value, openCalendar) => {
 //                           return (
 //                             <Input
@@ -475,7 +448,7 @@ export default PersonalInfo;
 //                       />
 //                     </div>
 //                   )}
-//                 </Field>
+//                 </Field> */}
 //                 <ErrorMessage
 //                   name="birthDate"
 //                   component="div"

@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import CoursePage from "../Dashbord/CourseListDeatail/Base";
 
 const MyCourses = () => {
+
   const [showMoreCourse, setShowMoreCourse] = useState(false);
+
+  
 
   return (
     <div className="relative w-full h-full">
@@ -10,8 +13,10 @@ const MyCourses = () => {
         <CoursePage
           location={"CourseServ"}
           show={true}
-          itemPerpage={10}
+          itemPerpage={9}
           setShowMoreCourse={setShowMoreCourse}
+          name={"دوره های من"}
+          point={"myCourse"}
         />
       </div>
     </div>
