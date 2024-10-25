@@ -33,9 +33,14 @@ const Links = () => {
   );
 
 
+  // const [lat,setLat]=useState()
   const onSubmit = async (val) => {
 
     const date = "2004-07-17T00:00:00";
+    
+    // if(CourseListItem.latitude !=null){
+    //   const lat = CourseListItem.latitude
+    // }
     let data = {
       firstName: `${CourseListItem.fName}`,
       lastName: `${CourseListItem.lName}`,
@@ -46,7 +51,8 @@ const Links = () => {
       gender: CourseListItem.gender,
       email: `${CourseListItem.email}`,
       address: `${CourseListItem.homeAdderess}`,
-      
+      latitude: CourseListItem.latitude,
+      longitude: CourseListItem.longitude,
       linkedin: val.linkedin,
       telegram: val.telegram,
     };

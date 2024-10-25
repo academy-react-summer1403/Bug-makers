@@ -94,6 +94,8 @@ function LocationMarkers() {
         address: `${CourseListItem.homeAdderess}`,
         longitude: `${e.latlng.lng}`,
         latitude: `${e.latlng.lat}`,
+        linkedin: CourseListItem.linkdinProfile,
+        telegram: CourseListItem.telegramLink,
       };
       console.log(date);
 

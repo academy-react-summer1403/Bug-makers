@@ -234,7 +234,7 @@ const CourseItem = ({
         <Tooltip
           className="text-gray-700 break-words w-[19vw] leading-[1.4vw]"
           size="sm"
-          content={`break-words ${description}`}
+          content={`${description}`}
         >
           {description}
         </Tooltip>

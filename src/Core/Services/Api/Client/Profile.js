@@ -15,12 +15,13 @@ export const ProfileStep1 = async (id) => {
     // formData.append("CourseFavoriteId", id.email);
     formData.append("HomeAdderess", id.address);
 
-    id.telegram
-      ? formData.append("TelegramLink", id.telegram)
-      : "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://t.me/varzesh3&ved=2ahUKEwiJlNeQr6eJAxUm48kDHXXJHpwQFnoECBYQAw&usg=AOvVaw2ymPXxyfd7EBHui8oJjzOX";
-    id.linkedin
-      ? formData.append("LinkdinProfile", id.linkedin)
-      : "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://t.me/varzesh3&ved=2ahUKEwiJlNeQr6eJAxUm48kDHXXJHpwQFnoECBYQAw&usg=AOvVaw2ymPXxyfd7EBHui8oJjzOX";
+    if(id.telegram!=null)
+      {formData.append("TelegramLink", id.telegram)}
+
+    if(id.linkedin!=null){
+      formData.append("LinkdinProfile", id.linkedin)
+    }
+
       
       
     if (id.longitude) {

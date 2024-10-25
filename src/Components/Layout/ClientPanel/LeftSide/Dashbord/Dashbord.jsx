@@ -13,6 +13,10 @@ import { useDispatch } from "react-redux";
 import { useQuery } from "react-query";
 import { ProfileGet } from "../../../../../Core/Services/Api/Client/Profile";
 import { setClientInfo } from "../../../../../Redux/Slice/ClientInfo/ClientInfo";
+import { Calendar } from "@nextui-org/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { I18nProvider } from "@react-aria/i18n";
+
 
 const Dashbord =()=>{
 
@@ -26,8 +30,28 @@ const Dashbord =()=>{
     },
   });
 
+function createCalendar(identifier) {
+  switch (identifier) {
+    case 'persian':
+      return new PersianCalendar();
+    default:
+      throw new Error(`Unsupported calendar ${identifier}`);
+  }
+}
 
-
+function PersianCalendarComponent() {
+  return (
+    <I18nProvider locale="">
+      <Calendar
+        calendarWidth={"280px"}
+        aria-label="Date (Uncontrolled)"
+        defaultValue={today(getLocalTimeZone())}
+        value={today(getLocalTimeZone())}
+        showMonthAndYearPickers
+      />
+    </I18nProvider>
+  );
+}
   const [showMoreCourse,setShowMoreCourse]=useState(false)
   const CourseListItem = useSelector(
     (state) => state.ClientInfoSlice.ClientInfo
@@ -125,15 +149,16 @@ const Dashbord =()=>{
           </div>
         </div>
         <div className="relative w-full h-[35%] justify-between flex">
-          <div className="w-[55%] h-full">
+          <div className="w-[59%] h-full">
             <CommentSection />
           </div>
 
+          <div className="h-full w-[19%]">
+            {/* <PersianCalender /> */}
+            {PersianCalendarComponent()}
+          </div>
           <div className="w-[20%] h-[99%] bg-white rounded-[0.5vw]">
             <Gauge value={CourseListItem.profileCompletionPercentage} />
-          </div>
-          <div className="h-full w-[22%] relative top-[-5vw]">
-            <PersianCalender />
           </div>
         </div>
         <div className="w-full h-[23vw] rounded-[0.5vw] pb-[0.2vw] pt-[0.2vw] px-[0.5vw] bg-white overflow-auto mt-[0.2vw] shadow-lg">
