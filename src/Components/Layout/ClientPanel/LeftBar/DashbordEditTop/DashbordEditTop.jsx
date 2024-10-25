@@ -16,24 +16,24 @@ const DashbordEditTop = () => {
       { id: "Links", label: "لینک‌ها" },
     ];
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 w-full h-full relative">
+    <div className="bg-white shadow-md rounded-lg p-6 pb-0 w-full h-full relative">
       {/* Header Section */}
       <div className="bg-[#E1C461] h-[40%] rounded-t-lg -mx-6 -mt-6"></div>
-      <div className="rounded-full flex justify-center items-center size-[6vw] overflow-hidden absolute top-[2.5vw] right-[1vw] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]">
+      <div className="rounded-full flex justify-center items-center size-[6vw] overflow-hidden absolute bottom-[50%] right-[2%] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]">
         <img className="h-full " src={CourseListItem.currentPictureAddress} alt="" />
       </div>
-      <div className="flex items-center justify-between mt-[4.6vw] px-[1vw]">
-        <div className="w-[45%]">
-          <div className="flex items-center gap-x-[0.5vw]">
-            <p className="text-2xl font-semibold text-gray-800">
+      <div className="flex items-center justify-between mt-[4%] px-[1%]">
+        <div className="w-[50%]">
+          <div className="flex items-center gap-x-[0.5vw] ">
+            <p className="text-[1.4vw] font-semibold text-gray-800">
               {CourseListItem.fName} {CourseListItem.lName}
             </p>
-            <p className="text-sm text-gray-500">( دانشجو )</p>
+            <p className="text-[0.8vw] text-gray-500">( دانشجو )</p>
           </div>
-          <div className="flex items-center text-gray-500 mt-2 justify-between w-[100%]">
+          <div className="flex items-center text-[0.9vw] text-gray-500 mt-2 justify-between w-[100%]">
             <svg
-              width="20"
-              height="20"
+              width="4%"
+              height=""
               viewBox="0 0 20 20"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -61,8 +61,8 @@ const DashbordEditTop = () => {
 
             <span>{CourseListItem.phoneNumber}</span>
             <svg
-              width="4"
-              height="4"
+              width="1%"
+              height=""
               viewBox="0 0 4 4"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -71,8 +71,8 @@ const DashbordEditTop = () => {
             </svg>
 
             <svg
-              width="20"
-              height="20"
+              width="4%"
+              height=""
               viewBox="0 0 20 20"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -99,8 +99,8 @@ const DashbordEditTop = () => {
 
             <span>{CourseListItem.nationalCode}</span>
             <svg
-              width="4"
-              height="4"
+              width="1%"
+              height=""
               viewBox="0 0 4 4"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -109,8 +109,8 @@ const DashbordEditTop = () => {
             </svg>
 
             <svg
-              width="20"
-              height="20"
+              width="4%"
+              height=""
               viewBox="0 0 20 20"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -134,8 +134,8 @@ const DashbordEditTop = () => {
             <svg
             onClick={()=>{navigator(`/ClientPanel/DashbordEdit/Personal`);}}
               className="mr-[2vw] cursor-pointer"
-              width="24"
-              height="24"
+              width="4%"
+              height=""
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +165,7 @@ const DashbordEditTop = () => {
       </div>
 
       {/* Tab Section */}
-      <div className="flex space-x-4 mt-[0.7vw]  pb-2">
+      <div className="flex h-[22%] justify-between absolute bottom-0 space-x-4 overflow-hidden">
         {tabs.map((tab) => (
           <div>
             <Button
@@ -175,7 +175,7 @@ const DashbordEditTop = () => {
                 setActiveTab(tab.id);
                 navigator(`/ClientPanel/DashbordEdit/${tab.id}`);
               }}
-              className={`text-gray-600 bg-white pb-2 text-[1vw] hover:border-[#E1C461] ${
+              className={`text-gray-600 rounded-[0.5vw] bg-white pb-2 min-w-[20%] h-[90%] min-h-[20px] text-[1vw] hover:border-[#E1C461] ${
                 activeTab === tab.id ? "text-black" : ""
               } `}
             >

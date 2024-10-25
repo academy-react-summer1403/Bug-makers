@@ -16,8 +16,8 @@ const RightBar = () => {
       label: "داشبورد",
       icon: (
         <svg
-          width="24"
-          height="25"
+          width=""
+          height="70%"
           viewBox="0 0 24 25"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -51,8 +51,8 @@ const RightBar = () => {
       label: "دوره من",
       icon: (
         <svg
-          width="24"
-          height="25"
+          width=""
+          height="70%"
           viewBox="0 0 24 25"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -98,8 +98,8 @@ const RightBar = () => {
       label: "رزرو من",
       icon: (
         <svg
-          width="24"
-          height="25"
+          width=""
+          height="70%"
           viewBox="0 0 24 25"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -125,8 +125,8 @@ const RightBar = () => {
       label: "علاقه‌مندی دوره",
       icon: (
         <svg
-          width="24"
-          height="25"
+          width=""
+          height="70%"
           viewBox="0 0 24 25"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -165,8 +165,8 @@ const RightBar = () => {
       label: "علاقه‌مندی مقالات",
       icon: (
         <svg
-          width="24"
-          height="25"
+          width=""
+          height="70%"
           viewBox="0 0 24 25"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -194,8 +194,8 @@ const RightBar = () => {
       label: "پروفایل",
       icon: (
         <svg
-          width="24"
-          height="25"
+          width=""
+          height="70%"
           viewBox="0 0 24 25"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -226,18 +226,22 @@ const RightBar = () => {
   return (
     <div className="w-full h-full bg-white shadow-lg flex flex-col items-start rounded-[0.83vw]  p-[1.2vw]">
       {/* Header */}
-      <div className="mb-8 w-full flex items-center">
-        <img src="../../../../../public/images/Logo/logo.png" alt="" />
+      <div className="h-[10%] mb-8 w-full flex items-center">
         <img
-          className="mt-[1vw]"
+          className="h-[80%]"
+          src="../../../../../public/images/Logo/logo.png"
+          alt=""
+        />
+        <img
+          className="h-[50%] mt-[1vw]"
           src="../../../../../public/images/Logo/nameLogo.png"
           alt=""
         />
       </div>
-      <div className="text-gray-400 text-sm mb-4">عمومی</div>
+      <div className="text-gray-400 text-[0.8vw] mb-4">عمومی</div>
 
       {/* Menu Items */}
-      <div className="flex flex-col w-full space-y-2 mb-8">
+      <div className="flex flex-col h-[60%] w-full space-y-2 mb-[2%]">
         {menuItems.map((item) => (
           <Button
             radius="full"
@@ -246,7 +250,7 @@ const RightBar = () => {
               setActiveIndex(item.id);
               navigator(`${item.name}`);
             }}
-            className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[54px] hover:border-[#E1C461] ${
+            className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[14%] hover:border-[#E1C461] ${
               activeIndex === item.id
                 ? "bg-[#E1C461] text-white"
                 : "bg-white text-gray-700"
@@ -260,12 +264,12 @@ const RightBar = () => {
         ))}
       </div>
 
-      <div className="text-gray-400 text-sm my-4">مالی</div>
-      <div className="flex flex-col w-full space-y-2 mb-8">
+      <div className="text-gray-400 text-[0.8vw] my-[1%]">مالی</div>
+      <div className="flex flex-col w-full h-[10%] my-[2%]">
         <Button
           radius="full"
           onClick={() => setActiveIndex(6)}
-          className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[54px]  hover:border-[#E1C461] ${
+          className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[85%]  hover:border-[#E1C461] ${
             activeIndex === 6
               ? "bg-[#E1C461] text-white"
               : "bg-white text-gray-700"
@@ -274,8 +278,8 @@ const RightBar = () => {
           auto
         >
           <svg
-            width="24"
-            height="25"
+            width=""
+            height="70%"
             viewBox="0 0 24 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -318,15 +322,15 @@ const RightBar = () => {
       </div>
 
       {/* Footer Items */}
-      <div className="flex flex-col w-full space-y-2 mt-auto">
+      <div className="flex flex-col h-[14%] w-full space-y-[2%] mt-auto">
         <Button
           radius="full"
-          className="flex items-center justify-start w-full border bg-white border-gray-200 text-gray-700"
+          className="flex items-center justify-start w-full border h-[45%] text-[0.8vw] bg-white border-gray-200 text-gray-700"
           auto
         >
           <svg
-            width="24"
-            height="25"
+            width=""
+            height="70%"
             viewBox="0 0 24 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -353,20 +357,19 @@ const RightBar = () => {
           حساب‌های کاربری
         </Button>
         <Button
-        onClick={()=>{
-          removeItem("token")
+          onClick={() => {
+            removeItem("token");
 
-          toast.success("با موفقیت از اکانت خود خارج شدید")
-          navigator("/");
-
-        }}
+            toast.success("با موفقیت از اکانت خود خارج شدید");
+            navigator("/");
+          }}
           radius="full"
-          className="flex items-center justify-start w-full border bg-white border-gray-200 text-red-500"
+          className="flex items-center justify-start w-full border h-[45%] text-[0.8vw] bg-white border-gray-200 text-red-500"
           auto
         >
           <svg
-            width="24"
-            height="25"
+            width=""
+            height="70%"
             viewBox="0 0 24 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
