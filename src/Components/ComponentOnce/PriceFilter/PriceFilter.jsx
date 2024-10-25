@@ -53,13 +53,8 @@ const PriceFilter = ({ onFilter }) => {
           value={selectedMinPrice}
           onChange={handlePriceChange}
           step={10000}
-<<<<<<< HEAD
           className="absolute right-0 top-[-10px] w-full"
           style={{ zIndex: selectedMinPrice < maxPrice ? '2' : '0' }}
-=======
-          className="absolute right-0 top-[-10px]"
-          style={{ zIndex: selectedMinPrice < maxPrice ? "2" : "0" }}
->>>>>>> ProfileEdit
         />
         <input
           type="range"
