@@ -58,8 +58,17 @@ export const CorseReserve = async (id) => {
 
   let url = `/CourseReserve/ReserveAdd`;
   
-  console.log(id);
-
   const response = await instance.post(url,id);
+  return response;
+};
+export const deleteCorseReserve = async (id) => {
+
+  let url = `/CourseReserve`;
+  
+  const response = await instance.delete
+    (url, {
+      data:{id},
+    }
+  );
   return response;
 };

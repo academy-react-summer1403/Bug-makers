@@ -1,7 +1,8 @@
 import React from "react";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
+import { useMutation } from "react-query";
 
-const CoursePreviwe0 = ({ response, CorseReserve }) => {
+const CoursePreviwe0 = ({ response, CorseReserve , id}) => {
   return (
     <div className="h-auto w-full max-w-[550px]  shadow-md p-4 mt-[10vw] whitespace-nowrap text-right mx-auto">
       <div className="mb-4">
@@ -63,10 +64,10 @@ const CoursePreviwe0 = ({ response, CorseReserve }) => {
         <div className="flex flex-col justify-center items-center">
           <span className="text-gray-700">قیمت: {response.cost} تومان</span>
           <button
-            onClick={() => { CorseReserve(); }}
-            className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 mt-2"
+            onClick={() => CorseReserve.mutate(id)}
+            className={`w-full bg-green-600 text-white py-2 px-4 rounded-lg  transition duration-300 mt-2 ${response.isCourseReseve == 1 ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'}`}
           >
-            ثبت نام در این دوره
+            {response.isCourseReseve == 1 ? 'حذف این دوره' : 'ثبت نام در این دوره'}
           </button>
         </div>
       </div>
