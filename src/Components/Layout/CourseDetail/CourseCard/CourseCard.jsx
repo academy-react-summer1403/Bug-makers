@@ -2,7 +2,10 @@ import React, { createContext, useEffect, useState } from "react";
 import CourseStatus from "../Commen/CoursePreviwe";
 import CoursePreviwe0 from "../Commen/CoursePreviwe0";
 import RatingStar from "../Commen/RatingStar";
+import toast from "react-hot-toast";
 import CourseMenu from "../Commen/CourseMenu";
+import Swal from 'sweetalert2';
+
 import {
   delLikeNews,
   getCourseDetail,
@@ -21,6 +24,9 @@ import {
 } from "../../../../Core/Services/Api/CourseDetail/CommentDetail";
 import { getItem } from "../../../../Core/Services/common/storage.services";
 import AddCommentForm from "../Comment/AddCommentForm";
+import { useMutation } from "react-query";
+import { AddCourseFavorite } from "../../../../Core/Services/Api/CourseDetail/AddCourseFavorite";
+import { deleteCourseFavorite } from "../../../../Core/Services/Api/CourseDetail/deleteCourseFavorite";
 
 
 function CourseCard({id}) {
@@ -59,15 +65,41 @@ function CourseCard({id}) {
   },[])
 
   const setNewsDissLike = async () => {
-    const res = await postDissLikeNews(id);
-    console.log(res);
-    GetId();
+    const result = await Swal.fire({
+      title: 'آیا مطمئن هستید؟',
+      text: "این دوره را دیس لایک کنید.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'بله، دیس لایک کن!',
+      cancelButtonText: 'خیر، لغو کن!'
+    });
+
+    if (result.isConfirmed) {
+      await postDissLikeNews(id);
+      toast.success(' دیس لایک شد 😁');
+      GetId();
+    }
 
   };
   const setNewsLike = async () => {
-    const res = await postLikeNews(id);
-    console.log(res);
-    GetId();
+      const result = await Swal.fire({
+        title: 'آیا مطمئن هستید؟',
+        text: "این دوره را لایک کنید.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'بله، لایک کن!',
+        cancelButtonText: 'خیر، لغو کن!'
+      });
+  
+      if (result.isConfirmed) {
+        await postLikeNews(id);
+        toast.success('لایک شد 😁');
+        GetId();
+      }
   };
 
   const delLikeNews2 = async () => {
@@ -79,32 +111,54 @@ function CourseCard({id}) {
   
   const onSubmit = async (val) => {
     const res = await setCourseRepleyComment(val);
-    res.success
-      ? alert(
-          "نظر شما با موفقییت ثبت گردید و پس از تایید ادمین به نمایش در میاید"
-        )
-      : alert("لطفا ابتدا وارد شوید");
+    res.success ? toast.success('نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉') : '';
   };
 
   const onSubmit2 = async (val) => {
       const res = await setCourseComment(val);
-      res.success
-        ? alert(
-            "نظر شما با موفقییت ثبت گردید و پس از تایید ادمین به نمایش در میاید"
-          )
-        : alert("لطفا ابتدا وارد شوید");
-    };
+      res.success ? toast.success('نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉') : '';
+    }
+
   // comment .............................................
 
   const setNewsDissLikeComment = async (id) => {
     const res = await commentDissLikeCourse(id, false);
     console.log(res);
     GetComment();
+    const result = await Swal.fire({
+      title: 'آیا مطمئن هستید؟',
+      text: "این کامنت را دیس لایک کنید.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'بله، لایک کن!',
+      cancelButtonText: 'خیر، لغو کن!'
+    });
+
+    if (result.isConfirmed) {
+      await commentDissLikeCourse(id, false);
+      toast.success(' دیس لایک شد 👎');
+      GetComment();
+    }
   };
   const setNewsLikeComment = async (id) => {
-    const res = await commentLikeCourse(id, true);
-    console.log(res);
-    GetComment();
+    const result = await Swal.fire({
+      title: 'آیا مطمئن هستید؟',
+      text: "این کامنت را لایک کنید.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'بله، لایک کن!',
+      cancelButtonText: 'خیر، لغو کن!'
+    });
+
+    if (result.isConfirmed) {
+      await commentLikeCourse(id, true);
+      toast.success('لایک شد 👍');
+      GetComment();
+    }
   };
 
   const delLikeNews2Comment = async (currentUserLikeId) => {
@@ -114,10 +168,27 @@ function CourseCard({id}) {
     GetComment();
   };
 
-
-
-
-
+  const mutation = useMutation({
+    mutationFn: async (courseId) => {
+      if (response.isUserFavorite === true) {
+        return await deleteCourseFavorite({ id: courseId });
+      } else {
+        return await AddCourseFavorite({ id: courseId });
+      }
+    },
+    onSuccess: (data) => {
+      if (data.success) {
+        const message = response.isUserFavorite 
+          ? 'دوره ' + '(' + response.title + ')' + ' از علاقه‌مندی‌ها حذف شد' 
+          : 'دوره ' + '(' + response.title + ')' + ' به علاقه‌مندی‌ها اضافه شد';
+        
+        toast.success(message);
+        GetId(); 
+      }
+    },
+    mutationKey: ['toggleFavorite', response.isUserFavorite ? 'delete' : 'add'],
+  });
+  
   return (
     <div className="mx-auto w-full shadow-lg text-[#5E5E5E] ">
       <div className="relative w-full h-[20vw] flex justify-between mt-[3vw]">
@@ -133,7 +204,7 @@ function CourseCard({id}) {
             src="../../../../../public/images/Course/Image 12.png"
             alt=""
           />
-          <div className="relative top-[-3vw] w-1/2 flex items-end flex-row justify-start items-center">
+          <div className="relative top-[-3vw] w-1/2 flex  flex-row justify-start items-center">
             <div className=" size-[4.17vw] rounded-full bg-gradient-to-b mt-[0.5vw] from-[#F2F2F2] to-[#C4CDD5] shadow-[-0.16vw_0.16vw_0.16vw_0_rgba(0,0,0,0.1)]"></div>
             <span className="mr-[0.6vw]  text-[#6E6E6E] text-[1vw]">
               مدرس دوره: {response.teacherName}
@@ -143,9 +214,9 @@ function CourseCard({id}) {
         <div className="w-1/2 ml-[2vw] max-h-[460px] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] rounded-[1vw] shadow-[-0.78vw_0.78vw_0.78vw_0_rgba(100,100,100,0.1)]">
           <img className="h-full mx-auto" src={response.imageAddress} alt="" />
         </div>
-        <div className="h-[2vw] w-[15vw] absolute top-[25vw] left-[2vw] flex flex-row-reverse justify-between">
+        <div className="h-[2vw] w-[25vw]  absolute top-[25vw] left-[2vw] flex flex-row-reverse justify-between">
           <div className="text-[0.8vw] justify-between text-gray-800 w-2/3 h-[1.46vw] flex ">
-            <div className="cursor-pointer flex justify-evenly h-full w-[50%] items-center">
+            <div className="cursor-pointer  flex justify-evenly h-full  w-[50%] items-center">
               <span>{response.likeCount}</span>
               <svg
                 onClick={() => {
@@ -189,6 +260,20 @@ function CourseCard({id}) {
               </svg>
             </div>
           </div>
+          <svg
+            className="mr-[2vw] cursor-pointer w-[2vw] h-[2vw]"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill={response.isUserFavorite ? '#FF0000' : 'none'}
+            stroke={response.isUserFavorite ? '#FF0000' : '#000'}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            onClick={() => mutation.mutate(id)}
+          >
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+
           <RatingStar id={id} />
         </div>
       </div>
@@ -222,16 +307,17 @@ function CourseCard({id}) {
             <div
               onClick={() => {
                 setRepleyModal(true);
+                window.scrollTo({top:780 , behavior: 'smooth'})
               }}
               className="w-full rounded-[0.5vw] h-[3vw] text-[1.5vw] bg-gray-300 cursor-pointer"
             >
-              ثبت نظر{" "}
+              ثبت نظر
             </div>
             <div
               className={
                 repleyModal
-                  ? "fixed z-0 top-0 left-0 h-screen w-screen bg-[#8a8a8a96] backdrop-blur-[3px]"
-                  : "hidden"
+                ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center"
+                : "hidden"
               }
               onClick={() => {
                 setRepleyModal(false);
@@ -240,8 +326,8 @@ function CourseCard({id}) {
               <div
                 className={
                   repleyModal
-                    ? "h-max w-[50vw] rounded-[1vw] bg-white absolute z-40 top-1/4 left-1/4"
-                    : "hidden"
+                  ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40"
+                  : "hidden"
                 }
                 onClick={(e) => e.stopPropagation()}
               >
@@ -250,6 +336,7 @@ function CourseCard({id}) {
                   newsId={id}
                   parentId={null}
                   onSubmit2={onSubmit2}
+                  setRepleyModal={setRepleyModal}
                 />
               </div>
             </div>{" "}

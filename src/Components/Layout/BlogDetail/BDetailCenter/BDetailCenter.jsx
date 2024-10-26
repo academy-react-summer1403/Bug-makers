@@ -19,6 +19,11 @@ import calculateDateDifference from "../../../Common/TimeChanger/TimeChanger";
 import moment from "moment-jalaali";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 import toast from "react-hot-toast";
+import { AddBlogFavorite } from "../../../../Core/Services/Api/BlogDetail/addFavorite";
+import { deleteBlogFavorite } from "../../../../Core/Services/Api/BlogDetail/deleteFavorite";
+import { useMutation } from "react-query";
+import { Button } from "@nextui-org/react";
+import Swal from 'sweetalert2';
 
 const BDetailCenter = ({ id }) => {
 
@@ -29,44 +34,85 @@ const BDetailCenter = ({ id }) => {
 
 
     const GetId = async () => {
-        const res = await getBlogDetail(id);
-        setResponse(res);
-        setNewsId(id);
-        console.log(newsId);
-        console.log(res);
-    };
+      const res = await getBlogDetail(id);
+      setResponse(res);
+      setNewsId(id);
+  };
 
-    const setNewsDissLike = async () => {
-        const res = await postDissLikeNews(id);
-        console.log(res);
-        GetId();
-    };
-    const setNewsLike = async () => {
-        const res = await postLikeNews(id);
-        console.log(res);
-        GetId();
-    };
+  const GetComment = async () => {
+    const re = await getBlogDetailComment(id);
+    setComment(re);
+};
 
-    const delLikeNews2 = async () => {
-        console.log(response.likeId);
-        const res = await delLikeNews({ deleteEntityId: `${response.likeId}` });
-        console.log(res);
-        GetId();
-    };
+useEffect(() => {
+  GetId();
+  GetComment();
+}, []);
 
-    const GetComment = async () => {
-        const re = await getBlogDetailComment(id);
-        setComment(re);
-        console.log(comment);
-    };
-    useEffect(() => {
+  const setNewsDissLike = async () => {
+    const result = await Swal.fire({
+      title: 'آیا مطمئن هستید؟',
+      text: "این دوره را دیس لایک کنید.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'بله، دیس لایک کن!',
+      cancelButtonText: 'خیر، لغو کن!'
+    });
+
+    if (result.isConfirmed) {
+      await postDissLikeNews(id);
+      toast.success(' دیس لایک شد 😁');
+      GetId();
+    }
+
+  };
+  const setNewsLike = async () => {
+      const result = await Swal.fire({
+        title: 'آیا مطمئن هستید؟',
+        text: "این دوره را لایک کنید.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'بله، لایک کن!',
+        cancelButtonText: 'خیر، لغو کن!'
+      });
+  
+      if (result.isConfirmed) {
+        await postLikeNews(id);
+        toast.success('لایک شد 😁');
         GetId();
-        GetComment();
-    }, []);
+      }
+  };
+
+  const delLikeNews2 = async () => {
+
+    const result = await Swal.fire({
+      title: 'آیا مطمئن هستید؟',
+      text: "این دوره را لایک کنید.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'بله، لایک کن!',
+      cancelButtonText: 'خیر، لغو کن!'
+    });
+
+    if (result.isConfirmed) {
+      await delLikeNews(response.userLikeId);
+      toast.success('لایک شد 😁');
+      GetId();
+    }
+  }; 
+  
     const userId = getItem("userId");
 
     const onSubmit = async (val) => {
         const res = await setNewComment(val);
+        res.success ? toast.success('نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉') : '';
+
     };
     const CourseListItem = useSelector((state) => state.BlogSlice.BlogList);
     
@@ -89,14 +135,41 @@ const BDetailCenter = ({ id }) => {
 
     
     const setNewsDissLikeComment = async (id) => {
-      const res = await commentDissLikeNews(id, false);
-      console.log(res);
-      GetComment();
+      
+      const result = await Swal.fire({
+        title: 'آیا مطمئن هستید؟',
+        text: "این کامنت را دیس لایک کنید.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'بله، لایک کن!',
+        cancelButtonText: 'خیر، لغو کن!'
+      });
+  
+      if (result.isConfirmed) {
+        await commentDissLikeNews(id, false);
+        toast.success('دیس لایک شد 😁');
+        GetComment();
+      }
     };
     const setNewsLikeComment = async (id) => {
-      const res = await commentLikeNews(id, true);
-      console.log(res);
-      GetComment();
+      const result = await Swal.fire({
+        title: 'آیا مطمئن هستید؟',
+        text: "این کامنت را لایک کنید.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'بله، لایک کن!',
+        cancelButtonText: 'خیر، لغو کن!'
+      });
+  
+      if (result.isConfirmed) {
+        await commentLikeNews(id, true);
+        toast.success(' لایک شد 😁');
+        GetComment();
+      }
     };
 
     const delLikeNews2Comment = async (currentUserLikeId) => {
@@ -108,9 +181,28 @@ const BDetailCenter = ({ id }) => {
       GetComment();
     };
 
-    
+    const mutation = useMutation({
+      mutationFn: async (id) => {
+        if (response.isCurrentUserFavorite === true) {
+          return await deleteBlogFavorite({ id });
+        } else {
+          return await AddBlogFavorite({ id });
+        }
+      },
+      onSuccess: (data) => {
+        if (data.success) {
+          const message = response.isCurrentUserFavorite 
+            ? 'دوره ' + '(' + response.title + ')' + ' از علاقه‌مندی‌ها حذف شد' 
+            : 'دوره ' + '(' + response.title + ')' + ' به علاقه‌مندی‌ها اضافه شد';
+          
+          toast.success(message);
+          GetId(); 
+        }
+      },
+      mutationKey: ['toggleFavorite', response.isCurrentUserFavorite ? 'delete' : 'add'],
+    });
 
-    
+    console.log(response);
     return (
       <div className="w-full max-w-3xl mx-auto  px-4">
         <div className="bg-white rounded-lg shadow-lg p-4 mb-4">
@@ -142,6 +234,7 @@ const BDetailCenter = ({ id }) => {
               likeCount={response.inUsersFavoriteCount}
               commentCount={response.commentsCount}
             />
+            
           </div>
           <p className="text-gray-600 mt-2 py-[20px] text-right">{response.describe}</p>
           <div className="border-t border-gray-300 my-4"></div>
@@ -149,6 +242,7 @@ const BDetailCenter = ({ id }) => {
           <ul className="list-disc list-inside mt-2 text-right">{renderCourses()}</ul>
           <div className="text-[0.8vw] gap-[1vw] text-gray-800 w-full h-[1.46vw] px-[1vw] flex justify-end">
             <div className="flex justify-evenly h-full w-[10%] items-center">
+              
               <span>{response.currentLikeCount}</span>
               <svg
                 className="cursor-pointer"
@@ -189,8 +283,33 @@ const BDetailCenter = ({ id }) => {
                 />
               </svg>
             </div>
+            {/* <svg
+            className="relative bottom-[0.2vw] cursor-pointer w-[2vw] h-[2vw]"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill={response.isCurrentUserFavorite ? '#FF0000' : 'none'}
+            stroke={response.isCurrentUserFavorite ? '#FF0000' : '#000'}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            onClick={() => mutation.mutate(id)}
+          >
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg> */}
+          <Button 
+            className="relative bottom-[0.5vw]" 
+            color={response.isCurrentUserFavorite ? 'danger' : 'success'} 
+            onClick={() => mutation.mutate(id)}
+            >
+            {response.inUsersFavoriteCount ? 'حذف این دوره از علاقه مندی' : 'افزودن دوره به علاقه مندی ها'}
+            </Button>
           </div>
-          <AddCommentForm userId={userId} onSubmit={onSubmit} newsId={newsId} />
+          <AddCommentForm 
+            userId={userId} 
+            onSubmit={onSubmit} 
+            newsId={newsId} 
+            
+            />
         </div>
         <div >
         <BComment

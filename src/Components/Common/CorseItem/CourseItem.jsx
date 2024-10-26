@@ -56,7 +56,6 @@ const CourseItem = ({
         e.preventDefault();    
         e.preventDefault();
         mutation.mutate(courseId);
-        toast.error('ابتدا به حساب کاربری خود ورود کنید')
     };
     const navigate = useNavigate()
 

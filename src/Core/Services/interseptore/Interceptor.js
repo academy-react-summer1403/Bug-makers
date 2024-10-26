@@ -10,23 +10,21 @@ const instance = axios.create({
 });
 
 const onSuccess = (response) => {
-    const message = response.data.message || 'عملیات با موفقیت انجام شد'
-    if(response.data.status === 200){
-        toast.success(message)
-    }
-    else{
-        // toast.success( 'عملیات با موفقیت انجام شد')
-    }
+    // if(response.status === 200){
+    //     toast.success(response.data.message);
+    // }
+
     return response.data;
 }
 
 const onError = (err) => {
     console.log(err);
-
-    if(err.response.status===401){
-        console.log( err.message);
+    if(err.status === 401){
         removeItem("token")
-        window.location.pathname="/sign/login"
+        setTimeout(() => {
+            window.location.pathname="/sign/login"            
+        }, 1500);
+        toast.error('ابتدا وارد حساب کاربری خود شوید')
     }
 
     if(err.response.status >= 400 && err.response.status < 500){
@@ -42,7 +40,7 @@ const onError = (err) => {
 instance.interceptors.response.use(onSuccess,onError);
 
 instance.interceptors.request.use((opt)=>{
-    const token =getItem("token");
+    const token = getItem("token");
     if (token) opt.headers.Authorization = "Bearer "+token;
     return opt;
 });

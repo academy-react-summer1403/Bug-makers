@@ -1,8 +1,8 @@
 import { Field, Form, Formik, ErrorMessage } from "formik";
-import * as Yup from "yup";  // Import Yup for validation
+import * as Yup from "yup"; // Import Yup for validation
 import React from "react";
 
-const AddCommentForm = ({ onSubmit, newsId, parentId, onSubmit2 }) => {
+const AddCommentForm = ({ onSubmit, newsId, parentId, onSubmit2, setRepleyModal }) => {
   // Define validation schema using Yup
   const validationSchema = Yup.object({
     Title: Yup.string()
@@ -15,23 +15,17 @@ const AddCommentForm = ({ onSubmit, newsId, parentId, onSubmit2 }) => {
 
   return (
     <Formik
-      initialValues={
-        parentId
-          ? {
-              Title: "",
-              Describe: "",
-              CourseId: `${newsId}`,
-              CommentId: `${parentId}`,
-            }
-          : {
-              Title: "",
-              Describe: "",
-              CourseId: `${newsId}`,
-            }
-      }
+      initialValues={{
+        Title: "",
+        Describe: "",
+        CourseId: `${newsId}`,
+        ...(parentId && { CommentId: `${parentId}` }), // Add CommentId if parentId is present
+      }}
       validationSchema={validationSchema} // Attach validation schema
-      onSubmit={(values) => {
+      onSubmit={(values, { resetForm }) => {
         parentId ? onSubmit(values) : onSubmit2(values);
+        resetForm(); // Reset the form fields
+        setRepleyModal(false); // Close the modal
       }}
     >
       {({ errors, touched }) => (

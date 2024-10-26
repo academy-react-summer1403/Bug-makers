@@ -4,6 +4,7 @@ import CourseSliceReducer from '../Slice/Course/CourseList'
 import BlogSliceReducer from '../Slice/Blog/BlogList'
 import ClientInfoSliceReducer from '../Slice/ClientInfo/ClientInfo'
 import LoginTokenSliceReducer from "../Slice/Login/Login";
+import towStepSliceReducer from '../Slice/Login/TowStep'
 
 export const Store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const Store = configureStore({
     CourseSlice: CourseSliceReducer,
     BlogSlice: BlogSliceReducer,
     ClientInfoSlice: ClientInfoSliceReducer,
-    LoginToken: LoginTokenSliceReducer,
+    LoginToken : LoginTokenSliceReducer,
+    ToStep: towStepSliceReducer ,
   },
 });

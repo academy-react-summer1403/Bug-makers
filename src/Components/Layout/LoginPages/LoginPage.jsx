@@ -1,8 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion"; // Import motion
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const LoginPage = () => {
+
     return (
         <motion.div 
             className="w-full h-lvh flex justify-center items-center bg-white"

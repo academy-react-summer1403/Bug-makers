@@ -1,3 +1,4 @@
+import axios from "axios";
 import http from "../interseptore/Interceptor.js"
 
 export const LoginAPI = async (user)=>{
@@ -70,3 +71,21 @@ export const ForgetPassStep3 = async (newPass)=>{
     }
 }
 
+export const twoStepVerify = async (code, phoneNumber, password) => {
+    try {
+        const response = await http.post(
+            `Sign/LoginTwoStep?VrifyCode=${code}`, 
+            {
+                phoneOrGmail: phoneNumber,
+                password: password,
+                rememberMe: true
+            },
+
+        );
+        
+
+        return response; 
+    } catch (error) {
+        return false;     
+    }
+}
