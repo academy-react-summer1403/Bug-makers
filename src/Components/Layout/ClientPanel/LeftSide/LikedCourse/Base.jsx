@@ -119,7 +119,7 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
        return response.map((course, index) => (
          <div
            key={index}
-           className="w-full h-[3vw] rounded-[0.4vw] flex items-center  text-[#272727] hover:bg-gray-100"
+           className="w-full h-[3vw] rounded-[0.4vw] flex items-center text-[0.9vw] text-[#272727] hover:bg-gray-100"
          >
            <div
              className={`w-[8%] justify-center h-full rounded-[0.5vw] overflow-hidden   ${
@@ -132,13 +132,13 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
                alt=""
              />
            </div>
-           <div className="w-[16%] h-full  py-3 px-6 text-right whitespace-nowrap">
+           <div className="w-[16%] h-full  py-[1%] px-[1%] text-right whitespace-nowrap">
              {course.courseTitle ? course.courseTitle : null}
              {course.title ? course.title : null}
              {course.courseName ? course.courseName : null}
            </div>
            <div
-             className={`w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+             className={`w-[32%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
               ${location == "BlogFav" ? "hidden" : "block"}`}
            >
              <Tooltip
@@ -149,11 +149,11 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
              </Tooltip>
            </div>
            <div
-             className={`w-[50%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+             className={`w-[50%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
               ${location == "BlogFav" ? "block" : "hidden"}`}
            ></div>
            <div
-             className={`w-[16%] h-full py-3 px-6 text-right whitespace-nowrap ${
+             className={`w-[16%] h-full py-[1%] px-[1%] text-right whitespace-nowrap ${
                location == "BlogFav" ? "hidden" : "block"
              }`}
            >
@@ -164,16 +164,21 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
                {course.teacheName}
              </Tooltip>
            </div>
-           <div className="w-[16%] h-full py-3 px-6 text-center whitespace-nowrap">
+           <div className="w-[16%] h-full py-[1%] px-[1%] text-center whitespace-nowrap">
              {course.lastUpdate ? convertToJalali(course.lastUpdate) : null}
              {course.updateDate ? convertToJalali(course.updateDate) : null}
              {course.reserverDate ? convertToJalali(course.reserverDate) : null}
            </div>
            <div
-             className={`w-[12%] h-full py-3 px-6 text-center whitespace-nowrap ${
+             className={`w-[12%] h-full py-[1%] px-[1%] text-center whitespace-nowrap ${
                location == "BlogFav" ? "hidden" : "block"
-             } ${course.accept == null
-               ? null : course.accept == false ? "text-red-600" : "text-green-500"}`}
+             } ${
+               course.accept == null
+                 ? null
+                 : course.accept == false
+                 ? "text-red-600"
+                 : "text-green-500"
+             }`}
            >
              {course.levelName ? course.levelName : null}
              {course.accept == null
@@ -212,8 +217,8 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
                    console.log(detailCourse);
                  }}
                  className="cursor-pointer"
-                 width="24"
-                 height="24"
+                 width=""
+                 height="50%"
                  viewBox="0 0 24 24"
                  fill="none"
                  xmlns="http://www.w3.org/2000/svg"
@@ -248,8 +253,8 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
                      DelCourseServ(course.reserveId);
                    }
                  }}
-                 width="24"
-                 height="24"
+                 width=""
+                 height="50%"
                  viewBox="0 0 24 24"
                  fill="none"
                  xmlns="http://www.w3.org/2000/svg"
@@ -365,7 +370,7 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
   
 
   return (
-    <div className="relative  m-auto w-[76vw] bg-transparent text-center ">
+    <div className="relative  m-auto w-[100%] bg-transparent text-center ">
       <div
         className={`absolute z-[1000]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%] ${
           detailCourse == true ? "block" : "hidden"
@@ -423,50 +428,50 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
         {/* filterActionSection */}
 
         <div className=" w-full mt-[0.5vw]">
-          <div className="flex items-center w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600 text-sm leading-normal">
+          <div className="flex items-center  w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600 text-[0.9vw] leading-normal">
             <div
-              className={`w-[8%]  py-3 px-4 text-center ${
+              className={`w-[8%]  py-[1%] px-[1%] text-center ${
                 location == "BlogFav" ? "block" : "hidden"
               }`}
             >
               عکس
             </div>
-            <div className="w-[16%]  py-3 px-6 text-right">
+            <div className="w-[16%]  py-[1%] px-[1%] text-right">
               {" "}
               {location == "BlogFav" ? "عنوان خبر" : "عنوان دوره"}{" "}
             </div>
             <div
-              className={`w-[32%]   py-3 px-6 text-right ${
+              className={`w-[32%]  py-[1%] px-[1%] text-right ${
                 location == "CourseFav" ? "block" : "hidden"
               }`}
             >
               درباره دوره
             </div>
             <div
-              className={`w-[50%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+              className={`w-[50%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
               ${location == "CourseFav" ? "hidden" : "block"}`}
             ></div>
             <div
-              className={`w-[16%]  py-3 px-6 text-right ${
+              className={`w-[16%]  py-[1%] px-[1%] text-right ${
                 location == "CourseFav" ? "block" : "hidden"
               }`}
             >
               استاد دوره
             </div>
-            <div className={`w-[16%]  py-3 px-6 text-center`}>
+            <div className={`w-[16%]  py-[1%] px-[1%] text-center`}>
               {location == "BlogFav" ? "تاریخ" : null}
               {location == "CourseFav" ? "تاریخ برگذاری" : null}
               {location == "CourseServ" ? "تاریخ رزرو" : null}
             </div>
             <div
-              className={`w-[12%]  py-3 px-6 text-center ${
+              className={`w-[12%]  py-[1%] px-[1%] text-center ${
                 location == "BlogFav" ? "hidden" : "block"
               }`}
             >
               {location == "CourseServ" ? "وضعیت تایید" : "سطح دوره"}
             </div>
-            <div className="w-[4%]  py-3 px-4 text-center"></div>
-            <div className="w-[4%]  py-3 px-4 text-center"></div>
+            <div className="w-[4%]  py-[1%] px-[1%] text-center"></div>
+            <div className="w-[4%]  py-[1%] px-[1%] text-center"></div>
           </div>
         </div>
         {/* courseItemsSection */}

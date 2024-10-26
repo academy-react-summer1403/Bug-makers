@@ -59,7 +59,7 @@ const CourseItem = ({
   };
   return (
     <div
-      className={`p-[0.5vw] relative shadow-[0px_0px_15px_0px_#666] bg-white rounded-[1vw]  overflow-hidden
+      className={`p-[0.5vw] relative shadow-[0px_0px_15px_0px_#aaa] bg-white rounded-[1vw]  overflow-hidden
           "w-[100%]  max-h-[100%]`}
     >
       <div className="h-[1.8vw] w-full text-right flex justify-between items-center mb-[0.5vw]">
@@ -70,10 +70,10 @@ const CourseItem = ({
           }}
           className={`rounded-full w-[4vw] h-[1.5vw] border border-red-500 flex justify-evenly items-center cursor-pointer `}
         >
-          <span className="text-red-500 mb-[0.3vw]">بستن</span>
+          <span className="text-red-500 text-[0.9vw] mb-[0.3vw]">بستن</span>
           <svg
-            width="1vw"
-            height="1vw"
+            width=""
+            height="80%"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,7 @@ const CourseItem = ({
           src={img}
         />
       </div>
-      <div className="absolute top-[3.2vw] px-[0.5vw] right-[1vw] rounded-full h-[1.2vw] w-[4vw] bg-blue-500 text-white text-[0.7vw] ">
+      <div className="absolute top-[3.2vw] px-[0.5vw] right-[1vw] rounded-full h-[4%] w-[20%] bg-blue-500 text-white text-[0.7vw] ">
         <Tooltip
           className="text-gray-700 w-[7vw] leading-[1.4vw]"
           size="sm"
@@ -110,7 +110,7 @@ const CourseItem = ({
         </Tooltip>
       </div>
 
-      <div className="absolute top-[3.2vw] right-[5.5vw] rounded-full h-[1.2vw] w-[3vw] bg-blue-500 text-white text-[0.7vw]">
+      <div className="absolute top-[3.2vw] right-[5.5vw] rounded-full h-[4%] w-[15%] bg-blue-500 text-white text-[0.7vw]">
         {level}
       </div>
 
@@ -131,8 +131,8 @@ const CourseItem = ({
             className="w-[45%] h-full rounded-full border border-[#E4E4E4] flex items-center justify-center cursor-pointer"
           >
             <svg
-              width="24"
-              height="24"
+              width=""
+              height="70%"
               viewBox="0 0 24 24"
               fill={userIsLiked == true ? "#FF0000" : "#7F7F7F"}
               xmlns="http://www.w3.org/2000/svg"
@@ -157,12 +157,11 @@ const CourseItem = ({
             onClick={() => {
               currentUserDissLike == true ? delLikeNews2() : setNewsDissLike();
             }}
-            
             className="w-[45%] h-full rounded-full border border-[#E4E4E4] flex items-center justify-center cursor-pointer"
           >
             <svg
-              width="24"
-              height="24"
+              width=""
+              height="70%"
               viewBox="0 0 24 24"
               fill={currentUserDissLike == true ? "#FF0000" : "#7F7F7F"}
               xmlns="http://www.w3.org/2000/svg"
@@ -229,10 +228,10 @@ const CourseItem = ({
         <span>توضیح مختصر</span>
       </div>
       <div
-        className={`max-h-[3.6vw] mr-[10px] text-[11px] text-right overflow-hidden text-ellipsis ... break-words`}
+        className={`max-h-[3.6vw] mr-[10px] text-[0.6vw] text-right overflow-hidden text-ellipsis ... break-words`}
       >
         <Tooltip
-          className="text-gray-700 break-words w-[19vw] leading-[1.4vw]"
+          className="text-gray-700 break-words w-[300px] max-md:w-[100px] text-[0.9vw] leading-[1.4vw]"
           size="sm"
           content={`${description}`}
         >
@@ -257,11 +256,11 @@ const CourseItem = ({
         </div>
       </div>
 
-      <div className="w-full h-[1.4vw] flex gap-x-[0.2vw] font-[600] mt-[0.5vw]">
+      <div className="w-full h-[1.4vw] text-[0.9vw] flex gap-x-[0.2vw] font-[600] mt-[0.5vw]">
         <svg
           className="ml-[0.5vw]"
-          width="24"
-          height="24"
+          width=""
+          height="100%"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -308,12 +307,12 @@ const CourseItem = ({
         <span className="mr-[0.5vw]">دانشجو</span>
       </div>
 
-      <div className="w-full h-[3vw] flex items-end">
+      <div className="w-full h-[10%] flex items-end">
         <div className="h-full w-[50%] flex flex-col justify-between">
-          <div className="flex items-center gap-x-[0.4vw] font-[600] text-[0.75vw]">
+          <div className="flex h-[40%] items-center gap-x-[0.4vw] font-[600] text-[0.75vw]">
             <svg
-              width="24"
-              height="24"
+              width="15%"
+              height=""
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -356,10 +355,10 @@ const CourseItem = ({
             </svg>
             <span>{startDate} ( شروع )</span>
           </div>
-          <div className="flex items-center gap-x-[0.4vw] font-[600] text-[0.75vw]">
+          <div className="flex items-center h-[40%] gap-x-[0.4vw] font-[600] text-[0.75vw]">
             <svg
-              width="24"
-              height="24"
+              width="15%"
+              height=""
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

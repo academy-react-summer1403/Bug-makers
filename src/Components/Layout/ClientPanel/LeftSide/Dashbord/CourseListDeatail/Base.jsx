@@ -405,7 +405,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
             onClick={() => {
               setShowMoreCourse(true);
             }}
-            className="text-[#E1C461] cursor-pointer"
+            className="text-[#E1C461] cursor-pointer text-[1vw]"
           >
             مشاهده همه
           </span>
