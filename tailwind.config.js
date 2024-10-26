@@ -31,7 +31,9 @@ module.exports = {
       },
       screens: {
         'custom': '952px', 
-        'custom2': '514px' 
+        'custom2': '514px' ,
+        'custom3': '570px' ,
+
       },
     },
   },

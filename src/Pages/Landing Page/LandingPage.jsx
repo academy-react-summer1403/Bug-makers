@@ -13,7 +13,7 @@ import Footer from '../../Components/Layout/Footer/Footer'
 const LandingPage = () => {
 
   return (
-    <div className='border relative w-[100%]'>
+    <div className=' overflow-hidden relative max-w-[100%]'>
         <BahrAcademy />
         <StoreService />
         <CourseTraining />

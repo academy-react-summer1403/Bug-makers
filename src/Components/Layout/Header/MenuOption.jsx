@@ -16,7 +16,7 @@ const MenuOption = ({ className }) => {
       <NavLink
         to='/CoursePage' 
         className={({ isActive }) => 
-          isActive ? `${className} ${selectNavLink}` : `curses ${className}`
+          isActive ? ` ${className} ${selectNavLink}` : `curses ${className}`
         }
       >
         دوره ها

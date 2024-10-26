@@ -37,7 +37,7 @@ const StatisticsData = () => {
   }
 
   return (
-    <div className='max-[714px]:scale-150 m-auto w-[100%] relative text-center mt-[56.63541666666667vw] bg-transparent'>
+    <div className=' max-[714px]:w-[80%] max-[570px]:w-[66%] max-[714px]:scale-125  max-[570px]:mt-[65vw] max-[570px]:scale-150 m-auto w-[100%] relative text-center mt-[56.63541666666667vw] bg-transparent'>
       <TextLanding
         h3Text='آکادمی بحر العلوم از دید آمار'
         pText='اطلاعات دوره ها'

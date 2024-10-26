@@ -24,7 +24,7 @@ function App() {
           <Header />
           <Outlet />
           <Toaster />
-          <ThemeColor />
+          {/* <ThemeColor /> */}
           <ScrollTopButton />
         </NextUIProvider>
         {/* <CourseDetail/> */}

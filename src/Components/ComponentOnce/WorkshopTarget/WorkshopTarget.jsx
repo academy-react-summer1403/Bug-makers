@@ -40,7 +40,7 @@ const WorkshopTarget = () => {
 
   return (
     // wrapper 
-    <div className={`m-auto max-[714px]:scale-150  w-[100%] mt-[50vw] text-center
+    <div className={` max-[714px]:w-[66%] max-[714px]:mt-[50vw]  max-[570px]:w-[59%] m-auto max-[570px]:scale-[170%] max-[570px]:mt-[39vw] max-[714px]:scale-150  w-[100%] mt-[35vw] text-center
        ${selectedButton === 0 ? 'max-[750px]:mt-[25vw]' : ''}
        ${selectedButton === 2 ? 'max-[750px]:mt-[30vw]' : ''}
        `}>
@@ -68,15 +68,15 @@ const WorkshopTarget = () => {
       </motion.p>
       
       {/* Items  */}
-      <div className='flex   flex-wrap flex-col gap-[10vw] w-[100%] relative'>
+      <div  className=' flex max-[714px]:scale-125   max-[714px]:w-[80%] flex-wrap flex-col gap-[10vw] w-[100%] relative left-[-7vw] '>
         {targets.map((target, index) => (
           <motion.div
             key={target.id}
             className={` mt-[4.9vw] w-[33.723958333333336vw] absolute p-[2vw] 
-            ${index === 0 ? 'max-[714px]:right-[18vw] right-[7.999999vw] top-[0.1vw] ' : ''}
-            ${index === 1 ? 'max-[714px]:left-[18vw] max-[714px]:top-[15vw] left-[12.9999999vw] top-[7.99999999vw]' : ''}
-            ${index === 2 ? 'max-[714px]:right-[18vw] max-[714px]:top-[20vw]  right-[8.1vw] top-[27.1vw]' : ''}
-            ${index === 3 ? 'max-[714px]:left-[18vw] max-[714px]:top-[35vw] left-[13.1vw] top-[35.1vw]' : ''}
+            ${index === 0 ? 'max-[714px]:right-[10vw] max-[570px]:right-[8vw]  right-[7.999999vw] top-[0.1vw] ' : ''}
+            ${index === 1 ? 'max-[714px]:left-[10vw] max-[714px]:top-[18vw] max-[570px]:left-[6vw] left-[12.9999999vw] top-[7.99999999vw]' : ''}
+            ${index === 2 ? 'max-[714px]:right-[9vw] max-[714px]:top-[35vw] max-[570px]:right-[7vw] right-[8.1vw] top-[27.1vw]' : ''}
+            ${index === 3 ? 'max-[714px]:left-[12vw] max-[714px]:top-[55vw] max-[570px]:left-[8vw] left-[13.1vw] top-[35.1vw]' : ''}
             ${selectedButton === 1 && index === 0 ? 'absolute right-[50.1100vw] top-[19.100vw] ' : ''}
             ${selectedButton === 1 && index === 1 ? 'absolute left-[50.1100vw] top-[41.100vw] ' : ''}
             ${selectedButton === 1 && index === 2 ? 'absolute right-[50.1100vw] top-[64.1100vw] ' : ''}

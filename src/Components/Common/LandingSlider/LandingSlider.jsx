@@ -8,7 +8,7 @@ const LandingSlider = () => {
 
   return (
     <div
-      className='m-auto w-[100%] mt-[38.786458333333332vw] bg-transparent z-10 relative text-center'
+      className=' max-[714px]:w-[100%] m-auto w-[100%] mt-[38.786458333333332vw] bg-transparent z-10 relative text-center'
       onMouseEnter={() => setIsHovered(true)} 
       onMouseLeave={() => setIsHovered(false)} 
     >
