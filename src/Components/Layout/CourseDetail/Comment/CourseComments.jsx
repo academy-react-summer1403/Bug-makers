@@ -137,7 +137,12 @@ const CourseComments = ({
               }}
               className="flex justify-evenly items-center text-[0.7vw] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-[0.78vw] w-[5vw] h-[1.7vw] p-0"
             >
-              <span>پاسخ دادن</span>
+              <span 
+              onClick={() => {
+                window.scrollTo({top:780 , behavior: 'smooth'})
+                setRepleyModal(true);
+              }}
+              >پاسخ دادن</span>
               <svg
                 width="0.78vw"
                 height="0.68vw"
@@ -157,8 +162,8 @@ const CourseComments = ({
       <div
         className={
           repleyModal
-            ? "fixed z-0 top-0 left-0 h-screen w-screen bg-[#8a8a8a96] backdrop-blur-[3px]"
-            : "hidden"
+          ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center"
+          : "hidden"
         }
         onClick={() => {
           setRepleyModal(false);
@@ -167,8 +172,8 @@ const CourseComments = ({
         <div
           className={
             repleyModal
-              ? "h-max w-[50vw] rounded-[1vw] bg-white absolute z-40 top-1/4 left-1/4"
-              : "hidden"
+            ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40"
+            : "hidden"
           }
           onClick={(e) => e.stopPropagation()}
         >
@@ -177,6 +182,7 @@ const CourseComments = ({
             newsId={newsId}
             parentId={id}
             onSubmit2={onSubmit2}
+            setRepleyModal={setRepleyModal}
           />
         </div>
       </div>

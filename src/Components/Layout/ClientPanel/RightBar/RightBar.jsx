@@ -6,7 +6,6 @@ const RightBar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const navigator = useNavigate();
 
-  // لیست آیتم‌های منو
   const menuItems = [
     {
       id: 0,

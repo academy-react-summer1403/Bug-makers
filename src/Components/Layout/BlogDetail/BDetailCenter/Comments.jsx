@@ -143,30 +143,31 @@ const Comments = ({
         </div>
       </div>
       <div
-  className={
-    repleyModal
-      ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center"
-      : "hidden"
-  }
-  onClick={() => {
-    setRepleyModal(false);
-  }}
->
-  <div
-    className={
-      repleyModal
-        ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40"
-        : "hidden"
-    }
-    onClick={(e) => e.stopPropagation()}
-  >
-    <AddCommentForm
-      userId={userId}
-      onSubmit={onSubmit}
-      newsId={newsId}
-      parentId={parentId}
-    />
-  </div>
+      className={
+        repleyModal
+          ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center"
+          : "hidden"
+      }
+      onClick={() => {
+        setRepleyModal(false);
+      }}
+    >
+      <div
+        className={
+          repleyModal
+            ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40"
+            : "hidden"
+        }
+        onClick={(e) => e.stopPropagation()}
+      >
+        <AddCommentForm
+          userId={userId}
+          onSubmit={onSubmit}
+          newsId={newsId}
+          parentId={parentId}
+          setRepleyModal={setRepleyModal}
+        />
+      </div>
 </div>
 
 

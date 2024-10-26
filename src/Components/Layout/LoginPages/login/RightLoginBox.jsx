@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import InputModel from "../forAll/InputModel.jsx";
 import * as yup from "yup";
@@ -7,6 +7,8 @@ import { LoginAPI } from "../../../../Core/Services/Api/auth.js";
 import { useNavigate } from "react-router-dom";
 import { setItem } from "../../../../Core/Services/common/storage.services.js";
 import "../forAll/login.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setPassword, setTowStepCode } from "../../../../Redux/Slice/Login/TowStep.js";
 
 const RightLoginBox = () => {
   const navigate = useNavigate();
@@ -15,21 +17,34 @@ const RightLoginBox = () => {
     password: yup.string().required("این فیلد اجباریست"),
   });
   const [checked, setChecked] = useState(false);
-
+  const dispatch = useDispatch()
   const handleCheckboxChange = () => {
     setChecked(!checked);
   };
-  const onSubmit = async (values) => {
-    console.log(values);
-    const response = await LoginAPI(values);
-    if (response.token != null) {
-      navigate("/");
-      console.log(response);
 
-      setItem("token", response.token);
-      setItem("userId", response.id);
+  const codeApi = useSelector((state) => state.ToStep.TowStepConfig);
+
+  useEffect(() => {
+    if (codeApi.phoneNumber && codeApi.token && codeApi.success === true) {
+      navigate("/");
     }
+    if (codeApi.phoneNumber && codeApi.token === null && codeApi.success === true) {
+      navigate("/sign/login/twoStep")
+    }
+    }, [codeApi, navigate]);
+
+  const onSubmit = async (values) => {
+    const response = await LoginAPI(values);
+    dispatch(setTowStepCode(response));
+    dispatch(setPassword(values.password))
+    setTimeout(() => {
+      if (response.token != null) {
+        setItem("token", response.token);
+        setItem("userId", response.id);
+      } 
+    }, 50);
   };
+
 
   return (
     <div className="w-1/2 max-sm:w-[100%]">

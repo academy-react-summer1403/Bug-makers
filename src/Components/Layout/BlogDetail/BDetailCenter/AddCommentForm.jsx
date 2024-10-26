@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import React from "react";
 import { Button } from '@nextui-org/react';
 
-const AddCommentForm = ({ onSubmit, userId, newsId, parentId }) => {
+const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) => {
   const validationSchema = Yup.object({
     title: Yup.string()
       .min(7, "عنوان باید حداقل 7 حرف باشد")
@@ -24,12 +24,14 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId }) => {
         ...(parentId && { parentId: parentId }),
       }}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
+      onSubmit={(values, { resetForm }) => {
         onSubmit(values);
+        resetForm(); 
+        setRepleyModal(false); 
       }}
     >
       {({ errors, touched }) => (
-        <Form className="w-full  h-max px-4 mt-4 mb-4">
+        <Form className="w-full h-max px-4 mt-4 mb-4">
           <div className="mb-4">
             <Field
               placeholder="عنوان دیدگاه خود را وارد کنید"

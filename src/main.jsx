@@ -31,6 +31,7 @@ import MyCourses from './Components/Layout/ClientPanel/LeftSide/MyCoursess/MyCou
 import CoursePage from './Pages/CoursePage/CoursePage.jsx'
 import LandingPage from './Pages/Landing Page/LandingPage.jsx'
 import NotFoundPage from './Pages/NotFound/NotFoundPage.jsx'
+import TwoStepLogin from './Components/Layout/LoginPages/twoStep/twoStep.jsx'
 
 const queryClient = new QueryClient();
 
@@ -131,6 +132,11 @@ const router = createBrowserRouter([
           {
             path: "login",
             element: <Login />,
+            errorElement: <Error />,
+          },
+          {
+            path: "login/twoStep",
+            element: <TwoStepLogin />,
             errorElement: <Error />,
           },
           {
