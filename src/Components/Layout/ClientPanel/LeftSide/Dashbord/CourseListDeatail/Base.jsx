@@ -6,7 +6,7 @@ import { getCourseListWithPagination } from "../../../../../../Core/Services/Api
 import TextLanding from "../../../../../Common/TextInLanding/TextLanding";
 import Pagination from "../../../../../Common/Paginate/Paginate";
 import moment from "jalali-moment";
-import PriceFilter from "../../../../../ComponentOnce/PriceFilter/PriceFilter";
+import PriceFilter from "./PriceFilter/PriceFilter";
 import SearchBox from "./SearchBox/SearchBox";
 import SelectOpt from "./Select/SelectOpt";
 import DateModal from "./Date/Date";
@@ -185,19 +185,22 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
       .map((course, index) => (
         <div
           key={index}
-          className="w-full h-[3vw] rounded-[0.4vw] flex items-center  text-[#272727] hover:bg-gray-100"
+          className="w-full h-[3vw] rounded-[0.4vw] flex items-center text-[1vw]  text-[#272727] hover:bg-gray-100"
         >
           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
             {point == "myCourse" ? course.courseTitle : course.title}
           </div>
           <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...">
-            <Tooltip className="text-gray-700" content={`${course.describe}`}>
+            <Tooltip
+              className="text-gray-700  text-[0.8vw]"
+              content={`${course.describe}`}
+            >
               <span>{course.describe}</span>
             </Tooltip>
           </div>
           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
             <Tooltip
-              className="text-gray-700"
+              className="text-gray-700 text-[0.8vw]"
               content={`استاد: ${
                 point == "myCourse" ? course.fullName : course.teacherName
               }`}
@@ -224,8 +227,8 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
                 setDetailCourse(true);
               }}
               className="cursor-pointer"
-              width="24"
-              height="24"
+              width=""
+              height="50%"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -323,13 +326,13 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
           onClick={() => {
             setShowMoreCourse(false);
           }}
-          className={`rounded-full border border-red-500 h-[2.2vw] w-[5vw] text-red-500  items-center justify-evenly cursor-pointer ${
+          className={`rounded-full border border-red-500 h-[2.2vw] text-[0.9vw] w-[5vw] text-red-500  items-center justify-evenly cursor-pointer ${
             point == "myCourse" ? "hidden" : "flex"
           }`}
         >
           <svg
-            width="24"
-            height="24"
+            width=""
+            height="70%"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -348,7 +351,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
       <div className="w-[100%] selection: mt-[0vw] ">
         {/* searchAndFilterSection */}
         <div
-          className={`h-[60px]  relative flex-row flex-wrap justify-center items-center gap-x-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+          className={`h-[10%] w-full overflow-auto relative flex-row flex-wrap justify-center items-center gap-x-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
             ${show == true ? "flex" : "hidden"}`}
         >
           <SearchBox
@@ -411,16 +414,24 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
         {/* filterActionSection */}
 
         <div className=" w-full mt-[0.5vw]">
-          <div className="flex items-center w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600 text-sm leading-normal">
-            <div className="w-[16%]  py-3 px-6 text-right">نام دوره</div>
-            <div className="w-[32%]   py-3 px-6 text-right">درباره دوره</div>
-            <div className="w-[16%]  py-3 px-6 text-right">استاد دوره</div>
-            <div className="w-[16%]  py-3 px-6 text-right">تاریخ برگزاری</div>
-            <div className="w-[16%] py-3 px-6 text-right">
+          <div className="flex items-center  w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600  leading-normal">
+            <div className="w-[16%] text-[1.1vw] py-[1%] px-6 text-right">
+              نام دوره
+            </div>
+            <div className="w-[32%]  text-[1.1vw] py-[1%] px-6 text-right">
+              درباره دوره
+            </div>
+            <div className="w-[16%] text-[1.1vw] py-[1%] px-6 text-right">
+              استاد دوره
+            </div>
+            <div className="w-[16%] text-[1.1vw]   py-[1%] px-6 text-right">
+              تاریخ برگزاری
+            </div>
+            <div className="w-[16%] text-[1.1vw] py-[1%] px-6 text-right">
               {" "}
               {point == "myCourse" ? "درصد پرداختی" : "قیمت دوره "}{" "}
             </div>
-            <div className="w-[4%]  py-3 px-4 text-center"></div>
+            <div className="w-[4%] text-[1.1vw] py-3 px-4 text-center"></div>
           </div>
         </div>
         {/* courseItemsSection */}
@@ -429,14 +440,16 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
         </div>
 
         {/* paginationSection */}
-        <Pagination
-          pageCount={
-            point == "myCourse"
-              ? Math.ceil(myCourseList.length / itemsPerPage)
-              : Math.ceil(CourseListItem.length / itemsPerPage)
-          }
-          handlePageClick={(data) => setCurrentPage(data.selected)}
-        />
+        <div className="w-[30%] mx-auto">
+          <Pagination
+            pageCount={
+              point == "myCourse"
+                ? Math.ceil(myCourseList.length / itemsPerPage)
+                : Math.ceil(CourseListItem.length / itemsPerPage)
+            }
+            handlePageClick={(data) => setCurrentPage(data.selected)}
+          />
+        </div>
       </div>
     </div>
   );

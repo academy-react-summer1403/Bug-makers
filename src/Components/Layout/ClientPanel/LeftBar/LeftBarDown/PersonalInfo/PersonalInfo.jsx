@@ -28,8 +28,8 @@ const PersonalInfo = () => {
   }
 
   return (
-    <div className="flex justify-center overflow-hidden h-full">
-      <div className="bg-white p-6 rounded-lg shadow-lg flex space-x-6 w-full h-full">
+    <div className="flex justify-center overflow-hidden w-[100%] h-full">
+      <div className="bg-white p-6 rounded-lg shadow-lg flex space-x-6 w-full h-full max-md:flex-col max-md:overflow-auto">
         {/* فرم اطلاعات حساب */}
         <Formik
           initialValues={{
@@ -54,7 +54,7 @@ const PersonalInfo = () => {
           {({ handleSubmit }) => (
             <Form
               onSubmit={handleSubmit}
-              className="overflow-auto w-[65%] pl-[4vw] grid grid-cols-2 gap-4"
+              className="overflow-auto w-[65%] pl-[4vw] grid grid-cols-2 gap-4 max-lg:w-[90%] max-md:w-[100%]"
             >
               {/* فیلدهای فرم */}
               <div>
@@ -228,7 +228,7 @@ const PersonalInfo = () => {
         </Formik>
         {/* وضعیت حساب */}
         <div className="flex items-start justify-end w-1/2">
-          <div className="w-[40%] mt-[4vw] ml-[4vw]">
+          <div className="w-[50%] mt-[4vw] ml-[4vw]">
             <Gauge value={step} />
           </div>
         </div>

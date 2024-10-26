@@ -44,6 +44,7 @@ function PersianCalendarComponent() {
     <I18nProvider locale="">
       <Calendar
         calendarWidth={"280px"}
+        className="h-[100%]"
         aria-label="Date (Uncontrolled)"
         defaultValue={today(getLocalTimeZone())}
         value={today(getLocalTimeZone())}
@@ -67,8 +68,8 @@ function PersianCalendarComponent() {
           <div className="h-full w-[6%] flex justify-between items-center mr-[30%]">
             <div className="size-[1.7vw] rounded-full bg-white flex items-center justify-center">
               <svg
-                width="24"
-                height="24"
+                width=""
+                height="70%"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +90,7 @@ function PersianCalendarComponent() {
             </div>
             <div className="flex flex-col">
               <span className="text-[0.8vw]">ساعت</span>
-              <span className="text-[#333] font-[600]">
+              <span className="text-[#333] text-[0.8vw] font-[600]">
                 <TehranClock />{" "}
               </span>
             </div>
@@ -97,8 +98,8 @@ function PersianCalendarComponent() {
           <div className="h-full w-[9%] flex justify-between items-center mr-[10%]">
             <div className="size-[1.7vw] rounded-full bg-white flex items-center justify-center">
               <svg
-                width="24"
-                height="24"
+                width=""
+                height="70%"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +143,7 @@ function PersianCalendarComponent() {
             </div>
             <div className="flex flex-col ">
               <span className="text-[0.8vw]">تاریخ</span>
-              <span className="text-[#333] font-[600]">
+              <span className="text-[#333] text-[0.8vw] font-[600]">
                 <TodayDate />{" "}
               </span>
             </div>
@@ -153,7 +154,7 @@ function PersianCalendarComponent() {
             <CommentSection />
           </div>
 
-          <div className="h-full w-[19%]">
+          <div className="h-[99%] w-[19%]">
             {/* <PersianCalender /> */}
             {PersianCalendarComponent()}
           </div>
@@ -161,7 +162,7 @@ function PersianCalendarComponent() {
             <Gauge value={CourseListItem.profileCompletionPercentage} />
           </div>
         </div>
-        <div className="w-full h-[23vw] rounded-[0.5vw] pb-[0.2vw] pt-[0.2vw] px-[0.5vw] bg-white overflow-auto mt-[0.2vw] shadow-lg">
+        <div className="w-full h-[59%] rounded-[0.5vw] pb-[2.8vw] pt-[0.2vw] px-[0.5vw] bg-white overflow-scroll mt-[0.2vw] shadow-lg">
           <CoursePage
             show={false}
             itemPerpage={4}

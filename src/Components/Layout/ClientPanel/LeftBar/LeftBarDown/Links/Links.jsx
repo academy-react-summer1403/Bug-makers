@@ -124,7 +124,7 @@ const Links = () => {
 
           <Button
             radius="full"
-            className="w-[20%] h-[2.5vw] bg-[#E1C461]"
+            className="w-[30%] h-[15%] max-h-14 bg-[#E1C461]"
             type="submit"
             color="warning"
           >

@@ -103,20 +103,20 @@ const ProfilePic = () => {
   };
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <div className="flex flex-wrap w-[100%] h-[24vw]  p-[1.5vw] gap-[1vw] overflow-auto cursor-pointer">
+    <form className="w-full h-full" onSubmit={formik.handleSubmit}>
+      <div className="flex flex-wrap w-[100%] h-[100%]  p-[1.5vw] gap-[1vw] overflow-auto cursor-pointer">
         {images.map((image) => (
           <div
             key={image.id}
-            className="relative rounded-[1vw] h-[45%] w-[10vw]"
+            className="relative rounded-[1vw] h-[45%] w-[15%]"
           >
             <div className="duration-300 rounded-full size-[1.5vw] bg-white absolute top-[0.2vw] right-[0.2vw] flex items-center justify-center cursor-pointer">
               <svg
                 onClick={() => {
                   setSelectPic(image.id);
                 }}
-                width="20"
-                height="20"
+                width=""
+                height="80%"
                 viewBox="0 0 20 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -144,11 +144,11 @@ const ProfilePic = () => {
               >
                 <div
                   onClick={() => handleSetMainImage(image.id)} // Set main image
-                  className="w-full h-[40%] flex justify-between items-center text-[0.7vw] font-[600]"
+                  className="w-full h-[40%] flex justify-between items-center text-[0.7vw] font-[500]"
                 >
                   <svg
-                    width="24"
-                    height="24"
+                    width=""
+                    height="80%"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -174,11 +174,11 @@ const ProfilePic = () => {
                     handleImageDelete(image.id);
                     setSelectPic(0);
                   }}
-                  className="w-full h-[40%] flex justify-start gap-x-[0.5vw] items-center text-[0.7vw] font-[600] text-[#FF5454]"
+                  className="w-full h-[40%] flex justify-start gap-x-[0.5vw] items-center text-[0.7vw] font-[500] text-[#FF5454]"
                 >
                   <svg
-                    width="24"
-                    height="24"
+                    width=""
+                    height="80%"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -215,12 +215,14 @@ const ProfilePic = () => {
             accept="image/*"
             onChange={handleFileChange}
             multiple
+            placeholder="لطفا عکس را انتخاب کنید"
+
             id="file"
-            className=""
+            className="w-[full] max-w-40 text-[0.6vw]"
           />
           <svg
-            width="32"
-            height="32"
+            width=""
+            height="30%"
             viewBox="0 0 32 32"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -251,7 +253,7 @@ const ProfilePic = () => {
           <Button
             type="submit"
             auto
-            className="bg-[#E7E7E7] hover:bg-gray-300"
+            className="max-w-40 bg-[#E7E7E7] hover:bg-gray-300"
             size="sm"
           >
             تایید کردن عکس

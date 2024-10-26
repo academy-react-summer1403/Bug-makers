@@ -4,7 +4,7 @@ import React from "react";
 const CommentSection = () => {
   return (
     <div className="w-full h-[99%] bg-white rounded-[0.5vw]">
-      <div className="h-[15%] w-full p-[1vw] mb-[0.5vw] flex items-center justify-between">
+      <div className="h-[15%] w-full py-[1%] px-[2%]  flex items-center justify-between">
         <span className="text-[1.2vw] font-[600]">نظرات شما</span>
         <span className="text-[0.8vw] cursor-pointer text-orange-400">
           مشاهده همه
@@ -12,7 +12,7 @@ const CommentSection = () => {
       </div>
       <div className="w-full h-[72%] px-[1vw] flex justify-between items-center">
         <div className="h-full w-[45%] ">
-          <span className="font-[700]">دوره ها</span>
+          <span className="font-[700] text-[0.9vw]">دوره ها</span>
           <div className="w-full h-[85%] mt-[0.5vw]">
             <div className="w-full h-[25%] px-[0.5vw] flex gap-x-[0.5vw]">
               <div className="h-full w-[15%] bg-gray-600 rounded-[0.5vw]"></div>
@@ -34,7 +34,7 @@ const CommentSection = () => {
         </div>
         <div className="w-0 h-[70%] border-[0.1vw] border-gray-300"></div>
         <div className="h-full w-[45%]">
-          <span className="font-[700]">اخبار</span>
+          <span className="font-[700] text-[0.9vw]">اخبار</span>
           <div className="w-full h-[85%] mt-[0.5vw]">
             <div className="w-full h-[25%] px-[0.5vw] flex gap-x-[0.5vw]">
               <div className="h-full w-[15%] bg-gray-600 rounded-[0.5vw]"></div>
