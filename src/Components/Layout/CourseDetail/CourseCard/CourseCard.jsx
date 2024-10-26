@@ -13,6 +13,7 @@ import {
   postDissLikeNews,
   postLikeNews,
   CorseReserve,
+  deleteCorseReserve,
 } from "../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CComment from "../Comment/CComment";
 import {
@@ -27,6 +28,7 @@ import AddCommentForm from "../Comment/AddCommentForm";
 import { useMutation } from "react-query";
 import { AddCourseFavorite } from "../../../../Core/Services/Api/CourseDetail/AddCourseFavorite";
 import { deleteCourseFavorite } from "../../../../Core/Services/Api/CourseDetail/deleteCourseFavorite";
+import { Link } from "react-router-dom";
 
 
 function CourseCard({id}) {
@@ -41,14 +43,39 @@ function CourseCard({id}) {
     setDetailPage(value);
   }
 
-  const CorseReserveF= async()=>{
-    const re = await CorseReserve({ "courseId": `${id}` });
-     re.success
-       ? alert(
-            "کورس مورد نظر بعد از تایید ادمین برا شما ثبت میشود"
-         )
-       : alert("لطفا ابتدا وارد شوید");
-  }
+
+  const CorseReserveF = useMutation({
+    mutationFn: async (id) => {
+      return response.isCourseReseve == 1 
+        ? await deleteCorseReserve(id) 
+        : await CorseReserve({ courseId: id });
+    },
+    onSuccess: (data) => {
+      if (data.success) {
+        const message = response.isCourseReseve === 1 
+          ? 'دوره ' + '(' + response.title + ')' + 'از رزرو حذف شد 🥳' 
+          : 'دوره ' + '(' + response.title + ')' + 'رزرو شد 🥳';
+        
+
+          toast.custom((t) => (
+            <div 
+              className={`flex items-center justify-between p-4 bg-[#FFFFFF] text-black rounded-lg shadow-md transition-opacity duration-300 ${t.visible ? 'opacity-100' : 'opacity-0'}`}
+            >
+              <span>{message}</span>
+              <Link to={'/ClientPanel/MyReserve'} onClick={() => toast.dismiss(t.id)} className="  text-green-500 ml-2">مشاهده</Link>
+            </div>
+          ));
+
+        setResponse(prev => ({
+          ...prev,
+          isCourseReseve: prev.isCourseReseve === 1 ? 0 : 1,
+        }));
+      }
+    },
+  });
+  console.log(response);
+
+
 
   const GetId= async ()=>{
     const res = await getCourseDetail(id);
@@ -277,7 +304,7 @@ function CourseCard({id}) {
           <RatingStar id={id} />
         </div>
       </div>
-      <CoursePreviwe0 response={response} CorseReserve={CorseReserveF} />
+      <CoursePreviwe0 response={response} CorseReserve={CorseReserveF} id={id} />
       {/* <CourseStatus /> */}
       <div className="w-full rounded-[1vw]  p-[1vw] mt-[2.71vw]">
         <CourseMenu handelPage={handelPage} />
