@@ -2,7 +2,7 @@ import React from "react";
 
 const BDetailLikeSvg = ({ likeCount, commentCount }) => {
     return (
-        <div className="w-full flex flex-wrap justify-end items-center gap-3 p-2 text-gray-500 text-sm md:text-base">
+        <div className="w-full flex flex-wrap justify-end items-center gap-8 p-2 text-gray-500 text-sm md:text-base">
             <div className="flex items-center gap-1">
                 <span>1 min</span>
                 <svg

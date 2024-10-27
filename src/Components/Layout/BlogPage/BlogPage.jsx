@@ -93,6 +93,7 @@ const BlogPage = () => {
             placeHolder='دنبال چیز خاصی میگردی؟'
             value={`${filterValue ? '' : queryValue}`}
             onChange={handleSearch} 
+            className='w-[520px]'
           />
           <SelectOpt2
             placeholder='دسته‌بندی'
@@ -105,8 +106,9 @@ const BlogPage = () => {
             isSortSelect={true}
             onChange={(value) => setSorting(value)} 
             FilterValue={filterValue}
+            className='w-[235px]'
           />
-          <div className="h-[40px] text-center leading-[40px] rounded-[9px] ">
+          <div className="h-[40px] w-[100px] max-[1312px]:w-full bg-[#F2F2F2]  whitespace-nowrap text-center text-[12px] leading-[40px] rounded-[9px] ">
             {CourseListItem.length} آیتم یافت شد
           </div>
         </div>

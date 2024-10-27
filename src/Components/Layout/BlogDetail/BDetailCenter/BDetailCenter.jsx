@@ -125,10 +125,12 @@ useEffect(() => {
             key={Recommend.id}
             id={Recommend.id}
             title={Recommend.title}
+            desc={Recommend.miniDescribe}
         />
         ));
     };
 
+    
 
     // comment.....................................
 
@@ -224,12 +226,12 @@ useEffect(() => {
               className="w-full h-auto object-cover"
               alt=""
             />
-            <div className="absolute top-[0.7vw] left-[0.7vw] bg-white p-2 rounded-full shadow-md">
+            <div className="absolute top-[0.7vw] left-[0.7vw] bg-white p-2  rounded-full shadow-md">
               <span className="text-gray-800">{response.addUserFullName}</span>
             </div>
           </div>
           <h2 className="text-xl text-gray-800 mt-2 text-right">{response.title}</h2>
-          <div className="flex justify-end mt-2">
+          <div className="flex justify-end  mt-2">
             <BDetailLikeSvg
               likeCount={response.inUsersFavoriteCount}
               commentCount={response.commentsCount}
@@ -240,10 +242,10 @@ useEffect(() => {
           <div className="border-t border-gray-300 my-4"></div>
           <h3 className="text-gray-600 text-sm text-right">شاید علاقمند باشید:</h3>
           <ul className="list-disc list-inside mt-2 text-right">{renderCourses()}</ul>
-          <div className="text-[0.8vw] gap-[1vw] text-gray-800 w-full h-[1.46vw] px-[1vw] flex justify-end">
+          <div className="text-[0.8vw] gap-[2vw] mt-[8vw] text-gray-800 w-full h-[1.46vw] px-[1vw] flex justify-end">
             <div className="flex justify-evenly h-full w-[10%] items-center">
               
-              <span>{response.currentLikeCount}</span>
+              <span className="text-[0.9765625vw] max-[941px]:text-[1.565625vw] max-[941px]:mt-[0.8vw] max-[941px]:ml-[0.2vw] ">{response.currentLikeCount}</span>
               <svg
                 className="cursor-pointer"
                 onClick={() => {
@@ -261,9 +263,9 @@ useEffect(() => {
                 />
               </svg>
             </div>
-            |
+            <span className="text-[1.171875vw] max-[1131px]:text-[2vw] max-[1131px]:mt-[-1vw]">|</span>
             <div className="flex justify-evenly h-full w-[10%] items-center">
-              <span>{response.currentDissLikeCount}</span>
+              <span className="text-[0.9765625vw] max-[941px]:text-[1.565625vw] max-[941px]:mt-[0.2vw] max-[941px]:ml-[0.4vw] ">{response.currentDissLikeCount}</span>
               <svg
                 onClick={() => {
                   response.currentUserIsDissLike
@@ -297,7 +299,7 @@ useEffect(() => {
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
           </svg> */}
           <Button 
-            className="relative bottom-[0.5vw]" 
+            className="max-[1352px]:bottom-[0.8vw] max-[607px]:bottom-[1.3vw] max-[570px]:bottom-[1.8vw] max-[1136px]:bottom-[1vw] max-[1352px]:text-[10px] max-[1352px]:p-1 max-[1352px]:h-7 max-[1352px]:bottom-[0.4vw]   /*end responsive */ relative bottom-[0.6vw]" 
             color={response.isCurrentUserFavorite ? 'danger' : 'success'} 
             onClick={() => mutation.mutate(id)}
             >
