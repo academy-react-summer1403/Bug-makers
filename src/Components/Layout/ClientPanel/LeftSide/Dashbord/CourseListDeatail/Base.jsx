@@ -308,7 +308,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
         }`}
       >
         <div
-          className={`absolute h-[38.4vw] max-md:w-[70%] max-md:h-[300px] w-[20vw] top-[2vw] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
+          className={`absolute h-[38.4vw] max-md:w-[75%] max-md:h-[480px] w-[20vw] top-[2vw] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
             detailCourse == true ? "block" : "hidden"
           }`}
         >
