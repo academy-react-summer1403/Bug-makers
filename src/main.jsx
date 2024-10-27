@@ -32,7 +32,7 @@ import CoursePage from './Pages/CoursePage/CoursePage.jsx'
 import LandingPage from './Pages/Landing Page/LandingPage.jsx'
 import NotFoundPage from './Pages/NotFound/NotFoundPage.jsx'
 import TwoStepLogin from './Components/Layout/LoginPages/twoStep/twoStep.jsx'
-
+import './i18n.js';
 const queryClient = new QueryClient();
 
 

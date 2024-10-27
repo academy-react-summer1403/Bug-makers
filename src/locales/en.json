@@ -1,0 +1,43 @@
+{
+    "header": {
+        "Course": "Courses",
+        "News": "Articles",
+        "Events": "Events",
+        "ContactMe": "Contact Us"
+    },
+    "content": {
+        "bahrAcademy": {
+            "h1": "Bahr Academy",
+            "p": "The academy is a small community of great minds aimed at the growth of expertise and knowledge to change destinies by rediscovering the joy of coding.",
+            "button": "View Courses"
+        },
+        "storeServices": {
+            "topic": "Research Institute Services",
+            "p": "Everything you need to advance on your path to success.",
+            "test": "Test",
+            "help": "Consultation",
+            "job": "Job Opportunities",
+            "course": "Specialized Courses"
+        },
+        "courseTraining": {
+            "topic": "Training Suitable for Different Ages",
+            "p": "Various teaching methods to maximize benefits for different age groups.",
+            "youngCourse": "Children's Training Course",
+            "youngCourseP": "A starting point and effort to cultivate algorithmic thinking and problem-solving abilities in children through foundational problem-solving and play-based courses at the academy.",
+            "oldCourse": "Adult Training Course",
+            "oldCourseP": "A renewed acquaintance with the joy of coding in adult courses, providing a step-by-step, hands-on experience for working with a wide range of languages."
+        },
+        "workShopTarget": {
+            "topic": "",
+            "p": "",
+            "abilityTopic": "",
+            "abilityDesc": "",
+            "startTopic": "",
+            "startDesc": "",
+            "teacherTopic": "",
+            "teacherDesc": "",
+            "workTopic": "",
+            "workDesc": ""
+        }
+    }
+}

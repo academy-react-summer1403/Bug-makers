@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CiSearch, CiUser, CiMenuBurger, CiLogin } from "react-icons/ci";
 import MenuOption from './MenuOption';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getItem } from '../../../Core/Services/common/storage.services';
+import LanguageSelector from '../../language-selector'
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -32,8 +34,16 @@ const navigate = useNavigate()
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
+
+  const {i18n} = useTranslation()
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current.dir = i18n.dir()
+  }, [i18n, i18n.language])
+
   return (
-    <div className={`z-[1000] min-[1800px]:h-36 h-16  flex items-center justify-center flex-row flex-nowrap shadow-[0px_10px_10px_0px_#00000008] transition-all duration-300 
+    <div ref={ref} className={`z-[1000] min-[1800px]:h-36 h-16  flex items-center justify-center flex-row flex-nowrap shadow-[0px_10px_10px_0px_#00000008] transition-all duration-300 
       ${isSticky ? 'fixed top-0 right-0 w-[100%] bg-[#F5F5F4]' : 'relative w-[100%] bg-[#F5F5F4]'}`}>
       
       {/* Menu in Responsive */}
@@ -64,7 +74,7 @@ const navigate = useNavigate()
           `}
         />
       </div>
-
+      <LanguageSelector />
       <div className='cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[80px] max-[465px]:left-[40px] max-[394px]:w-7 max-[394px]:h-7 /* end responsive */ search border rounded-[15px] w-[45px] h-[30px] absolute left-[142px] bg-custom-gradient-Header shadow-custom-shadow'>
         <CiSearch className='max-[710px]:w-4 max-[710px]:h-4 /*end responsive*/ m-auto w-5 h-5 mt-1 searchIcon' />
       </div>

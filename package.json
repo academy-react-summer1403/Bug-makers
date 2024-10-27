@@ -22,6 +22,8 @@
     "date-fns-tz": "^3.2.0",
     "formik": "^2.4.6",
     "framer-motion": "^11.11.9",
+    "i18next": "^23.16.4",
+    "i18next-browser-languagedetector": "^8.0.0",
     "jalaali-js": "^1.2.7",
     "jalali-moment": "^3.3.11",
     "moment-jalaali": "^0.10.1",
@@ -36,6 +38,7 @@
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.2.9",
     "react-hot-toast": "^2.4.1",
+    "react-i18next": "^15.1.0",
     "react-icons": "^5.3.0",
     "react-leaflet": "^4.2.1",
     "react-modern-calendar-datepicker": "^3.1.6",
@@ -49,9 +52,9 @@
     "react-slider": "^2.0.6",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.14.4",
     "yup": "^1.4.0",
-    "zaman": "^2.1.1",
-    "sweetalert2": "^11.14.4"
+    "zaman": "^2.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
