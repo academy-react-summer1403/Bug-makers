@@ -187,7 +187,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
           key={index}
           className="w-full h-[3vw] max-md:border-b-1 max-md:h-[40px] rounded-[0.4vw] flex items-center text-[1vw]  text-[#272727] hover:bg-gray-100"
         >
-          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap max-md:w-[50%] max-md:text-[14px]">
+          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[50%] max-md:text-[14px]">
             {point == "myCourse" ? course.courseTitle : course.title}
           </div>
           <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden overflow-hidden text-ellipsis ...">
@@ -301,7 +301,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
   };
 
   return (
-    <div className="relative m-auto w-[76vw] bg-transparent text-center max-md:w-full">
+    <div className="relative m-auto w-[76vw] bg-transparent text-center h-full max-md:w-full">
       <div
         className={`absolute z-[20]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%]  ${
           detailCourse == true ? "block" : "hidden"
@@ -321,12 +321,15 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
           show == true ? "flex" : "hidden"
         }`}
       >
-        <span className="text-[1.5vw] max-md:text-[20px] font-[600]"> {name} </span>
+        <span className="text-[1.5vw] max-md:text-[20px] font-[600]">
+          {" "}
+          {name}{" "}
+        </span>
         <div
           onClick={() => {
             setShowMoreCourse(false);
           }}
-          className={`rounded-full border border-red-500 h-[2.2vw] max-md:h-[30px] max-md:w-[20%] text-[0.9vw] max-md:text-[14px] w-[5vw] text-red-500  items-center justify-evenly cursor-pointer ${
+          className={`rounded-full border border-red-500 h-[2.2vw] max-md:h-[30px] max-md:w-[20%]  max-md:text-[14px] text-[0.9vw] w-[5vw] text-red-500  items-center justify-evenly cursor-pointer ${
             point == "myCourse" ? "hidden" : "flex"
           }`}
         >
@@ -351,8 +354,8 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
       <div className="w-[100%] selection: mt-[0vw] ">
         {/* searchAndFilterSection */}
         <div
-          className={`h-[10%] max-md:grid max-md:grid-cols-2 w-full overflow-auto relative flex-row flex-wrap justify-center items-center gap-x-3 max-md:gap-y-[20px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
-            ${show == true ? "flex" : "hidden"}`}
+          className={`h-[10%]  w-full overflow-auto relative flex-row flex-wrap justify-center items-center gap-x-3 max-md:gap-y-[20px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+            ${show == true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
         >
           <SearchBox
             width={"20%"}
@@ -415,7 +418,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
 
         {/* filterActionSection */}
 
-        <div className=" w-full mt-[0.5vw] max-md:py-[10px]" >
+        <div className=" w-full mt-[0.5vw] max-md:py-[10px]">
           <div className="flex items-center  w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600  leading-normal">
             <div className="w-[16%] max-md:w-[50%] max-md:text-[16px] text-[1.1vw] py-[1%] px-6 text-right">
               نام دوره

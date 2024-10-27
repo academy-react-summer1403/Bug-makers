@@ -235,7 +235,7 @@ const CourseItem = ({
         <Tooltip
           className="text-gray-700 text-[0.8vw] break-words w-[19vw] leading-[1.4vw]"
           size="sm"
-          content={`break-words ${description}`}
+          content={` ${description}`}
         >
           {description}
         </Tooltip>
@@ -316,7 +316,7 @@ const CourseItem = ({
           <div className="max-md:text-[8px] flex h-[40%] items-center gap-x-[0.4vw] font-[600] text-[0.75vw]">
             <svg
               width=""
-              height="20%"
+              height="100%"
               viewBox="0 0 24 24"
               fill="none"
               className="max-md:w-[12%] max-md:h-[100%]"
@@ -363,7 +363,7 @@ const CourseItem = ({
           <div className="max-md:text-[8px] flex items-center h-[40%] gap-x-[0.4vw] font-[600] text-[0.75vw]">
             <svg
               width=""
-              height="20%"
+              height="100%"
               viewBox="0 0 24 24"
               fill="none"
               className="max-md:w-[12%] max-md:h-[100%]"

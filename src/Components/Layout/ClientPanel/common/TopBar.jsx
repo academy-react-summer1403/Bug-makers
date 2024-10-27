@@ -88,10 +88,13 @@ const TopBar = () => {
       {/* User Profile Section */}
       <div className="flex items-center justify-end gap-x-3 flex-row-reverse h-full max-md:w-[50%]">
         <div className="text-right">
-          <p className="text-[100%] font-semibold text-gray-800">
+          <p className="text-[1.2vw] max-lg:text-[60%] max-md:text-[90%] font-semibold text-gray-800">
             {CourseListItem.fName} {CourseListItem.lName}
           </p>
-          <p className="text-[70%] text-gray-500"> دانشجو</p>
+          <p className="text-[0.9vw] max-lg:text-[60%] max-md:text-[90%] text-gray-500">
+            {" "}
+            دانشجو
+          </p>
         </div>
         {/* User Avatar */}
         <Avatar

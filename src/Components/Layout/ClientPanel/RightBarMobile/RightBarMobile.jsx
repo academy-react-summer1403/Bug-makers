@@ -252,112 +252,10 @@ const RightBarMobile = () => {
         <img className="h-[70%] w-[70%] rounded-full" src={CourseListItem.currentPictureAddress} />
       ),
     },
-    // {
-    //   id: 3,
-    //   name: "LikedCourse",
-    //   label: "علاقه‌مندی دوره",
-    //   icon: (
-    //     <svg
-    //       width=""
-    //       height="70%"
-    //       viewBox="0 0 24 25"
-    //       fill="none"
-    //       xmlns="http://www.w3.org/2000/svg"
-    //     >
-    //       <path
-    //         d="M20.5 17.4286V10.5C20.5 6.72876 20.5 4.84315 19.3284 3.67157C18.1569 2.5 16.2712 2.5 12.5 2.5H11.5C7.72876 2.5 5.84315 2.5 4.67157 3.67157C3.5 4.84315 3.5 6.72876 3.5 10.5V20"
-    //         stroke={activeIndex === 3 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //       />
-    //       <path
-    //         d="M8 3.5V7.19003C8 7.93013 8 8.30019 8.23811 8.44371C8.24836 8.44989 8.25884 8.45571 8.26951 8.46115C8.51756 8.58746 8.84124 8.39707 9.4886 8.01629C9.97254 7.73164 10.2145 7.58931 10.4815 7.58447C10.4938 7.58425 10.5062 7.58425 10.5185 7.58447C10.7855 7.58931 11.0275 7.73164 11.5114 8.01629C12.1588 8.39707 12.4824 8.58747 12.7305 8.46115C12.7412 8.45571 12.7516 8.44989 12.7619 8.44372C13 8.30019 13 7.93013 13 7.19003V3.5"
-    //         stroke={activeIndex === 3 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //         stroke-linejoin="round"
-    //       />
-    //       <path
-    //         d="M20.5 17.5H6C4.61929 17.5 3.5 18.6193 3.5 20C3.5 21.3807 4.61929 22.5 6 22.5H20.5"
-    //         stroke={activeIndex === 3 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //       />
-    //       <path
-    //         d="M20.5 17.5C19.1193 17.5 18 18.6193 18 20C18 21.3807 19.1193 22.5 20.5 22.5"
-    //         stroke={activeIndex === 3 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //       />
-    //     </svg>
-    //   ),
-    // },
-    // {
-    //   id: 4,
-    //   name: "LikedBlog",
-    //   label: "علاقه‌مندی مقالات",
-    //   icon: (
-    //     <svg
-    //       width=""
-    //       height="70%"
-    //       viewBox="0 0 24 25"
-    //       fill="none"
-    //       xmlns="http://www.w3.org/2000/svg"
-    //     >
-    //       <path
-    //         d="M4 13.5004V15.0446C4 18.2896 4 19.9121 4.88607 21.0111C5.06508 21.2331 5.26731 21.4354 5.48933 21.6144C6.58831 22.5004 8.21082 22.5004 11.4558 22.5004C12.1614 22.5004 12.5141 22.5004 12.8372 22.3864C12.9044 22.3627 12.9702 22.3354 13.0345 22.3047C13.3436 22.1569 13.593 21.9074 14.0919 21.4085L18.8284 16.672C19.4065 16.0939 19.6955 15.8049 19.8478 15.4374C20 15.0698 20 14.6611 20 13.8436V10.5004C20 6.72919 20 4.84358 18.8284 3.672C17.7693 2.61284 16.1265 2.51122 13.0345 2.50146M13 22.0004V21.5004C13 18.672 13 17.2578 13.8787 16.3791C14.7574 15.5004 16.1716 15.5004 19 15.5004H19.5"
-    //         stroke={activeIndex === 4 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //         stroke-linejoin="round"
-    //       />
-    //       <path
-    //         d="M4 8.9532V5.48748C4 4.07894 4 3.37467 4.43934 2.93709C4.87868 2.49951 5.58579 2.49951 7 2.49951C8.41421 2.49951 9.12132 2.49951 9.56066 2.93709C10 3.37467 10 4.07894 10 5.48748V8.9532C10 9.87314 10 10.3331 9.71208 10.4674C9.42416 10.6017 9.06938 10.3073 8.35982 9.71834L7.64018 9.12106C7.33408 8.86699 7.18103 8.73996 7 8.73996C6.81897 8.73996 6.66592 8.86699 6.35982 9.12106L5.64018 9.71834C4.93062 10.3073 4.57584 10.6017 4.28792 10.4674C4 10.3331 4 9.87314 4 8.9532Z"
-    //         stroke={activeIndex === 4 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //         stroke-linejoin="round"
-    //       />
-    //     </svg>
-    //   ),
-    // },
-    // {
-    //   id: 5,
-    //   name: "DashbordEdit/Personal",
-    //   label: "پروفایل",
-    //   icon: (
-    //     <svg
-    //       width=""
-    //       height="70%"
-    //       viewBox="0 0 24 25"
-    //       fill="none"
-    //       xmlns="http://www.w3.org/2000/svg"
-    //     >
-    //       <path
-    //         d="M10.5 22.5H6.59087C5.04549 22.5 3.81631 21.748 2.71266 20.6966C0.453366 18.5441 4.1628 16.824 5.57757 15.9816C8.12805 14.4629 11.2057 14.1118 14 14.9281"
-    //         stroke={activeIndex === 5 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //         stroke-linejoin="round"
-    //       />
-    //       <path
-    //         d="M16.5 7C16.5 9.48528 14.4853 11.5 12 11.5C9.51472 11.5 7.5 9.48528 7.5 7C7.5 4.51472 9.51472 2.5 12 2.5C14.4853 2.5 16.5 4.51472 16.5 7Z"
-    //         stroke={activeIndex === 5 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //       />
-    //       <path
-    //         d="M18.4332 14.3485C18.7685 13.9851 18.9362 13.8035 19.1143 13.6975C19.5442 13.4418 20.0736 13.4339 20.5107 13.6765C20.6918 13.7771 20.8646 13.9537 21.2103 14.3067C21.5559 14.6598 21.7287 14.8364 21.8272 15.0214C22.0647 15.4679 22.0569 16.0087 21.8066 16.4478C21.7029 16.6298 21.5251 16.8011 21.1694 17.1437L16.9378 21.2194C16.2638 21.8686 15.9268 22.1932 15.5056 22.3577C15.0845 22.5222 14.6214 22.5101 13.6954 22.4859L13.5694 22.4826C13.2875 22.4752 13.1466 22.4715 13.0646 22.3785C12.9827 22.2855 12.9939 22.1419 13.0162 21.8548L13.0284 21.6988C13.0914 20.8906 13.1228 20.4865 13.2807 20.1232C13.4385 19.7599 13.7107 19.465 14.2552 18.875L18.4332 14.3485Z"
-    //         stroke={activeIndex === 5 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linejoin="round"
-    //       />
-    //     </svg>
-    //   ),
-    // },
   ];
 
   return (
-    <div className="w-full h-full bg-blue-500 shadow-lg flex items-center rounded-full p-[1.2vw] flex-row">
+    <div className="w-full h-full bg-white shadow-lg flex items-center rounded-full p-[1.2vw] flex-row">
       {/* Header */}
 
       {/* Menu Items */}
@@ -417,7 +315,7 @@ const RightBarMobile = () => {
             />
           </svg>
           <div
-            className={`flex-col  w-[400%] bg-white rounded-md transition-all duration-500 h-[450%] absolute top-[-470%] left-[40%] ${
+            className={`flex-col  w-[400%] bg-gray-100 rounded-md transition-all duration-500 h-[450%] absolute top-[-470%] left-[40%] ${
               overmenu == true ? "flex" : "hidden"
             }`}
           >
@@ -426,13 +324,14 @@ const RightBarMobile = () => {
                 radius="md"
                 key={item.id}
                 onClick={() => {
+                  setOvermenu(false);
                   setActiveIndex(item.id);
                   navigator(`${item.name}`);
                 }}
                 className={`flex items-center text-bold text-[20px] gap-x-[2vw] justify-start w-full h-[25%] hover:border-[#E1C461] ${
                   activeIndex === item.id
                     ? "bg-[#E1C461] text-white"
-                    : "bg-white text-gray-700"
+                    : "bg-gray-100 text-gray-700"
                 }`}
                 color={activeIndex === item.id ? "warning" : "default"}
                 auto
@@ -444,8 +343,9 @@ const RightBarMobile = () => {
 
             <Button
               radius="full"
-              className="flex items-center text-bold text-[20px] gap-x-[2vw] justify-start w-full h-[25%] bg-white text-gray-700"
+              className="flex items-center text-bold text-[20px] gap-x-[2vw] justify-start w-full h-[25%] bg-gray-100 text-gray-700"
               auto
+              onClick={()=>{setOvermenu(false);}}
             >
               <svg
                 width=""
@@ -477,13 +377,15 @@ const RightBarMobile = () => {
             </Button>
             <Button
               onClick={() => {
+                setOvermenu(false);
+
                 removeItem("token");
 
                 toast.success("با موفقیت از اکانت خود خارج شدید");
                 navigator("/");
               }}
               radius="full"
-              className="flex items-center text-bold text-[20px] gap-x-[2vw] justify-start w-full h-[25%] bg-white text-red-500"
+              className="flex items-center text-bold text-[20px] gap-x-[2vw] justify-start w-full h-[25%] bg-gray-100 text-red-500"
               auto
             >
               <svg

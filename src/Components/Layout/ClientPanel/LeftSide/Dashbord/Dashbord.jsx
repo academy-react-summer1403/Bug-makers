@@ -60,7 +60,7 @@ function PersianCalendarComponent() {
   console.log(CourseListItem);
    
     return (
-      <div className="relative w-full h-full ">
+      <div className="relative w-full h-full overflow-auto">
         <div className="h-[10%] w-full flex items-center py-[1vw] max-md:h-[8%]">
           <span className="font-[600] text-[1.8vw] max-md:text-[16px]">
             سلام، صبح‌ بخیر {CourseListItem.fName}
@@ -162,7 +162,7 @@ function PersianCalendarComponent() {
             <Gauge value={CourseListItem.profileCompletionPercentage} />
           </div>
         </div>
-        <div className="w-full h-[59%] max-md:h-[60%] max-md:mt-[15px] rounded-[0.5vw] pb-[2.8vw] pt-[0.2vw] px-[0.5vw] bg-white overflow-scroll mt-[0.2vw] shadow-lg">
+        <div className="w-full h-[54%] max-md:h-[60%] max-md:mt-[15px]  rounded-[0.5vw] pb-[2.8vw] pt-[0.2vw] px-[0.5vw] bg-white overflow-auto mt-[0.2vw] shadow-lg">
           <CoursePage
             show={false}
             itemPerpage={4}
@@ -172,7 +172,7 @@ function PersianCalendarComponent() {
           />
         </div>
         <div
-          className={`W-[100%] h-[41vw] max-md:overflow-auto max-md:h-full pb-[1vw] pt-[1vw] px-[0.5vw] bg-white overflow-auto absolute z-[10] top-[0vw] right-[0vw]
+          className={`w-[100%] h-[41vw] max-md:overflow-auto max-md:h-full pb-[1vw] pt-[1vw] px-[0.5vw] bg-white overflow-auto absolute z-[10] top-[0vw] right-[0vw]
             ${showMoreCourse == true ? "block" : "hidden"}
             `}
         >
