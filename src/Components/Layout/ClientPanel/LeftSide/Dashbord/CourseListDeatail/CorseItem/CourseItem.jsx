@@ -60,7 +60,7 @@ const CourseItem = ({
   return (
     <div
       className={`p-[0.5vw] relative shadow-[0px_0px_15px_0px_#666] bg-white rounded-[1vw]  overflow-hidden
-          "w-[100%]  max-h-[100%]`}
+          "w-[100%]  max-h-[100%] max-md:h-full`}
     >
       <div className="h-[1.8vw] w-full text-right flex justify-between items-center mb-[0.5vw]">
         <span className="text-[1.4vw] font-[600]">دوره</span>

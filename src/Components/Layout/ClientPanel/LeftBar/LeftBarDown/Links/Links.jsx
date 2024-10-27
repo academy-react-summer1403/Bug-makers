@@ -64,7 +64,6 @@ const Links = () => {
   return (
     <Formik
       initialValues={{
-        
         linkedin: "",
         telegram: "",
       }}
@@ -75,7 +74,7 @@ const Links = () => {
       }}
     >
       {({ errors, touched }) => (
-        <Form className="w-[50%] h-full p-[2vw] flex flex-col gap-y-[1vw]">
+        <Form className="w-[50%] max-md:w-full h-full p-[2vw] flex flex-col gap-y-[1vw] max-md:gap-y-[20px]">
           <div className="flex flex-col gap-y-[0.5vw]">
             <label>تلگرام</label>
             <Field name="telegram">
@@ -124,7 +123,7 @@ const Links = () => {
 
           <Button
             radius="full"
-            className="w-[30%] h-[15%] max-h-14 bg-[#E1C461]"
+            className="w-[30%] h-[15%] max-h-14 bg-[#E1C461] max-md:h-[10%]"
             type="submit"
             color="warning"
           >

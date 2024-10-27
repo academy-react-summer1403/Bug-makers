@@ -21,7 +21,7 @@ const Gauge = ({ value }) => {
         />
       </div>
       <p
-        className={`text-right text-[0.7vw] max-md:text-[14px] ${
+        className={`text-right text-[0.7vw] max-md:text-[12px] ${
           percentage == 100 ? "text-green-600" : "text-orange-500"
         }`}
       >

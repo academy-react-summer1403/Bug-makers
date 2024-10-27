@@ -26,7 +26,7 @@ const TopBar = () => {
   return (
     <div className="w-full h-full flex flex-row-reverse justify-between items-center bg-white shadow-md px-[1%] py-[0.5%] rounded-lg">
       {/* Left Icons */}
-      <div className="flex items-center justify-end gap-x-[2%] w-[20%]   h-full">
+      <div className="flex items-center justify-end gap-x-[2%] max-md:w-[20%]   h-full">
         {/* Clock Icon Button */}
         <Button
           auto
@@ -86,7 +86,7 @@ const TopBar = () => {
       </div>
 
       {/* User Profile Section */}
-      <div className="flex items-center justify-end gap-x-3 flex-row-reverse h-full w-[50%]">
+      <div className="flex items-center justify-end gap-x-3 flex-row-reverse h-full max-md:w-[50%]">
         <div className="text-right">
           <p className="text-[100%] font-semibold text-gray-800">
             {CourseListItem.fName} {CourseListItem.lName}
