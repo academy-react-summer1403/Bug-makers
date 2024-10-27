@@ -16,21 +16,23 @@ const DashbordEditTop = () => {
       { id: "Links", label: "لینک‌ها" },
     ];
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 pb-0 w-full h-full relative">
+    <div className="bg-white shadow-md rounded-lg p-6 pb-0 w-full h-full relative ">
       {/* Header Section */}
-      <div className="bg-[#E1C461] h-[40%] rounded-t-lg -mx-6 -mt-6"></div>
-      <div className="rounded-full flex justify-center items-center size-[6vw] overflow-hidden absolute bottom-[50%] right-[2%] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]">
+      <div className="bg-[#E1C461] h-[40%] rounded-t-lg -mx-6 -mt-6 max-md:h-[25%]"></div>
+      <div className="rounded-full flex justify-center items-center size-[6vw] overflow-hidden absolute bottom-[50%] max-md:bottom-[65%] right-[2%] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]
+      max-md:size-[80px]
+      ">
         <img className="h-full " src={CourseListItem.currentPictureAddress} alt="" />
       </div>
-      <div className="flex items-center justify-between mt-[4%] px-[1%]">
-        <div className="w-[50%]">
-          <div className="flex items-center gap-x-[0.5vw] ">
-            <p className="text-[1.4vw] font-semibold text-gray-800">
+      <div className="flex items-center justify-between mt-[40px] px-[1%] max-md:flex-col ">
+        <div className="w-[50%] max-md:w-full">
+          <div className="flex items-center gap-x-[0.5vw] max-md:gap-x-1">
+            <p className="text-[1.4vw] font-semibold text-gray-800 max-md:text-[20px]">
               {CourseListItem.fName} {CourseListItem.lName}
             </p>
-            <p className="text-[0.8vw] text-gray-500">( دانشجو )</p>
+            <p className="text-[0.8vw] text-gray-500 max-md:text-[12px]">( دانشجو )</p>
           </div>
-          <div className="flex items-center text-[0.9vw] text-gray-500 mt-2 justify-between w-[100%]">
+          <div className="flex items-center flex-wrap text-[0.9vw] text-gray-500 mt-2 justify-between w-[100%] max-md:text-[13px]">
             <svg
               width="4%"
               height=""
@@ -156,35 +158,37 @@ const DashbordEditTop = () => {
             </svg>
           </div>
         </div>
-        <div className="h-full w-[55%] mr-[3vw]">
-          <span className="block  mb-[0.5vw] text-[1vw] text-[#787878]">
+        <div className="h-full w-[55%] mr-[3vw] max-md:w-full">
+          <span className="block  mb-[0.5vw] text-[1vw] text-[#787878] max-md:text-[12px] max-md:mt-[10px]">
             درباره من
           </span>
-          <p className="text-[0.8vw]">{CourseListItem.userAbout}</p>
+          <p className="text-[0.8vw] max-md:text-[12px]">{CourseListItem.userAbout}</p>
         </div>
       </div>
 
       {/* Tab Section */}
-      <div className="flex h-[22%] justify-between absolute bottom-0 space-x-4 overflow-hidden">
+      <div className="flex h-[18%] justify-between absolute bottom-0 gap-x-8 overflow-hidden max-md:h-[13%]">
         {tabs.map((tab) => (
           <div>
-            <Button
+            <div
               radius="sm"
               key={tab.id}
               onClick={() => {
                 setActiveTab(tab.id);
                 navigator(`/ClientPanel/DashbordEdit/${tab.id}`);
               }}
-              className={`text-gray-600 rounded-[0.5vw] bg-white pb-2 min-w-[20%] h-[90%] min-h-[20px] text-[1vw] hover:border-[#E1C461] ${
+              className={`cursor-pointer text-gray-600 rounded-[0.5vw] bg-white pb-2 min-w-[15%] h-[90%] min-h-[20px] text-[1vw] hover:border-[#E1C461]
+                max-md:text-[12px]
+                ${
                 activeTab === tab.id ? "text-black" : ""
               } `}
             >
               {tab.label}
-            </Button>
+            </div>
             <div
               className={`w-full h-0 rounded-t-full ${
                 activeTab === tab.id
-                  ? " border-[0.2vw] border-[#E1C461] text-black"
+                  ? " border-[0.2vw] border-[#E1C461] text-black max-md:border-[3px]"
                   : ""
               }`}
             ></div>

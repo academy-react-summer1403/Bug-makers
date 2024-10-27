@@ -14,14 +14,14 @@ const ClientPanel = ()=>{
         <div className="w-[20%] h-[100%] max-md:hidden">
           <RightBar />
         </div>
-        <div className=" fixed h-[8%] w-[95%] bottom-[2%] left-[50%] translate-x-[-50%] hidden max-md:block">
+        <div className=" fixed z-50 h-[8%] w-[95%] bottom-[2%] left-[50%] translate-x-[-50%] hidden max-md:block">
           <RightBarMobile />
         </div>
-        <div className="w-[79%] h-[100%] flex flex-col justify-between">
-          <div className="w-full h-[8%] rounded-[0.6vw] bg-white max-md:hidden">
+        <div className="w-[79%] h-[100%] flex flex-col justify-between max-md:w-[100%]">
+          <div className="w-full h-[8%] rounded-[0.6vw] bg-white ">
             <TopBar />
           </div>
-          <div className="w-full h-[91%] rounded-[0.6vw] bg-transparent overflow-hidden max-md:hidden">
+          <div className="w-full h-[91%] rounded-[0.6vw] bg-transparent overflow-hidden ">
             <Outlet />
             {/* <LeftBar/> */}
           </div>

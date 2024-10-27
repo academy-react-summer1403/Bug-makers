@@ -26,9 +26,12 @@ const TopBar = () => {
   return (
     <div className="w-full h-full flex flex-row-reverse justify-between items-center bg-white shadow-md px-[1%] py-[0.5%] rounded-lg">
       {/* Left Icons */}
-      <div className="flex items-center justify-end gap-x-[2%] w-[20%] max-md:w-[5%] max-md:ml-[5%] h-full">
+      <div className="flex items-center justify-end gap-x-[2%] w-[20%]   h-full">
         {/* Clock Icon Button */}
-        <Button auto className="bg-gray-100 rounded-full h-full w-[30%]  p-0">
+        <Button
+          auto
+          className="bg-gray-100 rounded-full h-full w-[100%]  p-0 max-md:max-w-[70px]"
+        >
           <svg
             width=""
             height="70%"
@@ -83,18 +86,18 @@ const TopBar = () => {
       </div>
 
       {/* User Profile Section */}
-      <div className="flex items-center justify-end space-x-3 flex-row-reverse h-full w-[12%]">
+      <div className="flex items-center justify-end gap-x-3 flex-row-reverse h-full w-[50%]">
         <div className="text-right">
-          <p className="text-[0.9vw] font-semibold text-gray-800">
+          <p className="text-[100%] font-semibold text-gray-800">
             {CourseListItem.fName} {CourseListItem.lName}
           </p>
-          <p className="text-[0.8vw] text-gray-500"> دانشجو</p>
+          <p className="text-[70%] text-gray-500"> دانشجو</p>
         </div>
         {/* User Avatar */}
         <Avatar
           src={CourseListItem.currentPictureAddress} // لینک تصویر آواتار را تغییر دهید
           size="lg"
-          className="border border-white w-[32%] h-full"
+          className="border border-white w-[32%] h-full max-md:max-w-[60px] max-md:min-w-[60px]"
         />
       </div>
     </div>
