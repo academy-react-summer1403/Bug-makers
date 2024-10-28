@@ -33,7 +33,7 @@ const BDetailLeft = ()=>{
     return(
         <div className="w-[19%] h-[890px] hidden md:block">
             <BDMore/>
-            <div className="w-full mt-[1vw] flex flex-col items-center gap-y-[1vw]">
+            <div className="w-full mt-[1vw]  flex flex-col items-center gap-y-[1vw]">
 
                 {renderCourses()}
             </div>

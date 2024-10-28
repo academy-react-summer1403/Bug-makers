@@ -27,7 +27,7 @@ const ScrollTopButton = () => {
     <AnimatePresence>
       {scrollTopBtn && (
         <motion.div
-          className={`  min-[1700px]:w-28 min-[1700px]:h-28  /* end responsive */ border w-16 z-[1000] h-16 rounded-full fixed bottom-[0.5208333333333334vw] right-[10.15625vw] cursor-pointer flex items-center justify-center
+          className={`  min-[1700px]:w-16 min-[1700px]:h-16  /* end responsive */ border w-10 z-[1000] h-10 rounded-full fixed bottom-[0.5208333333333334vw] right-[3.15625vw] cursor-pointer flex items-center justify-center
           ${selectedButton === 0 ? 'bg-blue-600' : ''}
           ${selectedButton === 1 ? 'bg-green-500' : ''}
           ${selectedButton === 2 ? 'bg-yellow-500' : ''}`}

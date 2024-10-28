@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Comments from "./Comments";
 import { getRepleyComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
 import moment from "moment-jalaali";
@@ -17,29 +17,34 @@ const BComment = ({
     return moment(miladiDate, "YYYY-MM-DD").locale("fa").format("YYYY/MM/DD");
   };
 
-  const renderCourses = (comment) => {
-      if (!Array.isArray(comment) || comment.length === 0) {
+  const [commenting, setCommenting] = useState([])
+  useEffect(() => {
+    setCommenting(comment);
+  }, [comment]);
+
+
+  const renderCourses = (commenting) => {
+      if (!Array.isArray(commenting) || commenting.length === 0) {
       return <p></p>; 
     }
 
-    console.log(comment);
-
-    return comment.map((comment) => (
+    
+    return commenting.map((commenting) => (
       <Comments
-        key={comment.id}
-        id={comment.id}
-        inserDate={comment.commentCatregoryName}
-        describe={comment.describe}
-        likeCount={comment.likeCount}
-        dissLikeCount={comment.dissLikeCount}
-        title={comment.title}
-        replyCount={comment.replyCount}
-        currentUserIsLike={comment.currentUserIsLike}
-        currentUserIsDissLike={comment.currentUserIsDissLike}
-        pictureAddress={comment.pictureAddress}
-        date={convertToJalali(comment.inserDate)}
-        parentId={comment.id}
-        currentUserLikeId={comment.currentUserLikeId}
+        key={commenting.id}
+        id={commenting.id}
+        inserDate={commenting.commentingCatregoryName}
+        describe={commenting.describe}
+        likeCount={commenting.likeCount}
+        dissLikeCount={commenting.dissLikeCount}
+        title={commenting.title}
+        replyCount={commenting.replyCount}
+        currentUserIsLike={commenting.currentUserIsLike}
+        currentUserIsDissLike={commenting.currentUserIsDissLike}
+        pictureAddress={commenting.pictureAddress}
+        date={convertToJalali(commenting.inserDate)}
+        parentId={commenting.id}
+        currentUserLikeId={commenting.currentUserLikeId}
         renderCourses={renderCourses}
         onSubmit={onSubmit}
         userId={userId}
@@ -52,28 +57,44 @@ const BComment = ({
     ));
   };
 
+  const handleLikeSort = () => {
+    const sortedComments = [...comment].sort((a, b) => b.likeCount - a.likeCount);
+    setCommenting(sortedComments);
+  };
+  const handleDateSort = () => {
+    const sortedComments = [...comment].sort((a, b) => new Date(b.inserDate) - new Date(a.inserDate));
+    setCommenting(sortedComments);
+  };
+  const handleDateDownSort = () => {
+    const sortedComments = [...comment].sort((a, b) => new Date(a.inserDate) - new Date(b.inserDate));
+    setCommenting(sortedComments);
+  };
+  
+console.log(commenting);
+
   return (
-    <div className="w-full h-max  max-h-[60vw] overflow-auto whitespace-nowrap rounded-[0.78vw] bg-white mt-[2vw] p-[1vw] text-gray-600">
-      {comment && Array.isArray(comment) && comment.length > 0 ? (
-        <div className="h-[2.5vw] w-full flex justify-between items-center">
-          <span className="text-[15px] w-[7vw] text-right">نظرات</span>
-          <div className="w-[16.5vw] flex text-[10px] justify-between items-center">
-            <div className="h-[1vw] w-1/4 cursor-pointer"> تعداد لایک </div>-
-            <div className="h-[1vw] w-1/4 cursor-pointer">قدیمی‌ترین</div>-
-            <div className="h-[1vw] w-1/4 cursor-pointer">جدید‌ترین</div>
+    <div className="w-full max-h-[60vw] overflow-auto rounded-[0.78vw] bg-white mt-[2vw] p-[1vw] text-gray-600">
+      {commenting && Array.isArray(commenting) && commenting.length > 0 ? (
+        <div className="h-auto w-full flex flex-col md:flex-row justify-between items-center">
+          <span className="text-[15px] w-full md:w-[20%] text-right">نظرات</span>
+          <div className="w-full md:w-[60%] flex flex-wrap justify-between items-center text-[10px] my-1">
+            <div onClick={handleLikeSort} className="hover:text-blue-600 cursor-pointer w-1/3 text-center">تعداد لایک</div>
+            <div onClick={handleDateDownSort}  className=" hover:text-blue-600 cursor-pointer w-1/3 text-center">قدیمی‌ترین</div>
+            <div onClick={handleDateSort} className=" hover:text-blue-600 cursor-pointer w-1/3 text-center">جدید‌ترین</div>
           </div>
-          <div className="w-[7.30vw]">
-            <span className="text-[8px]">{comment.length}</span>
+          <div className="w-full md:w-[20%] text-right mt-2 md:mt-0">
+            <span className="text-[8px]">{commenting.length}</span>
             <span className="text-[8px]"> نظر ثبت شده</span>
           </div>
         </div>
       ) : (
         <div>هیچ نظری برای این پست ثبت نشده</div>
       )}
-
-      <div className="w-full">{renderCourses(comment)}</div>
+  
+      <div className="w-full">{renderCourses(commenting)}</div>
     </div>
   );
+  
 };
 
 export default BComment;

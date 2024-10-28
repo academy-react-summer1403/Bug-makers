@@ -13,6 +13,7 @@ import BlogDownRight from "./BlogDown.jsx/BlogDownRight/BlogDownRight.jsx";
 import BlogDownLeft from "./BlogDown.jsx/BlogDownLeft/BlogDownLeft";
 import { motion } from 'framer-motion'; // Import motion
 import moment from 'jalali-moment'; 
+import Loading from '../../Common/loadingWeb/Loading.jsx';
 
 const BlogPage = () => {
   const [categoryQuery, setCategoryQuery] = useState('');
@@ -22,7 +23,7 @@ const BlogPage = () => {
   const itemsPerPage = 10; 
   const dispatch = useDispatch();
   const CourseListItem = useSelector((state) => state.BlogSlice.BlogList);
-  
+  console.log(CourseListItem);
   const { isLoading, error, data } = useQuery(
     ['get', queryValue, categoryQuery], 
     () => getBlogListWithPagination(queryValue, categoryQuery), 
@@ -52,7 +53,7 @@ const BlogPage = () => {
   };
 
   const renderCourses = () => {
-    if (isLoading) return <p>در حال بارگذاری...</p>;
+    if (isLoading) return <Loading />
     if (error) return <p>خطایی رخ داده است...</p>;
 
     return CourseListItem.slice(

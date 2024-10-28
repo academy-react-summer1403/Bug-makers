@@ -11,7 +11,7 @@ const BSideMinimal = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,dat
     date = convertToJalali(date);
     const datePass = calculateDateDifference(date);
     return (
-    <div onClick={()=>{navigator(`/BlogDetail/${id}`)}} className="shadow-[-0.78vw_0.78vw_0.78vw_0_#0000000D] w-full h-[18.19vw] bg-white rounded-[0.78vw]  overflow-hidden relative p-[0.16vw] cursor-pointer ">
+    <div onClick={()=>{navigator(`/BlogDetail/${id}`)}} className=" shadow-[-0.78vw_0.78vw_0.78vw_0_#0000000D] w-full h-[18.19vw] bg-white rounded-[0.78vw]  overflow-hidden relative p-[1vw] cursor-pointer ">
         <div className="absolute top-[5.73vw] left-[0.89vw] w-[4.557291666666667vw] h-[1.6276041666666667vw] bg-gray-200 rounded-full text-center text-[0.590625vw] leading-[1.5vw] text-[#8A8A8A]">{cat}</div>
         <div className="flex h-full w-full flex-col overflow-hidden rounded-[0.78vw]">
             <div className="w-full bg-gradient-to-r from-blue-200 rounded-[0.78vw] to-blue-100 flex items-center justify-center">

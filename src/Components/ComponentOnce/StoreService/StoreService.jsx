@@ -22,7 +22,7 @@ const StoreService = () => {
         { title: t("content.storeServices.course"), icon: <img src="../../../../public/images/icon/course.svg" className='w-[4.557291666666667vw] h-[4.557291666666667vw] absolute left-0 top-[-2.6041666666666665vw] opacity-60'/>, key: 4 },
       ]
     )
-  }, [])
+  }, [boxItem])
 
   // Animation settings
   const itemVariants = {

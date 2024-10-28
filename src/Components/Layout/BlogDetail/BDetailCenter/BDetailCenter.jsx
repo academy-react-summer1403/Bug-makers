@@ -14,22 +14,61 @@ import { getItem } from "../../../../Core/Services/common/storage.services";
 import { comentDelLikeCourse, commentDissLikeNews, commentLikeNews, setNewComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
 import AddCommentForm from "./AddCommentForm";
 import RecommendLi from "./RecommendLi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import calculateDateDifference from "../../../Common/TimeChanger/TimeChanger";
 import moment from "moment-jalaali";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 import toast from "react-hot-toast";
 import { AddBlogFavorite } from "../../../../Core/Services/Api/BlogDetail/addFavorite";
 import { deleteBlogFavorite } from "../../../../Core/Services/Api/BlogDetail/deleteFavorite";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { Button } from "@nextui-org/react";
 import Swal from 'sweetalert2';
-
+import { getBlogListWithPagination } from "../../../../Core/Services/Api/BlogPage/getBlogListWithPagination";
+import {Skeleton} from "@nextui-org/react";
+import { setBlogList } from "../../../../Redux/Slice/Blog/BlogList";
 const BDetailCenter = ({ id }) => {
 
     const [response, setResponse] = useState({});
     const [comment, setComment] = useState({});
     const [newsId, setNewsId] = useState(id);
+
+    const dispatch = useDispatch();
+    const CourseListItem = useSelector((state) => state.BlogSlice.BlogList);
+    const { isLoading, data } = useQuery(
+      ['getRecommend'], 
+      getBlogListWithPagination, 
+      {
+        onSuccess: (data) => {
+          dispatch(setBlogList(data || data));
+        },
+        keepPreviousData: true, 
+      }
+    );
+
+    const renderCourses = () => {
+              if (isLoading) {
+                return (
+                  <div className="max-w-[300px] w-full flex items-center gap-3">
+                    <div>
+                      <Skeleton className="flex rounded-full w-12 h-12" />
+                    </div>  
+                    <div className="w-full flex flex-col gap-2">
+                      <Skeleton className="h-3 w-3/5 rounded-lg" />
+                      <Skeleton className="h-3 w-4/5 rounded-lg" />
+                    </div>
+                  </div>
+                );
+            }
+        return data?.slice(0, 5).map((Recommend) => (
+            <RecommendLi
+                key={Recommend.id}
+                id={Recommend.id}
+                title={Recommend.title}
+                desc={Recommend.miniDescribe}
+            />
+        ));
+    };
 
 
 
@@ -107,29 +146,12 @@ useEffect(() => {
     }
   }; 
   
-    const userId = getItem("userId");
+    const userId = response.id
 
     const onSubmit = async (val) => {
         const res = await setNewComment(val);
         res.success ? toast.success('نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉') : '';
-
     };
-    const CourseListItem = useSelector((state) => state.BlogSlice.BlogList);
-    
-    
-  
-
-    const renderCourses = () => {
-        return CourseListItem.slice(0, 5).map((Recommend) => (
-        <RecommendLi
-            key={Recommend.id}
-            id={Recommend.id}
-            title={Recommend.title}
-            desc={Recommend.miniDescribe}
-        />
-        ));
-    };
-
     
 
     // comment.....................................
@@ -310,7 +332,6 @@ useEffect(() => {
             userId={userId} 
             onSubmit={onSubmit} 
             newsId={newsId} 
-            
             />
         </div>
         <div >
