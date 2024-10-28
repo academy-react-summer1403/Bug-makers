@@ -8,8 +8,8 @@ const Gauge = ({ value }) => {
 
   return (
     <div className="flex flex-col w-full items-center border p-[0.5vw] border-[#eee] h-full rounded-[0.5vw]  text-right">
-      <h2 className="text-[1vw] font-[500] text-right">وضعیت اطلاعات حساب</h2>
-      <div className="w-28 h-28 my-[1.5vw]">
+      <h2 className="text-[1vw] font-[500] text-right max-md:text-[14px]">وضعیت اطلاعات حساب</h2>
+      <div className="w-[60%] my-[1vw]">
         <CircularProgressbar
           value={percentage}
           text={`${percentage}%`}
@@ -21,7 +21,7 @@ const Gauge = ({ value }) => {
         />
       </div>
       <p
-        className={`text-right text-[0.7vw] ${
+        className={`text-right text-[0.7vw] max-md:text-[12px] ${
           percentage == 100 ? "text-green-600" : "text-orange-500"
         }`}
       >

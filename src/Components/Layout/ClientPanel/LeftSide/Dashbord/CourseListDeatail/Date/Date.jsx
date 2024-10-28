@@ -27,7 +27,11 @@ const DateModal = ({ onFilter }) => {
   };
 
   return (
-    <div className={` justify-center items-center ${onFilter == "myCourse"? 'hidden':'flex'}`}>
+    <div
+      className={` justify-center items-center ${
+        onFilter == "myCourse" ? "hidden" : "flex"
+      }`}
+    >
       {/* Modal Trigger Button */}
       <div
         className="w-[160px] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
@@ -109,13 +113,13 @@ const DateModal = ({ onFilter }) => {
 
               {/* Confirm and Cancel Buttons */}
               <button
-                className="bg-[#91ACCF] text-white w-[106px] h-[40px] rounded-[8px] absolute bottom-5 right-36"
+                className="bg-[#91ACCF] text-white w-[106px] max-md:mr-[60px] h-[40px] rounded-[8px] absolute bottom-5 right-36"
                 onClick={handleFilter}
               >
                 تایید
               </button>
               <button
-                className="bg-transparent text-[#626262] w-[106px] border-2 border-[#91ACCF] h-[40px] rounded-[8px] absolute bottom-5 left-36"
+                className="bg-transparent text-[#626262] max-md:ml-[60px] w-[106px] border-2 border-[#91ACCF] h-[40px] rounded-[8px] absolute bottom-5 left-36"
                 onClick={() => {
                   setIsOpen(false);
                   setStartDay("");
