@@ -49,8 +49,8 @@ const Comments = ({
         <div className="w-[95%] text-right">
           <div className="flex justify-between items-center mb-2">
             <div className="text-[0.7vw] text-[#5E5E5E] flex justify-between w-[50%] max-w-[20vw]">
-              <span className="max-w-[10vw] text-[9px]">{title}</span>|<span>{date}</span>|
-              <span>ساعت ۱۶:۲۴ </span>
+              <span className="max-w-[10vw] text-[9px]">{title}</span>|
+              <span>{date}</span>|<span>ساعت ۱۶:۲۴ </span>
               <span className="mr-[0.5vw]">{pass}</span>
             </div>
             <div className="text-[10px] gap-[1vw] text-gray-800 w-1/3  max-w-[15vw]  h-[1.46vw]  flex justify-end">
@@ -120,7 +120,7 @@ const Comments = ({
             </div>
             <button
               onClick={() => {
-                window.scrollTo({top:780 , behavior: 'smooth'})
+                window.scrollTo({ top: 780, behavior: "smooth" });
                 setRepleyModal(true);
               }}
               className="flex justify-evenly items-center text-[8px] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-[0.78vw] w-[5vw] h-[1.7vw] p-0"
@@ -143,35 +143,39 @@ const Comments = ({
         </div>
       </div>
       <div
-      className={
-        repleyModal
-          ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center"
-          : "hidden"
-      }
-      onClick={() => {
-        setRepleyModal(false);
-      }}
-    >
-      <div
         className={
           repleyModal
-            ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40"
+            ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center"
             : "hidden"
         }
-        onClick={(e) => e.stopPropagation()}
+        onClick={() => {
+          setRepleyModal(false);
+        }}
       >
-        <AddCommentForm
-          userId={userId}
-          onSubmit={onSubmit}
-          newsId={newsId}
-          parentId={parentId}
-          setRepleyModal={setRepleyModal}
-        />
+        <div
+          className={
+            repleyModal
+              ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40"
+              : "hidden"
+          }
+          onClick={(e) => e.stopPropagation()}
+        >
+          <AddCommentForm
+            userId={userId}
+            onSubmit={onSubmit}
+            newsId={newsId}
+            parentId={parentId}
+            setRepleyModal={setRepleyModal}
+          />
+        </div>
       </div>
-</div>
-
-
-
+      <div>
+        {response2 ? (
+          <div className="pr-[5vw] w-full">{renderCourses(response2)} </div>
+        ) : (
+          <div className="text-[1vw] text-center"></div>
+        )}
+      </div>
     </>
   );
 };
