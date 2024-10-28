@@ -172,7 +172,7 @@ function PersianCalendarComponent() {
           />
         </div>
         <div
-          className={`w-[100%] h-[41vw] max-md:overflow-auto max-md:h-full pb-[1vw] pt-[1vw] px-[0.5vw] bg-white overflow-auto absolute z-[10] top-[0vw] right-[0vw]
+          className={`w-[100%] h-[42vw] max-md:overflow-y-auto max-md:h-full pb-[1vw] pt-[1vw] px-[0.5vw] bg-white overflow-y-auto overflow-x-hidden absolute z-[10] top-[0vw] right-[0vw]
             ${showMoreCourse == true ? "block" : "hidden"}
             `}
         >

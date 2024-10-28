@@ -3,6 +3,7 @@ import { list } from "postcss";
 import React from "react";
 import { useState } from "react";
 import { delLikeNews, postDissLikeNews, postLikeNews } from "../../../../../../Core/Services/Api/BlogDetail/BlogDetail";
+import { useNavigate } from "react-router-dom";
 
 const BlogIthem = ({
   title,
@@ -34,7 +35,7 @@ const BlogIthem = ({
   view,
 }) => {
   console.log(id);
-
+  const navigate =useNavigate()
   const setNewsDissLike = async () => {
     const res = await postDissLikeNews(id);
     // console.log(res);
@@ -51,6 +52,11 @@ const BlogIthem = ({
     const res = await delLikeNews(userLikeId);
     console.log(res);
     GetId(id);
+  };
+  
+  const handleNavigate = () => {
+    navigate(`/BlogDetail/${id}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   return (
     <div
@@ -122,7 +128,10 @@ const BlogIthem = ({
       </div>
 
       <div className="w-full h-[3vw] max-md:h-[7%] flex justify-between py-[0.5vw]">
-        <div className="w-[5vw] h-[2vw] max-md:text-[12px] max-md:w-[25%] max-md:h-[90%] rounded-full bg-[#E1C461] text-white flex justify-center items-center text-[0.7vw] font-[600] cursor-pointer">
+        <div
+          onClick={handleNavigate}
+          className="w-[5vw] h-[2vw] max-md:text-[12px] max-md:w-[25%] max-md:h-[90%] rounded-full bg-[#E1C461] text-white flex justify-center items-center text-[0.7vw] font-[600] cursor-pointer"
+        >
           <span>صفحه مقاله</span>
         </div>
         <div className="w-[25%] h-full flex justify-between items-center">

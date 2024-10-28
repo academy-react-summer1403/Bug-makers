@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { removeItem } from "../../../../Core/Services/common/storage.services";
@@ -9,6 +9,35 @@ const RightBarMobile = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [overmenu,setOvermenu] = useState(false)
   const navigator = useNavigate();
+
+  const currentUrl = window.location.href;
+  const urlParts = currentUrl.split("/");
+  const lastPart = urlParts[urlParts.length - 1];
+
+  const setPage = () => {
+    if (lastPart == "Dashbord") {
+      setActiveIndex(0);
+    }
+    if (lastPart == "MyCourse") {
+      setActiveIndex(1);
+    }
+    if (lastPart == "MyReserve") {
+      setActiveIndex(2);
+    }
+    if (lastPart == "LikedCourse") {
+      setActiveIndex(3);
+    }
+    if (lastPart == "LikedBlog") {
+      setActiveIndex(4);
+    }
+    if (lastPart == "DashbordEdit") {
+      setActiveIndex(5);
+    }
+  };
+  useEffect(() => {
+    setPage();
+  }, [lastPart]);
+
 
   const CourseListItem = useSelector(
     (state) => state.ClientInfoSlice.ClientInfo

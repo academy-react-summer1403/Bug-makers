@@ -1,13 +1,17 @@
 import { Tooltip } from "@nextui-org/react";
 import { list } from "postcss";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import {
   CorseReserve,
+  deleteCorseReserve,
   delLikeNews,
+  getCourseDetail,
   postDissLikeNews,
   postLikeNews,
 } from "../../../../../../Core/Services/Api/CourseDetail/CourseDetail";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
 
 const CourseItem = ({
   title,
@@ -37,13 +41,53 @@ const CourseItem = ({
   userIsLiked,
   userLikeId,
 }) => {
-  console.log(id);
-  const CorseReserveF = async () => {
-    const re = await CorseReserve({ courseId: `${id}` });
-    re.success
-      ? alert("کورس مورد نظر بعد از تایید ادمین برا شما ثبت میشود")
-      : alert("لطفا ابتدا وارد شوید");
-  };
+const [response, setResponse] = useState({});
+const navigator = useNavigate();
+console.log(id);
+const GetId2 = async () => {
+  const res = await getCourseDetail(id);
+  setResponse(res);
+};
+useEffect(() => {
+  GetId2();
+}, []);
+const CorseReserveF2 = useMutation({
+  mutationFn: async (id) => {
+    return response.isCourseReseve == 1
+      ? await deleteCorseReserve(id)
+      : await CorseReserve({ courseId: id });
+  },
+  onSuccess: (data) => {
+    if (data.success) {
+      const message =
+        response.isCourseReseve === 1
+          ? "دوره " + "(" + response.title + ")" + "از رزرو حذف شد 🥳"
+          : "دوره " + "(" + response.title + ")" + "رزرو شد 🥳";
+
+      toast.custom((t) => (
+        <div
+          className={`flex items-center justify-between p-4 bg-[#FFFFFF] text-black rounded-lg shadow-md transition-opacity duration-300 ${
+            t.visible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <span>{message}</span>
+          <Link
+            to={"/ClientPanel/MyReserve"}
+            onClick={() => toast.dismiss(t.id)}
+            className="  text-green-500 ml-2"
+          >
+            مشاهده
+          </Link>
+        </div>
+      ));
+
+      setResponse((prev) => ({
+        ...prev,
+        isCourseReseve: prev.isCourseReseve === 1 ? 0 : 1,
+      }));
+    }
+  },
+});
 
   const setNewsDissLike = async () => {
     const res = await postDissLikeNews(id);
@@ -61,6 +105,10 @@ const CourseItem = ({
     const res = await delLikeNews(userLikeId);
     console.log(res);
     GetId(id);
+  };
+  const handleNavigate = () => {
+    navigator(`/CourseDetail/${id}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   return (
     <div
@@ -127,7 +175,10 @@ const CourseItem = ({
         {state}
       </div>
       <div className="w-full h-[3vw] max-md:h-[7%] flex justify-between py-[0.5vw]">
-        <div className="w-[5vw] h-[2vw] rounded-full max-md:text-[12px] max-md:w-[25%] max-md:h-[90%] bg-[#E1C461] text-white flex justify-center items-center text-[0.7vw] font-[600] cursor-pointer">
+        <div
+          onClick={handleNavigate}
+          className="w-[5vw] h-[2vw] rounded-full max-md:text-[12px] max-md:w-[25%] max-md:h-[90%] bg-[#E1C461] text-white flex justify-center items-center text-[0.7vw] font-[600] cursor-pointer"
+        >
           <span>صفحه دوره</span>
         </div>
         <div className="w-[25%] h-full flex justify-between items-center">
@@ -223,12 +274,17 @@ const CourseItem = ({
         <span>وضعیت ثبت نام</span>
       </div>
 
-      <div
-        onClick={CorseReserveF}
-        className="w-[4vw] max-md:text-[12px] max-md:w-[25%] max-md:h-[5%] max-md:my-[5px] h-[2vw] rounded-full bg-[#E1C461] text-white flex justify-center items-center text-[0.7vw] font-[600] cursor-pointer"
+      <button
+        onClick={() => CorseReserveF2.mutate(id)}
+        className={`w-[4vw] max-md:text-[12px] max-md:w-[25%] max-md:h-[5%] max-md:my-[5px] h-[2vw] rounded-full bg-[#E1C461] text-white flex justify-center items-center text-[0.7vw] font-[600] cursor-pointer
+ ${
+   response.isCourseReseve == 1
+     ? "bg-red-600 hover:bg-red-700"
+     : "bg-[#E1C461] hover:bg-[#E1C461]"
+ }`}
       >
-        <span>رزرو دوره</span>
-      </div>
+        {response.isCourseReseve == 1 ? "حذف دوره" : "ثبت نام "}
+      </button>
 
       <div className="text-right max-md:text-[8px] text-[0.7vw] text-[#787878] font-[600] my-[0.4vw]">
         {" "}

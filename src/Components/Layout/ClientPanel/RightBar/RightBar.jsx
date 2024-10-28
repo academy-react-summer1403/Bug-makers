@@ -1,12 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { removeItem } from "../../../../Core/Services/common/storage.services";
 import toast from "react-hot-toast";
+import { useQuery } from "react-query";
 
 const RightBar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const navigator = useNavigate();
+  
+  const currentUrl = window.location.href;
+  const urlParts = currentUrl.split("/");
+  const lastPart = urlParts[urlParts.length - 1];
+
+
+const setPage = ()=>{
+    if (lastPart == "Dashbord") {
+      setActiveIndex(0);
+    }
+    if (lastPart == "MyCourse") {
+      setActiveIndex(1);
+    }
+    if (lastPart == "MyReserve") {
+      setActiveIndex(2);
+    }
+    if (lastPart == "LikedCourse") {
+      setActiveIndex(3);
+    }
+    if (lastPart == "LikedBlog") {
+      setActiveIndex(4);
+    }
+    if (lastPart == "DashbordEdit") {
+      setActiveIndex(5);
+    }
+}
+useEffect(() => {
+  setPage()
+}, [lastPart]);
+
+
+
+
 
   const menuItems = [
     {
@@ -471,10 +505,10 @@ const RightBar = () => {
               navigator(`${item.name}`);
             }}
             className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[14%] hover:border-[#E1C461] ${
-                activeIndex === item.id
-                  ? "bg-[#E1C461] text-white"
-                  : "bg-white text-gray-700"
-              }`}
+              activeIndex === item.id
+                ? "bg-[#E1C461] text-white"
+                : "bg-white text-gray-700"
+            }`}
             color={activeIndex === item.id ? "warning" : "default"}
             auto
           >
@@ -492,10 +526,10 @@ const RightBar = () => {
           radius="full"
           onClick={() => setActiveIndex(6)}
           className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[85%]  hover:border-[#E1C461]${
-                activeIndex === 6
-                  ? "bg-[#E1C461] text-white"
-                  : "bg-white text-gray-700"
-              }`}
+            activeIndex === 6
+              ? "bg-[#E1C461] text-white"
+              : "bg-white text-gray-700"
+          }`}
           color={activeIndex === 6 ? "warning" : "default"}
           auto
         >

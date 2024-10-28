@@ -308,7 +308,7 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
         }`}
       >
         <div
-          className={`absolute h-[38.4vw] max-md:w-[75%] max-md:h-[480px] w-[20vw] top-[2vw] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
+          className={`sticky h-[38.4vw] max-md:w-[75%] max-md:h-[480px] max-md:absolute w-[20vw] top-[2vw] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
             detailCourse == true ? "block" : "hidden"
           }`}
         >
@@ -354,13 +354,13 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
       <div className="w-[100%] selection: mt-[0vw] ">
         {/* searchAndFilterSection */}
         <div
-          className={`h-[10%]  w-full overflow-auto relative flex-row flex-wrap justify-center items-center gap-x-3 max-md:gap-y-[20px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-center items-center gap-x-3 max-md:gap-y-[20px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
             ${show == true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
         >
           <SearchBox
             width={"20%"}
             lgWidth={"160px"}
-            placeHolder="دنبال چی میگردی"
+            placeHolder="جست جو کنید ..."
             value={`${filterValue ? "" : queryValue}`}
             onChange={handleSearch}
           />

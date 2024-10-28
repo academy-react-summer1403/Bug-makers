@@ -20,6 +20,7 @@ import { delBlogFav, delCourseFav, delCourseServ } from "../../../../../Core/Ser
 
 import { getBlogDetail } from "../../../../../Core/Services/Api/BlogDetail/BlogDetail";
 import BlogIthem from "../LikedBlog/CorseItem/BlogIthem";
+import DeleteModal from "../../common/DeleteModal";
 
 
 
@@ -34,6 +35,13 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
   const [detailCourse, setDetailCourse] = useState(false);
   const [detail, setDetail] = useState();
   const [detailId, setDetailId] = useState(null);
+  // delete box 
+  const [isDelete,setIsDelete]=useState(false)
+  const [deleteId,setDeleteId]=useState(null)
+  const [fun,setFun]=useState()
+const setIsDeleteFalse=()=>{
+  setIsDelete(false);
+}
 
   const itemsPerPage = itemPerpage;
   const dispatch = useDispatch();
@@ -67,26 +75,26 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
     }
   },[])
     
-  const DelCourseFav = async (id)=>{
-    const res = delCourseFav(id)
-    console.log(res)
-    GetLikedCourse()
+const DeleteIthem =async (id)=>{
+  
+  if (location == "BlogFav") {
+      const res = await delBlogFav(id);
+      GetLikedNews();
   }
-
-
-  const DelBlogFav = async (id)=>{
-    console.log(id)
-    const res = await delBlogFav(id)
+  if (location == "CourseFav") {
     
-    GetLikedNews();
-
+      const res = await delCourseFav(id);
+     
+      GetLikedCourse();
+    
   }
-
-
-  const DelCourseServ = async (id)=>{
-    const res = delCourseServ(id)
-    GetCourseServ();  
+  if (location == "CourseServ") {
+    GetCourseServ();
+    const res = await delCourseServ(id);
+      GetCourseServ();
   }
+    setIsDeleteFalse()
+}
   
 
 
@@ -245,16 +253,19 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
              >
                <svg
                  onClick={() => {
+                  setIsDelete(true)
                    if (location == "BlogFav") {
-                     DelBlogFav(course.favoriteId);
+                    setDeleteId(course.favoriteId)
                    }
                    if (location == "CourseFav") {
-                     DelCourseFav(course.favoriteId);
+                    setDeleteId(course.favoriteId)
                    }
                    if (location == "CourseServ") {
-                     DelCourseServ(course.reserveId);
+                    setDeleteId(course.reserveId)
                    }
-                 }}
+                   
+                 }
+                }
                  width=""
                  height="50%"
                  viewBox="0 0 24 24"
@@ -374,12 +385,23 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
   return (
     <div className="relative  m-auto w-[100%] bg-transparent text-center max-md:w-full">
       <div
+        className={`fixed top-[40%] left-[50%] translate-x-[-100%] ${
+          isDelete == true ? "flex" : "hidden"
+        }`}
+      >
+        <DeleteModal
+          onCancel={setIsDeleteFalse}
+          onDelete={DeleteIthem}
+          id={deleteId}
+        />
+      </div>
+      <div
         className={`absolute z-[1000]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%] ${
           detailCourse == true ? "block" : "hidden"
         }`}
       >
         <div
-          className={`absolute h-[38.4vw] w-[20vw] max-md:w-[75%] max-md:h-[480px] top-[2vw] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
+          className={`sticky h-[38.4vw] w-[20vw] max-md:absolute max-md:w-[75%] max-md:h-[480px] top-[2vw] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
             detailCourse == true ? "block" : "hidden"
           }`}
         >
@@ -475,7 +497,7 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
               className={`w-[12%] max-md:w-[30%] max-md:text-[16px]  py-[1%] px-[1%] text-center ${
                 location == "BlogFav" ? "hidden" : "block"
               }
-              ${location == "CourseServ" ? 'max-md:mr-[30%]':null}
+              ${location == "CourseServ" ? "max-md:mr-[30%]" : null}
               `}
             >
               {location == "CourseServ" ? "وضعیت تایید" : "سطح دوره"}

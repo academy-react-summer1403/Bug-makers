@@ -85,7 +85,7 @@ const router = createBrowserRouter([
             errorElement: <Error />,
             children: [
               {
-                index:true,
+                index: true,
                 path: "Personal",
                 element: <PersonalInfo />,
                 errorElement: <Error />,
@@ -105,7 +105,6 @@ const router = createBrowserRouter([
                 element: <Links />,
                 errorElement: <Error />,
               },
-              
             ],
           },
         ],
