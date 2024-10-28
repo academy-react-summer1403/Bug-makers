@@ -191,7 +191,7 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
              className={`w-[4%] max-md:ml-[10px] h-full items-center ${
                true ? "flex" : "hidden"
              }
-             ${location == "BlogFav" ? 'max-md:ml-[-50%]':null}
+             ${location == "BlogFav" ? 'max-md:mr-[60%]':null}
              `}
            >
              {" "}

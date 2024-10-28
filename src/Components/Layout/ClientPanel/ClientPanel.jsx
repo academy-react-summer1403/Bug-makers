@@ -10,7 +10,7 @@ const ClientPanel = ()=>{
 
     
     return (
-      <div className="w-[100vw] relative h-[100vh] p-[1.25vw] bg-gray-100 flex justify-between text-[#272727] text-right">
+      <div className="w-[100vw] min-[2500px]:w-[70%] min-[2500px]:mx-auto relative h-[100vh] p-[1.25vw] bg-gray-100 flex justify-between text-[#272727] text-right">
         <div className="w-[20%] h-[100%] max-md:hidden">
           <RightBar />
         </div>

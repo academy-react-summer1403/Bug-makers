@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 const RightBarMobile = () => {
-  const [activeIndex, setActiveIndex] = useState(5);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [overmenu,setOvermenu] = useState(false)
   const navigator = useNavigate();
 

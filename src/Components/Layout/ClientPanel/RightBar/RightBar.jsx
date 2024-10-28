@@ -5,7 +5,7 @@ import { removeItem } from "../../../../Core/Services/common/storage.services";
 import toast from "react-hot-toast";
 
 const RightBar = () => {
-  const [activeIndex, setActiveIndex] = useState(5);
+  const [activeIndex, setActiveIndex] = useState(0);
   const navigator = useNavigate();
 
   // لیست آیتم‌های منو
