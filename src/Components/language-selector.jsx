@@ -8,7 +8,8 @@ const LanguageSelector = () => {
     const {i18n} = useTranslation()
     const language =[
     {code : "en" , lang : "English"},
-    {code : "fa" , lang : "فارسی"}
+    {code : "fa" , lang : "فارسی"},
+    {code : "tr" , lang : "ترکی"}
     ]
 
     const changeLanguages = (lng) => {

@@ -1,0 +1,73 @@
+{
+    "header": {
+        "Course": "Kurslar",
+        "News": "Makaleler",
+        "Events": "Etkinlikler",
+        "ContactMe": "İletişime Geçin"
+    },
+    "content": {
+        "bahrAcademy": {
+            "h1": "Bahrul Uloom Akademisi",
+            "p": "Akademi, kaderleri değiştirmek amacıyla uzmanlık ve bilgi seviyelerini yükseltmek için büyük zihinlerin küçük bir topluluğudur, yeniden kod yazma keyfini anlamak için.",
+            "button": "Kursu Görüntüle"
+        },
+        "storeServices": {
+            "topic": "Araştırma Merkezi Hizmetleri",
+            "p": "İlerleme yolunda ihtiyaç duyduğunuz her şey",
+            "test": "Sınav",
+            "help": "Danışmanlık",
+            "job": "İstihdam Fırsatları",
+            "course": "Uzmanlık Kursları"
+        },
+        "courseTraining": {
+            "topic": "Farklı Yaş Gruplarına Uygun Eğitimler",
+            "p": "Farklı eğitim yöntemleri ile her yaştan maksimum fayda sağlamak.",
+            "youngCourse": "Çocuklar için Eğitim Kursu",
+            "youngCourseP": "Çocuklarda algoritmik düşünmeyi ve problem çözme yeteneğini geliştirmek için oyun temelli problem çözme kurslarında başlangıç noktası.",
+            "oldCourse": "Yetişkinler için Eğitim Kursu",
+            "oldCourseP": "Yetişkinler için kod yazma keyfiyle tanışmak ve geniş bir dil yelpazesi ile pratik odaklı deneyim aktarımı."
+        },
+        "workShopTarget": {
+            "topic": "Sepehr Araştırma Merkezi Hedefleri",
+            "p": "Başarıya giden tüm adımlar önemlidir.",
+            "abilityTopic": "Yetenek Keşfi",
+            "abilityDesc": "Pilot yetenek keşif programlarında ilgi ve yetenek izlerini bulmak ve ardından yazılım tutkusunu geliştirmek için bir yol haritası oluşturmak.",
+            "startTopic": "Rehberlik ve Motivasyon",
+            "startDesc": "Kodlama dillerinin teknolojik yelpazesini pratik bir bakış açısıyla tanıtmak ve yaratıcı düşünmeyi teşvik etmek için eğitim sürecinde.",
+            "teacherTopic": "Uzman Eğitimler",
+            "teacherDesc": "Pazarın talep ettiği platformlarda uzmanlık ve tamamlayıcı atölye çalışmaları, takım ruhunu geliştirmek için rekabetçi takım turnuvaları düzenleme.",
+            "workTopic": "İş Piyasasına Hazırlık",
+            "workDesc": "Teknik özgeçmiş hazırlama seansları ve yerel ile uluslararası iş bulma platformlarında özgeçmiş paylaşımı, iş görüşmelerine hazırlık."
+        },
+        "academyCourse": {
+            "topic": "Eğitim Kurslarımız",
+            "p": "Kursumuz",
+            "button": "Kursu Görüntüle"
+        },
+        "staticData": {
+            "topic": "Bahr Akademisi İstatistiklerle",
+            "p": "İstatistiklerimiz",
+            "student": "Öğrenci",
+            "course": "Eğitim Kursu",
+            "teacher": "Öğretmen"
+        },
+        "slider": {
+            "topic": "Gururla Bahrul Uloom Akademisi",
+            "p": "Öğrencilerimizin önde gelen şirketlerdeki başarıları.",
+            "student": "Mehdi Asghari",
+            "studentP": "Ali Baba'da çalışma deneyimi."
+        },
+        "footer": {
+            "topic": "Sepehr Araştırma Merkezi",
+            "p": "Öğrencilerimizin önde gelen şirketlerdeki başarıları.",
+            "p2": "Her türlü öneri ve eleştiriyi bekliyoruz, sorularınıza yanıt vermekten memnuniyet duyarız.",
+            "link1": "Faydalı Link 1",
+            "link2": "Faydalı Link 2",
+            "link3": "Faydalı Link 3",
+            "link4": "Faydalı Link 4",
+            "contactWe": "İletişime Geçin",
+            "inputT": "Mesajınız",
+            "sendInput": "Gönder"
+        }
+    }
+}

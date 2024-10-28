@@ -6,6 +6,7 @@ import { PiAngularLogoThin } from 'react-icons/pi';
 import { GiGuillotine } from 'react-icons/gi';
 import TextLanding from '../TextInLanding/TextLanding';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const CursesAcademyLanding = () => {
 
@@ -15,6 +16,7 @@ const CursesAcademyLanding = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+  const {t} = useTranslation()
 
   const icons = [
     { id: 1, Icon: FaReact, delay: 0.6 },
@@ -27,8 +29,8 @@ const CursesAcademyLanding = () => {
   return (
     <div className={`max-[714px]:mt-[170vw] max-[714px]:w-[80%] max-[570px]:w-[66%] max-[714px]:scale-125 max-[570px]:mt-[190vw] max-[570px]:scale-150  m-auto w-[100%] relative text-center mt-[85.63541666666667vw] bg-transparent ${selectedButton === 1 ? 'mt-[123.111vw]' : ''}`}>
         <TextLanding 
-            h3Text='دوره های آموزشی ما'
-            pText='دوره'
+            h3Text={t("content.academyCourse.topic")}
+            pText={t("content.academyCourse.p")}
         />
 
       {/* Dot with delay animation */}
@@ -77,7 +79,7 @@ const CursesAcademyLanding = () => {
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.2 }}
         >
-          مشاهده دوره‌ها
+          {t("content.academyCourse.button")}
         </motion.button>
       </div>
     </div>

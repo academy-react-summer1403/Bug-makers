@@ -146,7 +146,7 @@ useEffect(() => {
     }
   }; 
   
-    const userId = response.id
+    const userId = getItem("userId")
 
     const onSubmit = async (val) => {
         const res = await setNewComment(val);

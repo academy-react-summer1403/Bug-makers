@@ -3,6 +3,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 import fa from './locales/fa.json'
 import en from './locales/en.json'
+import tr from './locales/tr.json'
 i18next.use(LanguageDetector).use(initReactI18next).init({
     debug : true,
     lng: "fa",
@@ -14,6 +15,9 @@ i18next.use(LanguageDetector).use(initReactI18next).init({
         },
         fa:{
             translation:fa
+        },
+        tr:{
+            translation:tr
         }
     }
 })

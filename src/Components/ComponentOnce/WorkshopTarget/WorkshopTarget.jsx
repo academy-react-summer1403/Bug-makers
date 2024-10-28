@@ -1,36 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion'; 
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const WorkshopTarget = () => {
     const { selectedButton } = useSelector((state) => state.themeColor);
 
-  const targets = [
-    {
-      id: 1,
-      title: 'استعداد یابی',
-      description: 'یافتن رگه های علاقه و استعداد در دوره های پایلوت استعدادیابی و سپس چینش مسیری برای شکوفا نمودن ذوق برنامه سازی در دانش پژوهان.',
-      img: <img src='../../../../public/images/icon/personal.png' className='block w-[8vw] h-[8vw] ' />
-    },
-    {
-      id: 2,
-      title: 'راهنمایی و ایجاد انگیزه',
-      description: 'آشنایی با پشته ای تکنولوژیک از زبان های کدنویسی با نگاهی عمل محور برای تحریک ذهنیت خلاق در طول فرایند آموزش.',
-      img: <img src='../../../../public/images/icon/estedad.png' className='block w-[8vw] h-[8vw]' />
-    },
-    {
-      id: 3,
-      title: 'آموزش های تخصصی',
-      description: 'کارگاه های تخصصی و تکمیلی برای کار با پلتفرم های بازاری مورد اقبال و برگزاری تورنمت های تیمی رقابتی برای تقویت روحیه کار تیمی و آشنایی عمیق با ابزارهای مدیریت پروژه ، مدیریت سورس تیمی و دورکاری',
-      img: <img src='../../../../public/images/icon/amozesh.png' className='block w-[8vw] h-[8vw] mt-[1vw]' />
-    },
-    {
-      id: 4,
-      title: 'آماده سازی برای بازار کار',
-      description: 'جلسات تنظیم cv برای ساخت و اشتراک رزومه فنی در بسترهای داخلی و بین المللی کاریابی و آماده سازی دانش پژوهان برای شرکت در مصاحبه های کاری حضوری و راه دور',
-      img: <img src='../../../../public/images/icon/work.png' className='block w-[8vw] h-[8vw] ' />
-    },
-  ];
+    const [targets, setTargets] = useState([]);
+
+    const { t , i18n } = useTranslation();
+    const direction = i18n.dir()
+    useEffect(() => {
+      setTargets([
+        {
+          id: 1,
+          title: t("content.workShopTarget.abilityTopic"),
+          description: t("content.workShopTarget.abilityDesc"),
+          img: <img src='../../../../public/images/icon/personal.png' className='block w-[8vw] h-[8vw] ' />
+        },
+        {
+          id: 2,
+          title: t("content.workShopTarget.startTopic"),
+          description: t("content.workShopTarget.startDesc"),
+          img: <img src='../../../../public/images/icon/estedad.png' className='block w-[8vw] h-[8vw]' />
+        },
+        {
+          id: 3,
+          title: t("content.workShopTarget.teacherTopic"),
+          description: t("content.workShopTarget.teacherDesc"),
+          img: <img src='../../../../public/images/icon/amozesh.png' className='block w-[8vw] h-[8vw] mt-[1vw]' />
+        },
+        {
+          id: 4,
+          title: t("content.workShopTarget.workTopic"),
+          description: t("content.workShopTarget.workDesc"),
+          img: <img src='../../../../public/images/icon/work.png' className='block w-[8vw] h-[8vw] ' />
+        },
+      ])
+    }, [targets])
+
 
   // Animation settings
   const itemVariants = {
@@ -54,21 +62,21 @@ const WorkshopTarget = () => {
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
       >
-        اهداف ما در پژوهشگاه سپهر
+        {t("content.workShopTarget.topic")}
       </motion.h3>
       <motion.p 
-        className='text-[#7E7E7E] text-[1.0416666666666667vw] leading-[3vw]' 
+        className='text-[#7E7E7E]  text-[1.0416666666666667vw] leading-[3vw]' 
         variants={itemVariants}
         initial="hidden"
         whileInView="visible"
         transition={{ duration: 0.5, delay: 0.2 }}
         viewport={{ once: true }}
       >
-        تمامی گام‌ها در رسیدن به موفقیت مهم هستند
+        {t("content.workShopTarget.p")}
       </motion.p>
       
       {/* Items  */}
-      <div  className=' flex max-[714px]:scale-125   max-[714px]:w-[80%] flex-wrap flex-col gap-[10vw] w-[100%] relative left-[-7vw] '>
+      <div  className={`${direction === 'ltr' ? 'ml-[15vw]' : ''} flex max-[714px]:scale-125   max-[714px]:w-[80%] flex-wrap flex-col gap-[10vw] w-[100%] relative left-[-7vw] `}>
         {targets.map((target, index) => (
           <motion.div
             key={target.id}
@@ -76,7 +84,7 @@ const WorkshopTarget = () => {
             ${index === 0 ? 'max-[714px]:right-[10vw] max-[570px]:right-[8vw]  right-[7.999999vw] top-[0.1vw] ' : ''}
             ${index === 1 ? 'max-[714px]:left-[10vw] max-[714px]:top-[18vw] max-[570px]:left-[6vw] left-[12.9999999vw] top-[7.99999999vw]' : ''}
             ${index === 2 ? 'max-[714px]:right-[9vw] max-[714px]:top-[35vw] max-[570px]:right-[7vw] right-[8.1vw] top-[27.1vw]' : ''}
-            ${index === 3 ? 'max-[714px]:left-[12vw] max-[714px]:top-[55vw] max-[570px]:left-[8vw] left-[13.1vw] top-[35.1vw]' : ''}
+            ${index === 3 ? 'max-[714px]:left-[10vw] max-[714px]:top-[55vw] max-[570px]:left-[7vw] left-[13.1vw] top-[35.1vw]' : ''}
             ${selectedButton === 1 && index === 0 ? 'absolute right-[50.1100vw] top-[19.100vw] ' : ''}
             ${selectedButton === 1 && index === 1 ? 'absolute left-[50.1100vw] top-[41.100vw] ' : ''}
             ${selectedButton === 1 && index === 2 ? 'absolute right-[50.1100vw] top-[64.1100vw] ' : ''}
@@ -92,7 +100,12 @@ const WorkshopTarget = () => {
               {target.img}
             </div>
             <motion.h3 
-              className={`text-[1.5625vw] mt-[3vw] indent-[3vw] ${index === 0 ? 'text-right indent-[9vw]' : ''}`} 
+              className={`text-[1.5625vw] mt-[3vw] indent-[3vw] 
+                ${index === 0 && direction === 'ltr' ? 'mr-[6vw] ' : ''} 
+                ${index === 1 && direction === 'ltr' ? 'mr-[-2vw] ' : ''}
+                ${index === 2 && direction === 'ltr' ? 'mr-[-2vw] ' : ''}
+                ${index === 3 && direction === 'ltr' ? 'mr-[-5vw] ' : ''}
+                ${index === 0 ? 'text-right indent-[9vw]' : ''}`} 
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
@@ -101,7 +114,7 @@ const WorkshopTarget = () => {
               {target.title}
             </motion.h3>
             <motion.p 
-              className='text-[1.0416666666666667vw] text-right mt-[3vw]'
+              className={`${direction === 'ltr' ? 'text-left' : 'text-right'} text-[1.0416666666666667vw]  mt-[3vw]`}
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"

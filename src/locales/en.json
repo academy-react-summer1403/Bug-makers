@@ -28,16 +28,48 @@
             "oldCourseP": "A renewed acquaintance with the joy of coding in adult courses, providing a step-by-step, hands-on experience for working with a wide range of languages."
         },
         "workShopTarget": {
-            "topic": "",
-            "p": "",
-            "abilityTopic": "",
-            "abilityDesc": "",
-            "startTopic": "",
-            "startDesc": "",
-            "teacherTopic": "",
-            "teacherDesc": "",
-            "workTopic": "",
-            "workDesc": ""
+            "topic": "Our Goals at Sepehr Research Institute",
+            "p": "Every step towards success is important",
+            "abilityTopic": "Talent Identification",
+            "abilityDesc": "Discovering interests and talents through pilot talent identification courses and then arranging a pathway to nurture programming skills in learners",
+            "startTopic": "Guidance and Motivation",
+            "startDesc": "Familiarization with a technological stack of programming languages with a hands-on approach to stimulate creative thinking throughout the learning process",
+            "teacherTopic": "Specialized Training",
+            "teacherDesc": "Specialized and supplementary workshops for working with popular market platforms and organizing competitive team tournaments to enhance teamwork spirit and gain deep familiarity with project management tools, team source management, and remote work",
+            "workTopic": "Preparation for the Job Market",
+            "workDesc": "Sessions for CV preparation to create and share technical resumes on domestic and international job platforms, and to prepare learners for attending in-person and remote job interviews"
+        },
+        "academyCourse":{
+            "topic":"Course Academy",
+            "p":"We course",
+            "button":"Watch Course"
+        },
+        "staticData":{
+            "topic":"Bahr Academy in data",
+            "p":"We Data",
+            "student":"student",
+            "course":"Course Training",
+            "teacher":"Teacher"
+        },
+        "slider": {
+            "topic": "Proudly, Bahreoloum Academy",
+            "p": "The success and presence of our graduates in prominent companies",
+            "student": "Mahdi Asghari",
+            "studentP": "Work experience at Alibaba"
+        },
+        "footer": {
+            "topic": "Sepehr Research Institute",
+            "p": "The success and presence of our graduates in prominent companies",
+            "p2": "We welcome any suggestions, criticisms, and are here to answer your questions",
+            "link1": "Useful Link 1",
+            "link2": "Useful Link 2",
+            "link3": "Useful Link 3",
+            "link4": "Useful Link 4",
+            "contactWe": "Contact Us",
+            "inputT": "Your message text",
+            "sendInput": "Send"
         }
+        
+        
     }
 }

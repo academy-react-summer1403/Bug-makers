@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
 import { useQuery } from 'react-query';
 import { getCourseListWithPagination } from '../../../Core/Services/Api/CoursePage/getCourseListWithPagination';
 import { getTeacherList } from '../../../Core/Services/Api/CoursePage/TeacherList';
 import TextLanding from '../TextInLanding/TextLanding';
+import { useTranslation } from 'react-i18next';
 
 const StatisticsData = () => {
   const [startCount, setStartCount] = useState(false);
@@ -26,11 +27,17 @@ const StatisticsData = () => {
   };
 
   // Define the statistics based on fetched data
-  const statistics = [
-    { id: 1, label: 'دانشجو', end: 1200, delay: 0 },  // Assuming a static value for students
-    { id: 2, label: 'دوره آموزشی', end: courseData?.totalCount || 0, delay: 0.3 },
-    { id: 3, label: 'استاد', end: teacherData?.length || 0, delay: 0.6 },
-  ];
+  const [statistics, setStatistics] = useState([])
+  const {t} = useTranslation();
+
+
+  useEffect(() => {
+    setStatistics([
+      { id: 1, label: t("content.staticData.student"), end: 1200, delay: 0 },  // Assuming a static value for students
+      { id: 2, label: t("content.staticData.course"), end: courseData?.totalCount || 0, delay: 0.3 },
+      { id: 3, label: t("content.staticData.teacher"), end: teacherData?.length || 0, delay: 0.6 },
+    ]);
+  }, [statistics])
 
   if (isCoursesLoading || isTeachersLoading) {
     return <p>در حال بارگذاری...</p>;
