@@ -59,7 +59,7 @@ const SelectOpt2 = ({ width ,placeholder, onChange, isTeacherSelect, isSortSelec
         </span>
       )}
       <div
-        className="w-full h-[40px] rounded-[10px] text-[12px] bg-[#F2F2F2] indent-3 cursor-pointer flex items-center justify-between"
+        className=" max-[1312px]:w-[100%]   h-[40px] rounded-[10px] text-[12px] bg-[#F2F2F2] indent-3 cursor-pointer flex items-center justify-between"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{selectedOption ? (selectedOption.categoryName) : placeholder}</span>

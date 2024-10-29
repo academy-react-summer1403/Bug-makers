@@ -13,6 +13,8 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
       .required("دیدگاه اجباری است"),
   });
 
+  
+
   return (
     <Formik
       initialValues={
@@ -47,7 +49,7 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
               placeholder="عنوان دیدگاه خود را وارد کنید"
               type="text"
               name="title"
-              className={`bg-white border text-gray-600 border-[#C4CDD5] w-full md:w-full h-10 rounded-md mb-2 ${
+              className={`bg-white border outline-none text-gray-600 border-[#C4CDD5] w-full md:w-full h-10 rounded-md mb-2 ${
                 errors.title && touched.title ? "border-red-500" : ""
               }`}
             />
@@ -63,7 +65,7 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
               as="textarea"
               name="describe"
               placeholder="دیدگاه خود را وارد کنید"
-              className={`max-h-[14vw] min-h-[14vw] p-2 bg-white border text-gray-600 border-[#C4CDD5] w-full h-32 rounded-md ${
+              className={`max-h-[14vw] outline-none min-h-[14vw] p-2 bg-white border text-gray-600 border-[#C4CDD5] w-full h-32 rounded-md ${
                 errors.describe && touched.describe ? "border-red-500" : ""
               }`}
             />

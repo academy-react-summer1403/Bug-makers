@@ -11,6 +11,8 @@ import SelectOpt from '../../Components/Common/Select/SelectOpt';
 import DateModal from '../../Components/ComponentOnce/Date/Date';
 import moment from 'jalali-moment'; 
 import PriceFilter from '../../Components/ComponentOnce/PriceFilter/PriceFilter';
+import {Card, Skeleton} from "@nextui-org/react";
+import Loading from '../../Components/Common/loadingWeb/Loading';
 
 const CoursePage = () => {
   // stateForCategoryFilter
@@ -117,7 +119,7 @@ const CoursePage = () => {
   }, []);
   // renderCourseItems
   const renderCourses = () => {
-    if (isLoading) return <p>در حال بارگذاری...</p>;
+    if (isLoading)  return <Loading />;
     if (error) return <p>خطایی رخ داده است...</p>;
 
     return CourseListItem

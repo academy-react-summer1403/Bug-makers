@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-
 import AddCommentForm from "./AddCommentForm";
 import calculateDateDifference from "../../../Common/TimeChanger/TimeChanger";
 import { getRepleyComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
-
 
 const Comments = ({
   id,
@@ -28,21 +26,32 @@ const Comments = ({
   setNewsLikeComment,
   delLikeNews2Comment,
 }) => {
-
-
   const pass = calculateDateDifference(date);
   const [repleyModal, setRepleyModal] = useState(false);
-
   const [response2, setResponse2] = useState();
+
   const showRepley = async (id) => {
     const res = await getRepleyComment(id);
     setResponse2(res);
-    console.log(res);
   };
-  
-  return (
+
+  return (  
     <>
-      <div className=" p-[0.1vw] py-[1vw] border-b-[0.15vw] border-[#C2C2C2]  bg-white flex items-start justify-between h-full w-full ">
+      <div className="flex flex-col sm:flex-row p-4 border-b border-gray-300 bg-white w-full">
+      <div className=" overflow-hidden rounded-lg bg-gradient-to-b from-gray-300 to-gray-200 flex justify-center items-center w-12 h-12 lg:size-[3vw] mb-2 sm:mb-0 sm:mr-4">
+        <img src={pictureAddress} alt="" className="object-cover h-full w-full" />
+      </div>
+
+        <div className="flex-1">
+          <div className="flex justify-between items-start mb-2">
+            <div className="text-xs text-gray-500 flex flex-wrap gap-1">
+              <span className="text-sm mr-5">{title}</span>
+              <span>|</span>
+              <span>{date}</span>
+              <span>|</span>
+              <span>ساعت ۱۶:۲۴</span>
+              <span>{pass}</span>
+      {/* <div className=" p-[0.1vw] py-[1vw] border-b-[0.15vw] border-[#C2C2C2]  bg-white flex items-start justify-between h-full w-full ">
         <div className="overflow-hidden size-[3vw] ml-[1vw] rounded-[0.42vw] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] flex justify-center">
           <img src={pictureAddress} alt="" className="h-full" />
         </div>
@@ -51,10 +60,10 @@ const Comments = ({
             <div className="text-[0.7vw] text-[#5E5E5E] flex justify-between w-[50%] max-w-[20vw]">
               <span className="max-w-[10vw] text-[9px]">{title}</span>|
               <span>{date}</span>|<span>ساعت ۱۶:۲۴ </span>
-              <span className="mr-[0.5vw]">{pass}</span>
+              <span className="mr-[0.5vw]">{pass}</span> */}
             </div>
-            <div className="text-[10px] gap-[1vw] text-gray-800 w-1/3  max-w-[15vw]  h-[1.46vw]  flex justify-end">
-              <div className="flex justify-evenly h-full w-[25%] items-center">
+            <div className="text-xs flex gap-2">
+              <div className="flex items-center">
                 <span>{likeCount}</span>
                 <svg
                   onClick={() => {
@@ -63,8 +72,8 @@ const Comments = ({
                       : setNewsLikeComment(id);
                   }}
                   className="cursor-pointer"
-                  width="1.51vw"
-                  height="1.3vw"
+                  width="1.5rem"
+                  height="1.3rem"
                   viewBox="0 0 29 25"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +85,7 @@ const Comments = ({
                 </svg>
               </div>
               |
-              <div className="flex justify-evenly h-full w-[25%] items-center">
+              <div className="flex items-center">
                 <span>{dissLikeCount}</span>
                 <svg
                   onClick={() => {
@@ -85,8 +94,8 @@ const Comments = ({
                       : setNewsDissLikeComment(id);
                   }}
                   className="cursor-pointer"
-                  width="1.51vw"
-                  height="1.3vw"
+                  width="1.5rem"
+                  height="1.3rem"
                   viewBox="0 0 29 25"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -100,30 +109,25 @@ const Comments = ({
             </div>
           </div>
 
-          {/* Body: متن نظر */}
-          <div className="text-[12px] text-gray-700 mt-[1vw] h-[4vw]">
+          <div className="text-sm text-gray-700 mt-2">
             {describe}
           </div>
 
-          {/* Footer: دکمه‌های پاسخ دادن و مشاهده پاسخ‌ها */}
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-2">
             <button
               onClick={() => {
                 showRepley(id);
               }}
-              className="text-[8px] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-[0.78vw] w-[7vw] h-[1.7vw] p-0"
+              className="text-xs bg-gray-200 text-gray-500 hover:text-gray-900 rounded-lg px-2 py-1 mb-2 sm:mb-0"
             >
               مشاهده پاسخ ها ({replyCount})
             </button>
-            <div className="w-[30vw] h-[1.7vw] rounded-[0.7vw] bg-[#F6F6F6] text-[8px] leading-[1.5vw] px-[1vw] hidden">
-              <span className="overflow-hidden text-ellipsis ...">{}</span>
-            </div>
             <button
               onClick={() => {
-                window.scrollTo({ top: 780, behavior: "smooth" });
+                window.scrollTo({top: 780, behavior: 'smooth'});
                 setRepleyModal(true);
               }}
-              className="flex justify-evenly items-center text-[8px] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-[0.78vw] w-[5vw] h-[1.7vw] p-0"
+              className="flex items-center text-xs bg-gray-200 text-gray-500 hover:text-gray-900 rounded-lg px-2 py-1"
             >
               <span>پاسخ دادن</span>
               <svg
@@ -132,6 +136,7 @@ const Comments = ({
                 viewBox="0 0 15 13"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                className="ml-1"
               >
                 <path
                   d="M1.48997e-07 0.624937V4.99951C0.00344496 8.10438 2.51958 10.6205 5.62445 10.624H8.6429V11.6151C8.6429 12.1203 8.94732 12.576 9.41426 12.7695C9.88148 12.963 10.419 12.8561 10.7764 12.4988L14.4511 8.82476C15.183 8.09264 15.183 6.90588 14.4511 6.17377L10.7764 2.49975C10.419 2.1424 9.88148 2.03552 9.41451 2.22893C8.94753 2.42234 8.64301 2.87797 8.6429 3.38342V4.37457H4.99951C2.9295 4.3725 1.25194 2.69494 1.24988 0.624937C1.24988 0.279793 0.970083 0 0.624939 0C0.279795 0 1.48997e-07 0.279793 1.48997e-07 0.624937ZM9.89278 9.99902C9.89278 9.65387 9.61298 9.37408 9.26784 9.37408H5.62445C3.20958 9.37132 1.25263 7.41437 1.24988 4.99951L1.24988 3.92836C2.19753 5.00685 3.56383 5.62488 4.99951 5.62445H9.26784C9.61298 5.62445 9.89278 5.34465 9.89278 4.99951V3.38342L13.5668 7.05743C13.8108 7.30147 13.8108 7.69705 13.5668 7.94109L9.89278 11.6151V9.99902Z"
@@ -142,6 +147,8 @@ const Comments = ({
           </div>
         </div>
       </div>
+
+      {/* Modal */}
       <div
         className={
           repleyModal

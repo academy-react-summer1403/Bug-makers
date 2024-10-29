@@ -40,7 +40,7 @@ const MiniSlider = ({ isHovered  }) => {
   return (
     <>
       {/* Slider */}
-      <motion.div className='slider max-[714px]:scale-150 max-[714px]:w-[80%]    max-[714px]:mr-[11vw] max-[714px]:overflow-x-scroll  w-[80%] mt-[5vw] m-auto h-[15vw] z-10 overflow-hidden relative'>
+      <motion.div className=' max-[714px]:w-[58%]  max-[570px]:w-[59%] slider max-[714px]:scale-150  max-[570px]:m-[0_21vw_3vw_0]   max-[714px]:mr-[15vw] max-[714px]:overflow-x-scroll  w-[80%] mt-[5vw] m-auto h-[15vw] z-10 overflow-hidden relative'>
         <div className='w-[100%] max-[714px]:w-[120%]  h-[100%] flex justify-center items-center flex-row gap-[5vw]'>
           {logos.map((logo, index) => {
             const isCenter = index === currentSlide;

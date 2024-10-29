@@ -14,22 +14,61 @@ import { getItem } from "../../../../Core/Services/common/storage.services";
 import { comentDelLikeCourse, commentDissLikeNews, commentLikeNews, setNewComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
 import AddCommentForm from "./AddCommentForm";
 import RecommendLi from "./RecommendLi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import calculateDateDifference from "../../../Common/TimeChanger/TimeChanger";
 import moment from "moment-jalaali";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 import toast from "react-hot-toast";
 import { AddBlogFavorite } from "../../../../Core/Services/Api/BlogDetail/addFavorite";
 import { deleteBlogFavorite } from "../../../../Core/Services/Api/BlogDetail/deleteFavorite";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { Button } from "@nextui-org/react";
 import Swal from 'sweetalert2';
-
+import { getBlogListWithPagination } from "../../../../Core/Services/Api/BlogPage/getBlogListWithPagination";
+import {Skeleton} from "@nextui-org/react";
+import { setBlogList } from "../../../../Redux/Slice/Blog/BlogList";
 const BDetailCenter = ({ id }) => {
 
     const [response, setResponse] = useState({});
     const [comment, setComment] = useState({});
     const [newsId, setNewsId] = useState(id);
+
+    const dispatch = useDispatch();
+    const CourseListItem = useSelector((state) => state.BlogSlice.BlogList);
+    const { isLoading, data } = useQuery(
+      ['getRecommend'], 
+      getBlogListWithPagination, 
+      {
+        onSuccess: (data) => {
+          dispatch(setBlogList(data || data));
+        },
+        keepPreviousData: true, 
+      }
+    );
+
+    const renderCourses = () => {
+              if (isLoading) {
+                return (
+                  <div className="max-w-[300px] w-full flex items-center gap-3">
+                    <div>
+                      <Skeleton className="flex rounded-full w-12 h-12" />
+                    </div>  
+                    <div className="w-full flex flex-col gap-2">
+                      <Skeleton className="h-3 w-3/5 rounded-lg" />
+                      <Skeleton className="h-3 w-4/5 rounded-lg" />
+                    </div>
+                  </div>
+                );
+            }
+        return data?.slice(0, 5).map((Recommend) => (
+            <RecommendLi
+                key={Recommend.id}
+                id={Recommend.id}
+                title={Recommend.title}
+                desc={Recommend.miniDescribe}
+            />
+        ));
+    };
 
 
 
@@ -107,28 +146,13 @@ useEffect(() => {
     }
   }; 
   
-    const userId = getItem("userId");
+    const userId = getItem("userId")
 
     const onSubmit = async (val) => {
         const res = await setNewComment(val);
         res.success ? toast.success('نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉') : '';
-
     };
-    const CourseListItem = useSelector((state) => state.BlogSlice.BlogList);
     
-    
-  
-
-    const renderCourses = () => {
-        return CourseListItem.slice(0, 5).map((Recommend) => (
-        <RecommendLi
-            key={Recommend.id}
-            id={Recommend.id}
-            title={Recommend.title}
-        />
-        ));
-    };
-
 
     // comment.....................................
 
@@ -224,12 +248,12 @@ useEffect(() => {
               className="w-full h-auto object-cover"
               alt=""
             />
-            <div className="absolute top-[0.7vw] left-[0.7vw] bg-white p-2 rounded-full shadow-md">
+            <div className="absolute top-[0.7vw] left-[0.7vw] bg-white p-2  rounded-full shadow-md">
               <span className="text-gray-800">{response.addUserFullName}</span>
             </div>
           </div>
           <h2 className="text-xl text-gray-800 mt-2 text-right">{response.title}</h2>
-          <div className="flex justify-end mt-2">
+          <div className="flex justify-end  mt-2">
             <BDetailLikeSvg
               likeCount={response.inUsersFavoriteCount}
               commentCount={response.commentsCount}
@@ -240,10 +264,10 @@ useEffect(() => {
           <div className="border-t border-gray-300 my-4"></div>
           <h3 className="text-gray-600 text-sm text-right">شاید علاقمند باشید:</h3>
           <ul className="list-disc list-inside mt-2 text-right">{renderCourses()}</ul>
-          <div className="text-[0.8vw] gap-[1vw] text-gray-800 w-full h-[1.46vw] px-[1vw] flex justify-end">
+          <div className="text-[0.8vw] gap-[2vw] mt-[8vw] text-gray-800 w-full h-[1.46vw] px-[1vw] flex justify-end">
             <div className="flex justify-evenly h-full w-[10%] items-center">
               
-              <span>{response.currentLikeCount}</span>
+              <span className="text-[0.9765625vw] max-[941px]:text-[1.565625vw] max-[941px]:mt-[0.8vw] max-[941px]:ml-[0.2vw] ">{response.currentLikeCount}</span>
               <svg
                 className="cursor-pointer"
                 onClick={() => {
@@ -261,9 +285,9 @@ useEffect(() => {
                 />
               </svg>
             </div>
-            |
+            <span className="text-[1.171875vw] max-[1131px]:text-[2vw] max-[1131px]:mt-[-1vw]">|</span>
             <div className="flex justify-evenly h-full w-[10%] items-center">
-              <span>{response.currentDissLikeCount}</span>
+              <span className="text-[0.9765625vw] max-[941px]:text-[1.565625vw] max-[941px]:mt-[0.2vw] max-[941px]:ml-[0.4vw] ">{response.currentDissLikeCount}</span>
               <svg
                 onClick={() => {
                   response.currentUserIsDissLike
@@ -297,7 +321,7 @@ useEffect(() => {
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
           </svg> */}
           <Button 
-            className="relative bottom-[0.5vw]" 
+            className="max-[1352px]:bottom-[0.8vw] max-[607px]:bottom-[1.3vw] max-[570px]:bottom-[1.8vw] max-[1136px]:bottom-[1vw] max-[1352px]:text-[10px] max-[1352px]:p-1 max-[1352px]:h-7 max-[1352px]:bottom-[0.4vw]   /*end responsive */ relative bottom-[0.6vw]" 
             color={response.isCurrentUserFavorite ? 'danger' : 'success'} 
             onClick={() => mutation.mutate(id)}
             >
@@ -308,7 +332,6 @@ useEffect(() => {
             userId={userId} 
             onSubmit={onSubmit} 
             newsId={newsId} 
-            
             />
         </div>
         <div >

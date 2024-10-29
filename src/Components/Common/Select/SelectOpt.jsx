@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { getTeacherList } from '../../../Core/Services/Api/CoursePage/TeacherList';
 import { getCategoryList } from '../../../Core/Services/Api/CoursePage/Category';
 
-const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect, FilterValue }) => {
+const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect, FilterValue , className}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -66,7 +66,7 @@ const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect
         </span>
       )}
       <div
-        className=" outline-none min-[2015px]:w-[250px] min-[3000px]:w-[350px] min-[4500px]:w-[450px] /* end responsive */ w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
+        className={`outline-none min-[2015px]:w-[250px] min-[3000px]:w-[350px] min-[4500px]:w-[450px] /* end responsive */ w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer ${className}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{selectedOption ? (selectedOption.fullName || selectedOption.techName || selectedOption.value) : placeholder}</span>

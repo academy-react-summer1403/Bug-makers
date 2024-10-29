@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const MenuOption = ({ className }) => {
   const { selectedButton } = useSelector((state) => state.themeColor);
@@ -11,15 +12,16 @@ const MenuOption = ({ className }) => {
     ${selectedButton === 2 ? 'text-yellow-600' : ''}
   `.trim().replace(/\s+/g, ' ');
 
+  const {t} = useTranslation()
   return (
     <>
       <NavLink
         to='/CoursePage' 
         className={({ isActive }) => 
-          isActive ? `${className} ${selectNavLink}` : `curses ${className}`
+          isActive ? ` ${className} ${selectNavLink}` : `curses ${className}`
         }
       >
-        دوره ها
+       {t("header.Course")}
       </NavLink>         
       <NavLink
         to='/BlogPage' 
@@ -27,10 +29,14 @@ const MenuOption = ({ className }) => {
           isActive ? `${className} ${selectNavLink}` : `curses ${className}`
         }
       >
-       مقالات
+       {t("header.News")}
       </NavLink>         
-      <div className={`Events ${className}`}>رویداد ها</div>
-      <div className={`contactUs ${className}`}>تماس با ما</div>
+      <div className={`Events ${className}`}>
+        {t("header.Events")}
+      </div>
+      <div className={`contactUs ${className}`}>
+        {t("header.ContactMe")}
+      </div>
     </>
   );
 }

@@ -21,7 +21,7 @@ const ClientPanel = ()=>{
           <div className="w-full h-[8%] rounded-[0.6vw] bg-white ">
             <TopBar />
           </div>
-          <div className="w-full h-[100%] rounded-[0.6vw] bg-transparent overflow-hidden ">
+          <div className="w-full h-[91%] rounded-[0.6vw] bg-transparent overflow-hidden">
             <Outlet />
             {/* <LeftBar/> */}
           </div>
