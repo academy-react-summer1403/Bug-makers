@@ -211,7 +211,21 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden">
             {convertToJalali(course.lastUpdate)}
           </div>
-          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden">
+          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden flex items-center">
+            <div
+              className={`w-[5%] h-[30%] bg-red-500 rounded-full ml-[5%] ${
+                point == "myCourse" && course.paymentStatus == "پرداخت نشده"
+                  ? "block"
+                  : "hidden"
+              }`}
+            ></div>
+            <div
+              className={`w-[5%] h-[30%] bg-green-500 rounded-full ml-[5%] ${
+                point == "myCourse" && course.paymentStatus == "پرداخت شده"
+                  ? "block"
+                  : "hidden"
+              }`}
+            ></div>
             {point == "myCourse"
               ? course.paymentStatus
               : `${course.cost} تومان`}

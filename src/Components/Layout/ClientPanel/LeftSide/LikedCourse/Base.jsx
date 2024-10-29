@@ -21,6 +21,7 @@ import { delBlogFav, delCourseFav, delCourseServ } from "../../../../../Core/Ser
 import { getBlogDetail } from "../../../../../Core/Services/Api/BlogDetail/BlogDetail";
 import BlogIthem from "../LikedBlog/CorseItem/BlogIthem";
 import DeleteModal from "../../common/DeleteModal";
+import toast from "react-hot-toast";
 
 
 
@@ -80,18 +81,19 @@ const DeleteIthem =async (id)=>{
   if (location == "BlogFav") {
       const res = await delBlogFav(id);
       GetLikedNews();
+      toast.success("خبر مورد نظر با موفقیت حذف شد");
   }
   if (location == "CourseFav") {
-    
       const res = await delCourseFav(id);
-     
       GetLikedCourse();
-    
+      toast.success("دوره مورد نظر با موفقیت حذف شد");
   }
   if (location == "CourseServ") {
     GetCourseServ();
     const res = await delCourseServ(id);
       GetCourseServ();
+      toast.success("دوره مورد نظر با موفقیت حذف شد");
+
   }
     setIsDeleteFalse()
 }
@@ -184,21 +186,22 @@ const fetchMoreDetail=(id)=>{
                    : null}
                </div>
                <div
-                 className={`max-md:w-[30%] max-md:text-[14px] w-[12%] h-full py-[1%] px-[1%] text-center whitespace-nowrap ${
+                 className={`max-md:w-[30%]  max-md:text-[14px] w-[12%]  py-[1%] px-[1%] text-center whitespace-nowrap ${
                    location == "BlogFav" ? "hidden" : "block"
-                 } ${
+                 }
+                  ${
                    course.accept == null
                      ? null
                      : course.accept == false
-                     ? "text-red-600"
-                     : "text-green-500"
+                     ? "text-red-600 bg-red-200 w-[7%] mx-[2.5%] rounded-full h-[70%] leading-[50%]"
+                     : "text-green-600 bg-green-200 w-[7%] mx-[2.5%] rounded-full h-[70%] leading-[50%]"
                  }`}
                >
                  {course.levelName ? course.levelName : null}
                  {course.accept == null
                    ? null
                    : course.accept == false
-                   ? "در انتظار تایید"
+                   ? "تایید نشده"
                    : "تایید شده"}
                </div>
                <div

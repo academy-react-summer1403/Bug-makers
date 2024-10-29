@@ -51,13 +51,13 @@ const DeleteModal = ({ onCancel, onDelete ,id}) => {
       <div className="flex justify-between w-full">
         <button
           onClick={onCancel}
-          className="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg mr-2 hover:bg-gray-300"
+          className="w-[40%] bg-gray-200 text-gray-800 py-2 px-4 rounded-lg mr-2 hover:bg-gray-300"
         >
           انصراف
         </button>
         <button
           onClick={()=>{onDelete(id)}}
-          className="flex-1 bg-red-500 text-white py-2 px-4 rounded-lg ml-2 hover:bg-red-600"
+          className="w-[40%] bg-red-500 text-white py-2 px-4 rounded-lg ml-2 hover:bg-red-600"
         >
           حذف دوره
         </button>
