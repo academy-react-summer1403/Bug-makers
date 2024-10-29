@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getItem } from '../../../Core/Services/common/storage.services';
 import LanguageSelector from '../../language-selector'
 import { useTranslation } from 'react-i18next';
-
+import SearchModal from '../../Common/searchModal/searchModal';
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
@@ -75,9 +75,8 @@ const navigate = useNavigate()
         />
       </div>
       <LanguageSelector />
-      <div className='cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[80px] max-[465px]:left-[40px] max-[394px]:w-7 max-[394px]:h-7 /* end responsive */ search border rounded-[15px] w-[45px] h-[30px] absolute left-[142px] bg-custom-gradient-Header shadow-custom-shadow'>
-        <CiSearch className='max-[710px]:w-4 max-[710px]:h-4 /*end responsive*/ m-auto w-5 h-5 mt-1 searchIcon' />
-      </div>
+
+      <SearchModal />
       
       <div className='cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[30px] max-[465px]:left-[8px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[80px] bg-custom-gradient-Header shadow-custom-shadow'>
         {getItem ? (

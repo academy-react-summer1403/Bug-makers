@@ -21,6 +21,7 @@ import { delBlogFav, delCourseFav, delCourseServ } from "../../../../../Core/Ser
 import { getBlogDetail } from "../../../../../Core/Services/Api/BlogDetail/BlogDetail";
 import BlogIthem from "../LikedBlog/CorseItem/BlogIthem";
 import DeleteModal from "../../common/DeleteModal";
+import { setFavoriteList } from "../../../../../Redux/Slice/Course/favoritee";
 
 
 
@@ -47,13 +48,15 @@ const setIsDeleteFalse=()=>{
   const dispatch = useDispatch();
 
   // getCourseListFromRedux
-  const CourseListItem = useSelector((state) => state.CourseSlice.CourseList);
+  const CourseListItem = useSelector((state) => state.favorite.favoriteList);
 
   // fetchCoursesWithFilters
   const GetLikedCourse = async ()=>{
     const data = await getLikedCourse();
     setResponse(data.favoriteCourseDto);
   }
+  dispatch(setFavoriteList(response))
+
   const GetLikedNews = async () => {
     const data = await getLikedNews();
     setResponse(data.myFavoriteNews);

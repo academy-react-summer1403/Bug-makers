@@ -33,6 +33,7 @@ import LandingPage from './Pages/Landing Page/LandingPage.jsx'
 import NotFoundPage from './Pages/NotFound/NotFoundPage.jsx'
 import TwoStepLogin from './Components/Layout/LoginPages/twoStep/twoStep.jsx'
 import './i18n.js';
+import ContactUs from './Pages/ContactWe/ContactWe.jsx'
 const queryClient = new QueryClient();
 
 
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
         path: "/CoursePage",
         element: <CoursePage />,
       },
+      {
+        path: "/ContactUs",
+        element: <ContactUs />,
+      },
+      
       {
         path: "/ClientPanel",
         element: <ClientPanel />,

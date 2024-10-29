@@ -35,6 +35,7 @@ module.exports = {
         'custom3': '570px' ,
         'custom4': '700px' ,
         'custom5': '1352px' ,
+        'custom6': '1181px' ,
 
       },
     },

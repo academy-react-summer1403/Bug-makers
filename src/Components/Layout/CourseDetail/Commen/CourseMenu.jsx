@@ -9,8 +9,8 @@ const CourseMenu = ({handelPage}) => {
   };
 
   return (
-    <div className=" max-[850px]:text-[2vw] max-[850px]:gap-x-[7vw] max-[750px]:text-[2.4vw] max-[750px]:gap-x-[6vw] max-custom4:flex-col max-custom4:h-auto max-custom4:gap-[2vw] max-custom3:text-[3vw]   whitespace-nowrap /* end responsive  */ w-full h-[3vw] rounded-[0.52vw] shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)] flex justify-center gap-x-[11vw] items-center text-[#9F9F9F] text-[1.09vw]">
-      {["توضیحات", "سرفصل ها", "ارسال تسک", "نظرات کاربران", "حسابداری"].map(
+    <div className="bg-white   whitespace-nowrap /* end responsive  */ pt-2 w-full h-16 rounded-[0.52vw] shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)] flex  gap-5 items-center text-[#9F9F9F]  text-[1.09vw]">
+      {["توضیحات", , "دیدگاه ها"].map(
         (item, index) => (
           <div
             key={index}
@@ -18,9 +18,9 @@ const CourseMenu = ({handelPage}) => {
               handleClick(index);
               handelPage(index);
             }}
-            className={` cursor-pointer duration-200 mb-[1vw]  px-[0.5vw] ${
+            className={` h-[90%] max-custom4:w-[50%] academyH1  leading-10 cursor-pointer mt-5 duration-200 mb-[1vw]  pr-5 ${
               selected === index
-                ? "max-custom4:bg-white max-custom4:w-full max-custom4:rounded-lg border-b-[0.2vw] pb-[1vw] border-blue-500"
+                ? "max-custom4:bg-white  max-custom4:m-0  border-b-[0.2vw] pr-5  border-blue-500"
                 : ""
             }`}
           >

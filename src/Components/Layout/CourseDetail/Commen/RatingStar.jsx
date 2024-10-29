@@ -26,7 +26,7 @@ const RatingStar = (id) => {
   
 
   return (
-    <div className="max-[650px]:scale-125 max-[480px]:scale-[200%] max-[480px]:left-[2vw] w-[20%] flex flex-row-reverse relative top-[-0.5vw] justify-between bg-white " style={{ gap: "0.5vw", background: "transparent" }}>
+    <div className="max-[650px]:scale-125 max-[480px]:scale-[200%] max-[480px]:left-[2vw] w-[20%] flex flex-row-reverse relative top-[-8px] justify-between bg-white " style={{ gap: "0.5vw", background: "transparent" }}>
       {[...Array(5)].map((star, index) => {
         index += 1;
         return (

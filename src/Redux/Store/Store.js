@@ -5,7 +5,7 @@ import BlogSliceReducer from '../Slice/Blog/BlogList'
 import ClientInfoSliceReducer from '../Slice/ClientInfo/ClientInfo'
 import LoginTokenSliceReducer from "../Slice/Login/Login";
 import towStepSliceReducer from '../Slice/Login/TowStep'
-
+import favoriteeSliceReducer from '../Slice/Course/favoritee'
 export const Store = configureStore({
   reducer: {
     themeColor: ThemeColorReducer,
@@ -14,5 +14,6 @@ export const Store = configureStore({
     ClientInfoSlice: ClientInfoSliceReducer,
     LoginToken : LoginTokenSliceReducer,
     ToStep: towStepSliceReducer ,
+    favorite:favoriteeSliceReducer,
   },
 });
