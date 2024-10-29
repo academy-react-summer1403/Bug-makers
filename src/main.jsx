@@ -33,6 +33,7 @@ import LandingPage from './Pages/Landing Page/LandingPage.jsx'
 import NotFoundPage from './Pages/NotFound/NotFoundPage.jsx'
 import TwoStepLogin from './Components/Layout/LoginPages/twoStep/twoStep.jsx'
 import './i18n.js';
+import Payment from './Components/Layout/ClientPanel/LeftSide/Payment/Payment.jsx'
 const queryClient = new QueryClient();
 
 
@@ -77,6 +78,11 @@ const router = createBrowserRouter([
           {
             path: "LikedBlog",
             element: <LikedBlog />,
+            errorElement: <Error />,
+          },
+          {
+            path: "Payment",
+            element: <Payment />,
             errorElement: <Error />,
           },
           {

@@ -524,7 +524,10 @@ useEffect(() => {
       <div className="flex flex-col w-full h-[10%] my-[2%] ">
         <Button
           radius="full"
-          onClick={() => setActiveIndex(6)}
+          
+          onClick={() => {setActiveIndex(6)
+            navigator(`${"Payment"}`)
+          }}
           className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[85%]  hover:border-[#E1C461]${
             activeIndex === 6
               ? "bg-[#E1C461] text-white"

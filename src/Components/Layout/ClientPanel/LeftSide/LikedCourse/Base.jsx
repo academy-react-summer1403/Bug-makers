@@ -133,7 +133,7 @@ const fetchMoreDetail=(id)=>{
            return response.map((course, index) => (
              <div
                key={index}
-               className="w-full h-[3vw] max-md:justify-between max-md:border-b-1 max-md:h-[30px] rounded-[0.4vw] flex items-center text-[0.9vw] text-[#272727] hover:bg-gray-100"
+               className="w-full h-[3vw] max-md:justify-between max-md:border-b-1 max-md:h-[40px] rounded-[0.4vw] flex items-center text-[0.9vw] text-[#272727] hover:bg-gray-100"
              >
                <div
                  className={`w-[8%] max-md:hidden justify-center h-full rounded-[0.5vw] overflow-hidden   ${
@@ -193,8 +193,8 @@ const fetchMoreDetail=(id)=>{
                    course.accept == null
                      ? null
                      : course.accept == false
-                     ? "text-red-600 bg-red-200 w-[7%] mx-[2.5%] rounded-full h-[70%] leading-[50%]"
-                     : "text-green-600 bg-green-200 w-[7%] mx-[2.5%] rounded-full h-[70%] leading-[50%]"
+                     ? "text-red-600 bg-red-200 w-[7%] mx-[2.5%] rounded-full h-[70%] leading-[50%] max-md:leading-[120%]"
+                     : "text-green-600 bg-green-200 w-[7%] mx-[2.5%] rounded-full h-[70%] leading-[50%] max-md:leading-[120%]"
                  }`}
                >
                  {course.levelName ? course.levelName : null}
