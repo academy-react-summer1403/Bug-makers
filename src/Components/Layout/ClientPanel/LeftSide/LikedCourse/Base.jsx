@@ -96,6 +96,10 @@ const DeleteIthem =async (id)=>{
     setIsDeleteFalse()
 }
   
+const fetchMoreDetail=(id)=>{
+  const res = getCourseDetail(id)
+  setResponse(res)
+}
 
 
 
@@ -123,167 +127,167 @@ const DeleteIthem =async (id)=>{
       if(response.length==0){return(
           <div className="w-full mt-[2vw] text-gray-700 font-[500] text-[1.5vw] max-md:text-[16px]" >لیست{" "}{ name }{" "}خالی است</div>
          )}
-
-       return response.map((course, index) => (
-         <div
-           key={index}
-           className="w-full h-[3vw] max-md:justify-between max-md:border-b-1 max-md:h-[30px] rounded-[0.4vw] flex items-center text-[0.9vw] text-[#272727] hover:bg-gray-100"
-         >
-           <div
-             className={`w-[8%] max-md:hidden justify-center h-full rounded-[0.5vw] overflow-hidden   ${
-               location == "BlogFav" ? "flex" : "hidden"
-             }`}
-           >
-             <img
-               className=" h-full rounded-[0.5vw]"
-               src={course.currentImageAddressTumb}
-               alt=""
-             />
-           </div>
-           <div className="w-[16%] h-full  py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[30%] max-md:text-[14px]">
-             {course.courseTitle ? course.courseTitle : null}
-             {course.title ? course.title : null}
-             {course.courseName ? course.courseName : null}
-           </div>
-           <div
-             className={`max-md:hidden w-[32%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+         
+           return response.map((course, index) => (
+             <div
+               key={index}
+               className="w-full h-[3vw] max-md:justify-between max-md:border-b-1 max-md:h-[30px] rounded-[0.4vw] flex items-center text-[0.9vw] text-[#272727] hover:bg-gray-100"
+             >
+               <div
+                 className={`w-[8%] max-md:hidden justify-center h-full rounded-[0.5vw] overflow-hidden   ${
+                   location == "BlogFav" ? "flex" : "hidden"
+                 }`}
+               >
+                 <img
+                   className=" h-full rounded-[0.5vw]"
+                   src={course.currentImageAddressTumb}
+                   alt=""
+                 />
+               </div>
+               <div className="w-[16%] h-full  py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[30%] max-md:text-[14px]">
+                 {course.courseTitle ? course.courseTitle : null}
+                 {course.title ? course.title : null}
+                 {course.courseName ? course.courseName : null}
+               </div>
+               <div
+                 className={`max-md:hidden w-[32%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
               ${location == "BlogFav" ? "hidden" : "block"}`}
-           >
-             <Tooltip
-               className="text-gray-700 w-[10vw] leading-[1.5vw]"
-               content={`${course.describe}`}
-             >
-               <span>{course.describe}</span>
-             </Tooltip>
-           </div>
-           <div
-             className={`max-md:hidden w-[50%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+               >
+                 <Tooltip
+                   className="text-gray-700 w-[10vw] leading-[1.5vw]"
+                   content={`${course.describe}`}
+                 >
+                   <span>{course.describe}</span>
+                 </Tooltip>
+               </div>
+               <div
+                 className={`max-md:hidden w-[50%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
               ${location == "BlogFav" ? "block" : "hidden"}`}
-           ></div>
-           <div
-             className={`w-[16%] h-full max-md:w-[30%] max-md:text-[14px] py-[1%] px-[1%]  text-right whitespace-nowrap ${
-               location == "BlogFav" ? "hidden" : "block  "
-             }`}
-           >
-             <Tooltip
-               className="text-gray-700"
-               content={`استاد: ${course.teacheName}`}
-             >
-               {course.teacheName}
-             </Tooltip>
-           </div>
-           <div className="w-[16%] max-md:hidden h-full py-[1%] px-[1%] text-center whitespace-nowrap">
-             {course.lastUpdate ? convertToJalali(course.lastUpdate) : null}
-             {course.updateDate ? convertToJalali(course.updateDate) : null}
-             {course.reserverDate ? convertToJalali(course.reserverDate) : null}
-           </div>
-           <div
-             className={`max-md:w-[30%] max-md:text-[14px] w-[12%] h-full py-[1%] px-[1%] text-center whitespace-nowrap ${
-               location == "BlogFav" ? "hidden" : "block"
-             } ${
-               course.accept == null
-                 ? null
-                 : course.accept == false
-                 ? "text-red-600"
-                 : "text-green-500"
-             }`}
-           >
-             {course.levelName ? course.levelName : null}
-             {course.accept == null
-               ? null
-               : course.accept == false
-               ? "در انتظار تایید"
-               : "تایید شده"}
-           </div>
-           <div
-             className={`w-[4%] max-md:ml-[10px] h-full items-center ${
-               true ? "flex" : "hidden"
-             }
-             ${location == "BlogFav" ? 'max-md:mr-[60%]':null}
-             `}
-           >
-             {" "}
-             <Tooltip
-               className="text-gray-700 w-[7vw] leading-[1.5vw]"
-               content={"نمایش جزییات"}
-             >
-               <svg
-                 onClick={() => {
-                   {
-                     location == "BlogFav"
-                       ? GetNewsId(course.newsId)
-                       : GetId(course.courseId);
-                   }
-
-                   {
-                     location == "BlogFav"
-                       ? setDetailId(course.newsId)
-                       : setDetailId(course.courseId);
-                   }
-                   setTimeout(() => {
-                     setDetailCourse(true);
-                   }, 2000);
-
-                   console.log(detailCourse);
-                 }}
-                 className="cursor-pointer"
-                 width=""
-                 height="50%"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 xmlns="http://www.w3.org/2000/svg"
+               ></div>
+               <div
+                 className={`w-[16%] h-full max-md:w-[30%] max-md:text-[14px] py-[1%] px-[1%]  text-right whitespace-nowrap ${
+                   location == "BlogFav" ? "hidden" : "block  "
+                 }`}
                >
-                 <path
-                   d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
-                   stroke="#787878"
-                   stroke-width="1.5"
-                 />
-                 <path
-                   d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
-                   stroke="#787878"
-                   stroke-width="1.5"
-                 />
-               </svg>
-             </Tooltip>
-           </div>
-           <div className="w-[4%] h-full flex items-center justify-center cursor-pointer">
-             <Tooltip
-               className="text-gray-700 w-[7vw] leading-[1.5vw]"
-               content={"حذف از لیست"}
-             >
-               <svg
-                 onClick={() => {
-                  setIsDelete(true)
-                   if (location == "BlogFav") {
-                    setDeleteId(course.favoriteId)
-                   }
-                   if (location == "CourseFav") {
-                    setDeleteId(course.favoriteId)
-                   }
-                   if (location == "CourseServ") {
-                    setDeleteId(course.reserveId)
-                   }
-                   
+                 <Tooltip
+                   className="text-gray-700"
+                   content={`استاد: ${course.teacheName}`}
+                 >
+                   {course.teacheName}
+                 </Tooltip>
+               </div>
+               <div className="w-[16%] max-md:hidden h-full py-[1%] px-[1%] text-center whitespace-nowrap">
+                 {course.lastUpdate ? convertToJalali(course.lastUpdate) : null}
+                 {course.updateDate ? convertToJalali(course.updateDate) : null}
+                 {course.reserverDate
+                   ? convertToJalali(course.reserverDate)
+                   : null}
+               </div>
+               <div
+                 className={`max-md:w-[30%] max-md:text-[14px] w-[12%] h-full py-[1%] px-[1%] text-center whitespace-nowrap ${
+                   location == "BlogFav" ? "hidden" : "block"
+                 } ${
+                   course.accept == null
+                     ? null
+                     : course.accept == false
+                     ? "text-red-600"
+                     : "text-green-500"
+                 }`}
+               >
+                 {course.levelName ? course.levelName : null}
+                 {course.accept == null
+                   ? null
+                   : course.accept == false
+                   ? "در انتظار تایید"
+                   : "تایید شده"}
+               </div>
+               <div
+                 className={`w-[4%] max-md:ml-[10px] h-full items-center ${
+                   true ? "flex" : "hidden"
                  }
-                }
-                 width=""
-                 height="50%"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 xmlns="http://www.w3.org/2000/svg"
+             ${location == "BlogFav" ? "max-md:mr-[60%]" : null}
+             `}
                >
-                 <path
-                   d="M19.001 5L5.00098 19M5.00098 5L19.001 19"
-                   stroke="#FF4242"
-                   stroke-width="1.5"
-                   stroke-linecap="round"
-                   stroke-linejoin="round"
-                 />
-               </svg>
-             </Tooltip>
-           </div>
-         </div>
-       ));
+                 {" "}
+                 <Tooltip
+                   className="text-gray-700 w-[7vw] leading-[1.5vw]"
+                   content={"نمایش جزییات"}
+                 >
+                   <svg
+                     onClick={() => {
+                       {
+                         location == "BlogFav"
+                           ? GetNewsId(course.newsId)
+                           : GetId(course.courseId);
+                       }
+
+                       {
+                         location == "BlogFav"
+                           ? setDetailId(course.newsId)
+                           : setDetailId(course.courseId);
+                       }
+                       setTimeout(() => {
+                         setDetailCourse(true);
+                       }, 2000);
+
+                       console.log(detailCourse);
+                     }}
+                     className="cursor-pointer"
+                     width=""
+                     height="50%"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                   >
+                     <path
+                       d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
+                       stroke="#787878"
+                       stroke-width="1.5"
+                     />
+                     <path
+                       d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
+                       stroke="#787878"
+                       stroke-width="1.5"
+                     />
+                   </svg>
+                 </Tooltip>
+               </div>
+               <div className="w-[4%] h-full flex items-center justify-center cursor-pointer">
+                 <Tooltip
+                   className="text-gray-700 w-[7vw] leading-[1.5vw]"
+                   content={"حذف از لیست"}
+                 >
+                   <svg
+                     onClick={() => {
+                       setIsDelete(true);
+                       if (location == "BlogFav") {
+                         setDeleteId(course.favoriteId);
+                       }
+                       if (location == "CourseFav") {
+                         setDeleteId(course.favoriteId);
+                       }
+                       if (location == "CourseServ") {
+                         setDeleteId(course.reserveId);
+                       }
+                     }}
+                     width=""
+                     height="50%"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                   >
+                     <path
+                       d="M19.001 5L5.00098 19M5.00098 5L19.001 19"
+                       stroke="#FF4242"
+                       stroke-width="1.5"
+                       stroke-linecap="round"
+                       stroke-linejoin="round"
+                     />
+                   </svg>
+                 </Tooltip>
+               </div>
+             </div>
+           ));
 
 
    
