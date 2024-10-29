@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { svgThemeBlue } from '../SvgPath/SvgPath';
 import { svgThemeGreen } from '../SvgPath/SvgPath';
 import { svgThemeYellow } from '../SvgPath/SvgPath';
+import { useTranslation } from 'react-i18next';
 
 const ScrollSvg = () => {
 
@@ -38,10 +39,11 @@ const ScrollSvg = () => {
       };
     }, []);
 
-
+    const {i18n} = useTranslation();
+    const direction = i18n.dir()
 
   return (
-    <div className='w-[100%] max-[800px]:hidden overflow-hidden absolute top-0 z-0  '>
+    <div className={`w-[100%] max-[800px]:hidden overflow-hidden absolute top-0 z-0 ${direction === 'ltr' ? 'hidden' : 'block'}  `}>
     <svg  width="100%" height="100%" viewBox="0 0 1120 6941" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path ref={pathRef} d={`
           ${selectedButton === 0 ? svgThemeBlue : ''} 
