@@ -18,8 +18,15 @@ import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
 import { getMyCourseListWithPagination } from "../../../../../../Core/Services/Api/Client/clientLiked";
 
 
-const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
-  const [myCourseList,setMyCourseList]=useState([])
+const CoursePage = ({
+  payment,
+  show,
+  itemPerpage,
+  setShowMoreCourse,
+  name,
+  point,
+}) => {
+  const [myCourseList, setMyCourseList] = useState([]);
   // stateForCategoryFilter
   const [categoryQuery, setCategoryQuery] = useState("");
 
@@ -89,23 +96,16 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
       keepPreviousData: true,
     }
   );
-    const { IsLoading, Error, Data } = useQuery(
-      [
-        "getCourse",
-        queryValue,
-      ],
-      () =>
-        getMyCourseListWithPagination(
-          queryValue
-        ),
-      {
-        onSuccess: (Data) => {
-          dispatch(setMyCourseList(Data.courseFilterDtos || Data));
-        },
-        keepPreviousData: true,
-      }
-    );
-
+  const { IsLoading, Error, Data } = useQuery(
+    ["getCourse", queryValue],
+    () => getMyCourseListWithPagination(queryValue),
+    {
+      onSuccess: (Data) => {
+        dispatch(setMyCourseList(Data.courseFilterDtos || Data));
+      },
+      keepPreviousData: true,
+    }
+  );
 
   // handleSearchQueryChange
   const handleSearch = (e) => {
@@ -167,19 +167,22 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
     if (IsLoading) return <p>در حال بارگذاری...</p>;
     if (Error) return <p>خطایی رخ داده است...</p>;
 
-    
     if (myCourseList.totalCount == 0 && point == "myCourse")
       return <p>دوره ای وجود ندارد</p>;
-    
-    let ithem = []
-    
+
+    let ithem = [];
+
     point == "myCourse" && myCourseList.totalCount != 0
       ? (ithem = myCourseList.listOfMyCourses)
       : (ithem = []);
-    if(point=="dashbord") { ithem = CourseListItem}
-    if(!ithem){ithem = CourseListItem;}
+    if (point == "dashbord") {
+      ithem = CourseListItem;
+    }
+    if (!ithem) {
+      ithem = CourseListItem;
+    }
     console.log(ithem);
-    
+
     return ithem
       .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
       .map((course, index) => (
@@ -211,7 +214,21 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden">
             {convertToJalali(course.lastUpdate)}
           </div>
-          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden">
+          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden flex items-center">
+            <div
+              className={`w-[5%] h-[30%] bg-red-500 rounded-full ml-[5%] ${
+                point == "myCourse" && course.paymentStatus == "پرداخت نشده"
+                  ? "block"
+                  : "hidden"
+              }`}
+            ></div>
+            <div
+              className={`w-[5%] h-[30%] bg-green-500 rounded-full ml-[5%] ${
+                point == "myCourse" && course.paymentStatus == "پرداخت شده"
+                  ? "block"
+                  : "hidden"
+              }`}
+            ></div>
             {point == "myCourse"
               ? course.paymentStatus
               : `${course.cost} تومان`}
@@ -244,6 +261,95 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
                 stroke-width="1.5"
               />
             </svg>
+          </div>
+          <div
+            className={`w-[4%] h-full items-center ${
+              payment == true &&
+              point == "myCourse" &&
+              course.paymentStatus == "پرداخت نشده"
+                ? "flex"
+                : "hidden"
+            }`}
+          >
+            <Tooltip content="پرداخت">
+              <svg
+                width=""
+                height="50%"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 19C10.6675 19.6224 8.91707 20 7 20C5.93408 20 4.91969 19.8833 4 19.6726C3.4088 19.5372 3.11319 19.4695 2.75898 19.1892C2.55696 19.0294 2.30483 18.7129 2.19412 18.4803C2 18.0725 2 17.677 2 16.886V6.11397C2 5.12914 3.04003 4.45273 4 4.6726C4.91969 4.88325 5.93408 5 7 5C8.91707 5 10.6675 4.62236 12 4C13.3325 3.37764 15.0829 3 17 3C18.0659 3 19.0803 3.11675 20 3.3274C20.5912 3.46281 20.8868 3.53051 21.241 3.81079C21.443 3.97064 21.6952 4.28705 21.8059 4.51966C22 4.92751 22 5.32299 22 6.11397V11.5"
+                  stroke="#787878"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M18.5 21V14M15 17.5H22"
+                  stroke="#787878"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M14.5 11.5C14.5 12.8807 13.3807 14 12 14C10.6193 14 9.5 12.8807 9.5 11.5C9.5 10.1193 10.6193 9 12 9C13.3807 9 14.5 10.1193 14.5 11.5Z"
+                  stroke="#787878"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M5.5 12.5V12.509"
+                  stroke="#787878"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </Tooltip>
+          </div>
+          <div
+            className={`w-[4%] h-full items-center ${
+              payment == true &&
+              point == "myCourse" &&
+              course.paymentStatus == "پرداخت شده"
+                ? "flex"
+                : "hidden"
+            }`}
+          >
+            <Tooltip content="دانلود فاکتور">
+              <svg
+                width=""
+                height="50%"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20.5 16.9286V10C20.5 6.22876 20.5 4.34315 19.3284 3.17157C18.1569 2 16.2712 2 12.5 2H11.5C7.72876 2 5.84315 2 4.67157 3.17157C3.5 4.34315 3.5 6.22876 3.5 10V19.5"
+                  stroke="#787878"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M20.5 17H6C4.61929 17 3.5 18.1193 3.5 19.5C3.5 20.8807 4.61929 22 6 22H20.5"
+                  stroke="#787878"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M9 10.3265L10.409 11.8131C11.159 12.6044 11.534 13 12 13C12.466 13 12.841 12.6044 13.591 11.8131L15 10.3265M12 12.9128V6"
+                  stroke="#787878"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M20.5 17C19.1193 17 18 18.1193 18 19.5C18 20.8807 19.1193 22 20.5 22"
+                  stroke="#787878"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </Tooltip>
           </div>
         </div>
       ));
