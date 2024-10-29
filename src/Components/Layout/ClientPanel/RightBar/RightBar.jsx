@@ -483,7 +483,8 @@ useEffect(() => {
   return (
     <div className="w-full h-full bg-white shadow-lg flex flex-col items-start rounded-[0.83vw]  p-[1.2vw] max-md:flex-row">
       {/* Header */}
-      <div className="h-[10%] mb-8 w-full flex items-center max-md:hidden">
+      <div className="h-[10%] mb-8 w-full flex items-center max-md:hidden"
+      onClick={()=>{navigator("/")}} >
         <img
           className="h-[80%]"
           src="../../../../../public/images/Logo/logo.png"
