@@ -28,8 +28,8 @@ const PersonalInfo = () => {
   }
 
   return (
-    <div className="flex justify-center overflow-hidden h-full">
-      <div className="bg-white p-6 rounded-lg shadow-lg flex space-x-6 w-full h-full">
+    <div className="flex justify-center overflow-hidden w-[100%] h-full max-md:overflow-auto">
+      <div className="bg-white p-6 rounded-lg shadow-lg flex space-x-6 w-full h-full max-md:flex-col-reverse ">
         {/* فرم اطلاعات حساب */}
         <Formik
           initialValues={{
@@ -42,7 +42,6 @@ const PersonalInfo = () => {
             gender: "",
             email: "",
             address: "",
-
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
@@ -54,10 +53,10 @@ const PersonalInfo = () => {
           {({ handleSubmit }) => (
             <Form
               onSubmit={handleSubmit}
-              className="overflow-auto w-[65%] pl-[4vw] grid grid-cols-2 gap-4"
+              className="overflow-auto w-[65%] pl-[4vw] grid grid-cols-2 gap-4 max-lg:w-[90%] max-md:w-[100%] max-md:grid-cols-1 max-md:pb-[100px]"
             >
               {/* فیلدهای فرم */}
-              <div>
+              <div className="max-md:col-span-2">
                 <label className="block mb-[0.5vw] mr-[0.3vw]">نام</label>
                 <Field name="firstName">
                   {({ field }) => (
@@ -72,6 +71,7 @@ const PersonalInfo = () => {
               </div>
 
               <div
+                className="max-md:col-span-2"
                 onChange={() => {
                   setStep(10);
                 }}
@@ -111,7 +111,7 @@ const PersonalInfo = () => {
                 </Field>
               </div>
 
-              <div>
+              <div className="max-md:col-span-2">
                 <label className="block mb-[0.5vw] mr-[0.3vw]">کد ملی</label>
                 <Field name="nationalCode">
                   {({ field }) => (
@@ -126,6 +126,7 @@ const PersonalInfo = () => {
               </div>
 
               <div
+                className="max-md:col-span-2"
                 onChange={() => {
                   setStep(30);
                 }}
@@ -136,8 +137,8 @@ const PersonalInfo = () => {
                 <Field name="phone">
                   {({ field }) => (
                     <Input
-                    {...field}
-                    placeholder="شماره همراه خود را وارد کنید"
+                      {...field}
+                      placeholder="شماره همراه خود را وارد کنید"
                     />
                   )}
                 </Field>
@@ -179,7 +180,7 @@ const PersonalInfo = () => {
                 </label>
               </div>
 
-              <div>
+              <div className="max-md:col-span-2">
                 <label className="block mb-[0.5vw] mr-[0.3vw]">ایمیل</label>
                 <Field name="email">
                   {({ field }) => (
@@ -227,8 +228,8 @@ const PersonalInfo = () => {
           )}
         </Formik>
         {/* وضعیت حساب */}
-        <div className="flex items-start justify-end w-1/2">
-          <div className="w-[40%] mt-[4vw] ml-[4vw]">
+        <div className="flex items-start justify-end w-1/2 max-md:w-full max-md:justify-center max-md:hidden">
+          <div className="w-[50%] mt-[4vw] ml-[4vw] max-md:w-[70%] max-md:m-0 max-md:mb-[20px]">
             <Gauge value={step} />
           </div>
         </div>

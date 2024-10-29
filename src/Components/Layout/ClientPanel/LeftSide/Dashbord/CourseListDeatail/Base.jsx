@@ -6,7 +6,7 @@ import { getCourseListWithPagination } from "../../../../../../Core/Services/Api
 import TextLanding from "../../../../../Common/TextInLanding/TextLanding";
 import Pagination from "../../../../../Common/Paginate/Paginate";
 import moment from "jalali-moment";
-import PriceFilter from "../../../../../ComponentOnce/PriceFilter/PriceFilter";
+import PriceFilter from "./PriceFilter/PriceFilter";
 import SearchBox from "./SearchBox/SearchBox";
 import SelectOpt from "./Select/SelectOpt";
 import DateModal from "./Date/Date";
@@ -185,19 +185,22 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
       .map((course, index) => (
         <div
           key={index}
-          className="w-full h-[3vw] rounded-[0.4vw] flex items-center  text-[#272727] hover:bg-gray-100"
+          className="w-full h-[3vw] max-md:border-b-1 max-md:h-[40px] rounded-[0.4vw] flex items-center text-[1vw]  text-[#272727] hover:bg-gray-100"
         >
-          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[50%] max-md:text-[14px]">
             {point == "myCourse" ? course.courseTitle : course.title}
           </div>
-          <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...">
-            <Tooltip className="text-gray-700" content={`${course.describe}`}>
+          <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden overflow-hidden text-ellipsis ...">
+            <Tooltip
+              className="text-gray-700  text-[0.8vw]"
+              content={`${course.describe}`}
+            >
               <span>{course.describe}</span>
             </Tooltip>
           </div>
-          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+          <div className="w-[16%] h-full py-3 px-6 text-right max-md:w-[40%] max-md:text-[14px] whitespace-nowrap">
             <Tooltip
-              className="text-gray-700"
+              className="text-gray-700 text-[0.8vw]"
               content={`استاد: ${
                 point == "myCourse" ? course.fullName : course.teacherName
               }`}
@@ -205,10 +208,10 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
               {point == "myCourse" ? course.fullName : course.teacherName}
             </Tooltip>
           </div>
-          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden">
             {convertToJalali(course.lastUpdate)}
           </div>
-          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap">
+          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden">
             {point == "myCourse"
               ? course.paymentStatus
               : `${course.cost} تومان`}
@@ -224,8 +227,8 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
                 setDetailCourse(true);
               }}
               className="cursor-pointer"
-              width="24"
-              height="24"
+              width=""
+              height="50%"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -298,14 +301,14 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
   };
 
   return (
-    <div className="relative m-auto w-[76vw] bg-transparent text-center ">
+    <div className="relative m-auto w-[76vw] bg-transparent text-center h-full max-md:w-full">
       <div
-        className={`absolute z-[1000]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%] ${
+        className={`absolute z-[20]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%]  ${
           detailCourse == true ? "block" : "hidden"
         }`}
       >
         <div
-          className={`absolute h-[38.4vw] w-[20vw] top-[2vw] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
+          className={`sticky h-[38.4vw] max-md:w-[75%] max-md:h-[480px] max-md:absolute w-[20vw] top-[2vw] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
             detailCourse == true ? "block" : "hidden"
           }`}
         >
@@ -314,22 +317,25 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
       </div>
 
       <div
-        className={`justify-between pb-[0.2vw] px-[1vw] items-start ${
+        className={`justify-between pb-[0.2vw] px-[1vw] items-start  ${
           show == true ? "flex" : "hidden"
         }`}
       >
-        <span className="text-[1.5vw] font-[600]"> {name} </span>
+        <span className="text-[1.5vw] max-md:text-[20px] font-[600]">
+          {" "}
+          {name}{" "}
+        </span>
         <div
           onClick={() => {
             setShowMoreCourse(false);
           }}
-          className={`rounded-full border border-red-500 h-[2.2vw] w-[5vw] text-red-500  items-center justify-evenly cursor-pointer ${
+          className={`rounded-full border border-red-500 h-[2.2vw] max-md:h-[30px] max-md:w-[20%]  max-md:text-[14px] text-[0.9vw] w-[5vw] text-red-500  items-center justify-evenly cursor-pointer ${
             point == "myCourse" ? "hidden" : "flex"
           }`}
         >
           <svg
-            width="24"
-            height="24"
+            width=""
+            height="70%"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -348,13 +354,13 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
       <div className="w-[100%] selection: mt-[0vw] ">
         {/* searchAndFilterSection */}
         <div
-          className={`h-[60px]  relative flex-row flex-wrap justify-center items-center gap-x-3 bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
-            ${show == true ? "flex" : "hidden"}`}
+          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-center items-center gap-x-3 max-md:gap-y-[20px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+            ${show == true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
         >
           <SearchBox
             width={"20%"}
             lgWidth={"160px"}
-            placeHolder="دنبال چی میگردی"
+            placeHolder="جست جو کنید ..."
             value={`${filterValue ? "" : queryValue}`}
             onChange={handleSearch}
           />
@@ -393,16 +399,18 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
 
         {/* for dashbord........  */}
         <div
-          className={` justify-between items-center mb-[0.2vw] ${
+          className={` justify-between items-center mb-[0.2vw] max-md:h-[50px] ${
             show == false ? "flex" : "hidden"
           }`}
         >
-          <div className="text-[1.5vw] font-[600]">جدیدترین دوره‌ها</div>
+          <div className="text-[1.5vw] font-[600] max-md:text-[20px]">
+            جدیدترین دوره‌ها
+          </div>
           <span
             onClick={() => {
               setShowMoreCourse(true);
             }}
-            className="text-[#E1C461] cursor-pointer"
+            className="text-[#E1C461] cursor-pointer text-[1vw] max-md:text-[16px]"
           >
             مشاهده همه
           </span>
@@ -410,17 +418,25 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
 
         {/* filterActionSection */}
 
-        <div className=" w-full mt-[0.5vw]">
-          <div className="flex items-center w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600 text-sm leading-normal">
-            <div className="w-[16%]  py-3 px-6 text-right">نام دوره</div>
-            <div className="w-[32%]   py-3 px-6 text-right">درباره دوره</div>
-            <div className="w-[16%]  py-3 px-6 text-right">استاد دوره</div>
-            <div className="w-[16%]  py-3 px-6 text-right">تاریخ برگزاری</div>
-            <div className="w-[16%] py-3 px-6 text-right">
+        <div className=" w-full mt-[0.5vw] max-md:py-[10px]">
+          <div className="flex items-center  w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600  leading-normal">
+            <div className="w-[16%] max-md:w-[50%] max-md:text-[16px] text-[1.1vw] py-[1%] px-6 text-right">
+              نام دوره
+            </div>
+            <div className="w-[32%]  text-[1.1vw] py-[1%] px-6 text-right max-md:hidden">
+              درباره دوره
+            </div>
+            <div className="w-[16%] max-md:w-[40%] max-md:text-[16px]  text-[1.1vw] py-[1%] px-6 text-right">
+              استاد دوره
+            </div>
+            <div className="w-[16%] text-[1.1vw]   py-[1%] px-6 text-right max-md:hidden">
+              تاریخ برگزاری
+            </div>
+            <div className="w-[16%]  text-[1.1vw] py-[1%] px-6 text-right max-md:hidden">
               {" "}
               {point == "myCourse" ? "درصد پرداختی" : "قیمت دوره "}{" "}
             </div>
-            <div className="w-[4%]  py-3 px-4 text-center"></div>
+            <div className="w-[4%] text-[1.1vw] py-3 px-4 text-center"></div>
           </div>
         </div>
         {/* courseItemsSection */}
@@ -429,14 +445,16 @@ const CoursePage = ({ show, itemPerpage, setShowMoreCourse ,name ,point}) => {
         </div>
 
         {/* paginationSection */}
-        <Pagination
-          pageCount={
-            point == "myCourse"
-              ? Math.ceil(myCourseList.length / itemsPerPage)
-              : Math.ceil(CourseListItem.length / itemsPerPage)
-          }
-          handlePageClick={(data) => setCurrentPage(data.selected)}
-        />
+        <div className="w-[30%] mx-auto max-md:w-full">
+          <Pagination
+            pageCount={
+              point == "myCourse"
+                ? Math.ceil(myCourseList.length / itemsPerPage)
+                : Math.ceil(CourseListItem.length / itemsPerPage)
+            }
+            handlePageClick={(data) => setCurrentPage(data.selected)}
+          />
+        </div>
       </div>
     </div>
   );

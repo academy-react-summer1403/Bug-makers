@@ -51,6 +51,16 @@ const Comments = ({
               <span>|</span>
               <span>ساعت ۱۶:۲۴</span>
               <span>{pass}</span>
+      {/* <div className=" p-[0.1vw] py-[1vw] border-b-[0.15vw] border-[#C2C2C2]  bg-white flex items-start justify-between h-full w-full ">
+        <div className="overflow-hidden size-[3vw] ml-[1vw] rounded-[0.42vw] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] flex justify-center">
+          <img src={pictureAddress} alt="" className="h-full" />
+        </div>
+        <div className="w-[95%] text-right">
+          <div className="flex justify-between items-center mb-2">
+            <div className="text-[0.7vw] text-[#5E5E5E] flex justify-between w-[50%] max-w-[20vw]">
+              <span className="max-w-[10vw] text-[9px]">{title}</span>|
+              <span>{date}</span>|<span>ساعت ۱۶:۲۴ </span>
+              <span className="mr-[0.5vw]">{pass}</span> */}
             </div>
             <div className="text-xs flex gap-2">
               <div className="flex items-center">
@@ -140,10 +150,23 @@ const Comments = ({
 
       {/* Modal */}
       <div
-        className={`fixed z-10 top-0 left-0 h-full w-full bg-black bg-opacity-50 flex justify-center items-center ${repleyModal ? '' : 'hidden'}`}
-        onClick={() => setRepleyModal(false)}
+        className={
+          repleyModal
+            ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center"
+            : "hidden"
+        }
+        onClick={() => {
+          setRepleyModal(false);
+        }}
       >
-        <div className={`h-max w-[90vw] max-w-[50vw] rounded-lg bg-white z-40 ${repleyModal ? '' : 'hidden'}`} onClick={(e) => e.stopPropagation()}>
+        <div
+          className={
+            repleyModal
+              ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40"
+              : "hidden"
+          }
+          onClick={(e) => e.stopPropagation()}
+        >
           <AddCommentForm
             userId={userId}
             onSubmit={onSubmit}
@@ -152,6 +175,13 @@ const Comments = ({
             setRepleyModal={setRepleyModal}
           />
         </div>
+      </div>
+      <div>
+        {response2 ? (
+          <div className="pr-[5vw] w-full">{renderCourses(response2)} </div>
+        ) : (
+          <div className="text-[1vw] text-center"></div>
+        )}
       </div>
     </>
   );

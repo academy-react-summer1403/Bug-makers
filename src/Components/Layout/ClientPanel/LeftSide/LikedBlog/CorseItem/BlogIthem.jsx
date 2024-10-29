@@ -3,6 +3,7 @@ import { list } from "postcss";
 import React from "react";
 import { useState } from "react";
 import { delLikeNews, postDissLikeNews, postLikeNews } from "../../../../../../Core/Services/Api/BlogDetail/BlogDetail";
+import { useNavigate } from "react-router-dom";
 
 const BlogIthem = ({
   title,
@@ -34,7 +35,7 @@ const BlogIthem = ({
   view,
 }) => {
   console.log(id);
-
+  const navigate =useNavigate()
   const setNewsDissLike = async () => {
     const res = await postDissLikeNews(id);
     // console.log(res);
@@ -52,23 +53,32 @@ const BlogIthem = ({
     console.log(res);
     GetId(id);
   };
+  
+  const handleNavigate = () => {
+    navigate(`/BlogDetail/${id}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <div
-      className={`p-[0.5vw] relative shadow-[0px_0px_15px_0px_#666] bg-white rounded-[1vw]  overflow-hidden
-          "w-[100%]  max-h-[100%]`}
+      className={`p-[0.5vw] relative shadow-[0px_0px_15px_0px_#aaa] bg-white rounded-[1vw]  overflow-hidden
+          "w-[100%]  max-h-[100%] max-md:h-full`}
     >
-      <div className="h-[1.8vw] w-full text-right flex justify-between items-center mb-[0.5vw]">
-        <span className="text-[1.4vw] font-[600]">علاقه‌مندی مقالات</span>
+      <div className="max-md:h-[7%] h-[1.8vw] w-full text-right flex justify-between items-center mb-[0.5vw]">
+        <span className="text-[1.4vw] max-md:text-[20px] font-[600]">
+          علاقه‌مندی مقالات
+        </span>
         <div
           onClick={() => {
             setDetailCourse(false);
           }}
-          className={`rounded-full w-[4vw] h-[1.5vw] border border-red-500 flex justify-evenly items-center cursor-pointer `}
+          className={`rounded-full w-[4vw] h-[1.5vw] max-md:h-[60%] max-md:w-[18%]  border border-red-500 flex justify-evenly items-center cursor-pointer `}
         >
-          <span className="text-red-500 mb-[0.3vw]">بستن</span>
+          <span className="text-red-500 mb-[0.3vw] max-md:text-[11px] max-md:px-[5px] text-[0.9vw]">
+            بستن
+          </span>
           <svg
-            width="1vw"
-            height="1vw"
+            width=""
+            height="70%"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +95,7 @@ const BlogIthem = ({
       </div>
       <div
         className={`rounded-[0.5vw] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] overflow-hidden
-          w-[100%] h-[10vw]
+          w-[100%] h-[10%]  max-md:h-[30%]
         `}
       >
         <img
@@ -93,32 +103,35 @@ const BlogIthem = ({
           src={img}
         />
       </div>
-      <div className="absolute top-[3.2vw] px-[0.5vw] right-[1vw] rounded-full h-[1.2vw] w-[4vw] bg-blue-500 text-white text-[0.7vw] ">
+      <div className="absolute top-[3.2vw] px-[0.5vw] max-md:text-[12px] max-md:top-[9%] max-md:h-[5%] max-md:w-[18%] right-[1vw] rounded-full h-[4%] w-[20%] bg-blue-500 text-white text-[0.7vw] ">
         <Tooltip
-          className="text-gray-700 w-[7vw] leading-[1.4vw]"
+          className="text-gray-700 max-md:text-[12px] max-md:w-[100px] w-[120%] text-[1vw] leading-[1.4vw]"
           size="sm"
           content={` ${technologyList}`}
         >
-          <div className=" text-[0.7vw] w-full whitespace-nowrap overflow-hidden text-ellipsis ...">
+          <div className=" max-md:text-[12px]  text-[0.7vw] w-full whitespace-nowrap overflow-hidden text-ellipsis ...">
             {technologyList}
           </div>
         </Tooltip>
       </div>
 
-      <div className="absolute top-[3.2vw] right-[5.5vw] rounded-full h-[1.2vw] w-[3vw] bg-blue-500 text-white text-[0.7vw]">
+      <div className="max-md:text-[12px] max-md:right-[20%] max-md:top-[9%] max-md:h-[5%] max-md:w-[18%] absolute top-[3.2vw] right-[5.5vw] rounded-full h-[4%] w-[15%] bg-blue-500 text-white text-[0.7vw]">
         <Tooltip
-          className="text-gray-700 w-[7vw] leading-[1.4vw]"
+          className="text-gray-700 max-md:text-[12px] w-[160%] text-[1vw] leading-[1.4vw]"
           size="sm"
           content={` ${level}`}
         >
-          <div className=" text-[0.7vw] w-full whitespace-nowrap overflow-hidden text-ellipsis ...">
+          <div className=" text-[0.7vw] max-md:text-[12px] w-full whitespace-nowrap overflow-hidden text-ellipsis ...">
             {level}
           </div>
         </Tooltip>
       </div>
 
-      <div className="w-full h-[3vw] flex justify-between py-[0.5vw]">
-        <div className="w-[5vw] h-[2vw] rounded-full bg-[#E1C461] text-white flex justify-center items-center text-[0.7vw] font-[600] cursor-pointer">
+      <div className="w-full h-[3vw] max-md:h-[7%] flex justify-between py-[0.5vw]">
+        <div
+          onClick={handleNavigate}
+          className="w-[5vw] h-[2vw] max-md:text-[12px] max-md:w-[25%] max-md:h-[90%] rounded-full bg-[#E1C461] text-white flex justify-center items-center text-[0.7vw] font-[600] cursor-pointer"
+        >
           <span>صفحه مقاله</span>
         </div>
         <div className="w-[25%] h-full flex justify-between items-center">
@@ -129,8 +142,8 @@ const BlogIthem = ({
             className="w-[45%] h-full rounded-full border border-[#E4E4E4] flex items-center justify-center cursor-pointer"
           >
             <svg
-              width="24"
-              height="24"
+              width=""
+              height="70%"
               viewBox="0 0 24 24"
               fill={userIsLiked == true ? "#FF0000" : "#7F7F7F"}
               xmlns="http://www.w3.org/2000/svg"
@@ -158,8 +171,8 @@ const BlogIthem = ({
             className="w-[45%] h-full rounded-full border border-[#E4E4E4] flex items-center justify-center cursor-pointer"
           >
             <svg
-              width="24"
-              height="24"
+              width=""
+              height="70%"
               viewBox="0 0 24 24"
               fill={currentUserDissLike == true ? "#FF0000" : "#7F7F7F"}
               xmlns="http://www.w3.org/2000/svg"
@@ -183,20 +196,20 @@ const BlogIthem = ({
         </div>
       </div>
 
-      <div className="text-right text-[0.7vw] text-[#787878] mb-[0.4vw]">
+      <div className="text-right  max-md:my-[2px] max-md:text-[10px] font-[600] text-[0.7vw] text-[#787878] mb-[0.4vw]">
         {" "}
         <span>عنوان</span>
       </div>
 
       <div
-        className={`text-[1vw] font-semibold  text-right flex justify-start gap-[0.2vw]`}
+        className={`text-[1vw] max-md:text-[12px] max-md:h-[6%] font-semibold whitespace-nowrap max-md:w-full text-right flex justify-start gap-[0.2vw]`}
       >
         <span>{title}</span>
-        <div className="flex items-center">
+        <div className="flex items-start">
           ({courseRate}
           <svg
-            width="0.83vw"
-            height="0.83vw"
+            width="5%"
+            height=""
             viewBox="0 0 16 16"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -210,15 +223,15 @@ const BlogIthem = ({
         </div>
       </div>
 
-      <div className="text-right text-[0.7vw] text-[#787878] font-[600] my-[0.4vw]">
+      <div className="text-right text-[0.7vw] max-md:my-[8px] max-md:text-[10px] text-[#787878] font-[600] my-[0.4vw]">
         {" "}
         <span>درباره اخبار یا مقاله</span>
       </div>
       <div
-        className={`max-h-[3.6vw] mr-[10px] text-[11px] text-right overflow-hidden text-ellipsis ... break-words`}
+        className={`max-h-[3.6vw]  max-md:max-h-[12%] max-md:text-[10px] mr-[10px] text-[0.6vw] text-right overflow-hidden text-ellipsis ... break-words`}
       >
         <Tooltip
-          className="text-gray-700 break-words w-[19vw] leading-[1.4vw]"
+          className="text-gray-700 text-right break-words w-[300px] max-md:w-[100px] text-[0.9vw] leading-[1.4vw]"
           size="sm"
           content={`break-words ${description}`}
         >
@@ -227,25 +240,27 @@ const BlogIthem = ({
 
         <div className=" text-[0.6vw] "></div>
       </div>
-      <div className="text-right text-[0.7vw] text-[#787878] font-medium my-[0.4vw]">
+      <div className="text-right max-md:text-[9px] max-md:my-[8px] text-[0.7vw] text-[#787878] font-[600] my-[0.4vw]">
         {" "}
         <span>منتشرکننده</span>
       </div>
-      <div className="w-[80%] h-[2.5vw] flex justify-start gap-x-[0.5vw] items-center">
-        <div className="w-[2.5vw] h-full rounded-full bg-gray-400">
+      <div className="w-[80%] max-md:h-[8%] max-md:my-[10px] h-[2.5vw] flex justify-start gap-x-[0.5vw] items-center">
+        <div className="w-[2.5vw] h-full rounded-full max-md:w-[15%] bg-gray-400">
           <img src="" alt="" />
         </div>
         <div className="text-right flex flex-col justify-between">
-          <span className="text-[0.8vw] font-[600]">{teacherName}</span>
+          <span className="text-[0.8vw] font-[600] max-md:text-[10px]">
+            {teacherName}
+          </span>
         </div>
       </div>
 
-      <div className="w-full h-[3vw] flex items-end">
+      <div className="w-full h-[5%] flex items-end max-md:h-[10%] max-md:my-[5px]">
         <div className="h-full w-[50%] flex flex-col justify-between">
-          <div className="flex items-center gap-x-[0.4vw] my-[0.2vw] font-[600] text-[0.75vw]">
+          <div className="flex h-[50%] items-center gap-x-[0.4vw] my-[0.2vw] font-[600] text-[0.75vw] max-md:text-[12px]">
             <svg
-              width="24"
-              height="24"
+              width="15%"
+              height=""
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -288,10 +303,10 @@ const BlogIthem = ({
             </svg>
             <span>{startDate}</span>
           </div>
-          <div className="w-full flex gap-x-[0.5vw]">
+          <div className="w-full text-[0.9vw] flex gap-x-[0.5vw] max-md:text-[12px]">
             <svg
-              width="24"
-              height="24"
+              width="15%"
+              height=""
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

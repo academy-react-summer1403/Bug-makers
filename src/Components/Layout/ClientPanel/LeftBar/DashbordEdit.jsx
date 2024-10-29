@@ -30,11 +30,11 @@ const DashbordEdit = () => {
 
 
   return (
-    <div className="w-full h-full bg-white">
+    <div className="w-full h-full bg-white ">
       <div className="w-full h-[40%]">
         <DashbordEditTop />
       </div>
-      <div className="w-full h-[60%]">
+      <div className="w-full h-[60%] ">
         <Outlet/>
         {/* <PersonalInfo /> */}
       </div>

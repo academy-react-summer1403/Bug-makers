@@ -20,6 +20,7 @@ import { delBlogFav, delCourseFav, delCourseServ } from "../../../../../Core/Ser
 
 import { getBlogDetail } from "../../../../../Core/Services/Api/BlogDetail/BlogDetail";
 import BlogIthem from "../LikedBlog/CorseItem/BlogIthem";
+import DeleteModal from "../../common/DeleteModal";
 
 
 
@@ -34,6 +35,13 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
   const [detailCourse, setDetailCourse] = useState(false);
   const [detail, setDetail] = useState();
   const [detailId, setDetailId] = useState(null);
+  // delete box 
+  const [isDelete,setIsDelete]=useState(false)
+  const [deleteId,setDeleteId]=useState(null)
+  const [fun,setFun]=useState()
+const setIsDeleteFalse=()=>{
+  setIsDelete(false);
+}
 
   const itemsPerPage = itemPerpage;
   const dispatch = useDispatch();
@@ -67,26 +75,26 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
     }
   },[])
     
-  const DelCourseFav = async (id)=>{
-    const res = delCourseFav(id)
-    console.log(res)
-    GetLikedCourse()
+const DeleteIthem =async (id)=>{
+  
+  if (location == "BlogFav") {
+      const res = await delBlogFav(id);
+      GetLikedNews();
   }
-
-
-  const DelBlogFav = async (id)=>{
-    console.log(id)
-    const res = await delBlogFav(id)
+  if (location == "CourseFav") {
     
-    GetLikedNews();
-
+      const res = await delCourseFav(id);
+     
+      GetLikedCourse();
+    
   }
-
-
-  const DelCourseServ = async (id)=>{
-    const res = delCourseServ(id)
-    GetCourseServ();  
+  if (location == "CourseServ") {
+    GetCourseServ();
+    const res = await delCourseServ(id);
+      GetCourseServ();
   }
+    setIsDeleteFalse()
+}
   
 
 
@@ -113,16 +121,16 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
   const renderCourses = () => {
 
       if(response.length==0){return(
-          <div className="w-full mt-[2vw] text-gray-700 font-[500] text-[1.5vw]" >لیست{" "}{ name }{" "}خالی است</div>
+          <div className="w-full mt-[2vw] text-gray-700 font-[500] text-[1.5vw] max-md:text-[16px]" >لیست{" "}{ name }{" "}خالی است</div>
          )}
 
        return response.map((course, index) => (
          <div
            key={index}
-           className="w-full h-[3vw] rounded-[0.4vw] flex items-center  text-[#272727] hover:bg-gray-100"
+           className="w-full h-[3vw] max-md:justify-between max-md:border-b-1 max-md:h-[30px] rounded-[0.4vw] flex items-center text-[0.9vw] text-[#272727] hover:bg-gray-100"
          >
            <div
-             className={`w-[8%] justify-center h-full rounded-[0.5vw] overflow-hidden   ${
+             className={`w-[8%] max-md:hidden justify-center h-full rounded-[0.5vw] overflow-hidden   ${
                location == "BlogFav" ? "flex" : "hidden"
              }`}
            >
@@ -132,13 +140,13 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
                alt=""
              />
            </div>
-           <div className="w-[16%] h-full  py-3 px-6 text-right whitespace-nowrap">
+           <div className="w-[16%] h-full  py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[30%] max-md:text-[14px]">
              {course.courseTitle ? course.courseTitle : null}
              {course.title ? course.title : null}
              {course.courseName ? course.courseName : null}
            </div>
            <div
-             className={`w-[32%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+             className={`max-md:hidden w-[32%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
               ${location == "BlogFav" ? "hidden" : "block"}`}
            >
              <Tooltip
@@ -149,12 +157,12 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
              </Tooltip>
            </div>
            <div
-             className={`w-[50%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+             className={`max-md:hidden w-[50%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
               ${location == "BlogFav" ? "block" : "hidden"}`}
            ></div>
            <div
-             className={`w-[16%] h-full py-3 px-6 text-right whitespace-nowrap ${
-               location == "BlogFav" ? "hidden" : "block"
+             className={`w-[16%] h-full max-md:w-[30%] max-md:text-[14px] py-[1%] px-[1%]  text-right whitespace-nowrap ${
+               location == "BlogFav" ? "hidden" : "block  "
              }`}
            >
              <Tooltip
@@ -164,16 +172,21 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
                {course.teacheName}
              </Tooltip>
            </div>
-           <div className="w-[16%] h-full py-3 px-6 text-center whitespace-nowrap">
+           <div className="w-[16%] max-md:hidden h-full py-[1%] px-[1%] text-center whitespace-nowrap">
              {course.lastUpdate ? convertToJalali(course.lastUpdate) : null}
              {course.updateDate ? convertToJalali(course.updateDate) : null}
              {course.reserverDate ? convertToJalali(course.reserverDate) : null}
            </div>
            <div
-             className={`w-[12%] h-full py-3 px-6 text-center whitespace-nowrap ${
+             className={`max-md:w-[30%] max-md:text-[14px] w-[12%] h-full py-[1%] px-[1%] text-center whitespace-nowrap ${
                location == "BlogFav" ? "hidden" : "block"
-             } ${course.accept == null
-               ? null : course.accept == false ? "text-red-600" : "text-green-500"}`}
+             } ${
+               course.accept == null
+                 ? null
+                 : course.accept == false
+                 ? "text-red-600"
+                 : "text-green-500"
+             }`}
            >
              {course.levelName ? course.levelName : null}
              {course.accept == null
@@ -183,9 +196,11 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
                : "تایید شده"}
            </div>
            <div
-             className={`w-[4%] h-full items-center ${
+             className={`w-[4%] max-md:ml-[10px] h-full items-center ${
                true ? "flex" : "hidden"
-             }`}
+             }
+             ${location == "BlogFav" ? 'max-md:mr-[60%]':null}
+             `}
            >
              {" "}
              <Tooltip
@@ -212,8 +227,8 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
                    console.log(detailCourse);
                  }}
                  className="cursor-pointer"
-                 width="24"
-                 height="24"
+                 width=""
+                 height="50%"
                  viewBox="0 0 24 24"
                  fill="none"
                  xmlns="http://www.w3.org/2000/svg"
@@ -238,18 +253,21 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
              >
                <svg
                  onClick={() => {
+                  setIsDelete(true)
                    if (location == "BlogFav") {
-                     DelBlogFav(course.favoriteId);
+                    setDeleteId(course.favoriteId)
                    }
                    if (location == "CourseFav") {
-                     DelCourseFav(course.favoriteId);
+                    setDeleteId(course.favoriteId)
                    }
                    if (location == "CourseServ") {
-                     DelCourseServ(course.reserveId);
+                    setDeleteId(course.reserveId)
                    }
-                 }}
-                 width="24"
-                 height="24"
+                   
+                 }
+                }
+                 width=""
+                 height="50%"
                  viewBox="0 0 24 24"
                  fill="none"
                  xmlns="http://www.w3.org/2000/svg"
@@ -365,14 +383,25 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
   
 
   return (
-    <div className="relative  m-auto w-[76vw] bg-transparent text-center ">
+    <div className="relative  m-auto w-[100%] bg-transparent text-center max-md:w-full">
+      <div
+        className={`fixed top-[40%] left-[50%] translate-x-[-100%] ${
+          isDelete == true ? "flex" : "hidden"
+        }`}
+      >
+        <DeleteModal
+          onCancel={setIsDeleteFalse}
+          onDelete={DeleteIthem}
+          id={deleteId}
+        />
+      </div>
       <div
         className={`absolute z-[1000]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%] ${
           detailCourse == true ? "block" : "hidden"
         }`}
       >
         <div
-          className={`absolute h-[38.4vw] w-[20vw] top-[2vw] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
+          className={`sticky h-[38.4vw] w-[20vw] max-md:absolute max-md:w-[75%] max-md:h-[480px] top-[2vw] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
             detailCourse == true ? "block" : "hidden"
           }`}
         >
@@ -385,12 +414,12 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
           show == true ? "flex" : "hidden"
         }`}
       >
-        <span className="text-[1.5vw] font-[600]"></span>
+        <span className="text-[1.5vw]  max-md:text-[20px] font-[600]"></span>
         <div
           onClick={() => {
             setShowMoreCourse(false);
           }}
-          className="rounded-full border border-red-500 h-[2.2vw] w-[5vw] text-red-500 flex items-center justify-evenly cursor-pointer"
+          className=" max-md:h-[30px] max-md:w-[20%]  max-md:text-[14px] rounded-full border border-red-500 h-[2.2vw] w-[5vw] text-red-500 flex items-center justify-evenly cursor-pointer"
         >
           <svg
             width="24"
@@ -413,60 +442,68 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
       <div className="w-[100%] selection: mt-[0vw] ">
         {/* for dashbord........  */}
         <div
-          className={` justify-between items-center my-[1vw] ${
+          className={` justify-between items-center my-[1vw] max-md:h-[50px] ${
             show == false ? "flex" : "hidden"
           }`}
         >
-          <div className="text-[1.5vw] font-[600]">{name}</div>
+          <div className="text-[1.5vw] font-[600] max-md:text-[20px]">
+            {name}
+          </div>
         </div>
 
         {/* filterActionSection */}
 
-        <div className=" w-full mt-[0.5vw]">
-          <div className="flex items-center w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600 text-sm leading-normal">
+        <div className=" w-full mt-[0.5vw] max-md:py-[10px]">
+          <div className="flex items-center  w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600 text-[0.9vw] leading-normal">
             <div
-              className={`w-[8%]  py-3 px-4 text-center ${
+              className={`w-[8%]  py-[1%] px-[1%] text-center max-md:hidden ${
                 location == "BlogFav" ? "block" : "hidden"
               }`}
             >
               عکس
             </div>
-            <div className="w-[16%]  py-3 px-6 text-right">
+            <div className="w-[16%] max-md:w-[30%] max-md:text-[16px]  py-[1%] px-[1%] text-right">
               {" "}
               {location == "BlogFav" ? "عنوان خبر" : "عنوان دوره"}{" "}
             </div>
             <div
-              className={`w-[32%]   py-3 px-6 text-right ${
+              className={`w-[32%]  py-[1%] px-[1%] text-right max-md:hidden ${
                 location == "CourseFav" ? "block" : "hidden"
               }`}
             >
               درباره دوره
             </div>
             <div
-              className={`w-[50%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+              className={` max-md:hidden  w-[50%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
               ${location == "CourseFav" ? "hidden" : "block"}`}
             ></div>
             <div
-              className={`w-[16%]  py-3 px-6 text-right ${
-                location == "CourseFav" ? "block" : "hidden"
+              className={`w-[16%]    py-[1%] px-[1%] text-right ${
+                location == "CourseFav"
+                  ? "block max-md:w-[30%] max-md:text-[16px]"
+                  : "hidden"
               }`}
             >
               استاد دوره
             </div>
-            <div className={`w-[16%]  py-3 px-6 text-center`}>
+            <div
+              className={`w-[16%]  max-md:hidden   py-[1%] px-[1%] text-center`}
+            >
               {location == "BlogFav" ? "تاریخ" : null}
               {location == "CourseFav" ? "تاریخ برگذاری" : null}
               {location == "CourseServ" ? "تاریخ رزرو" : null}
             </div>
             <div
-              className={`w-[12%]  py-3 px-6 text-center ${
+              className={`w-[12%] max-md:w-[30%] max-md:text-[16px]  py-[1%] px-[1%] text-center ${
                 location == "BlogFav" ? "hidden" : "block"
-              }`}
+              }
+              ${location == "CourseServ" ? "max-md:mr-[30%]" : null}
+              `}
             >
               {location == "CourseServ" ? "وضعیت تایید" : "سطح دوره"}
             </div>
-            <div className="w-[4%]  py-3 px-4 text-center"></div>
-            <div className="w-[4%]  py-3 px-4 text-center"></div>
+            <div className="w-[4%]  py-[1%] px-[1%] text-center"></div>
+            <div className="w-[4%]  py-[1%] px-[1%] text-center"></div>
           </div>
         </div>
         {/* courseItemsSection */}
