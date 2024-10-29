@@ -35,6 +35,7 @@ import TwoStepLogin from './Components/Layout/LoginPages/twoStep/twoStep.jsx'
 import './i18n.js';
 import ContactUs from './Pages/ContactWe/ContactWe.jsx'
 import Payment from './Components/Layout/ClientPanel/LeftSide/Payment/Payment.jsx'
+import PaymentFirstStep from './Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/firstTab.jsx'
 const queryClient = new QueryClient();
 
 
@@ -55,72 +56,7 @@ const router = createBrowserRouter([
         path: "/ContactUs",
         element: <ContactUs />,
       },
-      
-      {
-        path: "/ClientPanel",
-        element: <ClientPanel />,
-        errorElement: <Error />,
-        children: [
-          {
-            path: "Dashbord",
-            element: <Dashbord />,
-            errorElement: <Error />,
-          },
-          {
-            path: "MyCourse",
-            element: <MyCourses />,
-            errorElement: <Error />,
-          },
-          {
-            path: "MyReserve",
-            element: <MyReserve />,
-            errorElement: <Error />,
-          },
-          {
-            path: "LikedCourse",
-            element: <LikedCourse />,
-            errorElement: <Error />,
-          },
-          {
-            path: "LikedBlog",
-            element: <LikedBlog />,
-            errorElement: <Error />,
-          },
-          {
-            path: "Payment",
-            element: <Payment />,
-            errorElement: <Error />,
-          },
-          {
-            path: "DashbordEdit",
-            element: <DashbordEdit />,
-            errorElement: <Error />,
-            children: [
-              {
-                index: true,
-                path: "Personal",
-                element: <PersonalInfo />,
-                errorElement: <Error />,
-              },
-              {
-                path: "Picture",
-                element: <ProfilePic />,
-                errorElement: <Error />,
-              },
-              {
-                path: "Address",
-                element: <Address />,
-                errorElement: <Error />,
-              },
-              {
-                path: "Links",
-                element: <Links />,
-                errorElement: <Error />,
-              },
-            ],
-          },
-        ],
-      },
+
       {
         path: "/BlogPage",
         element: <BlogPage />,
@@ -136,51 +72,129 @@ const router = createBrowserRouter([
         element: <CourseDetail />,
         errorElement: <Error />,
       },
+
       {
-        path: "/sign",
-        element: <LoginPage />,
+        path: "*",
+        element: <NotFoundPage />,
+      },
+    ],
+  },
+  {
+    path: "/ClientPanel",
+    element: <ClientPanel />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "Dashbord",
+        element: <Dashbord />,
+        errorElement: <Error />,
+      },
+      {
+        path: "MyCourse",
+        element: <MyCourses />,
+        errorElement: <Error />,
+      },
+      {
+        path: "MyReserve",
+        element: <MyReserve />,
+        errorElement: <Error />,
+      },
+      {
+        path: "LikedCourse",
+        element: <LikedCourse />,
+        errorElement: <Error />,
+      },
+      {
+        path: "LikedBlog",
+        element: <LikedBlog />,
+        errorElement: <Error />,
+      },
+      {
+        path: "Payment",
+        
         errorElement: <Error />,
         children: [
           {
-            path: "login",
-            element: <Login />,
+            index: true ,
+            element: <Payment />,
             errorElement: <Error />,
           },
           {
-            path: "login/twoStep",
-            element: <TwoStepLogin />,
-            errorElement: <Error />,
-          },
-          {
-            path: "passForget",
-            element: <ForgetPass />,
-            errorElement: <Error />,
-          },
-          {
-            path: "resetPass/:/:verify",
-            element: <ForgetPassStep2 />,
-            errorElement: <Error />,
-          },
-          {
-            path: "rigester/step1",
-            element: <ReStep1 />,
-            errorElement: <Error />,
-          },
-          {
-            path: "rigester/step2",
-            element: <ReStep2 />,
-            errorElement: <Error />,
-          },
-          {
-            path: "rigester/step3",
-            element: <ReStep4 />,
+            path: "PaymentFirstStep",
+            element: <PaymentFirstStep />,
             errorElement: <Error />,
           },
         ],
       },
       {
-        path: "*",
-        element: <NotFoundPage />,
+        path: "DashbordEdit",
+        element: <DashbordEdit />,
+        errorElement: <Error />,
+        children: [
+          {
+            index: true,
+            path: "Personal",
+            element: <PersonalInfo />,
+            errorElement: <Error />,
+          },
+          {
+            path: "Picture",
+            element: <ProfilePic />,
+            errorElement: <Error />,
+          },
+          {
+            path: "Address",
+            element: <Address />,
+            errorElement: <Error />,
+          },
+          {
+            path: "Links",
+            element: <Links />,
+            errorElement: <Error />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/sign",
+    element: <LoginPage />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+        errorElement: <Error />,
+      },
+      {
+        path: "login/twoStep",
+        element: <TwoStepLogin />,
+        errorElement: <Error />,
+      },
+      {
+        path: "passForget",
+        element: <ForgetPass />,
+        errorElement: <Error />,
+      },
+      {
+        path: "resetPass/:/:verify",
+        element: <ForgetPassStep2 />,
+        errorElement: <Error />,
+      },
+      {
+        path: "rigester/step1",
+        element: <ReStep1 />,
+        errorElement: <Error />,
+      },
+      {
+        path: "rigester/step2",
+        element: <ReStep2 />,
+        errorElement: <Error />,
+      },
+      {
+        path: "rigester/step3",
+        element: <ReStep4 />,
+        errorElement: <Error />,
       },
     ],
   },

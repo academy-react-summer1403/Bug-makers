@@ -83,3 +83,16 @@ export const selectCurentProfilePic = async (id) => {
 };
 
 
+// export const setPayment = async (id) => {
+//   let url = "/CoursePayment/StudentAddPeyment";
+//   const formData = new FormData();
+//   formData.append("CourseId", id);
+//   formData.append("Paid", id);
+//   formData.append("PeymentDate", id);
+//   formData.append("PaymentInvoiceNumber", id);
+
+//   console.log(formData);
+//   const response = await instance.post(url, formData);
+
+//   return response;
+// };

@@ -6,6 +6,7 @@ import ClientInfoSliceReducer from '../Slice/ClientInfo/ClientInfo'
 import LoginTokenSliceReducer from "../Slice/Login/Login";
 import towStepSliceReducer from '../Slice/Login/TowStep'
 import favoriteeSliceReducer from '../Slice/Course/favoritee'
+import paymentSliceReducer from '../Slice/payment/payment'
 export const Store = configureStore({
   reducer: {
     themeColor: ThemeColorReducer,
@@ -15,5 +16,6 @@ export const Store = configureStore({
     LoginToken : LoginTokenSliceReducer,
     ToStep: towStepSliceReducer ,
     favorite:favoriteeSliceReducer,
+    payment:paymentSliceReducer,
   },
 });

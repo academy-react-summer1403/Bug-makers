@@ -16,6 +16,8 @@ import { getCourseDetail } from "../../../../../../Core/Services/Api/CourseDetai
 import CourseItem from "./CorseItem/CourseItem";
 import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
 import { getMyCourseListWithPagination } from "../../../../../../Core/Services/Api/Client/clientLiked";
+import { setpaymentList } from "../../../../../../Redux/Slice/payment/payment";
+import { useNavigate } from "react-router-dom";
 
 
 const CoursePage = ({
@@ -26,6 +28,16 @@ const CoursePage = ({
   name,
   point,
 }) => {
+const dispatch = useDispatch();
+const navigator = useNavigate()
+
+
+
+  
+
+
+
+
   const [myCourseList, setMyCourseList] = useState([]);
   // stateForCategoryFilter
   const [categoryQuery, setCategoryQuery] = useState("");
@@ -59,7 +71,7 @@ const CoursePage = ({
   const [detailId, setDetailId] = useState(null);
 
   const itemsPerPage = itemPerpage;
-  const dispatch = useDispatch();
+  
 
   // getCourseListFromRedux
   const CourseListItem = useSelector((state) => state.CourseSlice.CourseList);
@@ -263,6 +275,8 @@ const CoursePage = ({
             </svg>
           </div>
           <div
+          onClick={()=>{ dispatch(setpaymentList(course || []));
+            navigator("PaymentFirstStep");}}
             className={`w-[4%] h-full items-center ${
               payment == true &&
               point == "myCourse" &&

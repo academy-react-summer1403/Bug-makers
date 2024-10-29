@@ -33,6 +33,9 @@ const setPage = ()=>{
     if (lastPart == "DashbordEdit") {
       setActiveIndex(5);
     }
+    if (lastPart == "Payment") {
+      setActiveIndex(6);
+    }
 }
 useEffect(() => {
   setPage()

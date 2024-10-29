@@ -108,6 +108,7 @@ button:focus-visible {
   width: 100vw;
   margin: 0 auto;
   background: #F3F3F3;
+  direction: rtl;
 }
 
 body {
