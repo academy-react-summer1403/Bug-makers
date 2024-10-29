@@ -18,12 +18,12 @@ const LanguageSelector = () => {
 
 
     
-  return <div className='btn-container'>
+  return <div className='btn-container flex justify-center items-center gap-3'>
     {
         language.map((lng) => {
             return (
                 <button 
-                    className={lng.code === i18n.language ? 'bg-red-600' : ''}
+                    className={`${lng.code === i18n.language ? 'text-blue-600' : ''}`}
                     key={lng.code} 
                     onClick={() => changeLanguages(lng.code)}
                     >

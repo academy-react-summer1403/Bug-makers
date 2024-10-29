@@ -7,6 +7,7 @@ import { getItem } from '../../../Core/Services/common/storage.services';
 import LanguageSelector from '../../language-selector'
 import { useTranslation } from 'react-i18next';
 import SearchModal from '../../Common/searchModal/searchModal';
+import SiteSetting from '../../../Pages/site setting/SiteSetting';
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
@@ -74,16 +75,17 @@ const navigate = useNavigate()
           `}
         />
       </div>
-      <LanguageSelector />
-
+      {/* <LanguageSelector /> */}
+    
       <SearchModal />
       
-      <div className='cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[30px] max-[465px]:left-[8px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[80px] bg-custom-gradient-Header shadow-custom-shadow'>
+      <div className='cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[30px] max-[465px]:left-[8px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[150px] bg-custom-gradient-Header shadow-custom-shadow'>
         {getItem ? (
         <CiUser className='m-auto h-5 w-5 mt-1' onClick={() => navigate('/ClientPanel/dashbord')} />) : (
         <CiLogin className='m-auto h-5 w-5 mt-1' onClick={() => navigate('/sign/login')} />
         ) }
       </div>
+      <SiteSetting />
     </div>
   );
 };

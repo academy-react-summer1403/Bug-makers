@@ -38,7 +38,7 @@ const SearchModal = () => {
       };
   return (
     <>
-    <Button size='45px'  className='cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[80px] max-[465px]:left-[40px] max-[394px]:w-7 max-[394px]:h-7 /* end responsive */ search border rounded-[15px] w-[45px] h-[30px] absolute left-[142px] bg-custom-gradient-Header shadow-custom-shadow' onPress={onOpen}>
+    <Button  size='sm'  className='cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[80px] max-[465px]:left-[40px] max-[394px]:w-7 max-[394px]:h-7 /* end responsive */ search border rounded-[15px] w-[45px] h-[30px] absolute left-[210px] bg-custom-gradient-Header shadow-custom-shadow' onPress={onOpen}>
         <CiSearch className='max-[710px]:w-4 max-[710px]:h-4 /*end responsive*/ m-auto w-5 h-5 mt-1 searchIcon' />
     </Button>
     <Modal className='fixed top-10' isOpen={isOpen} onOpenChange={onOpenChange}>
