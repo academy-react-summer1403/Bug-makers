@@ -23,6 +23,7 @@ import BlogIthem from "../LikedBlog/CorseItem/BlogIthem";
 import DeleteModal from "../../common/DeleteModal";
 import { setFavoriteList } from "../../../../../Redux/Slice/Course/favoritee";
 import toast from "react-hot-toast";
+import SearchBox from "../Dashbord/CourseListDeatail/SearchBox/SearchBox";
 
 
 
@@ -40,10 +41,13 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
   // delete box 
   const [isDelete,setIsDelete]=useState(false)
   const [deleteId,setDeleteId]=useState(null)
+  const [queryValue, setQueryValue] = useState("");
+  const [originalData,setOriginalData] = useState()
   const [fun,setFun]=useState()
 const setIsDeleteFalse=()=>{
   setIsDelete(false);
 }
+
 
   const itemsPerPage = itemPerpage;
   const dispatch = useDispatch();
@@ -55,17 +59,20 @@ const setIsDeleteFalse=()=>{
   const GetLikedCourse = async ()=>{
     const data = await getLikedCourse();
     setResponse(data.favoriteCourseDto);
+    setOriginalData(response);
   }
   dispatch(setFavoriteList(response))
 
   const GetLikedNews = async () => {
     const data = await getLikedNews();
     setResponse(data.myFavoriteNews);
+    setOriginalData(response);
   };
   const GetCourseServ = async () => {
     const data = await getCourseServ();
     setResponse(data);
     console.log(data)
+    setOriginalData(response);
   };
   useEffect(()=>{
     if (location == "BlogFav") {
@@ -127,13 +134,40 @@ const fetchMoreDetail=(id)=>{
     };
   }, []);
   // renderCourseItems
-  const renderCourses = () => {
+  
+const handleSearch = (e) => {
+  const value = e.target.value;
+  setQueryValue(value);
 
+  // اگر مقدار ورودی خالی باشد، داده‌های اصلی را بازگردان
+  if (value === "") {
+    setResponse(originalData); // `originalData` باید شامل داده‌های اصلی (غیرفیلتر شده) باشد
+    return;
+  }
+
+  // در غیر این صورت، داده‌ها را بر اساس مقدار ورودی فیلتر کن
+  const filterData = originalData.filter((el) => {
+  
+    if (location == "BlogFav") {
+      return el.title.toLowerCase().includes(value.toLowerCase());
+    }
+    if (location == "CourseServ") {
+      return el.courseName.toLowerCase().includes(value.toLowerCase());
+    }
+    if (location == "CourseFav") {
+      return el.courseTitle.toLowerCase().includes(value.toLowerCase());
+    } 
+
+});
+setResponse(filterData);
+};
+  const renderCourses = () => {
+  
       if(response.length==0){return(
           <div className="w-full mt-[2vw] text-gray-700 font-[500] text-[1.5vw] max-md:text-[16px]" >لیست{" "}{ name }{" "}خالی است</div>
-         )}
-         
-           return response.map((course, index) => (
+        )}
+        
+          return response.map((course, index) => (
              <div
                key={index}
                className="w-full h-[3vw] max-md:justify-between max-md:border-b-1 max-md:h-[40px] rounded-[0.4vw] flex items-center text-[0.9vw] text-[#272727] hover:bg-gray-100"
@@ -293,7 +327,7 @@ const fetchMoreDetail=(id)=>{
                  </Tooltip>
                </div>
              </div>
-           ));
+          ));
 
 
    
@@ -462,6 +496,41 @@ const fetchMoreDetail=(id)=>{
         </div>
 
         {/* filterActionSection */}
+
+        <div
+          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-center items-center gap-x-3 max-md:gap-y-[20px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+            ${ true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
+        >
+          <SearchBox
+            width={"20%"}
+            lgWidth={"160px"}
+            placeHolder="جست جو کنید ..."
+            value={`${queryValue}`}
+            onChange={handleSearch}
+          />
+          {/* <SelectOpt
+            
+            lgWidth={"160px"}
+            placeholder="استاد دوره"
+            isTeacherSelect={true}
+            onChange={(value) => setTeacherId(value)}
+            FilterValue={filterValue}
+          /> */}
+
+          {/* <span className="block lg:hidden text-[10px] text-[#978A8A] absolute bottom-2 right-4">
+            تعداد {CourseListItem.length} نتیجه از{" "}
+            {point == "dashbord"
+              ? Data?.totalCount || 0
+              : data?.totalCount || 0}{" "}
+            دوره طبق جستجوی شما یافت شد
+          </span> */}
+          {/* <span
+            className="block lg:hidden w-[106px] h-[20px] rounded-[16px] text-center text-[10px] bottom-2 m-auto relative  text-[#FE8E8E] cursor-pointer bg-white  "
+            onClick={handleRemoveFilter}
+          >
+            حذف تمامی فیلتر
+          </span> */}
+        </div>
 
         <div className=" w-full mt-[0.5vw] max-md:py-[10px]">
           <div className="flex items-center  w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600 text-[0.9vw] leading-normal">
