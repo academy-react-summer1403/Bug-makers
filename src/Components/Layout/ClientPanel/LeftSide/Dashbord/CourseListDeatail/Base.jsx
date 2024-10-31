@@ -10,7 +10,7 @@ import PriceFilter from "./PriceFilter/PriceFilter";
 import SearchBox from "./SearchBox/SearchBox";
 import SelectOpt from "./Select/SelectOpt";
 import DateModal from "./Date/Date";
-import { Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@nextui-org/react";
 import CourseCard from "../../../../CourseDetail/CourseCard/CourseCard";
 import { getCourseDetail } from "../../../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CourseItem from "./CorseItem/CourseItem";
@@ -70,11 +70,22 @@ const navigator = useNavigate()
   const [detail, setDetail] = useState({});
   const [detailId, setDetailId] = useState(null);
 
+  const [originalData, setOriginalData] = useState(null);
+
   const itemsPerPage = itemPerpage;
   
+  const [CourseListItem,setCourseListItem]=useState([])
 
   // getCourseListFromRedux
-  const CourseListItem = useSelector((state) => state.CourseSlice.CourseList);
+  const CourseListItems = useSelector((state) => state.CourseSlice.CourseList);
+
+  useEffect(() => {
+    setCourseListItem(CourseListItems)
+    
+  }, []);
+
+
+
 
   // fetchCoursesWithFilters
 
@@ -113,7 +124,7 @@ const navigator = useNavigate()
     () => getMyCourseListWithPagination(queryValue),
     {
       onSuccess: (Data) => {
-        dispatch(setMyCourseList(Data.courseFilterDtos || Data));
+        dispatch(setMyCourseList(Data.listOfMyCourses || Data),setOriginalData(Data.listOfMyCourses));
       },
       keepPreviousData: true,
     }
@@ -172,6 +183,28 @@ const navigator = useNavigate()
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const [selectedStatus, setSelectedStatus] = useState(null);
+
+  const handleSelect = (status) => {
+      setSelectedStatus(status);
+        const filterData = originalData.filter(
+          (el) => {
+            if (status == "notApproved") {
+              return el.paymentStatus == "پرداخت نشده";
+            }
+            if (status == "approved") {
+              return el.paymentStatus == "پرداخت شده";
+            }
+          }
+        );
+        setMyCourseList(filterData);
+      };
+
+       const delfilter = () => {
+         setMyCourseList(originalData);
+         
+         setSelectedStatus(null);
+       };
   // renderCourseItems
   const renderCourses = () => {
     if (isLoading) return <p>در حال بارگذاری...</p>;
@@ -184,16 +217,20 @@ const navigator = useNavigate()
 
     let ithem = [];
 
-    point == "myCourse" && myCourseList.totalCount != 0
-      ? (ithem = myCourseList.listOfMyCourses)
-      : (ithem = []);
+    console.log(myCourseList);
+    point == "myCourse"
+      ? (ithem = myCourseList)
+      : null;
     if (point == "dashbord") {
       ithem = CourseListItem;
     }
-    if (!ithem) {
-      ithem = CourseListItem;
+    if (!ithem || ithem == []) {
+      return <p>دوره ای برای شما ثبت نشده</p>
     }
-    console.log(ithem);
+    if (ithem.length==0) {
+      return <p className="mt-[5%]">دوره ای با این مشخصات شما ثبت نشده</p>
+    }
+    // console.log(ithem);
 
     return ithem
       .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
@@ -484,6 +521,51 @@ const navigator = useNavigate()
             value={`${filterValue ? "" : queryValue}`}
             onChange={handleSearch}
           />
+          <div
+            className={` items-center gap-x-2 flex-row-reverse mr-[2%] ${
+              point == "myCourse" ? 'flex': 'hidden'
+            }`}
+          >
+            <Button
+              className="border-red-500 text-red-500 hover:bg-red-100"
+              bordered
+              color="error"
+              auto
+              onClick={() => {
+                delfilter();
+              }}
+            >
+              حذف
+            </Button>
+            <span className="text-gray-400">|</span>
+            <Button
+              radius="full"
+              className={`${
+                selectedStatus === "notApproved"
+                  ? "bg-[#E1C461] text-white"
+                  : "bg-transparent border-gray-400 text-gray-700"
+              }`}
+              bordered
+              auto
+              onClick={() => handleSelect("notApproved")}
+            >
+              پرداخت نشده
+            </Button>
+            <Button
+              radius="full"
+              className={`${
+                selectedStatus === "approved"
+                  ? "bg-[#E1C461] text-white"
+                  : "bg-transparent border-gray-400 text-gray-700"
+              }`}
+              bordered
+              auto
+              onClick={() => handleSelect("approved")}
+            >
+              پرداخت شده
+            </Button>
+            <span className="text-gray-500">ترتیب :</span>
+          </div>
           <SelectOpt
             width={point == "myCourse" ? "myCourse" : "100%"}
             lgWidth={"160px"}

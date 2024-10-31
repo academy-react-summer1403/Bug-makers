@@ -10,7 +10,7 @@ import moment from "jalali-moment";
 // import SearchBox from "./SearchBox/SearchBox";
 // import SelectOpt from "./Select/SelectOpt";
 // import DateModal from "./Date/Date";
-import { Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@nextui-org/react";
 import CourseCard from "../../../CourseDetail/CourseCard/CourseCard";
 import { getCourseDetail } from "../../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CourseItem from "./CorseItem/CourseItem";
@@ -23,7 +23,7 @@ import BlogIthem from "../LikedBlog/CorseItem/BlogIthem";
 import DeleteModal from "../../common/DeleteModal";
 import { setFavoriteList } from "../../../../../Redux/Slice/Course/favoritee";
 import toast from "react-hot-toast";
-import SearchBox from "../Dashbord/CourseListDeatail/SearchBox/SearchBox";
+import SearchBox from "./SearchBox/SearchBox";
 
 
 
@@ -32,22 +32,21 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
   // stateForListStyle
   const [listStyle, setListStyle] = useState(false);
 
-  const [response,setResponse]=useState([])
+  const [response, setResponse] = useState([]);
 
   // course detail modal
   const [detailCourse, setDetailCourse] = useState(false);
   const [detail, setDetail] = useState();
   const [detailId, setDetailId] = useState(null);
-  // delete box 
-  const [isDelete,setIsDelete]=useState(false)
-  const [deleteId,setDeleteId]=useState(null)
+  // delete box
+  const [isDelete, setIsDelete] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
   const [queryValue, setQueryValue] = useState("");
-  const [originalData,setOriginalData] = useState()
-  const [fun,setFun]=useState()
-const setIsDeleteFalse=()=>{
-  setIsDelete(false);
-}
-
+  const [originalData, setOriginalData] = useState([]);
+  const [fun, setFun] = useState();
+  const setIsDeleteFalse = () => {
+    setIsDelete(false);
+  };
 
   const itemsPerPage = itemPerpage;
   const dispatch = useDispatch();
@@ -56,58 +55,55 @@ const setIsDeleteFalse=()=>{
   const CourseListItem = useSelector((state) => state.favorite.favoriteList);
 
   // fetchCoursesWithFilters
-  const GetLikedCourse = async ()=>{
+  const GetLikedCourse = async () => {
     const data = await getLikedCourse();
     setResponse(data.favoriteCourseDto);
-    setOriginalData(response);
-  }
-  dispatch(setFavoriteList(response))
+    setOriginalData(data.favoriteCourseDto);
+  };
+  dispatch(setFavoriteList(response));
 
   const GetLikedNews = async () => {
     const data = await getLikedNews();
     setResponse(data.myFavoriteNews);
-    setOriginalData(response);
+    setOriginalData(data.myFavoriteNews);
   };
   const GetCourseServ = async () => {
     const data = await getCourseServ();
     setResponse(data);
-    console.log(data)
-    setOriginalData(response);
+    console.log(data);
+    setOriginalData(data);
   };
-  useEffect(()=>{
+  useEffect(() => {
     if (location == "BlogFav") {
-      GetLikedNews()
+      GetLikedNews();
     }
     if (location == "CourseFav") {
-      GetLikedCourse()
+      GetLikedCourse();
     }
     if (location == "CourseServ") {
-      GetCourseServ()
+      GetCourseServ();
     }
-  },[])
-    
-const DeleteIthem =async (id)=>{
-  
-  if (location == "BlogFav") {
+  }, []);
+
+  const DeleteIthem = async (id) => {
+    if (location == "BlogFav") {
       const res = await delBlogFav(id);
       GetLikedNews();
       toast.success("خبر مورد نظر با موفقیت حذف شد");
-  }
-  if (location == "CourseFav") {
+    }
+    if (location == "CourseFav") {
       const res = await delCourseFav(id);
       GetLikedCourse();
       toast.success("دوره مورد نظر با موفقیت حذف شد");
-  }
-  if (location == "CourseServ") {
-    GetCourseServ();
-    const res = await delCourseServ(id);
+    }
+    if (location == "CourseServ") {
+      GetCourseServ();
+      const res = await delCourseServ(id);
       GetCourseServ();
       toast.success("دوره مورد نظر با موفقیت حذف شد");
-
-  }
-    setIsDeleteFalse()
-}
-  
+    }
+    setIsDeleteFalse();
+  };  
 const fetchMoreDetail=(id)=>{
   const res = getCourseDetail(id)
   setResponse(res)
@@ -146,8 +142,7 @@ const handleSearch = (e) => {
   }
 
   // در غیر این صورت، داده‌ها را بر اساس مقدار ورودی فیلتر کن
-  const filterData = originalData.filter((el) => {
-  
+  const filterData = response.filter((el) => {
     if (location == "BlogFav") {
       return el.title.toLowerCase().includes(value.toLowerCase());
     }
@@ -156,11 +151,31 @@ const handleSearch = (e) => {
     }
     if (location == "CourseFav") {
       return el.courseTitle.toLowerCase().includes(value.toLowerCase());
-    } 
-
-});
+    }
+  });
 setResponse(filterData);
 };
+    const [selectedStatus, setSelectedStatus] = useState(null);
+
+    const handleSelect = (status) => {
+      setSelectedStatus(status);
+      const filterData = response.filter((el) => {
+        if(status=="notApproved"){
+          return el.accept == false;
+        }
+        if (status == "approved") {
+          return el.accept == true;
+        }
+      });
+      setResponse(filterData);
+    };
+
+     
+const delfilter=()=>{
+  setResponse(originalData);
+  setQueryValue("")
+  setSelectedStatus(null)
+}
   const renderCourses = () => {
   
       if(response.length==0){return(
@@ -333,6 +348,7 @@ setResponse(filterData);
    
   };
 
+
   const GetNewsId = async (detailId) => {
     console.log(detailId);
     const res = await getBlogDetail(detailId);
@@ -386,7 +402,7 @@ setResponse(filterData);
         />
       );
     }
-      if(location != "BlogFav"){
+    if(location != "BlogFav"){
         return (
           <CourseItem
             key={detail.courseId}
@@ -421,7 +437,7 @@ setResponse(filterData);
             userLikeId={detail.userLikeId}
           />
         );
-      }
+    }
 
   };
   
@@ -496,10 +512,9 @@ setResponse(filterData);
         </div>
 
         {/* filterActionSection */}
-
         <div
-          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-center items-center gap-x-3 max-md:gap-y-[20px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
-            ${ true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
+          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-start items-center gap-x-3 max-md:gap-y-[20px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+            ${true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
         >
           <SearchBox
             width={"20%"}
@@ -508,6 +523,46 @@ setResponse(filterData);
             value={`${queryValue}`}
             onChange={handleSearch}
           />
+          <div className="flex items-center gap-x-2 flex-row-reverse mr-[2%]">
+            <Button
+              className="border-red-500 text-red-500 hover:bg-red-100"
+              bordered
+              color="error"
+              auto
+              onClick={() => {delfilter()}}
+            >
+              حذف
+            </Button>
+            <span className="text-gray-400">|</span>
+            <Button
+              radius="full"
+              className={`${
+                selectedStatus === "notApproved"
+                  ? "bg-[#E1C461] text-white"
+                  : "bg-transparent border-gray-400 text-gray-700"
+              }`}
+              bordered
+              auto
+              onClick={() => handleSelect("notApproved")}
+            >
+              تایید نشده
+            </Button>
+            <Button
+              radius="full"
+              className={`${
+                selectedStatus === "approved"
+                  ? "bg-[#E1C461] text-white"
+                  : "bg-transparent border-gray-400 text-gray-700"
+              }`}
+              bordered
+              auto
+              onClick={() => handleSelect("approved")}
+            >
+              تایید شده
+            </Button>
+            <span className="text-gray-500">ترتیب :</span>
+          </div>
+          
           {/* <SelectOpt
             
             lgWidth={"160px"}
