@@ -29,13 +29,13 @@ const AddCommentForm = ({ onSubmit, newsId, parentId, onSubmit2, setRepleyModal 
       }}
     >
       {({ errors, touched }) => (
-        <Form className="w-full h-max px-[2vw] mt-[1vw] mb-[2vw]">
+        <Form className="w-full h-max px-[2vw] max-md:p-4 mt-[1vw] mb-[2vw] ">
           <div className="mb-[1vw]">
             <Field
               placeholder="عنوان دیدگاه خود را وارد کنید"
               type="text"
               name="Title"
-              className={`bg-white border-[0.1vw] text-gray-600 border-[#C4CDD5] w-1/2 h-[2vw] rounded-[0.57vw] mb-[1vw] ${
+              className={`bg-white border-[0.1vw]  text-gray-600 border-[#C4CDD5] w-1/2 max-md:w-full  max-md:h-[10%]  rounded-md h-[2vw]mb-[1vw] ${
                 errors.Title && touched.Title ? "border-red-500" : ""
               }`}
             />
@@ -51,7 +51,7 @@ const AddCommentForm = ({ onSubmit, newsId, parentId, onSubmit2, setRepleyModal 
               as="textarea"
               name="Describe"
               placeholder="دیدگاه خود را وارد کنید"
-              className={`max-h-[14vw] min-h-[14vw] p-[0.5vw] bg-white border-[0.15vw] text-gray-600 border-[#C4CDD5] w-full h-[9.58vw] rounded-[0.57vw] ${
+              className={`max-h-[14vw] max-md:max-h-[160px] max-md:h-[160px] max-md:min-h-[160px] min-h-[14vw] p-[0.5vw] bg-white border-[0.15vw] text-gray-600 border-[#C4CDD5] w-full h-[9.58vw] rounded-md ${
                 errors.Describe && touched.Describe ? "border-red-500" : ""
               }`}
             />
@@ -63,7 +63,7 @@ const AddCommentForm = ({ onSubmit, newsId, parentId, onSubmit2, setRepleyModal 
           </div>
 
           <button
-            className="mt-[0.7vw] rounded-[0.42vw] bg-[#C4CDD5] cursor-pointer w-[6.61vw] h-[1.82vw] leading-[0.8vw]"
+            className="mt-[0.7vw] rounded-md bg-[#C4CDD5] cursor-pointer w-[6.61vw] max-md:w-[30%] max-md:h-[30px] h-[1.82vw] leading-[0.8vw]"
             type="submit"
           >
             ثبت نظر

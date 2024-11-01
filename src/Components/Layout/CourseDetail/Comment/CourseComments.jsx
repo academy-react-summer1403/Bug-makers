@@ -47,21 +47,23 @@ const CourseComments = ({
 
   return (
     <>
-      <div className="p-[0.1vw] py-[1vw] border-b-[0.15vw] border-[#C2C2C2]  bg-white flex items-start justify-between h-full w-full ">
-        <div className="overflow-hidden size-[3vw] ml-[1vw] rounded-[0.42vw] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] flex justify-center">
+      <div className="p-[0.1vw] max-md:p-2 py-[1vw] border-b-[0.15vw] border-[#C2C2C2]  bg-white flex items-start justify-between h-full max-md:h-[140px] w-full ">
+        <div className="overflow-hidden size-[3vw] max-md:size-[40px] ml-[1vw] rounded-md bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] flex justify-center">
           <img src={pictureAddress} alt="" className="h-full" />
         </div>
-        <div className="w-[95%] text-right">
+        <div className="w-[95%] text-right h-full">
           {/* Header: نام نویسنده، تاریخ، ساعت */}
-          <div className="flex justify-between items-center mb-2">
-            <div className="text-[0.7vw] text-[#5E5E5E] flex justify-between w-[50%] max-w-[20vw]">
-              <span className="max-w-[10vw]">{title}</span>|
-              <span>{convertToJalali(date)}</span>|<span>ساعت ۱۶:۲۴ </span>
-              <span className="mr-[0.5vw]">
+          <div className="flex justify-between items-center mb-2 max-md:flex-col max-md:items-start max-md:h-[35%]">
+            <div className="text-[0.7vw] max-md:text-[12px] max-md:max-w-[100%] max-md:w-full text-[#5E5E5E] flex justify-between w-[50%] max-w-[20vw]">
+              <span className="max-w-[7vw] max-md:max-w-[20%] overflow-hidden text-ellipsis ... h-[20px]">
+                {title}
+              </span>
+              |<span>{convertToJalali(date)}</span>|<span>ساعت ۱۶:۲۴ </span>
+              <span className="mr-[0.5vw] max-md:hidden">
                 {calculateDateDifference(convertToJalali(date))} روز پیش
               </span>
             </div>
-            <div className="text-[0.8vw] gap-[1vw] text-gray-800 w-1/3  max-w-[15vw]  h-[1.46vw]  flex justify-end">
+            <div className="text-[0.8vw] max-md:text-[12px] gap-[1vw] text-gray-800 w-1/3  max-w-[15vw] max-md:max-w-full max-md:w-full  h-[1.46vw] max-md:h-[40%]  flex justify-end">
               <div className="flex justify-evenly h-full w-[25%] items-center">
                 <span>{likeCount}</span>
                 <svg
@@ -69,10 +71,11 @@ const CourseComments = ({
                     currentUserIsLike == "DISSLIKED"
                       ? setNewsLikeComment(id)
                       : setNewsLikeComment(id);
-                      showRepley(id);}}
+                    showRepley(id);
+                  }}
                   className="cursor-pointer"
-                  width="1.51vw"
-                  height="1.3vw"
+                  width=""
+                  height="100%"
                   viewBox="0 0 29 25"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -91,11 +94,11 @@ const CourseComments = ({
                     currentUserIsDissLike == "DISSLIKED"
                       ? setNewsDissLikeComment(id)
                       : setNewsDissLikeComment(id);
-                      showRepley(id);
+                    showRepley(id);
                   }}
                   className="cursor-pointer"
-                  width="1.51vw"
-                  height="1.3vw"
+                  width=""
+                  height="100%"
                   viewBox="0 0 29 25"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -114,17 +117,17 @@ const CourseComments = ({
           </div>
 
           {/* Body: متن نظر */}
-          <div className="text-sm text-gray-700 mt-[1vw] h-[4vw]">
+          <div className="text-[0.8vw] max-md:text-[10px] text-gray-700 mt-[1vw] h-[4vw] max-md:h-[35%]">
             {describe}
           </div>
 
           {/* Footer: دکمه‌های پاسخ دادن و مشاهده پاسخ‌ها */}
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center max-md:h-[20%]">
             <button
               onClick={() => {
                 showRepley(id);
               }}
-              className="text-[0.7vw] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-[0.78vw] w-[7vw] h-[1.7vw] p-0"
+              className="text-[0.7vw] max-md:text-[10px] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-full w-[7vw] h-[1.7vw] max-md:w-[40%] max-md:h-[100%] p-0"
             >
               مشاهده پاسخ ها ({replyCount})
             </button>
@@ -135,17 +138,19 @@ const CourseComments = ({
               onClick={() => {
                 setRepleyModal(true);
               }}
-              className="flex justify-evenly items-center text-[0.7vw] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-[0.78vw] w-[5vw] h-[1.7vw] p-0"
+              className="flex justify-evenly max-md:w-[25%] max-md:h-[100%] max-md:text-[10px] items-center text-[0.7vw] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-full w-[5vw] h-[1.7vw] p-0"
             >
-              <span 
-              onClick={() => {
-                window.scrollTo({top:780 , behavior: 'smooth'})
-                setRepleyModal(true);
-              }}
-              >پاسخ دادن</span>
+              <span
+                onClick={() => {
+                  window.scrollTo({ top: 780, behavior: "smooth" });
+                  setRepleyModal(true);
+                }}
+              >
+                پاسخ دادن
+              </span>
               <svg
-                width="0.78vw"
-                height="0.68vw"
+                width=""
+                height="40%"
                 viewBox="0 0 15 13"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -162,8 +167,8 @@ const CourseComments = ({
       <div
         className={
           repleyModal
-          ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center"
-          : "hidden"
+            ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center"
+            : "hidden"
         }
         onClick={() => {
           setRepleyModal(false);
@@ -172,8 +177,8 @@ const CourseComments = ({
         <div
           className={
             repleyModal
-            ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40"
-            : "hidden"
+              ? "h-max max-md:w-full max-md:max-w-full max-md:h-[50%] w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40"
+              : "hidden"
           }
           onClick={(e) => e.stopPropagation()}
         >
@@ -188,7 +193,7 @@ const CourseComments = ({
       </div>
       <div>
         {responseCo ? (
-          <div className="pr-[5vw] w-full">
+          <div className="pr-[5vw] max-md:pr-0 w-full max-md:border-r-4 border-blue-600">
             {renderCourses(responseCo, id)}{" "}
           </div>
         ) : (

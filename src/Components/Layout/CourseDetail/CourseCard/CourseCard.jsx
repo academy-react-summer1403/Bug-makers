@@ -484,7 +484,7 @@ function CourseCard({id}) {
             setRepleyModal(true); 
             window.scrollTo({ top: 780, behavior: 'smooth' });
           }} 
-          className="w-full rounded-[0.5vw] h-[3vw] text-[1.5vw] bg-gray-300 cursor-pointer"
+          className="w-full rounded-[0.5vw] h-[3vw] text-[1.5vw] max-md:text-[18px] max-md:h-[30px] bg-gray-300 cursor-pointer"
         >
           ثبت نظر
         </div>
@@ -493,7 +493,7 @@ function CourseCard({id}) {
           onClick={() => setRepleyModal(false)}
         >
           <div 
-            className={repleyModal ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40" : "hidden"} 
+            className={repleyModal ? "max-md:w-full max-md:max-w-full max-md:h-[50%] h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40" : "hidden"} 
             onClick={(e) => e.stopPropagation()}
           >
             <AddCommentForm onSubmit={onSubmit} newsId={id} parentId={null} onSubmit2={onSubmit2} setRepleyModal={setRepleyModal} />

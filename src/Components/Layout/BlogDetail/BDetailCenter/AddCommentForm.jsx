@@ -18,38 +18,38 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
   return (
     <Formik
       initialValues={
-      parentId
-        ? {
-            title: "",
-            describe: "",
-            newsId: `${newsId}`,
-            userIpAddress: "1.1.1.1",
-            userId: `${userId}`,
-            parentId: parentId,
-          }
-        : {
-            title: "",
-            describe: "",
-            newsId: `${newsId}`,
-            userIpAddress: "1.1.1.1",
-            userId: `${userId}`,
-          }
-    }
+        parentId
+          ? {
+              title: "",
+              describe: "",
+              newsId: `${newsId}`,
+              userIpAddress: "1.1.1.1",
+              userId: `${userId}`,
+              parentId: parentId,
+            }
+          : {
+              title: "",
+              describe: "",
+              newsId: `${newsId}`,
+              userIpAddress: "1.1.1.1",
+              userId: `${userId}`,
+            }
+      }
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
         onSubmit(values);
-        resetForm(); 
-        setRepleyModal(false); 
+        resetForm();
+        setRepleyModal(false);
       }}
     >
       {({ errors, touched }) => (
-        <Form className="w-full h-max px-4 mt-4 mb-4">
+        <Form className="w-full h-max px-4 mt-4 mb-4 max-md:p-4">
           <div className="mb-4">
             <Field
               placeholder="عنوان دیدگاه خود را وارد کنید"
               type="text"
               name="title"
-              className={`bg-white border outline-none text-gray-600 border-[#C4CDD5] w-full md:w-full h-10 rounded-md mb-2 ${
+              className={`bg-white border outline-none text-gray-600 border-[#C4CDD5] w-full md:w-full h-10  max-md:w-full  max-md:h-[10%]  rounded-md  mb-2 ${
                 errors.title && touched.title ? "border-red-500" : ""
               }`}
             />
@@ -65,7 +65,7 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
               as="textarea"
               name="describe"
               placeholder="دیدگاه خود را وارد کنید"
-              className={`max-h-[14vw] outline-none min-h-[14vw] p-2 bg-white border text-gray-600 border-[#C4CDD5] w-full h-32 rounded-md ${
+              className={`max-md:max-h-[160px] max-md:h-[160px] max-md:min-h-[160px] max-h-[14vw] outline-none min-h-[14vw] p-2 bg-white border text-gray-600 border-[#C4CDD5] w-full h-32 rounded-md ${
                 errors.describe && touched.describe ? "border-red-500" : ""
               }`}
             />
@@ -77,7 +77,7 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
           </div>
 
           <Button
-            className="mt-2 rounded-md bg-[#C4CDD5] cursor-pointer w-full md:w-1/4 h-10 leading-5"
+            className="mt-2 max-md:w-[30%] max-md:h-[30px] rounded-md bg-[#C4CDD5] cursor-pointer w-full md:w-1/4 h-10 leading-5"
             type="submit"
           >
             ثبت نظر

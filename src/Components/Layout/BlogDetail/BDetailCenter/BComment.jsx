@@ -76,15 +76,15 @@ console.log(commenting);
     <div className="w-full max-h-[60vw] overflow-auto rounded-[0.78vw] bg-white mt-[2vw] p-[1vw] text-gray-600">
       {commenting && Array.isArray(commenting) && commenting.length > 0 ? (
         <div className="h-auto w-full flex flex-col md:flex-row justify-between items-center">
-          <span className="text-[15px] w-full md:w-[20%] text-right">نظرات</span>
-          <div className="w-full md:w-[60%] flex flex-wrap justify-between items-center text-[10px] my-1">
-            <div onClick={handleLikeSort} className="hover:text-blue-600 cursor-pointer w-1/3 text-center">تعداد لایک</div>
-            <div onClick={handleDateDownSort}  className=" hover:text-blue-600 cursor-pointer w-1/3 text-center">قدیمی‌ترین</div>
-            <div onClick={handleDateSort} className=" hover:text-blue-600 cursor-pointer w-1/3 text-center">جدید‌ترین</div>
+          <span className="text-[18px] w-full md:w-[20%] text-right">نظرات</span>
+          <div className=" max-md:w-[60%] w-[40%] flex flex-wrap justify-between items-center text-[12px] my-1">
+            <div onClick={handleLikeSort} className="hover:text-blue-600 cursor-pointer w-1/4 text-center">تعداد لایک</div>-
+            <div onClick={handleDateDownSort}  className=" hover:text-blue-600 cursor-pointer w-1/4 text-center">قدیمی‌ترین</div>-
+            <div onClick={handleDateSort} className=" hover:text-blue-600 cursor-pointer w-1/4 text-center">جدید‌ترین</div>
           </div>
           <div className="w-full md:w-[20%] text-right mt-2 md:mt-0">
-            <span className="text-[8px]">{commenting.length}</span>
-            <span className="text-[8px]"> نظر ثبت شده</span>
+            <span className="text-[10px]">{commenting.length}</span>
+            <span className="text-[10px]"> نظر ثبت شده</span>
           </div>
         </div>
       ) : (
