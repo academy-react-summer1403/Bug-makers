@@ -74,15 +74,15 @@ const navigator = useNavigate()
 
   const itemsPerPage = itemPerpage;
   
-  const [CourseListItem,setCourseListItem]=useState([])
+  // const [CourseListItem,setCourseListItem]=useState([])
 
   // getCourseListFromRedux
-  const CourseListItems = useSelector((state) => state.CourseSlice.CourseList);
+  const CourseListItem = useSelector((state) => state.CourseSlice.CourseList);
 
-  useEffect(() => {
-    setCourseListItem(CourseListItems)
+  // useEffect(() => {
+  //   setCourseListItem(CourseListItems)
     
-  }, []);
+  // }, []);
 
 
 
@@ -224,11 +224,11 @@ const navigator = useNavigate()
     if (point == "dashbord") {
       ithem = CourseListItem;
     }
-    if (!ithem || ithem == []) {
+    if (!ithem) {
       return <p>دوره ای برای شما ثبت نشده</p>
     }
-    if (ithem.length==0) {
-      return <p className="mt-[5%]">دوره ای با این مشخصات شما ثبت نشده</p>
+    if (ithem.length == 0 && point == "myCourse") {
+      return <p className="mt-[5%]">دوره ای با این مشخصات شما ثبت نشده</p>;
     }
     // console.log(ithem);
 
@@ -522,8 +522,8 @@ const navigator = useNavigate()
             onChange={handleSearch}
           />
           <div
-            className={` items-center gap-x-2 flex-row-reverse mr-[2%] ${
-              point == "myCourse" ? 'flex': 'hidden'
+            className={`max-md:col-span-2  items-center gap-x-2 flex-row-reverse mr-[2%] ${
+              point == "myCourse" ? "flex" : "hidden"
             }`}
           >
             <Button
@@ -564,7 +564,8 @@ const navigator = useNavigate()
             >
               پرداخت شده
             </Button>
-            <span className="text-gray-500">ترتیب :</span>
+            |
+            <span className="text-gray-500">ترتیب</span>
           </div>
           <SelectOpt
             width={point == "myCourse" ? "myCourse" : "100%"}
@@ -584,7 +585,7 @@ const navigator = useNavigate()
             lgWidth={"160px"}
             onFilter={point == "myCourse" ? "myCourse" : handlePriceFilter}
           />
-          <span className="block lg:hidden text-[10px] text-[#978A8A] absolute bottom-2 right-4">
+          <span className="block max-md:hidden lg:hidden text-[10px] text-[#978A8A] absolute bottom-2 right-4">
             تعداد {CourseListItem.length} نتیجه از{" "}
             {point == "dashbord"
               ? Data?.totalCount || 0
@@ -592,7 +593,9 @@ const navigator = useNavigate()
             دوره طبق جستجوی شما یافت شد
           </span>
           <span
-            className="block lg:hidden w-[106px] h-[20px] rounded-[16px] text-center text-[10px] bottom-2 m-auto relative  text-[#FE8E8E] cursor-pointer bg-white  "
+            className={`lg:hidden max-md:text-[14px] w-[106px] h-[20px] rounded-[16px] text-center text-[10px] bottom-2 m-auto relative  text-[#FE8E8E] cursor-pointer bg-white  
+              ${point == "myCourse" ? "hidden" : "block"}
+              `}
             onClick={handleRemoveFilter}
           >
             حذف تمامی فیلتر

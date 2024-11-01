@@ -40,10 +40,10 @@ const RightPassBoxStep2 = () => {
         const response = await ForgetPassStep3(JSON.parse(jsonString));
         console.log(values);
         if (response) {
-            alert("رمز شما با موفقیت تغییر کرد");
+            toast.success("رمز شما با موفقیت تغییر کرد");
             navigate("/");
         } else {
-            alert("رمز شما تایید نشد دوباره امتحان کنید");
+            toast.error("رمز شما تایید نشد دوباره امتحان کنید");
         }
         actions.resetForm({
             values: {

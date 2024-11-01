@@ -22,6 +22,9 @@ export const ProfileStep1 = async (id) => {
       formData.append("LinkdinProfile", id.linkedin)
     }
 
+    if (id.receiveMessageEvent != null) {
+      formData.append("ReceiveMessageEvent", id.receiveMessageEvent);
+    }
       
       
     if (id.longitude) {
@@ -82,17 +85,54 @@ export const selectCurentProfilePic = async (id) => {
   return response;
 };
 
+export const updatePassword = async (id) => {
+  let url = "/SharePanel/ChangePassword";
 
-// export const setPayment = async (id) => {
-//   let url = "/CoursePayment/StudentAddPeyment";
-//   const formData = new FormData();
-//   formData.append("CourseId", id);
-//   formData.append("Paid", id);
-//   formData.append("PeymentDate", id);
-//   formData.append("PaymentInvoiceNumber", id);
+  const response = await instance.post(url, id);
 
-//   console.log(formData);
-//   const response = await instance.post(url, formData);
+  return response;
+};
 
-//   return response;
-// };
+export const setPayment = async (id) => {
+  let url = "/CoursePayment/StudentAddPeyment";
+  const formData = new FormData();
+  formData.append("CourseId", id.courseId);
+  formData.append("Paid", id.price);
+  formData.append("PeymentDate", id.PeymentDate);
+  formData.append("PaymentInvoiceNumber", id.PaymentInvoiceNumber);
+
+  console.log(formData);
+  const response = await instance.post(url, formData);
+
+  return response;
+};
+
+export const setSqurity = async (id) => {
+  let url = "/SharePanel/EditSecurity";
+  const data = {
+    twoStepAuth: id.twoStepAuth,
+    recoveryEmail: `${id.recoveryEmail}`,
+    baseUrl: "http://localhost:5173/acceptGmail",
+  };
+
+  const response = await instance.put(url,  data );
+
+  return response;
+};
+
+export const getSqurity = async () => {
+  let url = "/SharePanel/GetSecurityInfo";
+
+  const response = await instance.get(url);
+
+  return response;
+};
+
+export const gmailVerifiy = async (id) => {
+  let url = `/SharePanel/ChangeRecovery/:${id}`;
+
+  console.log(url)
+  const response = await instance.get(url);
+
+  return response;
+};

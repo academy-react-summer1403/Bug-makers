@@ -100,7 +100,7 @@ const TopBar = () => {
         <Avatar
           src={CourseListItem.currentPictureAddress} // لینک تصویر آواتار را تغییر دهید
           size="lg"
-          className="border border-white w-[32%] h-full max-md:max-w-[60px] max-md:min-w-[60px]"
+          className="border border-white w-[17%] h-full max-md:max-w-[60px] max-md:min-w-[60px]"
         />
       </div>
     </div>

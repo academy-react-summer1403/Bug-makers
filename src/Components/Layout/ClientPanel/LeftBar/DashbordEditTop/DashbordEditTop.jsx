@@ -14,6 +14,8 @@ const DashbordEditTop = () => {
       { id: "Picture", label: "عکس پروفایل" },
       { id: "Address", label: "آدرس سکونت" },
       { id: "Links", label: "لینک‌ها" },
+      { id: "Security", label: "امنیت" },
+      { id: "PassWord", label: "رمز عبور" },
     ];
   return (
     <div className="bg-white shadow-md rounded-lg p-6 pb-0 w-full h-full relative ">
@@ -167,9 +169,9 @@ const DashbordEditTop = () => {
       </div>
 
       {/* Tab Section */}
-      <div className="flex h-[18%] justify-between absolute bottom-0 gap-x-8 overflow-hidden max-md:h-[13%]">
+      <div className="flex max-md:w-[100%] h-[18%] justify-between max-md:justify-start absolute bottom-0 gap-x-8 max-md:gap-x-1 overflow-hidden max-md:h-[13%]">
         {tabs.map((tab) => (
-          <div>
+          <div className="max-md:w-[15%] text-center">
             <div
               radius="sm"
               key={tab.id}
@@ -177,7 +179,7 @@ const DashbordEditTop = () => {
                 setActiveTab(tab.id);
                 navigator(`/ClientPanel/DashbordEdit/${tab.id}`);
               }}
-              className={`cursor-pointer text-gray-600 rounded-[0.5vw] bg-white pb-2 min-w-[15%] h-[90%] min-h-[20px] text-[1vw] hover:border-[#E1C461]
+              className={`cursor-pointer text-gray-600 rounded-[0.5vw] bg-white whitespace-nowrap pb-2 min-w-[15%] h-[90%] overflow-hidden  text-ellipsis ...  min-h-[15px] text-[1vw] hover:border-[#E1C461]
                 max-md:text-[12px]
                 ${
                 activeTab === tab.id ? "text-black" : ""

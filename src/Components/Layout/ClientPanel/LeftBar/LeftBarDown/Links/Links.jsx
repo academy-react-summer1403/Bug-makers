@@ -58,7 +58,7 @@ const Links = () => {
     };
     console.log(CourseListItem);
     console.log(data);
-    const res = ProfileStep1(data);
+    const res = await ProfileStep1(data);
   };
 
   return (
@@ -122,8 +122,8 @@ const Links = () => {
           </div>
 
           <Button
-            radius="full"
-            className="w-[30%] h-[15%] max-h-14 bg-[#E1C461] max-md:h-[10%]"
+            radius="md"
+            className="w-[30%] h-[14%] max-h-14 bg-[#E1C461] text-white max-md:h-[10%]"
             type="submit"
             color="warning"
           >

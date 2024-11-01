@@ -1,6 +1,6 @@
 const SearchBox = ({width, placeHolder, icon, value, onChange }) => {
     return (
-      <div className="relative max-md:col-span-2 text-gray-900 w-[30%] h-[40px] rounded-[10px] text-[12px] overflow-hidden">
+      <div className="relative max-md:col-span-2 max-md:w-full text-gray-900 w-[30%] h-[40px] rounded-[10px] text-[12px] overflow-hidden">
         <input
           type="text"
           className={`w-full h-full bg-no-repeat bg-[5%_50%] indent-3 bg-[#F2F2F2] ${icon}`}

@@ -219,8 +219,13 @@ const PersonalInfo = () => {
               </div>
 
               {/* دکمه ثبت تغییرات */}
-              <div className="col-span-2 flex justify-end mt-4">
-                <Button type="submit" color="warning" auto>
+              <div className="col-span-2 flex justify-end mt-4 ">
+                <Button
+                  className="text-white"
+                  type="submit"
+                  color="warning"
+                  auto
+                >
                   اعمال تغییرات
                 </Button>
               </div>

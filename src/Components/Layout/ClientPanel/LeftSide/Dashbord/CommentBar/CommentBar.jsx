@@ -34,7 +34,9 @@ console.log(NewsComment);
 
 
   if (!NewsComment) {
-    return <div className="w-full h-[99%] bg-white rounded-[0.5vw] flex items-center justify-center"> <p className="text-[2vw] max-md:text-[20vw]">کامنتی برای شما موجود نیست</p></div>
+    return <div className="w-full h-[99%] bg-white rounded-[0.5vw] flex items-center justify-center"> 
+              <p className="text-[2vw] max-md:text-[20px]">کامنتی برای شما موجود نیست</p>
+            </div>
   }
     return (
       <div className="w-full h-[99%] bg-white rounded-[0.5vw]">

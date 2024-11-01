@@ -36,6 +36,9 @@ import './i18n.js';
 import ContactUs from './Pages/ContactWe/ContactWe.jsx'
 import Payment from './Components/Layout/ClientPanel/LeftSide/Payment/Payment.jsx'
 import PaymentFirstStep from './Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/firstTab.jsx'
+import Security from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Security/Security.jsx'
+import PassWord from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/PassWord/PassWord.jsx'
+import AcceptGmail from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Security/AcceptGmail.jsx'
 const queryClient = new QueryClient();
 
 
@@ -111,11 +114,11 @@ const router = createBrowserRouter([
       },
       {
         path: "Payment",
-        
+
         errorElement: <Error />,
         children: [
           {
-            index: true ,
+            index: true,
             element: <Payment />,
             errorElement: <Error />,
           },
@@ -150,6 +153,16 @@ const router = createBrowserRouter([
           {
             path: "Links",
             element: <Links />,
+            errorElement: <Error />,
+          },
+          {
+            path: "PassWord",
+            element: <PassWord />,
+            errorElement: <Error />,
+          },
+          {
+            path: "Security",
+            element: <Security />,
             errorElement: <Error />,
           },
         ],
@@ -197,6 +210,11 @@ const router = createBrowserRouter([
         errorElement: <Error />,
       },
     ],
+  },
+  {
+    path: "/acceptGmail/:first/:secound/:third",
+    element: <AcceptGmail />,
+    errorElement: <Error />,
   },
 ]);
 

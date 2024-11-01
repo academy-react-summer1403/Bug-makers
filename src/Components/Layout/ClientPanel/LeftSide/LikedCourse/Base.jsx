@@ -513,7 +513,7 @@ const delfilter=()=>{
 
         {/* filterActionSection */}
         <div
-          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-start items-center gap-x-3 max-md:gap-y-[20px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+          className={`h-[10%]  w-full max-md:grid  relative flex-row flex-wrap justify-start items-center gap-x-3 max-md:gap-y-[20px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
             ${true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
         >
           <SearchBox
@@ -523,13 +523,19 @@ const delfilter=()=>{
             value={`${queryValue}`}
             onChange={handleSearch}
           />
-          <div className="flex items-center gap-x-2 flex-row-reverse mr-[2%]">
+          <div
+            className={`max-md:col-span-2 items-center gap-x-2  flex-row-reverse mr-[2%] ${
+              location == "CourseServ" ? 'flex' : 'hidden'
+            }`}
+          >
             <Button
               className="border-red-500 text-red-500 hover:bg-red-100"
               bordered
               color="error"
               auto
-              onClick={() => {delfilter()}}
+              onClick={() => {
+                delfilter();
+              }}
             >
               حذف
             </Button>
@@ -562,7 +568,7 @@ const delfilter=()=>{
             </Button>
             <span className="text-gray-500">ترتیب :</span>
           </div>
-          
+
           {/* <SelectOpt
             
             lgWidth={"160px"}
