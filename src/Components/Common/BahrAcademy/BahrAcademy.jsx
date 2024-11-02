@@ -25,7 +25,7 @@ const BahrAcademy = () => {
     
     <motion.div
       className={` ${direction == 'ltr' ? 'ml-[7vw]' : 'mr-[7vw]'}  w-[36vw] h-[40vw] max-[714px]:bg-white p-[3vw] max-[714px]:w-[80vw]  relative  mt-[3.0416666666666667vw] z-10 rounded-lg
-        ${selectedButton === 1 ? 'mt-[23.999999999999vw] mr-[29.99999999999vw] bg-white p-[1.1vw] h-[20.10vw]' : 'mt-[1.04016666666666667vw] bg-transparent'}
+        ${selectedButton === 1 ? 'mt-[23.999999999999vw] mr-[29.99999999999vw]  p-[1.1vw] h-[20.10vw]' : 'mt-[1.04016666666666667vw] bg-transparent'}
       `}
       variants={itemVariants}
       initial="hidden"
@@ -42,7 +42,7 @@ const BahrAcademy = () => {
       <motion.button
         className={`${direction == 'ltr' ? 'left-[3vw]' : 'right-[3vw]'} max-[468px]:text-[2vw] max-[714px]:text-[3vw] /* end responsive */ absolute  px-[2.8vw] py-[0.7vw] text-[1.2vw]  mt-[1vw] rounded-3xl text-white 
           ${selectedButton === 0 ? 'bg-blue-600' : ''} 
-          ${selectedButton === 1 ? 'bg-green-600 m-1' : ''} 
+          ${selectedButton === 1 ? 'bg-green-600' : ''} 
           ${selectedButton === 2 ? 'bg-yellow-600' : ''}
         `}
         whileHover={{ scale: 1.1 }}

@@ -10,7 +10,7 @@ const Footer = () => {
     const {t} = useTranslation();
 
   return (
-    <div className={`border-2 border-red-600   bg-transparent m-auto w-[100%] mt-[38.786458333333332vw] relative text-center ${selectedButton === 1 ? 'bg-[#777] text-white' : 'text-gray-600'}`}>
+    <div className={` bg-transparent m-auto w-[100%] mt-[38.786458333333332vw] relative text-center ${selectedButton === 1 ? 'bg-[#777] text-white' : 'text-gray-600'}`}>
       <div className='border-2 border-[#BEBEBE] w-[90%] m-auto opacity-45'></div>
       <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8'>
 

@@ -44,7 +44,7 @@ const navigate = useNavigate()
   }, [i18n, i18n.language])
 
   return (
-    <div ref={ref} className={`z-[1000] min-[1800px]:h-36 h-16  flex items-center justify-center flex-row flex-nowrap shadow-[0px_10px_10px_0px_#00000008] transition-all duration-300 
+    <div ref={ref} className={`z-[1000] min-[1940px]:h-36 h-16  flex items-center justify-center flex-row flex-nowrap shadow-[0px_10px_10px_0px_#00000008] transition-all duration-300 
       ${isSticky ? 'fixed top-0 right-0 w-[100%] bg-[#F5F5F4]' : 'relative w-[100%] bg-[#F5F5F4]'}`}>
       
       {/* Menu in Responsive */}
