@@ -7,15 +7,17 @@ import LoginTokenSliceReducer from "../Slice/Login/Login";
 import towStepSliceReducer from '../Slice/Login/TowStep'
 import favoriteeSliceReducer from '../Slice/Course/favoritee'
 import paymentSliceReducer from '../Slice/payment/payment'
+import darkMoodReducer from '../Slice/darkMood/darkMood'
 export const Store = configureStore({
   reducer: {
     themeColor: ThemeColorReducer,
+    darkMood: darkMoodReducer,
     CourseSlice: CourseSliceReducer,
     BlogSlice: BlogSliceReducer,
     ClientInfoSlice: ClientInfoSliceReducer,
-    LoginToken : LoginTokenSliceReducer,
-    ToStep: towStepSliceReducer ,
-    favorite:favoriteeSliceReducer,
-    payment:paymentSliceReducer,
+    LoginToken: LoginTokenSliceReducer,
+    ToStep: towStepSliceReducer,
+    favorite: favoriteeSliceReducer,
+    payment: paymentSliceReducer,
   },
 });

@@ -159,8 +159,8 @@ setResponse(filterData);
 
     const handleSelect = (status) => {
       setSelectedStatus(status);
-      const filterData = response.filter((el) => {
-        if(status=="notApproved"){
+      const filterData = originalData.filter((el) => {
+        if (status == "notApproved") {
           return el.accept == false;
         }
         if (status == "approved") {

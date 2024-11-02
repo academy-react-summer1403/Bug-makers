@@ -28,16 +28,27 @@ const StatisticsData = () => {
 
   // Define the statistics based on fetched data
   const [statistics, setStatistics] = useState([])
-  const {t} = useTranslation();
+  const { t, i18n } = useTranslation();
+  const direction = i18n.dir();
 
 
   useEffect(() => {
     setStatistics([
-      { id: 1, label: t("content.staticData.student"), end: 1200, delay: 0 },  // Assuming a static value for students
-      { id: 2, label: t("content.staticData.course"), end: courseData?.totalCount || 0, delay: 0.3 },
-      { id: 3, label: t("content.staticData.teacher"), end: teacherData?.length || 0, delay: 0.6 },
+      { id: 1, label: t("content.staticData.student"), end: 1200, delay: 0 }, // Assuming a static value for students
+      {
+        id: 2,
+        label: t("content.staticData.course"),
+        end: courseData?.totalCount || 0,
+        delay: 0.3,
+      },
+      {
+        id: 3,
+        label: t("content.staticData.teacher"),
+        end: teacherData?.length || 0,
+        delay: 0.6,
+      },
     ]);
-  }, [statistics])
+  }, [ direction]);
 
   if (isCoursesLoading || isTeachersLoading) {
     return <p>در حال بارگذاری...</p>;

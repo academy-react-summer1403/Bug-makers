@@ -16,28 +16,48 @@ const WorkshopTarget = () => {
           id: 1,
           title: t("content.workShopTarget.abilityTopic"),
           description: t("content.workShopTarget.abilityDesc"),
-          img: <img src='../../../../public/images/icon/personal.png' className='block w-[8vw] h-[8vw] ' />
+          img: (
+            <img
+              src="../../../../public/images/icon/personal.png"
+              className="block w-[8vw] h-[8vw] "
+            />
+          ),
         },
         {
           id: 2,
           title: t("content.workShopTarget.startTopic"),
           description: t("content.workShopTarget.startDesc"),
-          img: <img src='../../../../public/images/icon/estedad.png' className='block w-[8vw] h-[8vw]' />
+          img: (
+            <img
+              src="../../../../public/images/icon/estedad.png"
+              className="block w-[8vw] h-[8vw]"
+            />
+          ),
         },
         {
           id: 3,
           title: t("content.workShopTarget.teacherTopic"),
           description: t("content.workShopTarget.teacherDesc"),
-          img: <img src='../../../../public/images/icon/amozesh.png' className='block w-[8vw] h-[8vw] mt-[1vw]' />
+          img: (
+            <img
+              src="../../../../public/images/icon/amozesh.png"
+              className="block w-[8vw] h-[8vw] mt-[1vw]"
+            />
+          ),
         },
         {
           id: 4,
           title: t("content.workShopTarget.workTopic"),
           description: t("content.workShopTarget.workDesc"),
-          img: <img src='../../../../public/images/icon/work.png' className='block w-[8vw] h-[8vw] ' />
+          img: (
+            <img
+              src="../../../../public/images/icon/work.png"
+              className="block w-[8vw] h-[8vw] "
+            />
+          ),
         },
-      ])
-    }, [targets])
+      ]);
+    }, [ direction]);
 
 
   // Animation settings

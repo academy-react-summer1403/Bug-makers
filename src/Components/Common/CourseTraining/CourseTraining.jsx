@@ -15,7 +15,7 @@ const CourseTraining = () => {
   const [courses, setCourses] = useState([])
 
   useEffect(() => {
-     setCourses([
+    setCourses([
       {
         title: t("content.courseTraining.youngCourse"),
         description: t("content.courseTraining.youngCourseP"),
@@ -27,7 +27,7 @@ const CourseTraining = () => {
         key: 2,
       },
     ]);
-  }, [courses])
+  }, [ direction]);
 
   // Animation settings
   const itemVariants = {

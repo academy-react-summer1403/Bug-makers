@@ -14,15 +14,49 @@ const StoreService = () => {
     const direction =  i18n.dir();
 
   useEffect(() => {
-    setboxItem(
-      [
-        { title: t("content.storeServices.test"), icon: <img src="../../../../public/images/icon/test.svg" className='w-[4.557291666666667vw] h-[4.557291666666667vw] absolute left-0 top-[-2.6041666666666665vw] opacity-60'/>, key: 1 },
-        { title: t("content.storeServices.help"), icon: <img src="../../../../public/images/icon/moshavere.svg"  className='w-[4.557291666666667vw] h-[4.557291666666667vw] absolute left-0 top-[-2.6041666666666665vw]  '/>, key: 2 },
-        { title: t("content.storeServices.job"), icon: <img src="../../../../public/images/icon/jobs.svg" className='w-[4.557291666666667vw] h-[4.557291666666667vw] absolute left-0 top-[-2.6041666666666665vw] opacity-60'/>, key: 3 },
-        { title: t("content.storeServices.course"), icon: <img src="../../../../public/images/icon/course.svg" className='w-[4.557291666666667vw] h-[4.557291666666667vw] absolute left-0 top-[-2.6041666666666665vw] opacity-60'/>, key: 4 },
-      ]
-    )
-  }, [boxItem])
+    setboxItem([
+      {
+        title: t("content.storeServices.test"),
+        icon: (
+          <img
+            src="../../../../public/images/icon/test.svg"
+            className="w-[4.557291666666667vw] h-[4.557291666666667vw] absolute left-0 top-[-2.6041666666666665vw] opacity-60"
+          />
+        ),
+        key: 1,
+      },
+      {
+        title: t("content.storeServices.help"),
+        icon: (
+          <img
+            src="../../../../public/images/icon/moshavere.svg"
+            className="w-[4.557291666666667vw] h-[4.557291666666667vw] absolute left-0 top-[-2.6041666666666665vw]  "
+          />
+        ),
+        key: 2,
+      },
+      {
+        title: t("content.storeServices.job"),
+        icon: (
+          <img
+            src="../../../../public/images/icon/jobs.svg"
+            className="w-[4.557291666666667vw] h-[4.557291666666667vw] absolute left-0 top-[-2.6041666666666665vw] opacity-60"
+          />
+        ),
+        key: 3,
+      },
+      {
+        title: t("content.storeServices.course"),
+        icon: (
+          <img
+            src="../../../../public/images/icon/course.svg"
+            className="w-[4.557291666666667vw] h-[4.557291666666667vw] absolute left-0 top-[-2.6041666666666665vw] opacity-60"
+          />
+        ),
+        key: 4,
+      },
+    ]);
+  }, [ direction]);
 
   // Animation settings
   const itemVariants = {
