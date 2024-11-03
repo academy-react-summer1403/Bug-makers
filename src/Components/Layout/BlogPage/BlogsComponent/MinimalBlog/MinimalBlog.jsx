@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import calculateDateDifference from '../../../../Common/TimeChanger/TimeChanger';
 import img2 from '../../../../../../public/images/icon/image.jpg'
 import { Tooltip } from 'react-leaflet';
+import { useSelector } from 'react-redux';
 
 
 const MinimalBlog = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,date,datePass}) => {
@@ -14,10 +15,12 @@ const MinimalBlog = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,date
         navigate(`/BlogDetail/${id}`)
         window.scrollTo({top:0 , behavior: 'smooth'})
     }
+    const dark = useSelector((state) => state.darkMood);
     return (
       <div
+        style={{ background: dark.bgHigh, color: dark.textHigh }}
         onClick={handleNavigate}
-        className="shadow-[-15px_15px_15px_0px_#0000000D] w-[240px] h-[330px] bg-white rounded-[15px]  overflow-hidden relative p-[3px] hover:scale-110 cursor-pointer transition-all duration-300 "
+        className="shadow-[-15px_15px_15px_0px_#0000000D] w-[240px] h-[330px] rounded-[15px]  overflow-hidden relative p-[3px] hover:scale-110 cursor-pointer transition-all duration-300 "
       >
         <div
           className={`w-[600px] h-40 bg-[rgba(245,245,245,0.5)] absolute  transition-all duration-500 hoverr:translate-x-[-150px]  ${
@@ -27,21 +30,24 @@ const MinimalBlog = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,date
           }`}
         ></div>
 
-        <div className="absolute top-[110px] left-[17px] w-[80px] h-[25px] bg-gray-200 overflow-hidden text-ellipsis ... rounded-full text-center text-[11px] leading-[20px] ">
+        <div
+          style={{ background: dark.bgHigh, color: dark.textHigh }}
+          className="absolute p-1 top-[110px] left-[17px] w-[80px] h-[25px] overflow-hidden text-ellipsis ... rounded-full text-center text-[11px] leading-[20px] "
+        >
           {cat}
         </div>
         <div className="flex h-full w-full flex-col overflow-hidden rounded-[15px]">
           <div className="w-full bg-gradient-to-r from-blue-200 rounded-[15px] to-blue-100 flex items-center justify-center">
-            <div className="w-full h-[120px] text-white text-5xl font-bold rounded-[11px] overflow-hidden">
+            <div className="w-full h-[120px]  text-5xl font-bold rounded-[11px] overflow-hidden">
               <img className="w-max h-max" src={newsImg} alt="" />
             </div>
           </div>
           <div className="relative w-full h-[252px] px-[4px] flex flex-col justify-between text-right">
             <div>
-              <div className="text-gray-900 font-[600] h-[50px] text-[14px] mt-[10px] w-full overflow-hidden text-ellipsis ...">
+              <div className=" font-[600] h-[50px] text-[14px] mt-[10px] w-full overflow-hidden text-ellipsis ...">
                 {title}
               </div>
-              <p className="text-gray-600 font-[400] leading-[15px] text-[11px] mt-[8px] h-[33px] overflow-hidden text-ellipsis ...">
+              <p className=" font-[400] leading-[15px] text-[11px] mt-[8px] h-[33px] overflow-hidden text-ellipsis ...">
                 {desc}
               </p>
               <div className="mt-[18px] w-full h-[64px] flex items-center justify-between flex-row">
@@ -55,13 +61,11 @@ const MinimalBlog = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,date
                       }}
                     />
                   </div>
-                  <p className="w-[62px] text-[11px] font-[400] text-gray-600">
-                    {writer}
-                  </p>
+                  <p className="w-[62px] text-[11px] font-[400] ">{writer}</p>
                 </div>
                 <BlogLikeSvg like={like} comment={comment} />
               </div>
-              <div className="flex justify-between items-center text-gray-500 text-xs">
+              <div className="flex justify-between items-center  text-xs">
                 <svg
                   width="17"
                   height="17"

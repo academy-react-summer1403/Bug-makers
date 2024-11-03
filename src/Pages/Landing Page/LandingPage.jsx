@@ -9,24 +9,28 @@ import StatisticsData from '../../Components/Common/StatisticsData/StatisticsDat
 import LandingSlider from '../../Components/Common/LandingSlider/LandingSlider'
 import BlogLanding from '../../Components/ComponentOnce/BlogLanding/BlogLanding'
 import Footer from '../../Components/Layout/Footer/Footer'
+import { useSelector } from 'react-redux'
 
 const LandingPage = () => {
 
+  const dark = useSelector((state) => state.darkMood);
   return (
-    <div className=' overflow-hidden relative max-w-[100%]'>
-        <BahrAcademy />
-        <StoreService />
-        <CourseTraining />
-        <WorkshopTarget />
-        <CursesAcademyLanding />
-        <StatisticsData />
-        <LandingSlider />
-        <BlogLanding />
-        <Footer />
-        <ScrollSvg />
-
+    <div
+      className=" overflow-hidden relative max-w-[100%]"
+      style={{ background: dark.bgLow, color: dark.textHigh }}
+    >
+      <BahrAcademy />
+      <StoreService />
+      <CourseTraining />
+      <WorkshopTarget />
+      <CursesAcademyLanding />
+      <StatisticsData />
+      <LandingSlider />
+      <BlogLanding />
+      <Footer />
+      <ScrollSvg />
     </div>
-  )
+  );
 }
 
 export default LandingPage

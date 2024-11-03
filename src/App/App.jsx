@@ -12,6 +12,7 @@ import { NextUIProvider } from '@nextui-org/react'
 import ThemeColor from '../Components/Common/ThemeColor/ThemeColor.jsx'
 import ScrollTopButton from '../Components/Common/ScrollTopButton/ScrollTopButton.jsx'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
 
 
@@ -24,9 +25,13 @@ function App() {
     ref.current.dir = i18n.dir()
   }, [i18n, i18n.language])
 
-
+const dark = useSelector((state) => state.darkMood);
   return (
-    <div ref={ref} dir="rtl">
+    <div
+      ref={ref}
+      dir="rtl"
+      style={{ background: dark.bgLow, color: dark.textHigh }}
+    >
       <Suspense fallback={<>loading</>}>
         {/* <BlogDetail/> */}
         <NextUIProvider>

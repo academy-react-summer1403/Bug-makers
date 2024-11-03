@@ -5,24 +5,25 @@ export const darkMoodSlice = createSlice({
   name: "darkMood",
   initialState: {
     selectedDark: Number(localStorage.getItem("dark")) || 0,
-    colorA: "#fff",
-    colorB: "#242424",
-    colorC: "blue-500",
-    colorD: "gray-50",
-    colorE: "gray-500",
+    bgHigh: "#ffffff",
+    bgLow: "#f2f3f5",
+    textHigh: "#5e5e5e",
+    textLow: "#7e7e7e",
   },
   reducers: {
     selectdark: (state, action) => {
       state.selectedDark = action.payload;
       localStorage.setItem("dark", action.payload);
       if (action.payload === 0) {
-        state.colorA = "#ffffff";
-        state.colorB = "#272727";
-        state.colorC = "#f0f1f3";
+        state.bgHigh = "#ffffff";
+        state.bgLow = "#f2f3f5";
+        state.textHigh = "#5e5e5e";
+        state.textLow = "#7e7e7e";
       } else if (action.payload === 1) {
-        state.colorA = "#1f1f1f";
-        state.colorB = "#bfbfbf";
-        state.colorC = "#242424";
+        state.bgHigh = "#1f1f1f";
+        state.bgLow = "#242424";
+        state.textHigh = "#bfbfbf";
+        state.textLow = "#a3aab3";
       }
     },
   },

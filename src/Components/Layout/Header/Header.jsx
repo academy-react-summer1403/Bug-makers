@@ -47,15 +47,15 @@ const navigate = useNavigate()
 
 
   const dark = useSelector((state) => state.darkMood);
-  const color = dark.colorE.slice(0, -1)
-  console.log(dark.colorB);
+
   return (
     <div
       ref={ref}
       className={`z-[1000]  min-[1940px]:h-36 h-16  flex items-center justify-center flex-row flex-nowrap shadow-[0px_10px_10px_0px_#00000008] transition-all duration-300 
       ${isSticky ? "fixed top-0 right-0 w-[100%] " : "relative w-[100%] "}`}
-      style={{background:dark.colorB}}
+      style={{ background: dark.bgHigh , color:dark.textHigh}}
     >
+      
       {/* Menu in Responsive */}
       <div className="max-[625px]:block  /* end responsive */ mobileMode w-8 h-8 absolute right-[40px] cursor-pointer hidden ">
         <CiMenuBurger

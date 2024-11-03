@@ -6,6 +6,7 @@ import { getLikeCount } from '../../../Core/Services/Api/CoursePage/LikeCount';
 import { toast } from 'react-hot-toast';
 import img2 from '../../../../public/images/icon/image.jpg';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const CourseItem = ({ 
     title, 
     courseId, 
@@ -63,11 +64,13 @@ const CourseItem = ({
         navigate(`/CourseDetail/${courseId}`)
         window.scrollTo({top:0 , behavior: 'smooth'})
     }
+    const dark = useSelector((state) => state.darkMood);
   return (
     <div
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
       onClick={handleNavigate}
       dir={`${listStyle ? "ltr" : "rtl"}`}
-      className={`relative shadow-[-15px_15px_15px_0px_#0000000D] bg-white rounded-2xl p-[5px] overflow-hidden group hover:scale-110 cursor-pointer transition-all duration-300  ${
+      className={`relative shadow-[-15px_15px_15px_0px_#0000000D]  rounded-2xl p-[5px] overflow-hidden group hover:scale-110 cursor-pointer transition-all duration-300  ${
         listStyle
           ? "w-[100%]  h-[22.786458333333332vw]"
           : "w-[250px]  h-[405px]   "
@@ -77,7 +80,7 @@ const CourseItem = ({
         className={`w-[600px] h-40 bg-[rgba(245,245,245,0.5)] absolute  transition-all duration-500 group-hover:translate-x-[-150px]  ${
           listStyle
             ? "rotate-45 translate-x-[1000px] translate-y-[-100px] group-hover:translate-y-[250px] group-hover:translate-x-[-450px]"
-            : "rotate-45 translate-x-[450px] translate-y-[-50px] group-hover:translate-y-[200px]"
+            : "rotate-45 translate-x-[450px] translate-y-[-50px] group-hover:translate-y-[240px]"
         }`}
       ></div>
       <img
@@ -92,7 +95,8 @@ const CourseItem = ({
         }`}
       />
       <div
-        className={`absolute  w-[70px] h-[25px] rounded-[15px] bg-[#F5F5F4] text-[11px] shadow-[0px_3px_3px_0px_#0000001F] text-[#DEDEDE] leading-[25px] line-clamp-1 ${
+        style={{ background: dark.bgHigh, color: dark.textHigh }}
+        className={`absolute  w-[70px] h-[25px] rounded-[15px] text-[11px] shadow-[0px_3px_3px_0px_#0000001F] leading-[25px] line-clamp-1 ${
           listStyle
             ? "top-[1.8229166666666667vw] left-[33.854166666666664vw]"
             : "left-5 top-[140px]"

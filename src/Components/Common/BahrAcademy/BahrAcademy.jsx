@@ -18,13 +18,14 @@ const BahrAcademy = () => {
   // translate 
   const {t , i18n} = useTranslation()
   const direction = i18n.dir()
+  const dark = useSelector((state) => state.darkMood);
   return (
 
     // wrapper 
 
     
     <motion.div
-      className={` ${direction == 'ltr' ? 'ml-[7vw]' : 'mr-[7vw]'}  w-[36vw] h-[40vw] max-[714px]:bg-white p-[3vw] max-[714px]:w-[80vw]  relative  mt-[3.0416666666666667vw] z-10 rounded-lg
+      className={` ${direction == 'ltr' ? 'ml-[7vw]' : 'mr-[7vw]'}  w-[36vw] h-[40vw]  p-[3vw] max-[714px]:w-[80vw]  relative  mt-[3.0416666666666667vw] z-10 rounded-lg
         ${selectedButton === 1 ? 'mt-[23.999999999999vw] mr-[29.99999999999vw]  p-[1.1vw] h-[20.10vw]' : 'mt-[1.04016666666666667vw] bg-transparent'}
       `}
       variants={itemVariants}
