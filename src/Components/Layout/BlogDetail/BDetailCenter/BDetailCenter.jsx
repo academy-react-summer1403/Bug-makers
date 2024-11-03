@@ -229,7 +229,7 @@ useEffect(() => {
     console.log(response);
     const dark = useSelector((state) => state.darkMood);
     return (
-      <div className="w-full max-w-3xl mx-auto  px-4">
+      <div className="w-[60%] mx-auto max-md:w-full  px-4">
         <div
           style={{ background: dark.bgHigh, color: dark.textHigh }}
           className=" rounded-lg shadow-lg p-4 mb-4"

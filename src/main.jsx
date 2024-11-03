@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from '../src/App/App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Root from 'postcss/lib/root'
+
 import LoginPage from './Components/Layout/LoginPages/LoginPage'
 import Login from './Components/Layout/LoginPages/login/Login'
 import ForgetPass from './Components/Layout/LoginPages/passForget/ForgetPass'
@@ -39,6 +39,7 @@ import PaymentFirstStep from './Components/Layout/ClientPanel/LeftSide/Payment/p
 import Security from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Security/Security.jsx'
 import PassWord from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/PassWord/PassWord.jsx'
 import AcceptGmail from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Security/AcceptGmail.jsx'
+import Root from './App/Root.jsx'
 const queryClient = new QueryClient();
 
 
@@ -48,173 +49,177 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        index: true,
-        element: <LandingPage />,
-      },
-      {
-        path: "/CoursePage",
-        element: <CoursePage />,
-      },
-      {
-        path: "/ContactUs",
-        element: <ContactUs />,
-      },
-
-      {
-        path: "/BlogPage",
-        element: <BlogPage />,
-        errorElement: <Error />,
-      },
-      {
-        path: "BlogDetail/:id",
-        element: <BlogDetail />,
-        errorElement: <Error />,
-      },
-      {
-        path: "CourseDetail/:id",
-        element: <CourseDetail />,
-        errorElement: <Error />,
-      },
-
-      {
-        path: "*",
-        element: <NotFoundPage />,
-      },
-    ],
-  },
-  {
-    path: "/ClientPanel",
-    element: <ClientPanel />,
-    errorElement: <Error />,
-    children: [
-      {
-        path: "Dashbord",
-        element: <Dashbord />,
-        errorElement: <Error />,
-      },
-      {
-        path: "MyCourse",
-        element: <MyCourses />,
-        errorElement: <Error />,
-      },
-      {
-        path: "MyReserve",
-        element: <MyReserve />,
-        errorElement: <Error />,
-      },
-      {
-        path: "LikedCourse",
-        element: <LikedCourse />,
-        errorElement: <Error />,
-      },
-      {
-        path: "LikedBlog",
-        element: <LikedBlog />,
-        errorElement: <Error />,
-      },
-      {
-        path: "Payment",
-
-        errorElement: <Error />,
+        path:"/",
+        element: <Root />,
         children: [
           {
             index: true,
-            element: <Payment />,
+            element: <LandingPage />,
+          },
+          {
+            path: "/CoursePage",
+            element: <CoursePage />,
+          },
+          {
+            path: "/ContactUs",
+            element: <ContactUs />,
+          },
+          {
+            path: "/BlogPage",
+            element: <BlogPage />,
             errorElement: <Error />,
           },
           {
-            path: "PaymentFirstStep",
-            element: <PaymentFirstStep />,
+            path: "BlogDetail/:id",
+            element: <BlogDetail />,
+            errorElement: <Error />,
+          },
+          {
+            path: "CourseDetail/:id",
+            element: <CourseDetail />,
+            errorElement: <Error />,
+          },
+          {
+            path: "*",
+            element: <NotFoundPage />,
+          },
+        ],
+      },
+      {
+        path: "/ClientPanel",
+        element: <ClientPanel />,
+        errorElement: <Error />,
+        children: [
+          {
+            path: "Dashbord",
+            element: <Dashbord />,
+            errorElement: <Error />,
+          },
+          {
+            path: "MyCourse",
+            element: <MyCourses />,
+            errorElement: <Error />,
+          },
+          {
+            path: "MyReserve",
+            element: <MyReserve />,
+            errorElement: <Error />,
+          },
+          {
+            path: "LikedCourse",
+            element: <LikedCourse />,
+            errorElement: <Error />,
+          },
+          {
+            path: "LikedBlog",
+            element: <LikedBlog />,
+            errorElement: <Error />,
+          },
+          {
+            path: "Payment",
+
+            errorElement: <Error />,
+            children: [
+              {
+                index: true,
+                element: <Payment />,
+                errorElement: <Error />,
+              },
+              {
+                path: "PaymentFirstStep",
+                element: <PaymentFirstStep />,
+                errorElement: <Error />,
+              },
+            ],
+          },
+          {
+            path: "DashbordEdit",
+            element: <DashbordEdit />,
+            errorElement: <Error />,
+            children: [
+              {
+                index: true,
+                path: "Personal",
+                element: <PersonalInfo />,
+                errorElement: <Error />,
+              },
+              {
+                path: "Picture",
+                element: <ProfilePic />,
+                errorElement: <Error />,
+              },
+              {
+                path: "Address",
+                element: <Address />,
+                errorElement: <Error />,
+              },
+              {
+                path: "Links",
+                element: <Links />,
+                errorElement: <Error />,
+              },
+              {
+                path: "PassWord",
+                element: <PassWord />,
+                errorElement: <Error />,
+              },
+              {
+                path: "Security",
+                element: <Security />,
+                errorElement: <Error />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: "/sign",
+        element: <LoginPage />,
+        errorElement: <Error />,
+        children: [
+          {
+            path: "login",
+            element: <Login />,
+            errorElement: <Error />,
+          },
+          {
+            path: "login/twoStep",
+            element: <TwoStepLogin />,
+            errorElement: <Error />,
+          },
+          {
+            path: "passForget",
+            element: <ForgetPass />,
+            errorElement: <Error />,
+          },
+          {
+            path: "resetPass/:/:verify",
+            element: <ForgetPassStep2 />,
+            errorElement: <Error />,
+          },
+          {
+            path: "rigester/step1",
+            element: <ReStep1 />,
+            errorElement: <Error />,
+          },
+          {
+            path: "rigester/step2",
+            element: <ReStep2 />,
+            errorElement: <Error />,
+          },
+          {
+            path: "rigester/step3",
+            element: <ReStep4 />,
             errorElement: <Error />,
           },
         ],
       },
       {
-        path: "DashbordEdit",
-        element: <DashbordEdit />,
-        errorElement: <Error />,
-        children: [
-          {
-            index: true,
-            path: "Personal",
-            element: <PersonalInfo />,
-            errorElement: <Error />,
-          },
-          {
-            path: "Picture",
-            element: <ProfilePic />,
-            errorElement: <Error />,
-          },
-          {
-            path: "Address",
-            element: <Address />,
-            errorElement: <Error />,
-          },
-          {
-            path: "Links",
-            element: <Links />,
-            errorElement: <Error />,
-          },
-          {
-            path: "PassWord",
-            element: <PassWord />,
-            errorElement: <Error />,
-          },
-          {
-            path: "Security",
-            element: <Security />,
-            errorElement: <Error />,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: "/sign",
-    element: <LoginPage />,
-    errorElement: <Error />,
-    children: [
-      {
-        path: "login",
-        element: <Login />,
-        errorElement: <Error />,
-      },
-      {
-        path: "login/twoStep",
-        element: <TwoStepLogin />,
-        errorElement: <Error />,
-      },
-      {
-        path: "passForget",
-        element: <ForgetPass />,
-        errorElement: <Error />,
-      },
-      {
-        path: "resetPass/:/:verify",
-        element: <ForgetPassStep2 />,
-        errorElement: <Error />,
-      },
-      {
-        path: "rigester/step1",
-        element: <ReStep1 />,
-        errorElement: <Error />,
-      },
-      {
-        path: "rigester/step2",
-        element: <ReStep2 />,
-        errorElement: <Error />,
-      },
-      {
-        path: "rigester/step3",
-        element: <ReStep4 />,
+        path: "/acceptGmail/:first/:secound/:third",
+        element: <AcceptGmail />,
         errorElement: <Error />,
       },
     ],
-  },
-  {
-    path: "/acceptGmail/:first/:secound/:third",
-    element: <AcceptGmail />,
-    errorElement: <Error />,
   },
 ]);
 

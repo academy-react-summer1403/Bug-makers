@@ -125,9 +125,9 @@ const TowStepLoginPage = () => {
                                 <OptCode phoneNumber={phoneNumber} password={Password} />
 
                                 <Button 
-                                    isLoading
+                                    
                                     onClick={handleResendSms}
-                                    disabled={isLoading}
+                                    isDisabled={isLoading}
                                     className={`mt-[1.687vw] mb-[0.8vw] text-[#fff] text-[0.885vw] font-normal mr-[0.9vw] w-full text-right ${isLoading ? 'bg-[#40BE5D]' : 'bg-[#40BE5D]'}`}
                                     spinner={
                                         <svg

@@ -5,6 +5,7 @@ import { Input, Button, Progress, Textarea } from "@nextui-org/react";
 
 import Gauge from "./ComplitingCircle";
 import { ProfileStep1 } from "../../../../../../Core/Services/Api/Client/Profile";
+import { useSelector } from "react-redux";
 
 const PersonalInfo = () => {
   const [step, setStep] = useState(0);
@@ -26,10 +27,13 @@ const PersonalInfo = () => {
     console.log(val)
     const res = ProfileStep1(val)
   }
-
+const dark = useSelector((state) => state.darkMood);
   return (
-    <div className="flex justify-center overflow-hidden w-[100%] h-full max-md:overflow-auto">
-      <div className="bg-white p-6 rounded-lg shadow-lg flex space-x-6 w-full h-full max-md:flex-col-reverse ">
+    <div
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
+      className="flex justify-center overflow-hidden w-[100%] h-full max-md:overflow-auto"
+    >
+      <div className=" p-6 rounded-lg shadow-lg flex space-x-6 w-full h-full max-md:flex-col-reverse ">
         {/* فرم اطلاعات حساب */}
         <Formik
           initialValues={{

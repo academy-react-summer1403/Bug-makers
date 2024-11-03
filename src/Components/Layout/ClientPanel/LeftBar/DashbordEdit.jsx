@@ -27,15 +27,18 @@ const DashbordEdit = () => {
   //   );
   //   console.log(CourseListItem);
   // لیست گزینه‌های پایین نوار
-
+const dark = useSelector((state) => state.darkMood);
 
   return (
-    <div className="w-full h-full bg-white ">
+    <div
+      className="w-full h-full  "
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
+    >
       <div className="w-full h-[40%]">
         <DashbordEditTop />
       </div>
       <div className="w-full h-[60%] ">
-        <Outlet/>
+        <Outlet />
         {/* <PersonalInfo /> */}
       </div>
     </div>

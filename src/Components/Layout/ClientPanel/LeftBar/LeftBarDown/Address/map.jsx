@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "react-query";
 import instance from "../../../../../../Core/Services/interseptore/Interceptor";
 import { useSelector } from "react-redux";
 import { ProfileStep1 } from "../../../../../../Core/Services/Api/Client/Profile";
-
+import '../../../../../../index.css'
 function useProfileDetail() {
   return useQuery("userProfile", () => instance.get("/SharePanel/GetProfileInfo"));
 }
@@ -129,7 +129,7 @@ function LocationMarkers() {
   return (
     <>
       {markers.map((marker, index) => (
-        <Marker key={index} position={marker} />
+        <Marker  key={index} position={marker} />
       ))}
     </>
   );

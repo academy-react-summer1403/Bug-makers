@@ -1,8 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const DeleteModal = ({ onCancel, onDelete ,id}) => {
+  const dark = useSelector((state) => state.darkMood);
   return (
-    <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg max-w-sm mx-auto">
+    <div
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
+      className="flex flex-col items-center  p-6 rounded-lg shadow-lg max-w-sm mx-auto"
+    >
       {/* آیکون زباله */}
       <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full mb-4">
         <svg
@@ -40,10 +45,10 @@ const DeleteModal = ({ onCancel, onDelete ,id}) => {
       </div>
 
       {/* پیام اصلی */}
-      <h2 className="text-lg font-semibold text-gray-800 mb-2">
+      <h2 className="text-lg font-semibold  mb-2">
         آیا از حذف دوره مطمئن هستید؟
       </h2>
-      <p className="text-sm text-gray-600 text-center mb-6">
+      <p className="text-sm  text-center mb-6">
         در صورت تایید این دوره از لیست علاقه‌مندی‌ها حذف خواهد شد
       </p>
 
@@ -56,7 +61,9 @@ const DeleteModal = ({ onCancel, onDelete ,id}) => {
           انصراف
         </button>
         <button
-          onClick={()=>{onDelete(id)}}
+          onClick={() => {
+            onDelete(id);
+          }}
           className="w-[40%] bg-red-500 text-white py-2 px-4 rounded-lg ml-2 hover:bg-red-600"
         >
           حذف دوره

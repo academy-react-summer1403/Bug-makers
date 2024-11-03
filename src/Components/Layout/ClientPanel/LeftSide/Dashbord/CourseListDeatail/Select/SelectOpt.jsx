@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery } from 'react-query';
 import { getTeacherList } from '../../../../../../../Core/Services/Api/CoursePage/TeacherList';
 import { getCategoryList } from '../../../../../../../Core/Services/Api/CoursePage/Category';
+import { useSelector } from 'react-redux';
 
 const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect, FilterValue }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,12 +48,13 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
   if (error) {
     return <p>خطایی رخ داده است، لطفا دوباره تلاش کنید.</p>;
   }
-
+const dark = useSelector((state) => state.darkMood);
   return (
     <div
-      className={`text-gray-600 relative flex-grow-[1] ${
+      style={{ background: dark.bgLow, color: dark.textHigh }}
+      className={`text-gray-500 relative flex-grow-[1] ${
         isOpen ? "z-10" : "z-0"
-      } ${ width == "myCourse" ? 'hidden':'block'}`}
+      } ${width == "myCourse" ? "hidden" : "block"}`}
     >
       {selectedOption && (
         <span
@@ -63,7 +65,8 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
         </span>
       )}
       <div
-        className="w-full h-[40px] rounded-[10px] text-[12px] bg-[#F2F2F2] indent-3 cursor-pointer flex items-center justify-between"
+        style={{ background: dark.bgLow, color: dark.textHigh }}
+        className="w-full h-[40px] rounded-[10px] text-[12px]  indent-3 cursor-pointer flex items-center justify-between"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>
@@ -77,7 +80,8 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
       <AnimatePresence>
         {isOpen && (
           <motion.ul
-            className="absolute w-full bg-white shadow-lg mt-1 max-h-[200px] overflow-y-auto rounded-lg"
+            style={{ background: dark.bgHigh, color: dark.textHigh }}
+            className="absolute w-full shadow-lg mt-1 max-h-[200px] overflow-y-auto rounded-lg"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -92,7 +96,7 @@ const SelectOpt = ({ width,placeholder, onChange, isTeacherSelect, isSortSelect,
                     ? option.teacherId
                     : option.id
                 }
-                className="px-4 py-2 hover:bg-gray-200 cursor-pointer text-[12px]"
+                className="px-4 py-2 hover:bg-gray-500 cursor-pointer text-[12px]"
                 onClick={() => handleSelect(option)}
               >
                 {isSortSelect

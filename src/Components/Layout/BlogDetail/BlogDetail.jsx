@@ -21,7 +21,7 @@ const BlogDetail = () => {
       >
         <div
           
-          className="w-[85%] mt-[5vw] relative m-auto flex bg-cover bg-blogBack justify-between"
+          className="w-[85%]  max-w-[2400px]  mt-[5vw] relative m-auto flex bg-cover bg-blogBack justify-between"
         >
           <BDetailRight />
           <BDetailCenter key={id} id={id} />

@@ -185,3 +185,13 @@ h1 {
 .range-slider input[type="range"]::-webkit-slider-runnable-track:active {
   background: #4CAF50;
 }
+
+.leaflet-layer,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out,
+.leaflet-control-attribution {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+.leaflet-container {
+    background: #000
+}

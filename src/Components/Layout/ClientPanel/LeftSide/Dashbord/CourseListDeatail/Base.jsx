@@ -84,7 +84,7 @@ const navigator = useNavigate()
     
   // }, []);
 
-
+const dark = useSelector((state) => state.darkMood);
 
 
   // fetchCoursesWithFilters
@@ -236,6 +236,7 @@ const navigator = useNavigate()
       .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
       .map((course, index) => (
         <div
+          style={{ background: dark.bgHigh, color: dark.textHigh }}
           key={index}
           className="w-full h-[3vw] max-md:border-b-1 max-md:h-[40px] rounded-[0.4vw] flex items-center text-[1vw]  text-[#272727] hover:bg-gray-100"
         >
@@ -312,8 +313,10 @@ const navigator = useNavigate()
             </svg>
           </div>
           <div
-          onClick={()=>{ dispatch(setpaymentList(course || []));
-            navigator("PaymentFirstStep");}}
+            onClick={() => {
+              dispatch(setpaymentList(course || []));
+              navigator("PaymentFirstStep");
+            }}
             className={`w-[4%] h-full items-center ${
               payment == true &&
               point == "myCourse" &&
@@ -458,7 +461,10 @@ const navigator = useNavigate()
   };
 
   return (
-    <div className="relative m-auto w-[76vw] bg-transparent text-center h-full max-md:w-full">
+    <div
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
+      className="relative m-auto w-[76vw] bg-transparent text-center h-full max-md:w-full"
+    >
       <div
         className={`absolute z-[20]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%]  ${
           detailCourse == true ? "block" : "hidden"
@@ -511,7 +517,7 @@ const navigator = useNavigate()
       <div className="w-[100%] selection: mt-[0vw] ">
         {/* searchAndFilterSection */}
         <div
-          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-center items-center gap-x-3 max-md:gap-y-[20px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-center items-center gap-x-3 max-md:gap-y-[20px] rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
             ${show == true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
         >
           <SearchBox
@@ -537,13 +543,13 @@ const navigator = useNavigate()
             >
               حذف
             </Button>
-            <span className="text-gray-400">|</span>
+            <span className="text-gray-600">|</span>
             <Button
               radius="full"
               className={`${
                 selectedStatus === "notApproved"
                   ? "bg-[#E1C461] text-white"
-                  : "bg-transparent border-gray-400 text-gray-700"
+                  : "bg-transparent border-gray-400 text-gray-500"
               }`}
               bordered
               auto
@@ -556,7 +562,7 @@ const navigator = useNavigate()
               className={`${
                 selectedStatus === "approved"
                   ? "bg-[#E1C461] text-white"
-                  : "bg-transparent border-gray-400 text-gray-700"
+                  : "bg-transparent border-gray-400 text-gray-500"
               }`}
               bordered
               auto
@@ -564,8 +570,7 @@ const navigator = useNavigate()
             >
               پرداخت شده
             </Button>
-            |
-            <span className="text-gray-500">ترتیب</span>
+            |<span className="text-gray-500">ترتیب</span>
           </div>
           <SelectOpt
             width={point == "myCourse" ? "myCourse" : "100%"}
@@ -624,7 +629,10 @@ const navigator = useNavigate()
         {/* filterActionSection */}
 
         <div className=" w-full mt-[0.5vw] max-md:py-[10px]">
-          <div className="flex items-center  w-full rounded-[0.5vw] bg-[#F0F0F0] text-gray-600  leading-normal">
+          <div
+            style={{ background: dark.bgLow, color: dark.textLow }}
+            className="flex items-center  w-full rounded-[0.5vw]  leading-normal"
+          >
             <div className="w-[16%] max-md:w-[50%] max-md:text-[16px] text-[1.1vw] py-[1%] px-6 text-right">
               نام دوره
             </div>

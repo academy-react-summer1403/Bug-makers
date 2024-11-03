@@ -60,7 +60,7 @@ const Links = () => {
     console.log(data);
     const res = await ProfileStep1(data);
   };
-
+const dark = useSelector((state) => state.darkMood);
   return (
     <Formik
       initialValues={{
@@ -74,8 +74,11 @@ const Links = () => {
       }}
     >
       {({ errors, touched }) => (
-        <Form className="w-[50%] max-md:w-full h-full p-[2vw] flex flex-col gap-y-[1vw] max-md:gap-y-[20px]">
-          <div className="flex flex-col gap-y-[0.5vw]">
+        <Form
+          style={{ background: dark.bgHigh, color: dark.textHigh }}
+          className="w-[50%] max-md:w-full h-full p-[2vw] flex flex-col gap-y-[1vw] max-md:gap-y-[20px]"
+        >
+          <div className="flex flex-col gap-y-[0.5vw] ">
             <label>تلگرام</label>
             <Field name="telegram">
               {({ field }) => (
@@ -88,6 +91,9 @@ const Links = () => {
                   color={
                     errors.telegram && touched.telegram ? "error" : "default"
                   }
+                  className="bg-transparent"
+                  
+                  
                 />
               )}
             </Field>

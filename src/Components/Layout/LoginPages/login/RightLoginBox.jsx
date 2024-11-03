@@ -61,7 +61,7 @@ const RightLoginBox = () => {
               action="post"
               className=" flex justify-center flex-col items-center"
             >
-              <span className="text-[#8E8E8E] text-[1vw]">
+              <span className=" text-[1vw]">
                 ورود به حساب کاربری
               </span>
               <hr className="w-full mt-[0.94vw] " />
@@ -85,16 +85,14 @@ const RightLoginBox = () => {
               <div className="w-full px-[0.5vw] mt-[2vw] flex items-center justify-start">
                 <label className="custom-checkbox">
                   <input
+                    
                     type="checkbox"
                     checked={checked}
                     onChange={handleCheckboxChange}
                   />
                   <span className="checkmark"></span>
                 </label>
-                <label
-                  htmlFor="rememberMe"
-                  className="mr-[1vw] text-gray-700 text-[0.8vw]"
-                >
+                <label htmlFor="rememberMe" className="mr-[1vw]  text-[0.8vw]">
                   من را به خاطر بسپار
                 </label>
               </div>

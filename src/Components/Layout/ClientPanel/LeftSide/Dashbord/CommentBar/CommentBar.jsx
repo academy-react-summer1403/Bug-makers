@@ -6,7 +6,7 @@ import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
 
 
 const CommentSection = ({ setOpenCommentBar }) => {
-
+const dark = useSelector((state) => state.darkMood);
 
   
 const CourseListItem = useSelector((state) => state.ClientInfoSlice.ClientInfo);
@@ -34,12 +34,22 @@ console.log(NewsComment);
 
 
   if (!NewsComment) {
-    return <div className="w-full h-[99%] bg-white rounded-[0.5vw] flex items-center justify-center"> 
-              <p className="text-[2vw] max-md:text-[20px]">کامنتی برای شما موجود نیست</p>
-            </div>
+    return (
+      <div
+        style={{ background: dark.bgLow, color: dark.textLow }}
+        className="w-full h-[99%]  rounded-[0.5vw] flex items-center justify-center"
+      >
+        <p className="text-[2vw] max-md:text-[20px]">
+          کامنتی برای شما موجود نیست
+        </p>
+      </div>
+    );
   }
     return (
-      <div className="w-full h-[99%] bg-white rounded-[0.5vw]">
+      <div
+        style={{ background: dark.bgHigh, color: dark.textHigh }}
+        className="w-full h-[99%]  rounded-[0.5vw]"
+      >
         <div className="h-[15%] w-full py-[1%] px-[2%] max-md:p-[10px] flex items-center justify-between">
           <span className="text-[1.2vw] font-[600] max-md:text-[16px]">
             نظرات شما

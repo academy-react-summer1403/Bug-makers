@@ -223,6 +223,7 @@ function CourseCard({id}) {
     },
     mutationKey: ['toggleFavorite', response.isUserFavorite ? 'delete' : 'add'],
   });
+  const dark = useSelector((state) => state.darkMood);
   
   // return (
   //     <div className="mx-auto w-full shadow-lg text-[#5E5E5E]">
@@ -414,171 +415,262 @@ function CourseCard({id}) {
 // userLikeId: "55e96b41-a98b-ef11-b6e0-cc9c195ebe36"
   return (
     <div className="max-[688px]:mt-10  w-full max-[688px]:flex-row flex   flex-wrap flex-col gap-5">
-      <div className="w-[100%]  bg-white rounded-lg h-auto  flex flex-col items-start gap-4 ">
-        <h1 className="max-[688px]:hidden text-right m-[1rem_2rem_0_0]    h-fit font-bold text-black text-3xl">{response.title}</h1>
-        <span className="max-[688px]:hidden text-right m-[1rem_2rem_0_0]    h-fit  text-black text-sm">نام مدرس : {response.teacherName}</span>
+      <div
+        style={{ background: dark.bgHigh, color: dark.textHigh }}
+        className="w-[100%]   rounded-lg h-auto  flex flex-col items-start gap-4 "
+      >
+        <h1 className="max-[688px]:hidden text-right m-[1rem_2rem_0_0]    h-fit font-bold  text-3xl">
+          {response.title}
+        </h1>
+        <span className="max-[688px]:hidden text-right m-[1rem_2rem_0_0]    h-fit  text-sm">
+          نام مدرس : {response.teacherName}
+        </span>
         <div className="max-custom6:gap-5 max-[1051px]:gap-0 /*end responsive */ flex max-[688px]:flex-col max-[688px]:items-end max-[688px]:justify-between w-full  gap-16">
           <div className=" flex flex-row max-[688px]:flex-col items-center">
-              <CoursePreviwe0 
-                response={response} 
-                CorseReserve={CorseReserveF} 
-                id={id} 
-                className='max-[688px]:hidden w-64 h-11 mr-5 academyH1'
-              />
+            <CoursePreviwe0
+              response={response}
+              CorseReserve={CorseReserveF}
+              id={id}
+              className="max-[688px]:hidden w-64 h-11 mr-5 academyH1"
+            />
             <div className="max-[688px]:hidden max-[1440px]:mr-64 max-[1325px]:mr-52 max-[1273px]:mr-32 max-[1181px]:mr-16 max-[1051px]:mr-10 max-[991px]:mr-0  max-[945px]:w-52 max-[883px]:w-32 max-[788px]:absolute max-[788px]:top-16 max-[788px]:right-32 /*end responsive */ flex justify-center mr-80  w-64 h-32 items-center gap-2">
               <button className="   text-2xl price">1900</button>
-              <img src="../../../../../public/images/icon/toman.png" className="w-5 h-5" alt="" />
+              <img
+                src="../../../../../public/images/icon/toman.png"
+                className="w-5 h-5"
+                alt=""
+              />
             </div>
           </div>
-          <img onError={(e) => {e.target.src = noImg}} src={response.imageAddress ? response.imageAddress : noImg} className="max-[788px]:mr-10 max-[688px]:w-full w-64   mt-[-2rem]  h-64 rounded-lg" alt="" />
-        <h1 className="max-[688px]:block hidden text-center m-[1rem_auto]  border-blue-600  h-fit font-bold text-black text-3xl">tailwind</h1>
-          <CoursePreviwe0 
-            response={response} 
-            CorseReserve={CorseReserveF} 
-            id={id} 
-            className='max-[688px]:flex hidden max-[688px]:m-[1rem_auto] w-64 h-11 mr-5'
+          <img
+            onError={(e) => {
+              e.target.src = noImg;
+            }}
+            src={response.imageAddress ? response.imageAddress : noImg}
+            className="max-[788px]:mr-10 max-[688px]:w-full w-64   mt-[-2rem]  h-64 rounded-lg"
+            alt=""
+          />
+          <h1 className="max-[688px]:block hidden text-center m-[1rem_auto]  border-blue-600  h-fit font-bold  text-3xl">
+            tailwind
+          </h1>
+          <CoursePreviwe0
+            response={response}
+            CorseReserve={CorseReserveF}
+            id={id}
+            className="max-[688px]:flex hidden max-[688px]:m-[1rem_auto] w-64 h-11 mr-5"
           />
 
           <div className=" max-[688px]:flex hidden max-[688px]:h-0 /*end responsive */  justify-center    m-[1rem_auto] items-center gap-2">
-              <button className="   text-2xl price">1900</button>
-              <img src="../../../../../public/images/icon/toman.png" className="w-5 h-5" alt="" />
+            <button className="   text-2xl price">1900</button>
+            <img
+              src="../../../../../public/images/icon/toman.png"
+              className="w-5 h-5"
+              alt=""
+            />
           </div>
-        <span className="hidden max-[688px]:block  text-right m-[1rem_auto]    h-fit  text-black text-sm">نام مدرس : {response.teacherName}</span>
+          <span className="hidden max-[688px]:block  text-right m-[1rem_auto]    h-fit  t text-sm">
+            نام مدرس : {response.teacherName}
+          </span>
         </div>
         <div className="border-t border-t-[#ccc] flex flex-wrap justify-center items-center gap-4 md:gap-10 lg:gap-16 min-h-16 p-2 w-full">
-          <div className="flex justify-center items-center gap-2 text-black">
+          <div className="flex justify-center items-center gap-2 ">
             <FaChalkboardTeacher color="blue" />
             <span>استاد دوره :</span>
             <span>محمد</span>
           </div>
-          <div className="flex justify-center items-center gap-2 text-black">
+          <div className="flex justify-center items-center gap-2 ">
             <FaRegPlayCircle color="blue" />
             <span> وضعیت دوره :</span>
             <span>محمد</span>
           </div>
-          <div className="flex justify-center items-center gap-2 text-black">
+          <div className="flex justify-center items-center gap-2">
             <PiStudent color="blue" />
             <span>تعداد دانشجویان :</span>
             <span>محمد</span>
           </div>
-          <div className="flex justify-center items-center gap-2 text-black">
+          <div className="flex justify-center items-center gap-2 ">
             <IoTimeOutline color="blue" />
             <span>مدت زمان دوره :</span>
             <span>محمد</span>
           </div>
         </div>
-
       </div>
       <div className="flex w-[100%] flex-col md:flex-row gap-16 flex-wrap justify-between items-start">
-  <div className="w-[100%] md:w-[65%] flex-grow">
-    <CourseMenu handelPage={handelPage} />
-    <div className="w-full p-[1vw] ">
-      <div className={`bg-white p-5 rounded-lg w-full text-right md:leading-[2.5vw] text-[2vw] leading-5 md:text-[0.9vw] ${detailPage === 0 ? "block" : "hidden"}`}>
-        <h2 className="academyH1 text-2xl m-2">توضیحات دوره</h2>
-        {response.describe}
-      </div>
-      <div className={`w-full h-full bg-blue-700 ${detailPage === 1 ? "block" : "hidden"}`}></div>
-      <div className={`w-full h-full ${detailPage === 2 ? "block" : "hidden"}`}>
-        <div 
-          onClick={() => { 
-            setRepleyModal(true); 
-            window.scrollTo({ top: 780, behavior: 'smooth' });
-          }} 
-          className="w-full rounded-[0.5vw] h-[3vw] text-[1.5vw] max-md:text-[18px] max-md:h-[30px] bg-gray-300 cursor-pointer"
-        >
-          ثبت نظر
-        </div>
-        <div 
-          className={repleyModal ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center" : "hidden"} 
-          onClick={() => setRepleyModal(false)}
-        >
-          <div 
-            className={repleyModal ? "max-md:w-full max-md:max-w-full max-md:h-[50%] h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40" : "hidden"} 
-            onClick={(e) => e.stopPropagation()}
-          >
-            <AddCommentForm onSubmit={onSubmit} newsId={id} parentId={null} onSubmit2={onSubmit2} setRepleyModal={setRepleyModal} />
+        <div className="w-[100%] md:w-[65%] flex-grow">
+          <CourseMenu handelPage={handelPage} />
+          <div className="w-full p-[1vw] ">
+            <div
+              style={{ background: dark.bgHigh, color: dark.textLow }}
+              className={` p-5 rounded-lg w-full text-right md:leading-[2.5vw] text-[2vw] leading-5 md:text-[0.9vw] ${
+                detailPage === 0 ? "block" : "hidden"
+              }`}
+            >
+              <h2 className="academyH1 text-2xl m-2">توضیحات دوره</h2>
+              {response.describe}
+            </div>
+            <div
+              className={`w-full h-full bg-blue-700 ${
+                detailPage === 1 ? "block" : "hidden"
+              }`}
+            ></div>
+            <div
+              className={`w-full h-full ${
+                detailPage === 2 ? "block" : "hidden"
+              }`}
+            >
+              <div
+                onClick={() => {
+                  setRepleyModal(true);
+                  window.scrollTo({ top: 780, behavior: "smooth" });
+                }}
+                style={{ background: dark.bgHigh, color: dark.textHigh }}
+                className="w-full rounded-[0.5vw] h-[3vw] text-[1.5vw] max-md:text-[18px] max-md:h-[30px]  cursor-pointer"
+              >
+                ثبت نظر
+              </div>
+              <div
+                className={
+                  repleyModal
+                    ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center"
+                    : "hidden"
+                }
+                onClick={() => setRepleyModal(false)}
+              >
+                <div
+                  style={{ background: dark.bgLow, color: dark.textHigh }}
+                  className={
+                    repleyModal
+                      ? "max-md:w-full max-md:max-w-full max-md:h-[50%] h-max w-[90vw] max-w-[50vw] rounded-[1vw]  z-40"
+                      : "hidden"
+                  }
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <AddCommentForm
+                    onSubmit={onSubmit}
+                    newsId={id}
+                    parentId={null}
+                    onSubmit2={onSubmit2}
+                    setRepleyModal={setRepleyModal}
+                  />
+                </div>
+              </div>
+              <CComment
+                comment={comment}
+                onSubmit={onSubmit}
+                userId={userId}
+                GetComment={GetComment}
+                newsId={id}
+                setNewsDissLikeComment={setNewsDissLikeComment}
+                setNewsLikeComment={setNewsLikeComment}
+                delLikeNews2Comment={delLikeNews2Comment}
+                onSubmit2={onSubmit2}
+              />
+            </div>
+            <div
+              className={`w-full h-full bg-yellow-500 ${
+                detailPage === 4 ? "block" : "hidden"
+              }`}
+            ></div>
           </div>
         </div>
-        <CComment 
-          comment={comment} 
-          onSubmit={onSubmit} 
-          userId={userId} 
-          GetComment={GetComment} 
-          newsId={id} 
-          setNewsDissLikeComment={setNewsDissLikeComment} 
-          setNewsLikeComment={setNewsLikeComment} 
-          delLikeNews2Comment={delLikeNews2Comment} 
-          onSubmit2={onSubmit2} 
-        />
-      </div>
-      <div className={`w-full h-full bg-yellow-500 ${detailPage === 4 ? "block" : "hidden"}`}></div>
-    </div>
-  </div>
-  
-  <div className="w-full md:w-[30%] h-12 text-black flex flex-col gap-4">
-    <div className="academyH1 rounded-lg shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)] bg-white h-auto">
-      <div className="flex gap-2 justify-center items-center">
-        <span className="leading-[4rem] ml-8">آیا این دوره مورد پسند شماست؟</span>
-        <div className="flex flex-row gap-1 justify-center items-center">
-          <span>{response.likeCount}</span>
-          <BiLike
-            onClick={() => {
-              response.currentUserLike != 0
-              ? delLikeNews2()
-              : setNewsLike();
-            }}
-            color={response.currentUserLike == 0 ? "black" : "blue"}
-            className="cursor-pointer"
-            size={'25px'} 
-          />
-        </div>
-        <div className="flex flex-row gap-1 justify-center items-center">
-          <span>{response.dissLikeCount}</span>
-          <BiDislike
-            onClick={() => {
-              response.currentUserDissLike != 0
-                ? delLikeNews2()
-                : setNewsDissLike();
-            }}
-            color={response.currentUserDissLike == 0 ? "black" : "blue"}
-            className="cursor-pointer"
-            size={'25px'} 
-          />
-        </div>
-      </div>
-    </div>
-    
-    <div className="academyH1 rounded-lg shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)] bg-white h-auto">
-      <div onClick={() => mutation.mutate(id)} className={`flex cursor-pointer gap-2 justify-center items-center rounded-lg transition-all duration-150 ${response.isUserFavorite ? 'bg-red-600 text-white' : 'none'}`}>
-        <IoCalendarNumber size={'20px'} />
-        <span className="leading-[4rem]">{response.isUserFavorite ? 'حذف از لیست علاقه مندی ها' : 'افزودن به لیست علاقه مندی ها'}</span>
-      </div>
-    </div>
-    <div className="academyH1 rounded-lg shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)] bg-white h-auto">
-      <div className={`flex cursor-pointer gap-2 justify-center items-center rounded-lg transition-all duration-150`}>
-        <span className="leading-[4rem] ml-8">چه امتیازی به این دوره میدهید؟</span>
-        <RatingStar id={id} />
-      </div>
-    </div>
-    <div className="academyH1 rounded-lg shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)] bg-white h-auto">
-      <div className={`flex cursor-pointer gap-2 justify-center items-center flex-col p-2 rounded-lg transition-all duration-150`}>
-        <span className="leading-[4rem] ml-8">دسته بندی های مرتبط</span>
-        <div>
-          {response.techs && response.techs.length > 0 ? (
-            response.techs.map((item, index) => (
-              <Button color="default" key={index} item={item}>#  {item}</Button>
-            ))
-          ) : (
-            <div>دسته بندی وجود ندارد</div>
-          )}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
+        <div className="w-full md:w-[30%] h-12  flex flex-col gap-4">
+          <div
+            className="academyH1 rounded-lg shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)]  h-auto"
+            style={{ background: dark.bgHigh, color: dark.textLow }}
+          >
+            <div className="flex gap-2 justify-center items-center">
+              <span className="leading-[4rem] ml-8">
+                آیا این دوره مورد پسند شماست؟
+              </span>
+              <div className="flex flex-row gap-1 justify-center items-center">
+                <span>{response.likeCount}</span>
+                <BiLike
+                  onClick={() => {
+                    response.currentUserLike != 0
+                      ? delLikeNews2()
+                      : setNewsLike();
+                  }}
+                  color={response.currentUserLike == 0 ? "black" : "blue"}
+                  className="cursor-pointer"
+                  size={"25px"}
+                />
+              </div>
+              <div className="flex flex-row gap-1 justify-center items-center">
+                <span>{response.dissLikeCount}</span>
+                <BiDislike
+                  onClick={() => {
+                    response.currentUserDissLike != 0
+                      ? delLikeNews2()
+                      : setNewsDissLike();
+                  }}
+                  color={response.currentUserDissLike == 0 ? "black" : "blue"}
+                  className="cursor-pointer"
+                  size={"25px"}
+                />
+              </div>
+            </div>
+          </div>
 
-
+          <div
+            style={{ background: dark.bgHigh, color: dark.textLow }}
+            className="academyH1 rounded-lg shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)]  h-auto"
+          >
+            <div
+              onClick={() => mutation.mutate(id)}
+              className={`flex cursor-pointer gap-2 justify-center items-center rounded-lg transition-all duration-150 ${
+                response.isUserFavorite ? "bg-red-600 text-white" : "none"
+              }`}
+            >
+              <IoCalendarNumber size={"20px"} />
+              <span className="leading-[4rem]">
+                {response.isUserFavorite
+                  ? "حذف از لیست علاقه مندی ها"
+                  : "افزودن به لیست علاقه مندی ها"}
+              </span>
+            </div>
+          </div>
+          <div
+            style={{ background: dark.bgHigh, color: dark.textLow }}
+            className="academyH1 rounded-lg shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)]  h-auto"
+          >
+            <div
+              className={`flex cursor-pointer gap-2 justify-center items-center rounded-lg transition-all duration-150`}
+            >
+              <span className="leading-[4rem] ml-8">
+                چه امتیازی به این دوره میدهید؟
+              </span>
+              <RatingStar id={id} />
+            </div>
+          </div>
+          <div
+            style={{ background: dark.bgHigh, color: dark.textLow }}
+            className="academyH1 rounded-lg shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)]  h-auto"
+          >
+            <div
+              className={`flex cursor-pointer gap-2 justify-center items-center flex-col p-2 rounded-lg transition-all duration-150`}
+            >
+              <span className="leading-[4rem] ml-8">دسته بندی های مرتبط</span>
+              <div>
+                {response.techs && response.techs.length > 0 ? (
+                  response.techs.map((item, index) => (
+                    <Button
+                      style={{ background: dark.bgLow, color: dark.textHigh }}
+                      color="default"
+                      key={index}
+                      item={item}
+                    >
+                      # {item}
+                    </Button>
+                  ))
+                ) : (
+                  <div>دسته بندی وجود ندارد</div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 

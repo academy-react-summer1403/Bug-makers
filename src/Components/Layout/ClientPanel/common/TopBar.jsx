@@ -23,14 +23,18 @@ const TopBar = () => {
   const CourseListItem = useSelector(
     (state) => state.ClientInfoSlice.ClientInfo
   );
+  const dark = useSelector((state) => state.darkMood);
   return (
-    <div className="w-full h-full flex flex-row-reverse justify-between items-center bg-white shadow-md px-[1%] py-[0.5%] rounded-lg">
+    <div
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
+      className="w-full h-full flex flex-row-reverse justify-between items-center  shadow-md px-[1%] py-[0.5%] rounded-lg"
+    >
       {/* Left Icons */}
       <div className="flex items-center justify-end gap-x-[2%] max-md:w-[20%]   h-full">
         {/* Clock Icon Button */}
         <Button
           auto
-          className="bg-gray-100 rounded-full h-full w-[100%]  p-0 max-md:max-w-[70px]"
+          className="bg-gray-500 rounded-full h-full w-[100%]  p-0 max-md:max-w-[70px]"
         >
           <svg
             width=""
@@ -53,7 +57,7 @@ const TopBar = () => {
         {/* <div className="relative h-full w-[40%]"> */}
         <Button
           auto
-          className="bg-gray-100 rounded-full max-md:hidden h-full w-[30%]"
+          className="bg-gray-500 rounded-full max-md:hidden h-full w-[30%]"
         >
           <svg
             width=""
@@ -88,7 +92,7 @@ const TopBar = () => {
       {/* User Profile Section */}
       <div className="flex items-center justify-end gap-x-3 flex-row-reverse h-full max-md:w-[50%]">
         <div className="text-right">
-          <p className="text-[1.2vw] max-lg:text-[60%] max-md:text-[90%] font-semibold text-gray-800">
+          <p className="text-[1.2vw] max-lg:text-[60%] max-md:text-[90%] font-semibold ">
             {CourseListItem.fName} {CourseListItem.lName}
           </p>
           <p className="text-[0.9vw] max-lg:text-[60%] max-md:text-[90%] text-gray-500">

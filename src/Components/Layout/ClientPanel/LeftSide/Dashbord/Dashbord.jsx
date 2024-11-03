@@ -48,7 +48,8 @@ function PersianCalendarComponent() {
     <I18nProvider locale="">
       <Calendar
         calendarWidth={"280px"}
-        className="h-[100%]"
+        className="h-[100%] bg-transparent "
+        
         aria-label="Date (Uncontrolled)"
         defaultValue={today(getLocalTimeZone())}
         value={today(getLocalTimeZone())}
@@ -62,9 +63,12 @@ function PersianCalendarComponent() {
     (state) => state.ClientInfoSlice.ClientInfo
   );
   console.log(CourseListItem);
-   
+   const dark = useSelector((state) => state.darkMood);
     return (
-      <div className="relative w-full h-full overflow-auto">
+      <div
+        style={{ background: dark.bgHigh, color: dark.textHigh }}
+        className="relative w-full h-full overflow-auto"
+      >
         <div className="h-[10%] w-full flex items-center py-[1vw] max-md:h-[8%]">
           <span className="font-[600] text-[1.8vw] max-md:text-[16px]">
             سلام، صبح‌ بخیر {CourseListItem.fName}
@@ -94,7 +98,7 @@ function PersianCalendarComponent() {
             </div>
             <div className="text-[0.8vw] flex flex-col justify-between max-md:text-[14px]">
               <span className="">ساعت</span>
-              <span className="text-[#333]  font-[600]">
+              <span className="  font-[600]">
                 <TehranClock />{" "}
               </span>
             </div>
@@ -147,7 +151,7 @@ function PersianCalendarComponent() {
             </div>
             <div className="flex flex-col justify-between text-[0.8vw] max-md:text-[12px]">
               <span className="">تاریخ</span>
-              <span className="text-[#333]  font-[600]">
+              <span className="  font-[600]">
                 <TodayDate />{" "}
               </span>
             </div>
@@ -162,11 +166,14 @@ function PersianCalendarComponent() {
             {/* <PersianCalender /> */}
             {PersianCalendarComponent()}
           </div>
-          <div className="w-[20%] max-md:w-[49%] h-[99%] max-md:h-[50%] bg-white rounded-[0.5vw] max-md:rounded-[20px]">
+          <div
+            style={{ background: dark.bgHigh, color: dark.textHigh }}
+            className="w-[20%] max-md:w-[49%] h-[99%] max-md:h-[50%] rounded-[0.5vw] max-md:rounded-[20px]"
+          >
             <Gauge value={CourseListItem.profileCompletionPercentage} />
           </div>
         </div>
-        <div className="w-full h-[54%] max-md:h-[60%] max-md:mt-[15px]  rounded-[0.5vw] pb-[2.8vw] pt-[0.2vw] px-[0.5vw] bg-white overflow-auto mt-[0.2vw] shadow-lg">
+        <div className="w-full h-[54%] max-md:h-[60%] max-md:mt-[15px]  rounded-[0.5vw] pb-[2.8vw] pt-[0.2vw] px-[0.5vw]  overflow-auto mt-[0.2vw] shadow-lg">
           <CoursePage
             show={false}
             itemPerpage={4}
@@ -176,7 +183,7 @@ function PersianCalendarComponent() {
           />
         </div>
         <div
-          className={`w-[100%] h-[42vw] max-md:overflow-y-auto max-md:h-full pb-[1vw] pt-[1vw] px-[0.5vw] bg-white overflow-y-auto overflow-x-hidden absolute z-[10] top-[0vw] right-[0vw]
+          className={`w-[100%] h-[42vw] max-md:overflow-y-auto max-md:h-full pb-[1vw] pt-[1vw] px-[0.5vw]  overflow-y-auto overflow-x-hidden absolute z-[10] top-[0vw] right-[0vw]
             ${showMoreCourse == true ? "block" : "hidden"}
             `}
         >
@@ -254,14 +261,14 @@ function PersianCalendarComponent() {
                   activeButton == "courses" ? "block" : "hidden"
                 }`}
               >
-                <CComment/>
+                <CComment />
               </div>
               <div
                 className={`w-full h-full ${
                   activeButton == "blogs" ? "block" : "hidden"
                 }`}
               >
-                <CComentBlog/>
+                <CComentBlog />
               </div>
             </div>
           </div>

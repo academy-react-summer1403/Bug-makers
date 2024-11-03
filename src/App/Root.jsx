@@ -13,11 +13,10 @@ import ThemeColor from '../Components/Common/ThemeColor/ThemeColor.jsx'
 import ScrollTopButton from '../Components/Common/ScrollTopButton/ScrollTopButton.jsx'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { Root } from 'postcss'
 
 
 
-function App() {
+function Root() {
 
   const {i18n} = useTranslation()
   const ref = useRef();
@@ -33,9 +32,19 @@ const dark = useSelector((state) => state.darkMood);
       dir="rtl"
       style={{ background: dark.bgLow, color: dark.textHigh }}
     >
-     <Outlet/>
+      <Suspense fallback={<>loading</>}>
+        {/* <BlogDetail/> */}
+        <NextUIProvider>
+          <Header />
+          <Outlet />
+          <Toaster />
+          {/* <ThemeColor /> */}
+          <ScrollTopButton />
+        </NextUIProvider>
+        {/* <CourseDetail/> */}
+      </Suspense>
     </div>
   );
 }
 
-export default App
+export default Root

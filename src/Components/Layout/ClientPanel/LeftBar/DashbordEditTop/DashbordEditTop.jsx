@@ -17,22 +17,35 @@ const DashbordEditTop = () => {
       { id: "Security", label: "امنیت" },
       { id: "PassWord", label: "رمز عبور" },
     ];
+
+    const dark = useSelector((state) => state.darkMood);
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 pb-0 w-full h-full relative ">
+    <div
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
+      className=" shadow-md rounded-lg p-6 pb-0 w-full h-full relative "
+    >
       {/* Header Section */}
       <div className="bg-[#E1C461] h-[40%] rounded-t-lg -mx-6 -mt-6 max-md:h-[25%]"></div>
-      <div className="rounded-full flex justify-center items-center size-[6vw] overflow-hidden absolute bottom-[50%] max-md:bottom-[65%] right-[2%] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]
+      <div
+        className="rounded-full flex justify-center items-center size-[6vw] overflow-hidden absolute bottom-[50%] max-md:bottom-[65%] right-[2%] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]
       max-md:size-[80px]
-      ">
-        <img className="h-full " src={CourseListItem.currentPictureAddress} alt="" />
+      "
+      >
+        <img
+          className="h-full "
+          src={CourseListItem.currentPictureAddress}
+          alt=""
+        />
       </div>
       <div className="flex items-center justify-between mt-[40px] px-[1%] max-md:flex-col ">
         <div className="w-[50%] max-md:w-full">
           <div className="flex items-center gap-x-[0.5vw] max-md:gap-x-1">
-            <p className="text-[1.4vw] font-semibold text-gray-800 max-md:text-[20px]">
+            <p className="text-[1.4vw] font-semibold  max-md:text-[20px]">
               {CourseListItem.fName} {CourseListItem.lName}
             </p>
-            <p className="text-[0.8vw] text-gray-500 max-md:text-[12px]">( دانشجو )</p>
+            <p className="text-[0.8vw] text-gray-500 max-md:text-[12px]">
+              ( دانشجو )
+            </p>
           </div>
           <div className="flex items-center flex-wrap text-[0.9vw] text-gray-500 mt-2 justify-between w-[100%] max-md:text-[13px]">
             <svg
@@ -136,7 +149,9 @@ const DashbordEditTop = () => {
             <span>{CourseListItem.email}</span>
 
             <svg
-            onClick={()=>{navigator(`/ClientPanel/DashbordEdit/Personal`);}}
+              onClick={() => {
+                navigator(`/ClientPanel/DashbordEdit/Personal`);
+              }}
               className="mr-[2vw] cursor-pointer"
               width="4%"
               height=""
@@ -164,7 +179,9 @@ const DashbordEditTop = () => {
           <span className="block  mb-[0.5vw] text-[1vw] text-[#787878] max-md:text-[12px] max-md:mt-[10px]">
             درباره من
           </span>
-          <p className="text-[0.8vw] max-md:text-[12px]">{CourseListItem.userAbout}</p>
+          <p className="text-[0.8vw] max-md:text-[12px]">
+            {CourseListItem.userAbout}
+          </p>
         </div>
       </div>
 
@@ -179,18 +196,16 @@ const DashbordEditTop = () => {
                 setActiveTab(tab.id);
                 navigator(`/ClientPanel/DashbordEdit/${tab.id}`);
               }}
-              className={`cursor-pointer text-gray-600 rounded-[0.5vw] bg-white whitespace-nowrap pb-2 min-w-[15%] h-[90%] overflow-hidden  text-ellipsis ...  min-h-[15px] text-[1vw] hover:border-[#E1C461]
+              className={`cursor-pointer  rounded-[0.5vw]  whitespace-nowrap pb-2 min-w-[15%] h-[90%] overflow-hidden  text-ellipsis ...  min-h-[15px] text-[1vw] hover:border-[#E1C461]
                 max-md:text-[12px]
-                ${
-                activeTab === tab.id ? "text-black" : ""
-              } `}
+                ${activeTab === tab.id ? "text-[#E1C461]" : ""} `}
             >
               {tab.label}
             </div>
             <div
               className={`w-full h-0 rounded-t-full ${
                 activeTab === tab.id
-                  ? " border-[0.2vw] border-[#E1C461] text-black max-md:border-[3px]"
+                  ? " border-[0.2vw] border-[#E1C461]  max-md:border-[3px]"
                   : ""
               }`}
             ></div>
