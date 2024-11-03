@@ -2,6 +2,7 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import React from "react";
 import { Button } from '@nextui-org/react';
+import { useSelector } from "react-redux";
 
 const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) => {
   const validationSchema = Yup.object({
@@ -13,7 +14,7 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
       .required("دیدگاه اجباری است"),
   });
 
-  
+  const dark = useSelector((state) => state.darkMood);
 
   return (
     <Formik
@@ -49,7 +50,8 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
               placeholder="عنوان دیدگاه خود را وارد کنید"
               type="text"
               name="title"
-              className={`bg-white border outline-none text-gray-600 border-[#C4CDD5] w-full md:w-full h-10  max-md:w-full  max-md:h-[10%]  rounded-md  mb-2 ${
+              style={{ background: dark.bgLow, color: dark.textHigh }}
+              className={` border outline-none  border-[#C4CDD5] w-full md:w-full h-10  max-md:w-full  max-md:h-[10%]  rounded-md  mb-2 ${
                 errors.title && touched.title ? "border-red-500" : ""
               }`}
             />
@@ -65,7 +67,8 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
               as="textarea"
               name="describe"
               placeholder="دیدگاه خود را وارد کنید"
-              className={`max-md:max-h-[160px] max-md:h-[160px] max-md:min-h-[160px] max-h-[14vw] outline-none min-h-[14vw] p-2 bg-white border text-gray-600 border-[#C4CDD5] w-full h-32 rounded-md ${
+              style={{ background: dark.bgLow, color: dark.textHigh }}
+              className={`max-md:max-h-[160px] max-md:h-[160px] max-md:min-h-[160px] max-h-[14vw] outline-none min-h-[14vw] p-2  border border-[#C4CDD5] w-full h-32 rounded-md ${
                 errors.describe && touched.describe ? "border-red-500" : ""
               }`}
             />

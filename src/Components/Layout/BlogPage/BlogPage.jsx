@@ -83,38 +83,41 @@ const BlogPage = () => {
       </motion.div>
     ));
   };
-
+const dark = useSelector((state) => state.darkMood);
   return (
-    <div className='m-auto w-full bg-transparent relative text-center'>
-      <div className='w-full max-w-[1200px] mt-[5vw] m-auto px-4'>
-        <TextLanding h3Text='مقالات' pText='مقالات آموزشی ما' />
+    <div className="m-auto w-full bg-transparent relative text-center">
+      <div className="w-full max-w-[1200px] mt-[5vw] m-auto px-4">
+        <TextLanding h3Text="مقالات" pText="مقالات آموزشی ما" />
 
-        <div className='min-h-[55px] p-3 flex justify-center items-center gap-3 px-[8px] bg-white rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] flex-wrap'>
+        <div
+          style={{ background: dark.bgHigh, color: dark.textHigh }}
+          className="min-h-[55px] p-3 flex justify-center items-center gap-3 px-[8px]  rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] flex-wrap"
+        >
           <SearchBox
-            placeHolder='دنبال چیز خاصی میگردی؟'
-            value={`${filterValue ? '' : queryValue}`}
-            onChange={handleSearch} 
-            className='w-[520px]'
+            placeHolder="دنبال چیز خاصی میگردی؟"
+            value={`${filterValue ? "" : queryValue}`}
+            onChange={handleSearch}
+            className="w-[520px]"
           />
           <SelectOpt2
-            placeholder='دسته‌بندی'
-            onChange={(value) => setCategoryQuery(value)} 
+            placeholder="دسته‌بندی"
+            onChange={(value) => setCategoryQuery(value)}
             FilterValue={filterValue}
           />
           <SelectOpt
             width={"160px"}
             placeholder="ترتیب نمایش"
             isSortSelect={true}
-            onChange={(value) => setSorting(value)} 
+            onChange={(value) => setSorting(value)}
             FilterValue={filterValue}
-            className='w-[235px]'
+            className="w-[235px]"
           />
           <div className="h-[40px] w-[100px] max-[1312px]:w-full bg-[#F2F2F2]  whitespace-nowrap text-center text-[12px] leading-[40px] rounded-[9px] ">
             {CourseListItem.length} آیتم یافت شد
           </div>
         </div>
 
-        <div className='flex flex-wrap justify-center gap-[50px] mt-[2vw]'>
+        <div className="flex flex-wrap justify-center gap-[50px] mt-[2vw]">
           {renderCourses()}
         </div>
 
@@ -124,7 +127,10 @@ const BlogPage = () => {
         />
 
         <div className="w-full h-max mt-[1.04vw] relative flex flex-col md:flex-row justify-between items-start gap-[2vw]">
-          <BlogDownRight className="w-full md:w-1/3" title={"بر اساس سلیقه شما"} />
+          <BlogDownRight
+            className="w-full md:w-1/3"
+            title={"بر اساس سلیقه شما"}
+          />
           <BlogDownRight className="w-full md:w-1/3" title={"ترند ها"} />
           <BlogDownLeft className="w-full md:w-1/3" />
         </div>

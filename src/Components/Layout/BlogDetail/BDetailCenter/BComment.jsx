@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Comments from "./Comments";
 import { getRepleyComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
 import moment from "moment-jalaali";
+import { useSelector } from "react-redux";
 
 const BComment = ({
   comment = [],
@@ -71,16 +72,38 @@ const BComment = ({
   };
   
 console.log(commenting);
-
+const dark = useSelector((state) => state.darkMood);
   return (
-    <div className="w-full max-h-[60vw] overflow-auto rounded-[0.78vw] bg-white mt-[2vw] p-[1vw] text-gray-600">
+    <div
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
+      className="w-full max-h-[60vw] overflow-auto rounded-[0.78vw]  mt-[2vw] p-[1vw] "
+    >
       {commenting && Array.isArray(commenting) && commenting.length > 0 ? (
         <div className="h-auto w-full flex flex-col md:flex-row justify-between items-center">
-          <span className="text-[18px] w-full md:w-[20%] text-right">نظرات</span>
+          <span className="text-[18px] w-full md:w-[20%] text-right">
+            نظرات
+          </span>
           <div className=" max-md:w-[60%] w-[40%] flex flex-wrap justify-between items-center text-[12px] my-1">
-            <div onClick={handleLikeSort} className="hover:text-blue-600 cursor-pointer w-1/4 text-center">تعداد لایک</div>-
-            <div onClick={handleDateDownSort}  className=" hover:text-blue-600 cursor-pointer w-1/4 text-center">قدیمی‌ترین</div>-
-            <div onClick={handleDateSort} className=" hover:text-blue-600 cursor-pointer w-1/4 text-center">جدید‌ترین</div>
+            <div
+              onClick={handleLikeSort}
+              className="hover:text-blue-600 cursor-pointer w-1/4 text-center"
+            >
+              تعداد لایک
+            </div>
+            -
+            <div
+              onClick={handleDateDownSort}
+              className=" hover:text-blue-600 cursor-pointer w-1/4 text-center"
+            >
+              قدیمی‌ترین
+            </div>
+            -
+            <div
+              onClick={handleDateSort}
+              className=" hover:text-blue-600 cursor-pointer w-1/4 text-center"
+            >
+              جدید‌ترین
+            </div>
           </div>
           <div className="w-full md:w-[20%] text-right mt-2 md:mt-0">
             <span className="text-[10px]">{commenting.length}</span>
@@ -90,7 +113,7 @@ console.log(commenting);
       ) : (
         <div>هیچ نظری برای این پست ثبت نشده</div>
       )}
-  
+
       <div className="w-full">{renderCourses(commenting)}</div>
     </div>
   );

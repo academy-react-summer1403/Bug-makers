@@ -3,6 +3,7 @@ import AddCommentForm from "./AddCommentForm";
 import calculateDateDifference from "../../../Common/TimeChanger/TimeChanger";
 import { getRepleyComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
+import { useSelector } from "react-redux";
 
 const Comments = ({
   id,
@@ -35,17 +36,20 @@ const Comments = ({
     const res = await getRepleyComment(id);
     setResponse2(res);
   };
-
+const dark = useSelector((state) => state.darkMood);
   return (
     <>
-      <div className="p-[0.1vw] max-md:p-2 py-[1vw] border-b-[0.15vw] border-[#C2C2C2]  bg-white flex items-start justify-between h-full max-md:h-[140px] w-full ">
+      <div
+        style={{ background: dark.bgHigh, color: dark.textHigh }}
+        className="p-[0.1vw] max-md:p-2 py-[1vw] border-b-[0.15vw] border-[#C2C2C2] flex items-start justify-between h-full max-md:h-[140px] w-full "
+      >
         <div className="overflow-hidden size-[3vw] max-md:size-[40px] ml-[1vw] rounded-md bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] flex justify-center">
           <img src={pictureAddress} alt="" className="h-full" />
         </div>
         <div className="w-[95%] text-right h-full">
           {/* Header: نام نویسنده، تاریخ، ساعت */}
           <div className="flex justify-between items-center mb-2 max-md:flex-col max-md:items-start max-md:h-[35%]">
-            <div className="text-[0.7vw] max-md:text-[12px] max-md:max-w-[100%] max-md:w-full text-[#5E5E5E] flex justify-between w-[50%] max-w-[20vw]">
+            <div className="text-[0.7vw] max-md:text-[12px] max-md:max-w-[100%] max-md:w-full  flex justify-between w-[50%] max-w-[20vw]">
               <span className="max-w-[7vw] max-md:max-w-[20%] overflow-hidden text-ellipsis ... h-[20px]">
                 {title}
               </span>
@@ -54,7 +58,7 @@ const Comments = ({
                 {calculateDateDifference(convertToJalali(date))} روز پیش
               </span>
             </div>
-            <div className="text-[0.8vw] max-md:text-[12px] gap-[1vw] text-gray-800 w-1/3  max-w-[15vw] max-md:max-w-full max-md:w-full  h-[1.46vw] max-md:h-[40%]  flex justify-end">
+            <div className="text-[0.8vw] max-md:text-[12px] gap-[1vw]  w-1/3  max-w-[15vw] max-md:max-w-full max-md:w-full  h-[1.46vw] max-md:h-[40%]  flex justify-end">
               <div className="flex justify-evenly h-full w-[25%] items-center">
                 <span>{likeCount}</span>
                 <svg
@@ -108,7 +112,7 @@ const Comments = ({
           </div>
 
           {/* Body: متن نظر */}
-          <div className="text-[0.8vw] max-md:text-[10px] text-gray-700 mt-[1vw] h-[4vw] max-md:h-[35%]">
+          <div className="text-[0.8vw] max-md:text-[10px]  mt-[1vw] h-[4vw] max-md:h-[35%]">
             {describe}
           </div>
 
@@ -118,7 +122,8 @@ const Comments = ({
               onClick={() => {
                 showRepley(id);
               }}
-              className="text-[0.7vw] max-md:text-[10px] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-full w-[7vw] h-[1.7vw] max-md:w-[40%] max-md:h-[100%] p-0"
+              style={{ background: dark.bgLow, color: dark.textLow }}
+              className="text-[0.7vw] max-md:text-[10px]   hover:text-gray-900 rounded-full w-[7vw] h-[1.7vw] max-md:w-[40%] max-md:h-[100%] p-0"
             >
               مشاهده پاسخ ها ({replyCount})
             </button>
@@ -129,7 +134,8 @@ const Comments = ({
               onClick={() => {
                 setRepleyModal(true);
               }}
-              className="flex justify-evenly max-md:w-[25%] max-md:h-[100%] max-md:text-[10px] items-center text-[0.7vw] bg-[#F6F6F6] text-gray-500 hover:text-gray-900 rounded-full w-[5vw] h-[1.7vw] p-0"
+              style={{ background: dark.bgLow, color: dark.textLow }}
+              className="flex justify-evenly max-md:w-[25%] max-md:h-[100%] max-md:text-[10px] items-center text-[0.7vw]   rounded-full w-[5vw] h-[1.7vw] p-0"
             >
               <span
                 onClick={() => {
@@ -184,7 +190,12 @@ const Comments = ({
       </div>
       <div>
         {response2 ? (
-          <div className="pr-[5vw] w-full max-md:pr-0 max-md:border-r-4 border-blue-500">{renderCourses(response2)} </div>
+          <div
+            style={{ background: dark.bgHigh }}
+            className="pr-[5vw] w-full max-md:pr-0 max-md:border-r-4 border-blue-500"
+          >
+            {renderCourses(response2)}{" "}
+          </div>
         ) : (
           <div className="text-[1vw] text-center"></div>
         )}
