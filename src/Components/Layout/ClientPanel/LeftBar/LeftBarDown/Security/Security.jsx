@@ -37,13 +37,12 @@ const Security = () => {
     }
     
   };
-
+const dark = useSelector((state) => state.darkMood);
   return (
     <Formik
       enableReinitialize
       initialValues={{
         recoveryEmail: "",
-        
       }}
       validationSchema={validation}
       onSubmit={onSubmit}
@@ -58,7 +57,7 @@ const Security = () => {
               {({ field }) => (
                 <Input
                   type="email"
-                  className="max-h-[20%] mt-[2%]"
+                  className={`max-h-[20%] mt-[2%] ${dark.input}`}
                   {...field}
                   label=" ایمیل بازیابی جدید"
                   img="../../../../../public/images/Login/lock.png"
@@ -74,17 +73,23 @@ const Security = () => {
             <div className="flex items-center w-full my-[2%] gap-x-2 h-[10%]">
               <label> ورود دو مرحله ای : </label>
               <div
-              onClick={()=>{
-                twoStep == true ? setTwoStep(false) : setTwoStep(true);
-              }}
-                className={`cursor-pointer max-md:w-[40%] text-[0.9vw] max-md:text-[16px] flex items-center justify-center text-white w-[15%] h-full rounded-xl ${twoStep == true ? 'bg-red-500': 'bg-green-500'} `}
+                onClick={() => {
+                  twoStep == true ? setTwoStep(false) : setTwoStep(true);
+                }}
+                className={`cursor-pointer max-md:w-[40%] text-[0.9vw] max-md:text-[16px] flex items-center justify-center text-white w-[15%] h-full rounded-xl ${
+                  twoStep == true ? "bg-red-500" : "bg-green-500"
+                } `}
               >
-                {twoStep == true ? 'غیرفعال سازی': 'فعال سازی'}
+                {twoStep == true ? "غیرفعال سازی" : "فعال سازی"}
               </div>
             </div>
             <button
               type="submit"
-              className="min-h-[50px] max-md:text-[16px] mt-[2%] text-white bg-[#E1C461] rounded-[0.6vw] max-md:rounded-xl w-[30%] max-md:w-full h-[12%] text-[0.83vw] leading-[1.46vw] p-0 m-0"
+              className={`min-h-[50px] max-md:text-[16px] mt-[2%] text-white  rounded-[0.6vw] max-md:rounded-xl w-[30%] max-md:w-full h-[12%] text-[0.83vw] leading-[1.46vw] p-0 m-0
+                ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+                ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+                ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                `}
             >
               اعمال تغیررات
             </button>

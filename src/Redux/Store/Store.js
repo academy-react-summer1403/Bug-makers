@@ -10,7 +10,7 @@ import paymentSliceReducer from '../Slice/payment/payment'
 import darkMoodReducer from '../Slice/darkMood/darkMood'
 export const Store = configureStore({
   reducer: {
-    themeColor: ThemeColorReducer,
+    
     darkMood: darkMoodReducer,
     CourseSlice: CourseSliceReducer,
     BlogSlice: BlogSliceReducer,
@@ -19,5 +19,6 @@ export const Store = configureStore({
     ToStep: towStepSliceReducer,
     favorite: favoriteeSliceReducer,
     payment: paymentSliceReducer,
+    themeColor: ThemeColorReducer,
   },
 });

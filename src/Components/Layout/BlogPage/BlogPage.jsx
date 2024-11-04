@@ -112,7 +112,13 @@ const dark = useSelector((state) => state.darkMood);
             FilterValue={filterValue}
             className="w-[235px]"
           />
-          <div className="h-[40px] w-[100px] max-[1312px]:w-full bg-[#F2F2F2]  whitespace-nowrap text-center text-[12px] leading-[40px] rounded-[9px] ">
+          <div
+            style={{
+              background: dark.bgLow,
+              color: dark.textHigh,
+            }}
+            className="h-[40px] w-[100px] max-[1312px]:w-full whitespace-nowrap text-center text-[12px] leading-[40px] rounded-[9px] "
+          >
             {CourseListItem.length} آیتم یافت شد
           </div>
         </div>

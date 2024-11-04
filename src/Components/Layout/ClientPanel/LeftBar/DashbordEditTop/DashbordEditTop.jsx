@@ -25,7 +25,13 @@ const DashbordEditTop = () => {
       className=" shadow-md rounded-lg p-6 pb-0 w-full h-full relative "
     >
       {/* Header Section */}
-      <div className="bg-[#E1C461] h-[40%] rounded-t-lg -mx-6 -mt-6 max-md:h-[25%]"></div>
+      <div
+        className={`h-[40%] rounded-t-lg -mx-6 -mt-6 max-md:h-[25%]
+          ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+          ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+          ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+          `}
+      ></div>
       <div
         className="rounded-full flex justify-center items-center size-[6vw] overflow-hidden absolute bottom-[50%] max-md:bottom-[65%] right-[2%] bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]
       max-md:size-[80px]
@@ -198,14 +204,24 @@ const DashbordEditTop = () => {
               }}
               className={`cursor-pointer  rounded-[0.5vw]  whitespace-nowrap pb-2 min-w-[15%] h-[90%] overflow-hidden  text-ellipsis ...  min-h-[15px] text-[1vw] hover:border-[#E1C461]
                 max-md:text-[12px]
-                ${activeTab === tab.id ? "text-[#E1C461]" : ""} `}
+                ${
+                  activeTab === tab.id
+                    ? `${dark.selectedButton === 0 ? "text-blue-600" : ""} 
+                      ${dark.selectedButton === 1 ? "text-green-600" : ""} 
+                      ${dark.selectedButton === 2 ? "text-yellow-600" : ""}`
+                    : ""
+                } `}
             >
               {tab.label}
             </div>
             <div
               className={`w-full h-0 rounded-t-full ${
                 activeTab === tab.id
-                  ? " border-[0.2vw] border-[#E1C461]  max-md:border-[3px]"
+                  ? `border-[0.2vw] max-md:border-[3px] ${
+                      dark.selectedButton === 0 ? "border-blue-600" : ""
+                    } 
+                ${dark.selectedButton === 1 ? "border-green-600" : ""} 
+                ${dark.selectedButton === 2 ? "border-yellow-600" : ""}`
                   : ""
               }`}
             ></div>

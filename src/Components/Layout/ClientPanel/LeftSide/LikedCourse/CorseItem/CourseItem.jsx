@@ -12,6 +12,7 @@ import {
 } from "../../../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
+import { useSelector } from "react-redux";
 
 const CourseItem = ({
   title,
@@ -110,9 +111,14 @@ const CorseReserveF2 = useMutation({
     navigator(`/CourseDetail/${id}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  const dark = useSelector((state) => state.darkMood);
   return (
     <div
-      className={`p-[0.5vw] relative shadow-[0px_0px_15px_0px_#666] bg-white rounded-[1vw]  overflow-hidden
+      style={{
+        background: dark.bgHigh,
+        color: dark.textHigh,
+      }}
+      className={`p-[0.5vw] relative shadow-[0px_0px_15px_0px_#666]  rounded-[1vw]  overflow-hidden
           "w-[100%]  max-h-[100%] max-md:h-full`}
     >
       <div className="h-[1.8vw] max-md:h-[7%] w-full text-right flex justify-between items-center mb-[0.5vw]">
@@ -144,7 +150,10 @@ const CorseReserveF2 = useMutation({
         </div>
       </div>
       <div
-        className={`rounded-[0.5vw] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] overflow-hidden
+        style={{
+          background: dark.bgLow,
+        }}
+        className={`rounded-[0.5vw]  overflow-hidden
           w-[100%] h-[10vw] max-md:h-[30%]
         `}
       >

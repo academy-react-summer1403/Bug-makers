@@ -11,7 +11,6 @@ import SiteSetting from '../../../Pages/site setting/SiteSetting';
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
-  const { selectedButton } = useSelector((state) => state.themeColor);
   
 
 
@@ -53,9 +52,8 @@ const navigate = useNavigate()
       ref={ref}
       className={`z-[1000]  min-[1940px]:h-36 h-16  flex items-center justify-center flex-row flex-nowrap shadow-[0px_10px_10px_0px_#00000008] transition-all duration-300 
       ${isSticky ? "fixed top-0 right-0 w-[100%] " : "relative w-[100%] "}`}
-      style={{ background: dark.bgHigh , color:dark.textHigh}}
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
     >
-      
       {/* Menu in Responsive */}
       <div className="max-[625px]:block  /* end responsive */ mobileMode w-8 h-8 absolute right-[40px] cursor-pointer hidden ">
         <CiMenuBurger
@@ -69,9 +67,9 @@ const navigate = useNavigate()
         >
           <MenuOption
             className={` lg:text-xl p-1 indent-4 cursor-pointer 
-              ${selectedButton === 0 ? "hover:text-[#4bb0d8] " : ""}
-              ${selectedButton === 1 ? "hover:text-green-600" : ""}
-              ${selectedButton === 2 ? "hover:text-yellow-600" : ""}
+              ${dark.selectedButton === 0 ? "hover:text-blue-500 " : ""}
+              ${dark.selectedButton === 1 ? "hover:text-green-600" : ""}
+              ${dark.selectedButton === 2 ? "hover:text-yellow-600" : ""}
             `}
           />
         </ul>
@@ -85,9 +83,9 @@ const navigate = useNavigate()
       <div className="max-[710px]:text-[13px] max-[710px]:gap-5 max-[394px]:text-[10px] max-[394px]:gap-3 max-[652px]:hidden /*end responsive*/ menu w-[42vw] whitespace-nowrap text-[14px] flex justify-center items-center flex-row flex-nowrap gap-10">
         <MenuOption
           className={`cursor-pointer 
-            ${selectedButton === 0 ? "hover:text-[#4bb0d8]" : ""}
-            ${selectedButton === 1 ? "hover:text-green-600" : ""}
-            ${selectedButton === 2 ? "hover:text-yellow-600" : ""}
+            ${dark.selectedButton === 0 ? "hover:text-blue-500" : ""}
+            ${dark.selectedButton === 1 ? "hover:text-green-600" : ""}
+            ${dark.selectedButton === 2 ? "hover:text-yellow-600" : ""}
           `}
         />
       </div>
@@ -95,7 +93,7 @@ const navigate = useNavigate()
 
       <SearchModal />
 
-      <div className="cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[30px] max-[465px]:left-[8px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[150px]  shadow-custom-shadow">
+      <div className="cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[30px] max-[465px]:left-[8px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[150px]  shadow-xl">
         {getItem ? (
           <CiUser
             className="m-auto h-5 w-5 mt-1"

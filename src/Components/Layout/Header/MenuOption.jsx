@@ -7,7 +7,7 @@ const MenuOption = ({ className }) => {
   const { selectedButton } = useSelector((state) => state.themeColor);
 
   const selectNavLink = `
-    ${selectedButton === 0 ? 'text-[#4bb0d8]' : ''}
+    ${selectedButton === 0 ? 'text-blue-600' : ''}
     ${selectedButton === 1 ? 'text-green-600' : ''}
     ${selectedButton === 2 ? 'text-yellow-600' : ''}
   `.trim().replace(/\s+/g, ' ');

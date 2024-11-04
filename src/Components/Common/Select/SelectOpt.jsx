@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery } from 'react-query';
 import { getTeacherList } from '../../../Core/Services/Api/CoursePage/TeacherList';
 import { getCategoryList } from '../../../Core/Services/Api/CoursePage/Category';
+import { useSelector } from 'react-redux';
 
 const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect, FilterValue , className}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,9 +55,12 @@ const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect
     return <p>خطایی رخ داده است، لطفا دوباره تلاش کنید.</p>;
   }
   console.log(optionsList);
-
+const dark = useSelector((state) => state.darkMood);
   return (
-    <div className={`relative  max-[1312px]:w-[100%] ${isOpen ? 'z-10' : 'z-0'}`}>
+    <div
+      className={`relative  max-[1312px]:w-[100%] ${isOpen ? "z-10" : "z-0"}`}
+      
+    >
       {selectedOption && (
         <span
           className="cursor-pointer p-3 absolute left-0 top-0"
@@ -66,27 +70,51 @@ const SelectOpt = ({ width, placeholder, onChange, isTeacherSelect, isSortSelect
         </span>
       )}
       <div
-        className={`outline-none min-[2015px]:w-[250px] min-[3000px]:w-[350px] min-[4500px]:w-[450px] /* end responsive */ w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer ${className}`}
+        className={`outline-none min-[2015px]:w-[250px] min-[3000px]:w-[350px] min-[4500px]:w-[450px] /* end responsive */ w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px]  text-right text-[14px] indent-[10px] leading-10 font-light  cursor-pointer ${className}`}
         onClick={() => setIsOpen(!isOpen)}
+        style={{
+        background: dark.bgLow,
+        color: dark.textHigh,
+      }}
       >
-        <span>{selectedOption ? (selectedOption.fullName || selectedOption.techName || selectedOption.value) : placeholder}</span>
+        <span>
+          {selectedOption
+            ? selectedOption.fullName ||
+              selectedOption.techName ||
+              selectedOption.value
+            : placeholder}
+        </span>
       </div>
       <AnimatePresence>
         {isOpen && (
           <motion.ul
-            className="absolute w-full bg-white shadow-lg mt-1 max-h-[200px] overflow-y-auto rounded-lg"
+            style={{
+              background: dark.bgLow,
+              color: dark.textHigh,
+            }}
+            className="absolute w-full  shadow-lg mt-1 max-h-[200px] overflow-y-auto rounded-lg"
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
             {optionsList?.map((option) => (
               <li
-                key={isSortSelect ? option.id : isTeacherSelect ? option.teacherId : option.id }
+                key={
+                  isSortSelect
+                    ? option.id
+                    : isTeacherSelect
+                    ? option.teacherId
+                    : option.id
+                }
                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer text-[12px]"
                 onClick={() => handleSelect(option)}
               >
-                {isSortSelect ? option.label : isTeacherSelect ? option.fullName : option.techName}
+                {isSortSelect
+                  ? option.label
+                  : isTeacherSelect
+                  ? option.fullName
+                  : option.techName}
               </li>
             ))}
           </motion.ul>

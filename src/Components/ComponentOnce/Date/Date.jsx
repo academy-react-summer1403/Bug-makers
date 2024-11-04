@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'jalali-moment';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSelector } from 'react-redux';
 
 const DateModal = ({ onFilter }) => {
   const [startDay, setStartDay] = useState('');
@@ -35,11 +36,15 @@ const DateModal = ({ onFilter }) => {
       }, 4000);
     }
   };
-
+const dark = useSelector((state) => state.darkMood);
   return (
     <div className="flex justify-center items-center max-[1312px]:w-[100%]">
       <div
-        className="outline-none min-[2015px]:w-[250px] min-[3000px]:w-[350px] min-[4500px]:w-[450px] /* end responsive */ w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px] bg-[#F2F2F2] text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
+        style={{
+          background: dark.bgLow,
+          color: dark.textHigh,
+        }}
+        className="outline-none min-[2015px]:w-[250px] min-[3000px]:w-[350px] min-[4500px]:w-[450px] /* end responsive */ w-[160px] max-[1312px]:w-[100%] h-[40px] rounded-[10px]  text-right text-[14px] indent-[10px] leading-10 font-light text-[#808080] cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
         بازه زمانی
@@ -49,12 +54,18 @@ const DateModal = ({ onFilter }) => {
         {isOpen && (
           <motion.div
             className="fixed inset-0 flex items-center justify-center z-10"
-            initial={{ opacity: 0, y: -100 }}  
-            animate={{ opacity: 1, y: 0 }}    
-            exit={{ opacity: 0, y: -100 }}    
-            transition={{ duration: 0.5 }}    
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -100 }}
+            transition={{ duration: 0.5 }}
           >
-            <div className="w-[514px] relative h-[303px] bg-white p-5 rounded-lg shadow-lg">
+            <div
+              style={{
+                background: dark.bgLow,
+                color: dark.textHigh,
+              }}
+              className="w-[514px] relative h-[303px]  p-5 rounded-lg shadow-lg"
+            >
               <h2 className="text-lg mb-4 text-right">فیلتر بازه زمانی</h2>
               <hr />
               <div className="flex relative justify-center items-center flex-row flex-nowrap">
@@ -123,24 +134,20 @@ const DateModal = ({ onFilter }) => {
                 className="max-custom2:left-10 bg-transparent text-[#626262] w-[106px] border-2 border-[#91ACCF] h-[30px] rounded-[8px] absolute bottom-5 left-36"
                 onClick={() => {
                   setIsOpen(false);
-                  setStartDay('');
-                  setStartMonth('');
-                  setStartYear('');
-                  setEndDay('');
-                  setEndMonth('');
-                  setEndYear('');
+                  setStartDay("");
+                  setStartMonth("");
+                  setStartYear("");
+                  setEndDay("");
+                  setEndMonth("");
+                  setEndYear("");
                   setHasData(true);
                   setShowError(false);
                 }}
               >
                 انصراف
               </button>
-              
-              {showError && (
-                <p className="text-black mt-2">
-                  دیتا یافت نشد
-                </p>
-              )}
+
+              {showError && <p className="text-black mt-2">دیتا یافت نشد</p>}
             </div>
           </motion.div>
         )}

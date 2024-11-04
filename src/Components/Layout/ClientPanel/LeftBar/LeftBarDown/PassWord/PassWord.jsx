@@ -48,7 +48,7 @@ const PassWord = () => {
       toast(res.message);
     }
   };
-
+const dark = useSelector((state) => state.darkMood);
   return (
     <Formik
       enableReinitialize
@@ -68,7 +68,7 @@ const PassWord = () => {
             <Field name="oldPassword">
               {({ field }) => (
                 <Input
-                  className="max-h-[20%] mt-[2%]"
+                  className={`max-h-[20%] mt-[2%] ${dark.input}`}
                   {...field}
                   label="رمز قدیمی"
                   img="../../../../../public/images/Login/lock.png"
@@ -84,7 +84,7 @@ const PassWord = () => {
             <Field name="newPassword">
               {({ field }) => (
                 <Input
-                  className="max-h-[20%] mt-[2%]"
+                  className={`max-h-[20%] mt-[2%] ${dark.input}`}
                   {...field}
                   label="رمز جدید"
                   img="../../../../../public/images/Login/lock.png"
@@ -100,7 +100,7 @@ const PassWord = () => {
             <Field name="newPassword2">
               {({ field }) => (
                 <Input
-                  className="max-h-[20%] mt-[2%]"
+                  className={`max-h-[20%] mt-[2%] ${dark.input}`}
                   {...field}
                   label="تکرار رمز جدید"
                   img="../../../../../public/images/Login/lock.png"
@@ -120,7 +120,11 @@ const PassWord = () => {
             />
             <button
               type="submit"
-              className="min-h-[50px] max-md:text-[16px] mt-[2%] text-white bg-[#E1C461] rounded-[0.6vw] max-md:rounded-xl w-[30%] max-md:w-full h-[12%] text-[0.83vw] leading-[1.46vw] p-0 m-0"
+              className={`min-h-[50px] max-md:text-[16px] mt-[2%] text-white rounded-[0.6vw] max-md:rounded-xl w-[30%] max-md:w-full h-[12%] text-[0.83vw] leading-[1.46vw] p-0 m-0
+                ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+          ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+          ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                `}
             >
               تایید رمز جدید
             </button>

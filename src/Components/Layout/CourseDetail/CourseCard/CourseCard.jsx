@@ -38,6 +38,7 @@ import { deleteCourseFavorite } from "../../../../Core/Services/Api/CourseDetail
 import { Link } from "react-router-dom";
 import { Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
+import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 
 
 function CourseCard({id}) {
@@ -434,7 +435,7 @@ function CourseCard({id}) {
               className="max-[688px]:hidden w-64 h-11 mr-5 academyH1"
             />
             <div className="max-[688px]:hidden max-[1440px]:mr-64 max-[1325px]:mr-52 max-[1273px]:mr-32 max-[1181px]:mr-16 max-[1051px]:mr-10 max-[991px]:mr-0  max-[945px]:w-52 max-[883px]:w-32 max-[788px]:absolute max-[788px]:top-16 max-[788px]:right-32 /*end responsive */ flex justify-center mr-80  w-64 h-32 items-center gap-2">
-              <button className="   text-2xl price">1900</button>
+              <div className="   text-2xl price">{response.cost}</div>
               <img
                 src="../../../../../public/images/icon/toman.png"
                 className="w-5 h-5"
@@ -451,7 +452,7 @@ function CourseCard({id}) {
             alt=""
           />
           <h1 className="max-[688px]:block hidden text-center m-[1rem_auto]  border-blue-600  h-fit font-bold  text-3xl">
-            tailwind
+            {response.title}
           </h1>
           <CoursePreviwe0
             response={response}
@@ -461,7 +462,7 @@ function CourseCard({id}) {
           />
 
           <div className=" max-[688px]:flex hidden max-[688px]:h-0 /*end responsive */  justify-center    m-[1rem_auto] items-center gap-2">
-            <button className="   text-2xl price">1900</button>
+            <button className="   text-2xl price">{response.cost}</button>
             <img
               src="../../../../../public/images/icon/toman.png"
               className="w-5 h-5"
@@ -474,24 +475,29 @@ function CourseCard({id}) {
         </div>
         <div className="border-t border-t-[#ccc] flex flex-wrap justify-center items-center gap-4 md:gap-10 lg:gap-16 min-h-16 p-2 w-full">
           <div className="flex justify-center items-center gap-2 ">
-            <FaChalkboardTeacher color="blue" />
+            <FaChalkboardTeacher color="gray" />
             <span>استاد دوره :</span>
-            <span>محمد</span>
+            <span>{response.teacherName}</span>
           </div>
           <div className="flex justify-center items-center gap-2 ">
-            <FaRegPlayCircle color="blue" />
+            <FaRegPlayCircle color="gray" />
             <span> وضعیت دوره :</span>
-            <span>محمد</span>
+            <span>{response.courseStatusName}</span>
           </div>
           <div className="flex justify-center items-center gap-2">
-            <PiStudent color="blue" />
+            <PiStudent color="gray" />
             <span>تعداد دانشجویان :</span>
-            <span>محمد</span>
+            <span>{response.capacity}</span>
           </div>
           <div className="flex justify-center items-center gap-2 ">
-            <IoTimeOutline color="blue" />
-            <span>مدت زمان دوره :</span>
-            <span>محمد</span>
+            <IoTimeOutline color="gray" />
+            <span> زمان شروع دوره :</span>
+            <span>{convertToJalali(response.startTime)}</span>
+          </div>
+          <div className="flex justify-center items-center gap-2 ">
+            <IoTimeOutline color="gray" />
+            <span> زمان پایان دوره :</span>
+            <span>{convertToJalali(response.endTime)}</span>
           </div>
         </div>
       </div>
@@ -501,7 +507,7 @@ function CourseCard({id}) {
           <div className="w-full p-[1vw] ">
             <div
               style={{ background: dark.bgHigh, color: dark.textLow }}
-              className={` p-5 rounded-lg w-full text-right md:leading-[2.5vw] text-[2vw] leading-5 md:text-[0.9vw] ${
+              className={` p-5 rounded-lg w-full max-h-[500px] overflow-auto text-right md:leading-[2.5vw] text-[2vw] leading-5 md:text-[0.9vw] ${
                 detailPage === 0 ? "block" : "hidden"
               }`}
             >

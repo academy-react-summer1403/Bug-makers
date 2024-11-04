@@ -22,7 +22,7 @@ const dark = useSelector((state) => state.darkMood);
           <RightBarMobile />
         </div>
         <div className="w-[79%] h-[100%] flex flex-col justify-between max-md:w-[100%]">
-          <div className="w-full h-[8%] rounded-[0.6vw] bg-white ">
+          <div className="w-full h-[8%] rounded-[0.6vw] bg-transparent ">
             <TopBar />
           </div>
           <div className="w-full h-[91%] rounded-[0.6vw] bg-transparent overflow-hidden">

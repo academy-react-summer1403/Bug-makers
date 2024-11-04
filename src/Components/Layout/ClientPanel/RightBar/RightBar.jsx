@@ -519,7 +519,9 @@ useEffect(() => {
             }}
             className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[14%] hover:border-[#E1C461] ${
               activeIndex === item.id
-                ? "bg-[#E1C461] text-white"
+                ? `${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+          ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+          ${dark.selectedButton === 2 ? "bg-yellow-600" : ""} text-white`
                 : "bg-transparent "
             }`}
             color={activeIndex === item.id ? "warning" : "default"}
@@ -541,12 +543,14 @@ useEffect(() => {
             setActiveIndex(6);
             navigator(`${"Payment"}`);
           }}
+          color={activeIndex === 6 ? "default" : "none"}
           className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[85%]  hover:border-[#E1C461]${
             activeIndex === 6
-              ? "bg-[#E1C461] text-white"
-              : "bg-white text-gray-700"
+              ? `${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+                ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+                ${dark.selectedButton === 2 ? "bg-yellow-600" : ""} text-white`
+              : " text-gray-500"
           }`}
-          color={activeIndex === 6 ? "warning" : ""}
           auto
         >
           <svg
@@ -558,32 +562,32 @@ useEffect(() => {
           >
             <path
               d="M7 7.17008C5.93408 7.17008 4.91969 7.05077 4 6.83549C3.04003 6.61078 2 7.30207 2 8.30855V19.3175C2 20.1259 2 20.5301 2.19412 20.9469C2.30483 21.1846 2.55696 21.508 2.75898 21.6714C3.11319 21.9578 3.4088 22.027 4 22.1654C4.91969 22.3807 5.93408 22.5 7 22.5C8.91707 22.5 10.6675 22.1141 12 21.478C13.3325 20.842 15.0829 20.456 17 20.456C18.0659 20.456 19.0803 20.5753 20 20.7906C20.96 21.0153 22 20.324 22 19.3175V8.30855C22 7.50018 22 7.096 21.8059 6.67918C21.6952 6.44146 21.443 6.11808 21.241 5.95472C20 4.93869 18 5.9422 18 5.9422"
-              stroke={activeIndex === 6 ? "#FEFDFF" : "#272727"}
+              stroke={activeIndex === 6 ? "#FEFDFF" : "#5e5e5e"}
               stroke-width="1.5"
               stroke-linecap="round"
             />
             <path
               d="M14.5 14C14.5 15.3807 13.3807 16.5 12 16.5C10.6193 16.5 9.5 15.3807 9.5 14C9.5 12.6193 10.6193 11.5 12 11.5C13.3807 11.5 14.5 12.6193 14.5 14Z"
-              stroke={activeIndex === 6 ? "#FEFDFF" : "#272727"}
+              stroke={activeIndex === 6 ? "#FEFDFF" : "#5e5e5e"}
               stroke-width="1.5"
             />
             <path
               d="M5.5 15V15.009"
-              stroke={activeIndex === 6 ? "#FEFDFF" : "#272727"}
+              stroke={activeIndex === 6 ? "#FEFDFF" : "#5e5e5e"}
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
             />
             <path
               d="M18.5 12.9922V13.0012"
-              stroke={activeIndex === 6 ? "#FEFDFF" : "#272727"}
+              stroke={activeIndex === 6 ? "#FEFDFF" : "#5e5e5e"}
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
             />
             <path
               d="M9.5 5C9.99153 4.4943 11.2998 2.5 12 2.5M12 2.5C12.7002 2.5 14.0085 4.4943 14.5 5M12 2.5V8.5"
-              stroke={activeIndex === 6 ? "#FEFDFF" : "#272727"}
+              stroke={activeIndex === 6 ? "#FEFDFF" : "#5e5e5e"}
               stroke-width="1.5"
               stroke-linecap="round"
               stroke-linejoin="round"

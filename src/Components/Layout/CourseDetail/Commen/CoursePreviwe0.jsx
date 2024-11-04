@@ -76,19 +76,23 @@ const CoursePreviwe0 = ({ response, CorseReserve , id , className}) => {
   //     </div>
   //   </div>
   // );
-
+const dark = useSelector((state) => state.darkMood);
   
-  return(
+  return (
     <Button
       onClick={() => CorseReserve.mutate(id)}
-      color="primary"
       // className={`w-full  bg-green-600 text-white py-2 px-4 rounded-lg  transition duration-300 mt-2 ${response.isCourseReseve == 1 ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'}`}
-      className={`${className}`}
+      className={`${className}  text-gray-50
+        ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+        ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+        ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+        ${response.isCourseReseve == 1? 'bg-red-600': ""}
+      `}
     >
-      <FaPlus />
-      {response.isCourseReseve == 1 ? 'حذف این دوره' : 'ثبت نام در این دوره'}
+      
+      {response.isCourseReseve == 1 ? " - حذف این دوره" : "+  ثبت نام در این دوره" }
     </Button>
-  )
+  );
 };
 
 export default CoursePreviwe0;

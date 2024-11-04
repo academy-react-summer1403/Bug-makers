@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CourseComments from "./CourseComments";
 import moment from "moment-jalaali";
+import { useSelector } from "react-redux";
 
 const CComment = ({
   comment = [],
@@ -54,19 +55,26 @@ const CComment = ({
       />
     ));
   };
-
+const dark = useSelector((state) => state.darkMood);
   return (
-    <div className="w-full max-md:max-h-[500px] h-max max-h-[60vw] overflow-auto rounded-[0.78vw] bg-white mt-[2vw] p-[1vw] text-gray-600">
+    <div
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
+      className="w-full max-md:max-h-[500px] h-max max-h-[60vw] overflow-auto rounded-[0.78vw] bg-white mt-[2vw] p-[1vw] text-gray-600"
+    >
       {comment && Array.isArray(comment) && comment.length > 0 ? (
         <div className="h-[15%] w-full flex justify-between items-center max-md:mb-[20px]">
-          <span className="text-[1.1vw] max-md:text-[16px] w-[7vw] text-right">نظرات</span>
+          <span className="text-[1.1vw] max-md:text-[16px] w-[7vw] text-right">
+            نظرات
+          </span>
           <div className="max-md:hidden flex max-md:text-[8px] w-[40%] text-[0.8vw] justify-between items-center">
             <div className="h-[1vw] w-1/4 cursor-pointer"> تعداد لایک </div>-
             <div className="h-[1vw] w-1/4 cursor-pointer">قدیمی‌ترین</div>-
             <div className="h-[1vw] w-1/4 cursor-pointer">جدید‌ترین</div>
           </div>
           <div className="w-[7.30vw] max-md:w-[20%]">
-            <span className="text-[1vw] max-md:text-[8px]">{comment.length}</span>
+            <span className="text-[1vw] max-md:text-[8px]">
+              {comment.length}
+            </span>
             <span className="text-[0.8vw] max-md:text-[8px]"> نظر ثبت شده</span>
           </div>
         </div>
@@ -74,7 +82,7 @@ const CComment = ({
         <div>هیچ نظری برای این پست ثبت نشده</div>
       )}
 
-      <div className="w-full">{renderCourses(comment,0)}</div>
+      <div className="w-full">{renderCourses(comment, 0)}</div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Input, Button, Progress, Textarea } from "@nextui-org/react";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 const PersonalInfo = () => {
   const [step, setStep] = useState(0);
+  const [input,setInput]=useState("")
   // اسکیمای اعتبارسنجی با Yup
   const validationSchema = Yup.object({
     firstName: Yup.string().required("نام را وارد کنید"),
@@ -28,6 +29,9 @@ const PersonalInfo = () => {
     const res = ProfileStep1(val)
   }
 const dark = useSelector((state) => state.darkMood);
+
+  
+
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
@@ -64,7 +68,11 @@ const dark = useSelector((state) => state.darkMood);
                 <label className="block mb-[0.5vw] mr-[0.3vw]">نام</label>
                 <Field name="firstName">
                   {({ field }) => (
-                    <Input {...field} placeholder="نام خود را وارد کنید" />
+                    <Input
+                      className={dark.input}
+                      {...field}
+                      placeholder="نام خود را وارد کنید"
+                    />
                   )}
                 </Field>
                 <ErrorMessage
@@ -86,6 +94,7 @@ const dark = useSelector((state) => state.darkMood);
                 <Field name="lastName">
                   {({ field }) => (
                     <Input
+                      className={dark.input}
                       {...field}
                       placeholder="نام خانوادگی خود را وارد کنید"
                     />
@@ -108,6 +117,7 @@ const dark = useSelector((state) => state.darkMood);
                 <Field name="about">
                   {({ field }) => (
                     <Textarea
+                      className={dark.input}
                       {...field}
                       placeholder="چند جمله درباره خود وارد کنید"
                     />
@@ -119,7 +129,11 @@ const dark = useSelector((state) => state.darkMood);
                 <label className="block mb-[0.5vw] mr-[0.3vw]">کد ملی</label>
                 <Field name="nationalCode">
                   {({ field }) => (
-                    <Input {...field} placeholder="کد ملی خود را وارد کنید" />
+                    <Input
+                      className={dark.input}
+                      {...field}
+                      placeholder="کد ملی خود را وارد کنید"
+                    />
                   )}
                 </Field>
                 <ErrorMessage
@@ -141,6 +155,7 @@ const dark = useSelector((state) => state.darkMood);
                 <Field name="phone">
                   {({ field }) => (
                     <Input
+                      className={dark.input}
                       {...field}
                       placeholder="شماره همراه خود را وارد کنید"
                     />
@@ -158,7 +173,9 @@ const dark = useSelector((state) => state.darkMood);
                   تاریخ تولد
                 </label>
                 <Field name="birthDate">
-                  {({ field }) => <Input {...field} type="date" />}
+                  {({ field }) => (
+                    <Input className={dark.input} {...field} type="date" />
+                  )}
                 </Field>
                 <ErrorMessage
                   name="birthDate"
@@ -188,7 +205,11 @@ const dark = useSelector((state) => state.darkMood);
                 <label className="block mb-[0.5vw] mr-[0.3vw]">ایمیل</label>
                 <Field name="email">
                   {({ field }) => (
-                    <Input {...field} placeholder="ایمیل خود را وارد کنید" />
+                    <Input
+                      className={dark.input}
+                      {...field}
+                      placeholder="ایمیل خود را وارد کنید"
+                    />
                   )}
                 </Field>
                 <ErrorMessage
@@ -210,6 +231,7 @@ const dark = useSelector((state) => state.darkMood);
                 <Field name="address">
                   {({ field }) => (
                     <Textarea
+                      className={dark.input}
                       {...field}
                       placeholder="آدرس سکونت خود را وارد کنید"
                     />
@@ -225,9 +247,13 @@ const dark = useSelector((state) => state.darkMood);
               {/* دکمه ثبت تغییرات */}
               <div className="col-span-2 flex justify-end mt-4 ">
                 <Button
-                  className="text-white"
+                  className={`text-white ${
+                    dark.selectedButton === 0 ? "bg-blue-600" : ""
+                  } 
+                  ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+                  ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}`}
                   type="submit"
-                  color="warning"
+                  color=""
                   auto
                 >
                   اعمال تغییرات

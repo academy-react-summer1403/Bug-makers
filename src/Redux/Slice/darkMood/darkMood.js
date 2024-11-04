@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-
 export const darkMoodSlice = createSlice({
   name: "darkMood",
   initialState: {
@@ -11,6 +9,7 @@ export const darkMoodSlice = createSlice({
     textLow: "#7e7e7e",
     selectedButton: Number(localStorage.getItem("selectedButton")) || 0,
     color: "blue",
+    input:""
   },
   reducers: {
     selectdark: (state, action) => {
@@ -21,11 +20,13 @@ export const darkMoodSlice = createSlice({
         state.bgLow = "#f2f3f5";
         state.textHigh = "#5e5e5e";
         state.textLow = "#7e7e7e";
+        state.input= "";
       } else if (action.payload === 1) {
         state.bgHigh = "#1f1f1f";
         state.bgLow = "#242424";
         state.textHigh = "#bfbfbf";
         state.textLow = "#a3aab3";
+        state.input= "dark";
       }
     },
     selectButton: (state, action) => {
@@ -42,6 +43,6 @@ export const darkMoodSlice = createSlice({
   },
 });
 
-export const { selectedButton, selectdark } = darkMoodSlice.actions;
+export const { selectButton, selectdark } = darkMoodSlice.actions;
 
 export default darkMoodSlice.reducer;

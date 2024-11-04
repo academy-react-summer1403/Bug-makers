@@ -91,9 +91,7 @@ const dark = useSelector((state) => state.darkMood);
                   color={
                     errors.telegram && touched.telegram ? "error" : "default"
                   }
-                  className="bg-transparent"
-                  
-                  
+                  className={` ${dark.input}`}
                 />
               )}
             </Field>
@@ -117,6 +115,7 @@ const dark = useSelector((state) => state.darkMood);
                   color={
                     errors.linkedin && touched.linkedin ? "error" : "default"
                   }
+                  className={`${dark.input}`}
                 />
               )}
             </Field>
@@ -129,7 +128,11 @@ const dark = useSelector((state) => state.darkMood);
 
           <Button
             radius="md"
-            className="w-[30%] h-[14%] max-h-14 bg-[#E1C461] text-white max-md:h-[10%]"
+            className={`w-[30%] h-[14%] max-h-14  text-white max-md:h-[10%]
+              ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+              ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+              ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+              `}
             type="submit"
             color="warning"
           >

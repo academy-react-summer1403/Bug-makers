@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem, Button, User} from "@nextui-org/react";import { FiSettings } from 'react-icons/fi';
-import { selectButton } from '../../Redux/Slice/Theme/Theme';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../../Components/language-selector';
 import { CiSettings } from 'react-icons/ci';
 import { useQuery } from 'react-query';
 import { ProfileGet } from '../../Core/Services/Api/Client/Profile';
-import { selectdark } from '../../Redux/Slice/darkMood/darkMood';
+import { selectButton, selectdark } from '../../Redux/Slice/darkMood/darkMood';
 
 const SiteSetting = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -28,7 +28,8 @@ const SiteSetting = () => {
     const changeLanguages = (lng) => {
         i18n.changeLanguage(lng);
     }
-    const [theme, setTheme] = useState("light");
+    const dark = useSelector((state) => state.darkMood);
+    const [theme, setTheme] = useState(dark.selectedDark);
 
     const changeTheme = () => {
       dispatch(selectdark(theme));
@@ -38,7 +39,7 @@ const SiteSetting = () => {
       console.log("ali");
     }, [theme]);
 
-const dark = useSelector((state) => state.darkMood);
+
     return (
       <Dropdown
         showArrow
@@ -49,7 +50,7 @@ const dark = useSelector((state) => state.darkMood);
         }}
       >
         <DropdownTrigger>
-          <button className="cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[150px] max-[465px]:left-[120px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[90px]  shadow-custom-shadow">
+          <button className="cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[150px] max-[465px]:left-[120px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[90px]  shadow-xl">
             <CiSettings className="m-auto" size={18} />
           </button>
         </DropdownTrigger>

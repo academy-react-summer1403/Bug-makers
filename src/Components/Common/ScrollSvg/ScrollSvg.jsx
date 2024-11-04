@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const ScrollSvg = () => {
 
-  const { selectedButton } = useSelector((state) => state.themeColor);
+  const dark = useSelector((state) => state.darkMood);
 
     const pathRef = useRef(null);
 
@@ -43,27 +43,38 @@ const ScrollSvg = () => {
     const direction = i18n.dir()
 
   return (
-    <div className={`w-[100%] max-[800px]:hidden overflow-hidden absolute top-0 z-0 ${direction === 'ltr' ? 'hidden' : 'block'}  `}>
-    <svg  width="100%" height="100%" viewBox="0 0 1120 6941" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path ref={pathRef} d={`
-          ${selectedButton === 0 ? svgThemeBlue : ''} 
-          ${selectedButton === 1 ? svgThemeBlue : ''} 
-          ${selectedButton === 2 ? svgThemeBlue : ''}`}
+    <div
+      className={`w-[100%] max-[800px]:hidden overflow-hidden absolute top-0 z-0 ${
+        direction === "ltr" ? "hidden" : "block"
+      }  `}
+    >
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 1120 6941"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          ref={pathRef}
+          d={`
+          ${dark.selectedButton === 0 ? svgThemeBlue : ""} 
+          ${dark.selectedButton === 1 ? svgThemeBlue : ""} 
+          ${dark.selectedButton === 2 ? svgThemeBlue : ""}`}
           stroke={
-            selectedButton === 0
-              ? '#3772FF'
-              : selectedButton === 1
-              ? 'green'
-              : selectedButton === 2
-              ? '#ca8a04'
-              : '#3772FF'
+            dark.selectedButton === 0
+              ? "#3772FF"
+              : dark.selectedButton === 1
+              ? "green"
+              : dark.selectedButton === 2
+              ? "#ca8a04"
+              : "#3772FF"
           }
-          
-          strokeWidth={2}/>
-    </svg>
-
+          strokeWidth={2}
+        />
+      </svg>
     </div>
-  )
+  );
 }
 
 export default ScrollSvg
