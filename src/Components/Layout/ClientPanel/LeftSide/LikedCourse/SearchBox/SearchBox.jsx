@@ -1,9 +1,16 @@
+import { useSelector } from "react-redux";
+
 const SearchBox = ({width, placeHolder, icon, value, onChange }) => {
-    return (
-      <div className="relative max-md:col-span-2 max-md:w-full text-gray-900 w-[30%] h-[40px] rounded-[10px] text-[12px] overflow-hidden">
+  const dark = useSelector((state) => state.darkMood);  
+  return (
+      <div
+        
+        className="relative max-md:col-span-2 max-md:w-full text-gray-500 w-[30%] h-[40px] rounded-[10px] text-[12px] overflow-hidden"
+      >
         <input
           type="text"
-          className={`w-full h-full bg-no-repeat bg-[5%_50%] indent-3 bg-[#F2F2F2] ${icon}`}
+          style={{ background: dark.bgLow, color: dark.textHigh }}
+          className={`w-full h-full bg-no-repeat bg-[5%_50%] indent-3 ${icon}`}
           placeholder={placeHolder}
           value={value}
           onChange={onChange}

@@ -63,7 +63,7 @@ const navigate = useNavigate()
           onClick={() => setOpenMenu(!openMenu)}
         />
         <ul
-          className={`max-[362px]:w-[200px] lg:text-xl   max-[254px]:w-[150px] /*end responsive*/ border w-[300px] rounded-lg mt-2 bg-[#f5f5f4] shadow-[0px_10px_10px_0px_#00000008] transition-all duration-100 ${
+          className={`max-[362px]:w-[200px] lg:text-xl   max-[254px]:w-[150px] /*end responsive*/ border w-[300px] rounded-lg mt-2  shadow-[0px_10px_10px_0px_#00000008] transition-all duration-100 ${
             openMenu ? "visible opacity-100" : "invisible opacity-0"
           }`}
         >
@@ -95,7 +95,7 @@ const navigate = useNavigate()
 
       <SearchModal />
 
-      <div className="cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[30px] max-[465px]:left-[8px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[150px] bg-custom-gradient-Header shadow-custom-shadow">
+      <div className="cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[30px] max-[465px]:left-[8px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[150px]  shadow-custom-shadow">
         {getItem ? (
           <CiUser
             className="m-auto h-5 w-5 mt-1"

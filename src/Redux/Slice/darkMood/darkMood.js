@@ -9,6 +9,8 @@ export const darkMoodSlice = createSlice({
     bgLow: "#f2f3f5",
     textHigh: "#5e5e5e",
     textLow: "#7e7e7e",
+    selectedButton: Number(localStorage.getItem("selectedButton")) || 0,
+    color: "blue",
   },
   reducers: {
     selectdark: (state, action) => {
@@ -26,9 +28,20 @@ export const darkMoodSlice = createSlice({
         state.textLow = "#a3aab3";
       }
     },
+    selectButton: (state, action) => {
+      state.selectedButton = action.payload;
+      localStorage.setItem("selectedButton", action.payload);
+      if (action.payload === 0) {
+        state.color = "blue";
+      } else if (action.payload === 1) {
+        state.color = "green";
+      } else if (action.payload === 2) {
+        state.color = "yellow";
+      }
+    },
   },
 });
 
-export const { selectdark } = darkMoodSlice.actions;
+export const { selectedButton, selectdark } = darkMoodSlice.actions;
 
 export default darkMoodSlice.reducer;

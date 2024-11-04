@@ -38,7 +38,7 @@ const SiteSetting = () => {
       console.log("ali");
     }, [theme]);
 
-
+const dark = useSelector((state) => state.darkMood);
     return (
       <Dropdown
         showArrow
@@ -49,14 +49,18 @@ const SiteSetting = () => {
         }}
       >
         <DropdownTrigger>
-          <button className="cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[150px] max-[465px]:left-[120px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[90px] bg-custom-gradient-Header shadow-custom-shadow">
+          <button className="cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[150px] max-[465px]:left-[120px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[90px]  shadow-custom-shadow">
             <CiSettings className="m-auto" size={18} />
           </button>
         </DropdownTrigger>
         <DropdownMenu
+          style={{
+            background: dark.bgLow,
+            color: dark.textHigh,
+          }}
           aria-label="Custom item styles"
           disabledKeys={["profile"]}
-          className="p-3"
+          className="p-3 border rounded-md"
           itemClasses={{
             base: [
               "rounded-md",

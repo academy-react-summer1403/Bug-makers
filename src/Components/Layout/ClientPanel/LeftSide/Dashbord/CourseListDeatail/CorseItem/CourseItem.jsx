@@ -6,6 +6,7 @@ import { CorseReserve, deleteCorseReserve, delLikeNews, getCourseDetail, postDis
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const CourseItem = ({
   title,
@@ -105,9 +106,11 @@ const GetId2 = async () => {
     navigator(`/CourseDetail/${id}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  const dark = useSelector((state) => state.darkMood);
   return (
     <div
-      className={`p-[0.5vw] relative shadow-[0px_0px_15px_0px_#666] bg-white rounded-[1vw]  overflow-hidden
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
+      className={`p-[0.5vw] relative shadow-[0px_0px_15px_0px_#666]  rounded-[1vw]  overflow-hidden
           "w-[100%]  max-h-[100%] max-md:h-full`}
     >
       <div className="h-[1.8vw] max-md:h-[7%] w-full text-right flex justify-between items-center mb-[0.5vw]">
@@ -327,35 +330,35 @@ const GetId2 = async () => {
         >
           <path
             d="M2.5 6L8 4L13.5 6L11 7.5V9C11 9 10.3333 8.5 8 8.5C5.66667 8.5 5 9 5 9V7.5L2.5 6ZM2.5 6V10"
-            stroke="#272727"
+            stroke="#5e5e5e"
             stroke-width="1.5"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
             d="M11 8.5V9.38889C11 11.1071 9.65685 12.5 8 12.5C6.34315 12.5 5 11.1071 5 9.38889V8.5"
-            stroke="#272727"
+            stroke="#5e5e5e"
             stroke-width="1.5"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
             d="M15.3182 11.0294C15.3182 11.0294 15.803 10.6765 17.5 10.6765C19.197 10.6765 19.6818 11.0294 19.6818 11.0294M15.3182 11.0294V10L13.5 9L17.5 7.5L21.5 9L19.6818 10V11.0294M15.3182 11.0294V11.3182C15.3182 12.5232 16.295 13.5 17.5 13.5C18.705 13.5 19.6818 12.5232 19.6818 11.3182V11.0294"
-            stroke="#272727"
+            stroke="#5e5e5e"
             stroke-width="1.5"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
             d="M4.38505 15.926C3.44187 16.4525 0.968909 17.5276 2.47511 18.8729C3.21087 19.53 4.03033 20 5.06058 20H10.9394C11.9697 20 12.7891 19.53 13.5249 18.8729C15.0311 17.5276 12.5581 16.4525 11.6149 15.926C9.40321 14.6913 6.59679 14.6913 4.38505 15.926Z"
-            stroke="#272727"
+            stroke="#5e5e5e"
             stroke-width="1.5"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
             d="M16 20H19.7048C20.4775 20 21.0921 19.624 21.6439 19.0983C22.7736 18.0221 20.9189 17.162 20.2115 16.7408C18.9362 15.9814 17.3972 15.8059 16 16.2141"
-            stroke="#272727"
+            stroke="#5e5e5e"
             stroke-width="1.5"
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -380,35 +383,35 @@ const GetId2 = async () => {
             >
               <path
                 d="M18 2V4M6 2V4"
-                stroke="#272727"
+                stroke="#5e5e5e"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M11.9955 13H12.0045M11.9955 17H12.0045M15.991 13H16M8 13H8.00897M8 17H8.00897"
-                stroke="#272727"
+                stroke="#5e5e5e"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M3.5 8H20.5"
-                stroke="#272727"
+                stroke="#5e5e5e"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M2.5 12.2432C2.5 7.88594 2.5 5.70728 3.75212 4.35364C5.00424 3 7.01949 3 11.05 3H12.95C16.9805 3 18.9958 3 20.2479 4.35364C21.5 5.70728 21.5 7.88594 21.5 12.2432V12.7568C21.5 17.1141 21.5 19.2927 20.2479 20.6464C18.9958 22 16.9805 22 12.95 22H11.05C7.01949 22 5.00424 22 3.75212 20.6464C2.5 19.2927 2.5 17.1141 2.5 12.7568V12.2432Z"
-                stroke="#272727"
+                stroke="#5e5e5e"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M3 8H21"
-                stroke="#272727"
+                stroke="#5e5e5e"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -427,35 +430,35 @@ const GetId2 = async () => {
             >
               <path
                 d="M18 2V4M6 2V4"
-                stroke="#272727"
+                stroke="#5e5e5e"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M11.9955 13H12.0045M11.9955 17H12.0045M15.991 13H16M8 13H8.00897M8 17H8.00897"
-                stroke="#272727"
+                stroke="#5e5e5e"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M3.5 8H20.5"
-                stroke="#272727"
+                stroke="#5e5e5e"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M2.5 12.2432C2.5 7.88594 2.5 5.70728 3.75212 4.35364C5.00424 3 7.01949 3 11.05 3H12.95C16.9805 3 18.9958 3 20.2479 4.35364C21.5 5.70728 21.5 7.88594 21.5 12.2432V12.7568C21.5 17.1141 21.5 19.2927 20.2479 20.6464C18.9958 22 16.9805 22 12.95 22H11.05C7.01949 22 5.00424 22 3.75212 20.6464C2.5 19.2927 2.5 17.1141 2.5 12.7568V12.2432Z"
-                stroke="#272727"
+                stroke="#5e5e5e"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M3 8H21"
-                stroke="#272727"
+                stroke="#5e5e5e"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"

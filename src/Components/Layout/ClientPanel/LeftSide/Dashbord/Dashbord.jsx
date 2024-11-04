@@ -183,7 +183,8 @@ function PersianCalendarComponent() {
           />
         </div>
         <div
-          className={`w-[100%] h-[42vw] max-md:overflow-y-auto max-md:h-full pb-[1vw] pt-[1vw] px-[0.5vw]  overflow-y-auto overflow-x-hidden absolute z-[10] top-[0vw] right-[0vw]
+          style={{ background: dark.bgHigh, color: dark.textHigh }}
+          className={`w-[100%] h-[100%] max-md:overflow-y-auto max-md:h-[110%] pb-[1vw] pt-[1vw]   overflow-y-auto overflow-x-hidden absolute z-[10] top-0 right-0
             ${showMoreCourse == true ? "block" : "hidden"}
             `}
         >

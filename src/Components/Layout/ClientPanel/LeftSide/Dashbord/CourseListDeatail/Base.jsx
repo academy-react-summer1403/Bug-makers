@@ -463,7 +463,7 @@ const dark = useSelector((state) => state.darkMood);
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
-      className="relative m-auto w-[76vw] bg-transparent text-center h-full max-md:w-full"
+      className="relative m-auto w-full bg-transparent text-center h-full max-md:w-full"
     >
       <div
         className={`absolute z-[20]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%]  ${
