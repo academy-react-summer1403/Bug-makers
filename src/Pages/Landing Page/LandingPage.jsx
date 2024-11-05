@@ -10,6 +10,7 @@ import LandingSlider from '../../Components/Common/LandingSlider/LandingSlider'
 import BlogLanding from '../../Components/ComponentOnce/BlogLanding/BlogLanding'
 import Footer from '../../Components/Layout/Footer/Footer'
 import { useSelector } from 'react-redux'
+import VoiceAssit from '../../Components/Common/VoiceAssit/VoiceAssit'
 
 const LandingPage = () => {
 
@@ -19,6 +20,7 @@ const LandingPage = () => {
       className=" overflow-hidden relative max-w-[100%]"
       style={{ background: dark.bgLow, color: dark.textHigh }}
     >
+      <VoiceAssit/>
       <BahrAcademy />
       <StoreService />
       <CourseTraining />
