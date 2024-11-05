@@ -13,7 +13,7 @@ const RightBar = () => {
   const currentUrl = window.location.href;
   const urlParts = currentUrl.split("/");
   const lastPart = urlParts[urlParts.length - 1];
-
+  const [multiAccount, setMultiAccount] = useState(false);
 
 const setPage = ()=>{
     if (lastPart == "Dashbord") {
@@ -377,108 +377,6 @@ useEffect(() => {
         <img src="../../../../../public/images/Logo/logo.png"/>
       ),
     },
-    // {
-    //   id: 3,
-    //   name: "LikedCourse",
-    //   label: "علاقه‌مندی دوره",
-    //   icon: (
-    //     <svg
-    //       width=""
-    //       height="70%"
-    //       viewBox="0 0 24 25"
-    //       fill="none"
-    //       xmlns="http://www.w3.org/2000/svg"
-    //     >
-    //       <path
-    //         d="M20.5 17.4286V10.5C20.5 6.72876 20.5 4.84315 19.3284 3.67157C18.1569 2.5 16.2712 2.5 12.5 2.5H11.5C7.72876 2.5 5.84315 2.5 4.67157 3.67157C3.5 4.84315 3.5 6.72876 3.5 10.5V20"
-    //         stroke={activeIndex === 3 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //       />
-    //       <path
-    //         d="M8 3.5V7.19003C8 7.93013 8 8.30019 8.23811 8.44371C8.24836 8.44989 8.25884 8.45571 8.26951 8.46115C8.51756 8.58746 8.84124 8.39707 9.4886 8.01629C9.97254 7.73164 10.2145 7.58931 10.4815 7.58447C10.4938 7.58425 10.5062 7.58425 10.5185 7.58447C10.7855 7.58931 11.0275 7.73164 11.5114 8.01629C12.1588 8.39707 12.4824 8.58747 12.7305 8.46115C12.7412 8.45571 12.7516 8.44989 12.7619 8.44372C13 8.30019 13 7.93013 13 7.19003V3.5"
-    //         stroke={activeIndex === 3 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //         stroke-linejoin="round"
-    //       />
-    //       <path
-    //         d="M20.5 17.5H6C4.61929 17.5 3.5 18.6193 3.5 20C3.5 21.3807 4.61929 22.5 6 22.5H20.5"
-    //         stroke={activeIndex === 3 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //       />
-    //       <path
-    //         d="M20.5 17.5C19.1193 17.5 18 18.6193 18 20C18 21.3807 19.1193 22.5 20.5 22.5"
-    //         stroke={activeIndex === 3 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //       />
-    //     </svg>
-    //   ),
-    // },
-    // {
-    //   id: 4,
-    //   name: "LikedBlog",
-    //   label: "علاقه‌مندی مقالات",
-    //   icon: (
-    //     <svg
-    //       width=""
-    //       height="70%"
-    //       viewBox="0 0 24 25"
-    //       fill="none"
-    //       xmlns="http://www.w3.org/2000/svg"
-    //     >
-    //       <path
-    //         d="M4 13.5004V15.0446C4 18.2896 4 19.9121 4.88607 21.0111C5.06508 21.2331 5.26731 21.4354 5.48933 21.6144C6.58831 22.5004 8.21082 22.5004 11.4558 22.5004C12.1614 22.5004 12.5141 22.5004 12.8372 22.3864C12.9044 22.3627 12.9702 22.3354 13.0345 22.3047C13.3436 22.1569 13.593 21.9074 14.0919 21.4085L18.8284 16.672C19.4065 16.0939 19.6955 15.8049 19.8478 15.4374C20 15.0698 20 14.6611 20 13.8436V10.5004C20 6.72919 20 4.84358 18.8284 3.672C17.7693 2.61284 16.1265 2.51122 13.0345 2.50146M13 22.0004V21.5004C13 18.672 13 17.2578 13.8787 16.3791C14.7574 15.5004 16.1716 15.5004 19 15.5004H19.5"
-    //         stroke={activeIndex === 4 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //         stroke-linejoin="round"
-    //       />
-    //       <path
-    //         d="M4 8.9532V5.48748C4 4.07894 4 3.37467 4.43934 2.93709C4.87868 2.49951 5.58579 2.49951 7 2.49951C8.41421 2.49951 9.12132 2.49951 9.56066 2.93709C10 3.37467 10 4.07894 10 5.48748V8.9532C10 9.87314 10 10.3331 9.71208 10.4674C9.42416 10.6017 9.06938 10.3073 8.35982 9.71834L7.64018 9.12106C7.33408 8.86699 7.18103 8.73996 7 8.73996C6.81897 8.73996 6.66592 8.86699 6.35982 9.12106L5.64018 9.71834C4.93062 10.3073 4.57584 10.6017 4.28792 10.4674C4 10.3331 4 9.87314 4 8.9532Z"
-    //         stroke={activeIndex === 4 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //         stroke-linejoin="round"
-    //       />
-    //     </svg>
-    //   ),
-    // },
-    // {
-    //   id: 5,
-    //   name: "DashbordEdit/Personal",
-    //   label: "پروفایل",
-    //   icon: (
-    //     <svg
-    //       width=""
-    //       height="70%"
-    //       viewBox="0 0 24 25"
-    //       fill="none"
-    //       xmlns="http://www.w3.org/2000/svg"
-    //     >
-    //       <path
-    //         d="M10.5 22.5H6.59087C5.04549 22.5 3.81631 21.748 2.71266 20.6966C0.453366 18.5441 4.1628 16.824 5.57757 15.9816C8.12805 14.4629 11.2057 14.1118 14 14.9281"
-    //         stroke={activeIndex === 5 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linecap="round"
-    //         stroke-linejoin="round"
-    //       />
-    //       <path
-    //         d="M16.5 7C16.5 9.48528 14.4853 11.5 12 11.5C9.51472 11.5 7.5 9.48528 7.5 7C7.5 4.51472 9.51472 2.5 12 2.5C14.4853 2.5 16.5 4.51472 16.5 7Z"
-    //         stroke={activeIndex === 5 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //       />
-    //       <path
-    //         d="M18.4332 14.3485C18.7685 13.9851 18.9362 13.8035 19.1143 13.6975C19.5442 13.4418 20.0736 13.4339 20.5107 13.6765C20.6918 13.7771 20.8646 13.9537 21.2103 14.3067C21.5559 14.6598 21.7287 14.8364 21.8272 15.0214C22.0647 15.4679 22.0569 16.0087 21.8066 16.4478C21.7029 16.6298 21.5251 16.8011 21.1694 17.1437L16.9378 21.2194C16.2638 21.8686 15.9268 22.1932 15.5056 22.3577C15.0845 22.5222 14.6214 22.5101 13.6954 22.4859L13.5694 22.4826C13.2875 22.4752 13.1466 22.4715 13.0646 22.3785C12.9827 22.2855 12.9939 22.1419 13.0162 21.8548L13.0284 21.6988C13.0914 20.8906 13.1228 20.4865 13.2807 20.1232C13.4385 19.7599 13.7107 19.465 14.2552 18.875L18.4332 14.3485Z"
-    //         stroke={activeIndex === 5 ? "#FEFDFF" : "#272727"}
-    //         stroke-width="1.5"
-    //         stroke-linejoin="round"
-    //       />
-    //     </svg>
-    //   ),
-    // },
   ];
   const dark = useSelector((state) => state.darkMood);
 
@@ -598,8 +496,180 @@ useEffect(() => {
       </div>
 
       {/* Footer Items */}
-      <div className="flex flex-col h-[14%] w-full space-y-[2%] mt-auto">
+      <div className="relative flex flex-col h-[14%] w-full space-y-[2%] mt-auto">
+        <div
+          style={{ background: dark.bgHigh, color: dark.textHigh }}
+          className={`py-3 px-2 h-[400px] w-full transition-all duration-250 absolute top-[-400px] shadow-[0_-10px_40px_10px_rgba(0,0,0,0.3)] rounded-xl 
+            ${multiAccount == true ? 'block': 'hidden'}
+            `}
+        >
+          <div
+            className={`justify-between flex items-start  
+              
+            `}
+          >
+            <span className="text-[1vw] max-md:text-[16px] font-[600]">
+              حساب های کاربری
+            </span>
+            <div
+              onClick={() => {
+                setMultiAccount(false);
+              }}
+              className={`flex rounded-full border p-1 border-red-500 h-[1.8vw] max-md:h-[25px] max-md:w-[20%]  max-md:text-[10px] text-[0.7vw] w-[3.5vw] text-red-500  items-center justify-evenly cursor-pointer `}
+            >
+              <svg
+                width=""
+                height="70%"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19.001 5L5.00098 19M5.00098 5L19.001 19"
+                  stroke="#FF4242"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span>بستن</span>
+            </div>
+          </div>
+          <div className="w-full h-[90%] mt-3 overflow-auto flex flex-col gap-y-1">
+            <div className="min-h-[60px] h-[22%] w-full  rounded-2xl px-1 flex">
+              <div className="h-full w-[18%] flex items-center justify-center">
+                <div className="w-[80%] h-[60%] bg-gray-600 rounded-full"></div>
+              </div>
+              <div className="h-full w-[60%] flex flex-col justify-center gap-y-2 pr-1">
+                <span>پارسا آقایی</span>
+                <div className="flex gap-x-1">
+                  <svg
+                    width="11%"
+                    height=""
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4.16699 7.49984C4.16699 4.74998 4.16699 3.37505 5.02127 2.52078C5.87553 1.6665 7.25047 1.6665 10.0003 1.6665C12.7502 1.6665 14.1251 1.6665 14.9794 2.52078C15.8337 3.37505 15.8337 4.74998 15.8337 7.49984V12.4998C15.8337 15.2497 15.8337 16.6246 14.9794 17.4789C14.1251 18.3332 12.7502 18.3332 10.0003 18.3332C7.25047 18.3332 5.87553 18.3332 5.02127 17.4789C4.16699 16.6246 4.16699 15.2497 4.16699 12.4998V7.49984Z"
+                      stroke="#5e5e5e"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M9.16699 15.8335H10.8337"
+                      stroke="#5e5e5e"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M7.5 1.6665L7.57417 2.11152C7.7349 3.07591 7.81527 3.55811 8.14599 3.85154C8.491 4.15762 8.98008 4.1665 10 4.1665C11.0199 4.1665 11.509 4.15762 11.854 3.85154C12.1847 3.55811 12.2651 3.07591 12.4258 2.11152L12.5 1.6665"
+                      stroke="#5e5e5e"
+                      stroke-width="1.5"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+
+                  <span className="text-gray-500">09121231234</span>
+                </div>
+              </div>
+              <div className="w-[20%] flex justify-end items-start pt-2">
+                <button>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15 17.625C14.9264 19.4769 13.3831 21.0494 11.3156 20.9988C10.8346 20.987 10.2401 20.8194 9.05112 20.484C6.18961 19.6768 3.70555 18.3203 3.10956 15.2815C3 14.723 3 14.0944 3 12.8373V11.1627C3 9.90561 3 9.27705 3.10956 8.71846C3.70555 5.67965 6.18961 4.32316 9.05112 3.51603C10.2401 3.18064 10.8346 3.01295 11.3156 3.00119C13.3831 2.95061 14.9264 4.52307 15 6.37501"
+                      stroke="#FF5454"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M21 12H10M21 12C21 11.2998 19.0057 9.99153 18.5 9.5M21 12C21 12.7002 19.0057 14.0085 18.5 14.5"
+                      stroke="#FF5454"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div className="min-h-[60px] h-[22%] w-full  rounded-2xl px-1 flex">
+              <div className="h-full w-[18%] flex items-center justify-center">
+                <div className="w-[80%] h-[60%] bg-gray-600 rounded-full"></div>
+              </div>
+              <div className="h-full w-[60%] flex flex-col justify-center gap-y-2 pr-1">
+                <span>پارسا آقایی</span>
+                <div className="flex gap-x-1">
+                  <svg
+                    width="11%"
+                    height=""
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4.16699 7.49984C4.16699 4.74998 4.16699 3.37505 5.02127 2.52078C5.87553 1.6665 7.25047 1.6665 10.0003 1.6665C12.7502 1.6665 14.1251 1.6665 14.9794 2.52078C15.8337 3.37505 15.8337 4.74998 15.8337 7.49984V12.4998C15.8337 15.2497 15.8337 16.6246 14.9794 17.4789C14.1251 18.3332 12.7502 18.3332 10.0003 18.3332C7.25047 18.3332 5.87553 18.3332 5.02127 17.4789C4.16699 16.6246 4.16699 15.2497 4.16699 12.4998V7.49984Z"
+                      stroke="#5e5e5e"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M9.16699 15.8335H10.8337"
+                      stroke="#5e5e5e"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M7.5 1.6665L7.57417 2.11152C7.7349 3.07591 7.81527 3.55811 8.14599 3.85154C8.491 4.15762 8.98008 4.1665 10 4.1665C11.0199 4.1665 11.509 4.15762 11.854 3.85154C12.1847 3.55811 12.2651 3.07591 12.4258 2.11152L12.5 1.6665"
+                      stroke="#5e5e5e"
+                      stroke-width="1.5"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+
+                  <span className="text-gray-500">09121231234</span>
+                </div>
+              </div>
+              <div className="w-[20%] flex justify-end items-start pt-2">
+                <button>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15 17.625C14.9264 19.4769 13.3831 21.0494 11.3156 20.9988C10.8346 20.987 10.2401 20.8194 9.05112 20.484C6.18961 19.6768 3.70555 18.3203 3.10956 15.2815C3 14.723 3 14.0944 3 12.8373V11.1627C3 9.90561 3 9.27705 3.10956 8.71846C3.70555 5.67965 6.18961 4.32316 9.05112 3.51603C10.2401 3.18064 10.8346 3.01295 11.3156 3.00119C13.3831 2.95061 14.9264 4.52307 15 6.37501"
+                      stroke="#FF5454"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M21 12H10M21 12C21 11.2998 19.0057 9.99153 18.5 9.5M21 12C21 12.7002 19.0057 14.0085 18.5 14.5"
+                      stroke="#FF5454"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <Button
+          onClick={() => {
+            setMultiAccount(true);
+          }}
           radius="full"
           color=""
           className="flex items-center justify-start w-full border h-[45%] text-[0.8vw]  border-gray-200 text-gray-500"
