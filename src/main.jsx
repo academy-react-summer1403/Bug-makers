@@ -40,6 +40,7 @@ import Security from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Securi
 import PassWord from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/PassWord/PassWord.jsx'
 import AcceptGmail from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Security/AcceptGmail.jsx'
 import Root from './App/Root.jsx'
+import PaymentSecoundTab from './Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/secoundTab.jsx'
 const queryClient = new QueryClient();
 
 
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path:"/",
+        path: "/",
         element: <Root />,
         children: [
           {
@@ -128,6 +129,11 @@ const router = createBrowserRouter([
               {
                 path: "PaymentFirstStep",
                 element: <PaymentFirstStep />,
+                errorElement: <Error />,
+              },
+              {
+                path: "PaymentSecoundTab/:id",
+                element: <PaymentSecoundTab />,
                 errorElement: <Error />,
               },
             ],

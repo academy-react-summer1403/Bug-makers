@@ -106,6 +106,15 @@ export const setPayment = async (id) => {
 
   return response;
 };
+export const setPaymentStep2 = async (id) => {
+  let url = "/CoursePayment/AddPeymentImage";
+  
+  const response = await instance.post(url, id);
+
+  return response;
+};
+
+
 
 export const setSqurity = async (id) => {
   let url = "/SharePanel/EditSecurity";

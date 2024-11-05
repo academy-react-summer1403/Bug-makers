@@ -56,10 +56,11 @@ const Links = () => {
       linkedin: val.linkedin,
       telegram: val.telegram,
     };
-    console.log(CourseListItem);
-    console.log(data);
+    // console.log(CourseListItem);
+    // console.log(data);
     const res = await ProfileStep1(data);
   };
+  
 const dark = useSelector((state) => state.darkMood);
   return (
     <Formik
@@ -83,10 +84,11 @@ const dark = useSelector((state) => state.darkMood);
             <Field name="telegram">
               {({ field }) => (
                 <Input
-                  {...field}
+                  
                   clearable
                   bordered
                   fullWidth
+                  defaultValue={CourseListItem.telegramLink}
                   placeholder="لینک تلگرام خود را وارد کنید"
                   color={
                     errors.telegram && touched.telegram ? "error" : "default"
@@ -107,8 +109,9 @@ const dark = useSelector((state) => state.darkMood);
             <Field name="linkedin">
               {({ field }) => (
                 <Input
-                  {...field}
+                  
                   clearable
+                  defaultValue={CourseListItem.linkdinProfile}
                   bordered
                   fullWidth
                   placeholder="لینک لینکدین خود را وارد کنید"

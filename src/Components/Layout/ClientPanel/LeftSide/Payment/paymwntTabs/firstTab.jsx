@@ -6,10 +6,14 @@ import { setPayment } from "../../../../../../Core/Services/Api/Client/Profile";
 import FacturePeyment from "./FacturePeyment";
 
 const PaymentFirstStep = ()=>{
+    const [paymentId,setPaymentId]=useState(null)
     const price = Math.floor(10000 + Math.random() * 90000);
-const [date,setDate] = useState()
- const [open,setOpen] = useState(false)   
-const getTodayDate = () => {
+    const [date,setDate] = useState()
+    const [open,setOpen] = useState(false)   
+
+
+
+ const getTodayDate = () => {
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, "0"); // ماه از 0 شروع می‌شود، پس 1 اضافه می‌کنیم
@@ -33,15 +37,23 @@ const onsubmit = async ()=>{
     PeymentDate: date,
     PaymentInvoiceNumber:price
   };
-  
   const res = await setPayment(data)
+  setPaymentId(res)
 }
-
+const dark = useSelector((state) => state.darkMood);
 
     return (
-      <div className="w-full h-full bg-white flex justify-center items-center">
-        <div className={`absolute h-full w-full top-0 bg-red-500 ${open == true ? 'block' : 'hidden'}`}>
-          <FacturePeyment courseId={CoursePaymentItem.courseId} />
+      <div
+        style={{ background: dark.bgHigh, color: dark.textHigh }}
+        className="w-full h-full  flex justify-center items-center"
+      >
+        <div
+          style={{ background: dark.bgLow, color: dark.text }}
+          className={`z-20 absolute top-[11%] h-[87%] w-[77%]  ${
+            open == true ? "block" : "hidden"
+          }`}
+        >
+          <FacturePeyment corseId={CoursePaymentItem.courseId} id={paymentId} />
         </div>
         <div className="flex flex-col justify-start gap-y-6 items-start p-[1vw] w-[50%] text-center h-[60%] rounded-2xl shadow-xl border border-gray-300 ">
           <span className="text-[1.6vw] ">مشخصات دوره</span>

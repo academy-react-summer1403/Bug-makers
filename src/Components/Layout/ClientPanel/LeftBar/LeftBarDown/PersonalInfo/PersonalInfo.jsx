@@ -31,7 +31,7 @@ const PersonalInfo = () => {
 const dark = useSelector((state) => state.darkMood);
 
   
-
+const CourseListItem = useSelector((state) => state.ClientInfoSlice.ClientInfo);
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
@@ -69,8 +69,8 @@ const dark = useSelector((state) => state.darkMood);
                 <Field name="firstName">
                   {({ field }) => (
                     <Input
+                      defaultValue={CourseListItem.fName}
                       className={dark.input}
-                      {...field}
                       placeholder="نام خود را وارد کنید"
                     />
                   )}
@@ -95,7 +95,7 @@ const dark = useSelector((state) => state.darkMood);
                   {({ field }) => (
                     <Input
                       className={dark.input}
-                      {...field}
+                      defaultValue={CourseListItem.lName}
                       placeholder="نام خانوادگی خود را وارد کنید"
                     />
                   )}
@@ -118,7 +118,7 @@ const dark = useSelector((state) => state.darkMood);
                   {({ field }) => (
                     <Textarea
                       className={dark.input}
-                      {...field}
+                      defaultValue={CourseListItem.userAbout}
                       placeholder="چند جمله درباره خود وارد کنید"
                     />
                   )}
@@ -131,7 +131,7 @@ const dark = useSelector((state) => state.darkMood);
                   {({ field }) => (
                     <Input
                       className={dark.input}
-                      {...field}
+                      defaultValue={CourseListItem.nationalCode}
                       placeholder="کد ملی خود را وارد کنید"
                     />
                   )}
@@ -156,7 +156,8 @@ const dark = useSelector((state) => state.darkMood);
                   {({ field }) => (
                     <Input
                       className={dark.input}
-                      {...field}
+                      isDisabled
+                      defaultValue={CourseListItem.phoneNumber}
                       placeholder="شماره همراه خود را وارد کنید"
                     />
                   )}
@@ -174,7 +175,11 @@ const dark = useSelector((state) => state.darkMood);
                 </label>
                 <Field name="birthDate">
                   {({ field }) => (
-                    <Input className={dark.input} {...field} type="date" />
+                    <Input
+                      className={dark.input}
+                      defaultValue={CourseListItem.birthDay}
+                      type="date"
+                    />
                   )}
                 </Field>
                 <ErrorMessage
@@ -207,7 +212,8 @@ const dark = useSelector((state) => state.darkMood);
                   {({ field }) => (
                     <Input
                       className={dark.input}
-                      {...field}
+                      isDisabled
+                      defaultValue={CourseListItem.email}
                       placeholder="ایمیل خود را وارد کنید"
                     />
                   )}
@@ -232,7 +238,7 @@ const dark = useSelector((state) => state.darkMood);
                   {({ field }) => (
                     <Textarea
                       className={dark.input}
-                      {...field}
+                      defaultValue={CourseListItem.homeAdderess}
                       placeholder="آدرس سکونت خود را وارد کنید"
                     />
                   )}
@@ -265,7 +271,7 @@ const dark = useSelector((state) => state.darkMood);
         {/* وضعیت حساب */}
         <div className="flex items-start justify-end w-1/2 max-md:w-full max-md:justify-center max-md:hidden">
           <div className="w-[50%] mt-[4vw] ml-[4vw] max-md:w-[70%] max-md:m-0 max-md:mb-[20px]">
-            <Gauge value={step} />
+            <Gauge value={CourseListItem.profileCompletionPercentage} />
           </div>
         </div>
       </div>

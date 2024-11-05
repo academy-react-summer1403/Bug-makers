@@ -2,12 +2,26 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { Button, Checkbox, Input } from "@nextui-org/react";
-import { ProfileStep1, setSqurity, updatePassword } from "../../../../../../Core/Services/Api/Client/Profile";
+import { getSqurity, ProfileStep1, setSqurity, updatePassword } from "../../../../../../Core/Services/Api/Client/Profile";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { useQuery } from "react-query";
 
 const Security = () => {
-  const [twoStep,setTwoStep] = useState(false)
+  
+  const [response,setResponse]=useState({})
+  
+  const CourseListItem = useSelector(
+    (state) => state.ClientInfoSlice.ClientInfo
+  );
+
+
+  const GetSqurity = async ()=>{
+    const res = await getSqurity()
+    setResponse(res)
+  }
+  useEffect(()=>{GetSqurity()});
+const dark = useSelector((state) => state.darkMood);
 
 
 
@@ -17,7 +31,7 @@ const Security = () => {
     });
 
 
-
+const [twoStep, setTwoStep] = useState(response.twoStepAuth);
   const onSubmit = async (val) => {
 
 
@@ -37,7 +51,8 @@ const Security = () => {
     }
     
   };
-const dark = useSelector((state) => state.darkMood);
+  console.log(response);
+
   return (
     <Formik
       enableReinitialize
@@ -56,10 +71,11 @@ const dark = useSelector((state) => state.darkMood);
             <Field name="recoveryEmail">
               {({ field }) => (
                 <Input
+                  defaultValue={CourseListItem.email}
                   type="email"
+                  label="ایمیل"
+                  
                   className={`max-h-[20%] mt-[2%] ${dark.input}`}
-                  {...field}
-                  label=" ایمیل بازیابی جدید"
                   img="../../../../../public/images/Login/lock.png"
                   onBlur={(e) => setFieldValue("recoveryEmail", e.target.value)}
                 />
