@@ -69,7 +69,7 @@ function VoiceAssistant() {
   };
 
   return (
-    <div>
+    <div className="absolute z-30 top-0 left-[40%]">
       <h2>Voice Assistant</h2>
       <p>Status: {isListening ? "Listening..." : "Not listening"}</p>
       <button onClick={toggleListening}>
