@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { twoStepVerify } from "../../../../Core/Services/Api/auth";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const OptCode = ({ phoneNumber, password }) => {
+    const dark = useSelector((state) => state.darkMood);
     const [otp, setOtp] = useState(new Array(5).fill(""));
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
@@ -57,24 +59,27 @@ const OptCode = ({ phoneNumber, password }) => {
     };
 
     return (
-        <div className="flex flex-col items-center" dir="ltr">
-            <div className="flex gap-[2vw]">
-                {otp.map((data, index) => (
-                    <input
-                        className="w-[2.083vw] h-[2.083vw] text-center border-[0.104vw] border-gray-300 focus:border-blue-500 rounded-[0.4vw] bg-white text-gray-800 text-[0.8vw]"
-                        type="text"
-                        name="verifyCode"
-                        maxLength="1"
-                        key={index}
-                        value={data}
-                        onChange={(e) => handleChange(e.target, index)}
-                        onFocus={(e) => e.target.select()}
-                    />
-                ))}
-            </div>
-            {mutation.isLoading && <p>در حال بارگذاری...</p>} {/* پیام بارگذاری */}
-            {errorMessage && <p className="text-red-500 mt-[0.6vw] text-[0.7vw]">{errorMessage}</p>}
+      <div className="flex flex-col items-center" dir="ltr">
+        <div className="flex gap-[2vw]">
+          {otp.map((data, index) => (
+            <input
+              style={{ background: dark.bgLow, color: dark.textHigh }}
+              className="w-[2.083vw] h-[2.083vw] text-center border-[0.104vw] border-gray-300 focus:border-blue-500 rounded-[0.4vw]   text-[0.8vw]"
+              type="text"
+              name="verifyCode"
+              maxLength="1"
+              key={index}
+              value={data}
+              onChange={(e) => handleChange(e.target, index)}
+              onFocus={(e) => e.target.select()}
+            />
+          ))}
         </div>
+        {mutation.isLoading && <p>در حال بارگذاری...</p>} {/* پیام بارگذاری */}
+        {errorMessage && (
+          <p className="text-red-500 mt-[0.6vw] text-[0.7vw]">{errorMessage}</p>
+        )}
+      </div>
     );
 };
 

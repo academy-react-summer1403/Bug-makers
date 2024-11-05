@@ -20,7 +20,9 @@ const Security = () => {
     const res = await getSqurity()
     setResponse(res)
   }
-  useEffect(()=>{GetSqurity()});
+  useEffect(()=>{
+    GetSqurity()
+  },[]);
 const dark = useSelector((state) => state.darkMood);
 
 
@@ -51,7 +53,7 @@ const [twoStep, setTwoStep] = useState(response.twoStepAuth);
     }
     
   };
-  console.log(response);
+
 
   return (
     <Formik
