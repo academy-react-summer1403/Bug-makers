@@ -448,7 +448,7 @@ function CourseCard({id}) {
               e.target.src = noImg;
             }}
             src={response.imageAddress ? response.imageAddress : noImg}
-            className="max-[788px]:mr-10 max-[688px]:w-full w-64   mt-[-2rem]  h-64 rounded-lg"
+            className="max-[788px]:mr-10 max-[688px]:w-full w-96   mt-[-2rem]  h-64 rounded-lg"
             alt=""
           />
           <h1 className="max-[688px]:block hidden text-center m-[1rem_auto]  border-blue-600  h-fit font-bold  text-3xl">
