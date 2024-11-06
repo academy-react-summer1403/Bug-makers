@@ -460,12 +460,12 @@ const dark = useSelector((state) => state.darkMood);
         />
       </div>
       <div
-        className={`absolute z-[1000]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%] pt-16 ${
+        className={`absolute z-[1000]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%]  w-[100%] pt-4 ${
           detailCourse == true ? "block" : "hidden"
         }`}
       >
         <div
-          className={`sticky h-[38.4vw] w-[20vw] max-md:absolute max-md:w-[75%] max-md:h-[480px] top-[10%] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
+          className={`sticky h-[38.4vw] w-[20vw] max-md:absolute max-md:w-[75%] max-md:h-[480px] top-[5%] backdrop-blur-[5px]  right-[50%] translate-x-[50%] z-40  ${
             detailCourse == true ? "block" : "hidden"
           }`}
         >

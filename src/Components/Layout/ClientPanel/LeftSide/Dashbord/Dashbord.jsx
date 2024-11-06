@@ -203,27 +203,39 @@ function PersianCalendarComponent() {
             openCommentBar == true ? "block" : "hidden"
           }`}
         >
-          <div className="px-[1vw] py-[0.2vw] w-[50%] h-[70%] z-40 bg-white rounded-2xl shadow-2xl absolute top-[10%] right-[50%] translate-x-[50%]">
+          <div
+            style={{ background: dark.bgLow, color: dark.textHigh }}
+            className="px-[1vw] py-[0.2vw] w-[50%] max-md:w-[95%]   h-[70%] z-40  rounded-2xl shadow-2xl absolute top-[10%] right-[50%] translate-x-[50%]"
+          >
             <div className="h-[12%] flex items-center justify-between">
               <div className=" flex flex-grow-[4] items-center h-full">
-                <span className="text-[1.6vw] font-[600]">نظرات شما</span>
-                <div className="inline-flex mr-[3%] justify-between w-[35%] h-[60%] rounded-full bg-gray-100 border border-gray-100 overflow-hidden">
+                <span className="text-[1.6vw] max-md:text-[18px] font-[600]">نظرات شما</span>
+                <div
+                  style={{
+                    background: dark.bgHigh,
+                    color: dark.textHigh,
+                    borderColor: dark.bgLow,
+                  }}
+                  className="inline-flex mr-[3%] max-md:w-[55%] justify-between w-[35%] h-[60%] rounded-full  border  overflow-hidden"
+                >
                   <button
                     onClick={() => setActiveButton("courses")}
+                    
                     className={`px-4 py-2 font-semibold rounded-full ${
                       activeButton === "courses"
                         ? "bg-gray-600 text-white"
-                        : "bg-gray-100 text-gray-700"
+                        : ""
                     }`}
                   >
                     دوره‌ها
                   </button>
                   <button
+                    
                     onClick={() => setActiveButton("blogs")}
-                    className={`px-4 py-2 font-semibold rounded-full ${
+                    className={`px-4 py-2 font-semibold rounded-full max-md:w-[70px] ${
                       activeButton === "blogs"
                         ? "bg-gray-600 text-white"
-                        : "bg-gray-100 text-gray-700"
+                        : ""
                     }`}
                   >
                     اخبار و مقالات
@@ -234,9 +246,9 @@ function PersianCalendarComponent() {
                 onClick={() => {
                   setOpenCommentBar(false);
                 }}
-                className={`p-[0.3vw] rounded-full flex-grow-1 w-[5vw] h-[1.8vw] max-md:h-[70%] max-md:w-[22%]  border border-red-500 flex justify-evenly items-center cursor-pointer `}
+                className={`p-[0.3vw] max-md:p-1 rounded-full flex-grow-1 w-[5vw] h-[1.8vw]  max-md:h-[55%] max-md:w-[22%]  border border-red-500 flex justify-evenly items-center cursor-pointer `}
               >
-                <span className="text-red-500 mb-[0.3vw] max-md:text-[11px] max-md:px-[5px] text-[0.9vw]">
+                <span className="text-red-500 mb-[0.3vw] max-md:text-[13px] max-md:px-[5px] text-[0.9vw]">
                   بستن
                 </span>
                 <svg

@@ -101,7 +101,7 @@ const BlogIthem = ({
       </div>
       <div
         className={`rounded-[0.5vw] bg-gradient-to-b from-[#C4CDD5] to-[#F2F2F2] overflow-hidden
-          w-[100%] h-[10%]  max-md:h-[30%]
+          w-[100%] h-[250px]  max-md:h-[30%]
         `}
       >
         <img

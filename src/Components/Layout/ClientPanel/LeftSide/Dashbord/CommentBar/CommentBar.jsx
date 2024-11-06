@@ -31,9 +31,7 @@ console.log(NewsComment);
   if (error2) return <p>خطا در واکشی داده‌ها: {error.message}</p>;
   const CourseComent = data2?.myCommentsDtos[0]
 
-
-
-  if (!NewsComment) {
+  if (!NewsComment && !CourseComent) {
     return (
       <div
         style={{ background: dark.bgLow, color: dark.textLow }}
@@ -45,6 +43,8 @@ console.log(NewsComment);
       </div>
     );
   }
+
+
     return (
       <div
         style={{ background: dark.bgHigh, color: dark.textHigh }}
@@ -65,53 +65,85 @@ console.log(NewsComment);
         </div>
         <div className="w-full h-[72%] px-[1vw] max-md:flex-col flex justify-between items-center">
           <div className="h-full w-[45%] max-md:w-full">
-            <span className="font-[700] text-[0.9vw] max-md:text-[12px]">
-              دوره ها
-            </span>
-            <div className="w-full h-[85%] mt-[0.5vw]">
-              <div className="w-full h-[25%] px-[0.5vw] flex gap-x-[0.5vw]">
-                <div className="h-full w-[15%] bg-gray-600 rounded-[0.5vw]  max-md:rounded-md"></div>
-                <div className="flex flex-col text-[0.7vw] max-md:text-[12px]">
-                  <span className="font-[600]">
-                    {CourseListItem.fName} {CourseListItem.lName}
-                  </span>
-                  <span>{convertToJalali(NewsComment.insertDate)}</span>
+            {!CourseComent ? (
+              <div
+                style={{ background: dark.bgLow, color: dark.textLow }}
+                className="w-full h-[99%]  rounded-[0.5vw] flex items-center justify-center"
+              >
+                <p className="text-[2vw] max-md:text-[20px]">
+                  کامنتی برای دوره شما موجود نیست
+                </p>
+              </div>
+            ) : (
+              <>
+                <span className="font-[700] text-[0.9vw] max-md:text-[12px]">
+                  دوره ها
+                </span>
+                <div className="w-full h-[85%] mt-[0.5vw]">
+                  <div className="w-full h-[25%] px-[0.5vw] flex gap-x-[0.5vw]">
+                    <div className="h-full w-[15%] bg-gray-600 rounded-[0.5vw]  max-md:rounded-md"></div>
+                    <div className="flex flex-col text-[0.7vw] max-md:text-[12px]">
+                      <span className="font-[600]">
+                        {CourseListItem.fName} {CourseListItem.lName}
+                      </span>
+                      <span>{convertToJalali(CourseComent.insertDate)}</span>
+                    </div>
+                  </div>
+                  <div className="w-full h-[50%] px-[0.5vw] pt-[0.6vw] text-[0.7vw] max-md:mt-[8px] max-md:py-[8px] max-md:text-[10px]">
+                    <span>{CourseComent.title}</span>
+                    <br />
+                    <span>{CourseComent.describe}</span>
+                  </div>
+                  <div
+                    style={{ background: dark.bgLow, color: dark.textHigh }}
+                    className="w-full h-[20%] max-md:text-[10px] max-md:px-[10px] px-[0.5vw] flex justify-start items-center rounded-full  text-[0.7vw]"
+                  >
+                    <span>{CourseComent.courseTitle}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="w-full h-[50%] px-[0.5vw] pt-[0.6vw] text-[0.7vw] max-md:mt-[8px] max-md:py-[8px] max-md:text-[10px]">
-                <span>{CourseComent.title}</span>
-                <br />
-                <span>{CourseComent.describe}</span>
-              </div>
-              <div className="w-full h-[20%] max-md:text-[10px] max-md:px-[10px] px-[0.5vw] flex justify-start items-center rounded-full bg-gray-200 text-[0.7vw]">
-                <span>{CourseComent.courseTitle}</span>
-              </div>
-            </div>
+              </>
+            )}
           </div>
           <div className="w-0 h-[70%] max-md:hidden border-[0.1vw] border-gray-300"></div>
           <div className="h-full w-[45%] max-md:w-full max-md:mt-[20px]">
-            <span className="font-[700] text-[0.9vw] max-md:text-[12px]">
-              اخبار
-            </span>
-            <div className="w-full h-[85%] mt-[0.5vw]">
-              <div className="w-full h-[25%] px-[0.5vw] flex gap-x-[0.5vw] ">
-                <div className="h-full w-[15%] bg-gray-600 rounded-[0.5vw]  max-md:rounded-md"></div>
-                <div className="flex flex-col text-[0.7vw] max-md:text-[12px] ">
-                  <span className="font-[600]">
-                    {CourseListItem.fName} {CourseListItem.lName}
-                  </span>{" "}
-                  <span>{convertToJalali(NewsComment.insertDate)}</span>
+            {!NewsComment ? (
+              <div
+                style={{ background: dark.bgLow, color: dark.textLow }}
+                className="w-full h-[99%] min-h-[80px]  rounded-[0.5vw] flex items-center justify-center"
+              >
+                <p className="text-[1.2vw] max-md:text-[18px]">
+                  کامنتی برای مقالات شما موجود نیست
+                </p>
+              </div>
+            ) : (
+              <>
+                <span className="font-[700] text-[0.9vw] max-md:text-[12px]">
+                  اخبار
+                </span>
+                <div className="w-full h-[85%] mt-[0.5vw]">
+                  <div className="w-full h-[25%] px-[0.5vw] flex gap-x-[0.5vw] ">
+                    <div className="h-full w-[15%] bg-gray-600 rounded-[0.5vw]  max-md:rounded-md"></div>
+                    <div className="flex flex-col text-[0.7vw] max-md:text-[12px] ">
+                      <span className="font-[600]">
+                        {CourseListItem.fName} {CourseListItem.lName}
+                      </span>{" "}
+                      <span>{convertToJalali(NewsComment.insertDate)}</span>
+                    </div>
+                  </div>
+                  <div className="w-full h-[50%] px-[0.5vw] pt-[0.6vw] text-[0.7vw] max-md:mt-[8px] max-md:py-[8px] max-md:text-[10px]">
+                    <span>{NewsComment.title}</span>
+                    <br />
+                    <span>{NewsComment.describe}</span>
+                  </div>
+                  <div
+                    style={{ background: dark.bgLow, color: dark.textHigh }}
+                    className="w-full h-[20%] max-md:text-[10px] max-md:px-[10px] px-[0.5vw] flex justify-start items-center rounded-full text-[0.7vw]"
+                  >
+                    <span>{NewsComment.courseTitle}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="w-full h-[50%] px-[0.5vw] pt-[0.6vw] text-[0.7vw] max-md:mt-[8px] max-md:py-[8px] max-md:text-[10px]">
-                <span>{NewsComment.title}</span>
-                <br />
-                <span>{NewsComment.describe}</span>
-              </div>
-              <div className="w-full h-[20%] max-md:text-[10px] max-md:px-[10px] px-[0.5vw] flex justify-start items-center rounded-full bg-gray-200 text-[0.7vw]">
-                <span>{NewsComment.courseTitle}</span>
-              </div>
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>

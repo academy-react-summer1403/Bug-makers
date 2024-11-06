@@ -4,6 +4,7 @@ import moment from "moment-jalaali";
 import { getItem } from "../../../../../../../Core/Services/common/storage.services";
 import { comentDelLikeCourse, commentDissLikeNews, commentLikeNews } from "../../../../../../../Core/Services/Api/BlogDetail/CommentDetail";
 import { getMyNewsComments } from "../../../../../../../Core/Services/Api/Client/commentBar";
+import { useSelector } from "react-redux";
 
 const CComentBlog = () => {
   const [comment, setComment] = useState();
@@ -85,16 +86,19 @@ const CComentBlog = () => {
       />
     ));
   };
-
+const dark = useSelector((state) => state.darkMood);
   return (
-    <div className="w-full h-full max-h-[60vw] overflow-auto rounded-[0.78vw] bg-white mt-[2vw] p-[1vw] text-gray-600">
+    <div
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
+      className="w-full h-full max-h-[60vw] max-md:max-h-full overflow-auto rounded-[0.78vw] mt-[2vw] p-[1vw] text-gray-600"
+    >
       {comment && Array.isArray(comment) && comment.length > 0 ? (
         <div className="h-[6%] w-full flex justify-between items-center">
-          <span className="text-[1.1vw] w-[7vw] text-right">نظرات</span>
+          <span className="text-[1.1vw] max-md:text-[18px] w-[7vw] text-right">نظرات</span>
 
-          <div className="w-[7.30vw]">
-            <span className="text-[1vw]">{comment.length}</span>
-            <span className="text-[0.8vw]"> نظر ثبت شده</span>
+          <div className="w-[7.30vw] max-md:w-[25%]">
+            <span className="text-[1vw] max-md:text-[15px]">{comment.length}</span>
+            <span className="text-[0.8vw] max-md:text-[15px]"> نظر ثبت شده</span>
           </div>
         </div>
       ) : (

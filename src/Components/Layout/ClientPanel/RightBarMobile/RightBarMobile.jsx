@@ -4,12 +4,13 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { removeItem } from "../../../../Core/Services/common/storage.services";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import MultiAcc from "../common/MultiAcc";
 
 const RightBarMobile = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [overmenu,setOvermenu] = useState(false)
   const navigator = useNavigate();
-
+const [multiAccount, setMultiAccount] = useState(false);
   const currentUrl = window.location.href;
   const urlParts = currentUrl.split("/");
   const lastPart = urlParts[urlParts.length - 1];
@@ -392,13 +393,16 @@ const dark = useSelector((state) => state.darkMood);
                 {item.label}
               </Button>
             ))}
-
+            <MultiAcc
+              multiAccount={multiAccount}
+              setMultiAccount={setMultiAccount}
+            />
             <Button
               radius="full"
               className="flex bg-transparent items-center text-bold text-[20px] gap-x-[2vw] justify-start w-full h-[25%] "
               auto
               onClick={() => {
-                setOvermenu(false);
+                setMultiAccount(true)
               }}
             >
               <svg
