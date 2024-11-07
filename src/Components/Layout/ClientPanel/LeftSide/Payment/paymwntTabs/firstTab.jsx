@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { setPayment } from "../../../../../../Core/Services/Api/Client/Profile";
 import FacturePeyment from "./FacturePeyment";
+import { useNavigate } from "react-router-dom";
 
 const PaymentFirstStep = ()=>{
     const [paymentId,setPaymentId]=useState(null)
@@ -11,7 +12,7 @@ const PaymentFirstStep = ()=>{
     const [date,setDate] = useState()
     const [open,setOpen] = useState(false)   
 
-
+const navigate = useNavigate()
 
  const getTodayDate = () => {
   const today = new Date();
@@ -29,7 +30,7 @@ const CoursePaymentItem = useSelector((state) => state.payment.paymentList);
 console.log(CoursePaymentItem);
 
 const onsubmit = async ()=>{
-  setOpen(true)
+  setOpen(true);
 
   const data = {
     courseId: CoursePaymentItem.courseId,
@@ -39,6 +40,9 @@ const onsubmit = async ()=>{
   };
   const res = await setPayment(data)
   setPaymentId(res)
+  setTimeout(() => {
+    navigate(`Payment/PaymentSecoundTab/:${res.id}`);
+  }, 1000);
 }
 const dark = useSelector((state) => state.darkMood);
 
@@ -53,7 +57,10 @@ const dark = useSelector((state) => state.darkMood);
             open == true ? "block" : "hidden"
           }`}
         >
-          <FacturePeyment corseId={CoursePaymentItem.courseId} id={paymentId} />
+          <FacturePeyment
+            corseId={"be071479-2131-ef11-b6c8-c6ea51a59bbe"}
+            id={"0e651b96-5198-ef11-b6e7-9ae1b6d917d9"}
+          />
         </div>
         <div className="flex flex-col justify-start gap-y-6 items-start p-[1vw] w-[50%] text-center h-[60%] rounded-2xl shadow-xl border border-gray-300 ">
           <span className="text-[1.6vw] ">مشخصات دوره</span>

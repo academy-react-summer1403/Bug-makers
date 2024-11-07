@@ -4,6 +4,7 @@ import { Button, Input, Spacer } from "@nextui-org/react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { setPaymentStep2 } from "../../../../../../Core/Services/Api/Client/Profile";
 
 const PaymentSecoundTab = () => {
 const {id} =useParams()
@@ -11,16 +12,17 @@ const {id} =useParams()
     console.log(CoursePaymentItem);
   // تابعی برای ارسال فرم به API
   const handleSubmit = async (values) => {
-    
+    console.log(values.file[0]);
     const formData = new FormData();
-    formData.append("Image", values.file);
+    formData.append("Image", values.file[0]);
     formData.append("PaymentId", id);
-
+    console.log(formData)
     const res = await setPaymentStep2(formData);
+    console.log(res)
   };
 const dark = useSelector((state) => state.darkMood);
   return (
-    <Formik initialValues={{ file: null }} onSubmit={handleSubmit}>
+    <Formik initialValues={{ file: [] }} onSubmit={handleSubmit}>
       {({ setFieldValue, isSubmitting }) => (
         <Form
           style={{ background: dark.bgHigh, color: dark.textHigh }}
@@ -29,10 +31,10 @@ const dark = useSelector((state) => state.darkMood);
           <Field name="file">
             {({ field }) => (
               <Input
-                {...field}
+                
                 type="file"
                 onChange={(event) => {
-                  setFieldValue("file", event.currentTarget.files[0]);
+                  setFieldValue("file", event.target.files);
                 }}
                 label="عکس فاکتور"
                 className={`w-1/5 max-md:w-full ${dark.bgHigh == "#ffffff" ? "" : "dark"}`}
