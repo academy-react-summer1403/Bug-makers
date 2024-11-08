@@ -9,6 +9,7 @@ import { setItem } from "../../../../Core/Services/common/storage.services.js";
 import "../forAll/login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setPassword, setTowStepCode } from "../../../../Redux/Slice/Login/TowStep.js";
+import { addMultiAcc } from "../../../../Core/Services/Api/Client/multiAccont.js";
 
 const RightLoginBox = () => {
   const navigate = useNavigate();
@@ -41,6 +42,10 @@ const RightLoginBox = () => {
       if (response.token != null) {
         setItem("token", response.token);
         setItem("userId", response.id);
+        const ress = addMultiAcc({
+          "token" : `${response.token}`, 
+          "id" : `${response.id}`
+        });
       } 
     }, 50);
   };
