@@ -39,9 +39,18 @@ const onsubmit = async ()=>{
     PaymentInvoiceNumber:price
   };
   const res = await setPayment(data)
-  setPaymentId(res)
+  
+  if (!res.paymentId) {
+    alert();
+    navigate(`FacturePeyment/${paymentId}/${CoursePaymentItem.courseId}/${1}`);
+  }
+    setPaymentId(res.paymentId);
   setTimeout(() => {
-    navigate(`Payment/PaymentSecoundTab/:${res.id}`);
+    navigate(
+      `FacturePeyment/${paymentId}/${CoursePaymentItem.courseId}/${
+          0 
+      }`
+    );
   }, 1000);
 }
 const dark = useSelector((state) => state.darkMood);
@@ -51,17 +60,6 @@ const dark = useSelector((state) => state.darkMood);
         style={{ background: dark.bgHigh, color: dark.textHigh }}
         className="w-full h-full  flex justify-center items-center"
       >
-        <div
-          style={{ background: dark.bgLow, color: dark.text }}
-          className={`z-20 absolute top-[11%] h-[87%] w-[77%]  ${
-            open == true ? "block" : "hidden"
-          }`}
-        >
-          <FacturePeyment
-            corseId={"be071479-2131-ef11-b6c8-c6ea51a59bbe"}
-            id={"0e651b96-5198-ef11-b6e7-9ae1b6d917d9"}
-          />
-        </div>
         <div className="flex flex-col justify-start gap-y-6 items-start p-[1vw] w-[50%] text-center h-[60%] rounded-2xl shadow-xl border border-gray-300 ">
           <span className="text-[1.6vw] ">مشخصات دوره</span>
 

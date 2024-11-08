@@ -41,6 +41,7 @@ import PassWord from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/PassWo
 import AcceptGmail from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Security/AcceptGmail.jsx'
 import Root from './App/Root.jsx'
 import PaymentSecoundTab from './Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/secoundTab.jsx'
+import FacturePeyment from './Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/FacturePeyment.jsx'
 const queryClient = new QueryClient();
 
 
@@ -134,6 +135,11 @@ const router = createBrowserRouter([
               {
                 path: "PaymentSecoundTab/:id",
                 element: <PaymentSecoundTab />,
+                errorElement: <Error />,
+              },
+              {
+                path: "FacturePeyment/:payId/:id/:status",
+                element: <FacturePeyment />,
                 errorElement: <Error />,
               },
             ],

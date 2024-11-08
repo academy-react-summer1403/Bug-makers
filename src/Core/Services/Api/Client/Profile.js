@@ -106,6 +106,8 @@ export const setPayment = async (id) => {
 
   return response;
 };
+
+
 export const setPaymentStep2 = async (id) => {
   let url = "/CoursePayment/StudentAddPeymentImage";
   console.log(id)

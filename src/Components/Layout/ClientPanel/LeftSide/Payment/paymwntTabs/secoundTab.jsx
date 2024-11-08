@@ -3,10 +3,11 @@ import { Formik, Form, Field } from "formik";
 import { Button, Input, Spacer } from "@nextui-org/react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { setPaymentStep2 } from "../../../../../../Core/Services/Api/Client/Profile";
 
 const PaymentSecoundTab = () => {
+  const navigate = useNavigate()
 const {id} =useParams()
     const CoursePaymentItem = useSelector((state) => state.payment.paymentList);
     console.log(CoursePaymentItem);
@@ -19,6 +20,9 @@ const {id} =useParams()
     console.log(formData)
     const res = await setPaymentStep2(formData);
     console.log(res)
+    setTimeout(() => {
+      navigate("../../Dashbord");
+    }, 2000);
   };
 const dark = useSelector((state) => state.darkMood);
   return (
@@ -48,7 +52,7 @@ const dark = useSelector((state) => state.darkMood);
             className={dark.bgHigh == "#ffffff" ? "" : "dark"}
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Uploading..." : "Upload File"}
+            {isSubmitting ? "درحال بارگذاری..." : "بارگذاری"}
           </Button>
         </Form>
       )}

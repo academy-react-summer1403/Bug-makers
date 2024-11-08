@@ -5,8 +5,13 @@ import { toPng } from 'html-to-image';
 import { getCourseDetail } from '../../../../../../Core/Services/Api/CourseDetail/CourseDetail';
 import { Button } from '@nextui-org/react';
 import { useSelector } from 'react-redux';
+import { setPaymentStep2 } from '../../../../../../Core/Services/Api/Client/Profile';
 
-const FacturePeyment = ({ corseId, id }) => {
+const FacturePeyment = () => {
+  const {payId} = useParams()
+  const {id} = useParams()
+  const { status } = useParams();
+  console.log(status)
   const elementRef = useRef(null);
   const navigate = useNavigate();
   const [image,setImage]=useState()
@@ -15,23 +20,32 @@ const FacturePeyment = ({ corseId, id }) => {
     toPng(elementRef.current, { cacheBust: false })
       .then((dataUrl) => {
         const link = document.createElement("a");
-        link.download = "my-image-name.png";
-        setImage(link)
-        link.href = dataUrl;
-        link.click();
-        setTimeout(() => {
-          navigate(`ClientPanel/Payment/PaymentSecoundTab/${id}`);
-        }, 2000);
+        setImage(dataUrl);
+        
+          link.download = "my-image-name.png"
+          link.href = dataUrl;
+          link.click();
+        
+        
+        
+        
+        
+        
+        // setTimeout(() => {
+        //   navigate(`ClientPanel/Payment/PaymentSecoundTab/${payId}`);
+        // }, 2000);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-console.log(image);
+
+
+
   const [course, setCourse] = useState();
 
   async function getCourseById() {
-    const getApi = await getCourseDetail(corseId);
+    const getApi = await getCourseDetail(id);
     setCourse(getApi);
   }
   useEffect(() => {
@@ -50,10 +64,10 @@ const dark = useSelector((state) => state.darkMood);
             style={{ background: dark.bgHigh, color: dark.textHigh }}
             class="table-auto w-full  text-xl rounded-lg dark:bg-slate-800 dark:text-white "
           >
+            <h1 className="text-center text-2xl font-semibold mt-2">
+              رسید پرداخت
+            </h1>
             <tbody>
-              <h1 className="text-center text-2xl font-semibold mt-2">
-                رسید پرداخت
-              </h1>
               <p className="text-center">اکادمی بحرالعلوم</p>
               <tr className=" flex justify-around border-t border-slate-100 dark:border-slate-900">
                 <td className=" border-l-2 border-black w-6/12 text-center">
@@ -101,11 +115,16 @@ const dark = useSelector((state) => state.darkMood);
                 </NavLink>
               </div>
             </tbody>
-            
           </table>
-          <Button className="butten1" onClick={htmlToImageConvert}>
-              download
-            </Button>
+          <Button
+            className="butten1"
+            onClick={() => {
+              htmlToImageConvert();
+              status != 1 ? navigate(`../PaymentSecoundTab/${payId}`) : null;
+            }}
+          >
+            {status == 1 ? "دانلود" : "دانلود و پرداخت"}
+          </Button>
         </div>
       ) : (
         "no data"
