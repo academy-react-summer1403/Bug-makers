@@ -27,7 +27,13 @@ const BSideMinimal = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,dat
           {cat}
         </div>
         <div className="flex h-full w-full flex-col overflow-hidden rounded-[0.78vw]">
-          <div className="w-full bg-gradient-to-r from-blue-200 rounded-[0.78vw] to-blue-100 flex items-center justify-center">
+          <div
+            className={`w-full  rounded-[0.78vw] 0 flex items-center justify-center ${
+              dark.bgHigh == "#ffffff"
+                ? "bg-gradient-to-r from-blue-200 to-blue-50"
+                : "bg-gradient-to-r from-[#222] to-[#444] "
+            }`}
+          >
             <div className="w-full h-[6.25vw]  text-5xl font-bold rounded-[0.57vw] overflow-hidden">
               <img className="w-max h-max" src={newsImg} alt="" />
             </div>

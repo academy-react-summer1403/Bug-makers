@@ -27,6 +27,7 @@ import Swal from 'sweetalert2';
 import { getBlogListWithPagination } from "../../../../Core/Services/Api/BlogPage/getBlogListWithPagination";
 import {Skeleton} from "@nextui-org/react";
 import { setBlogList } from "../../../../Redux/Slice/Blog/BlogList";
+import { RiUserVoiceLine } from "react-icons/ri";
 const BDetailCenter = ({ id }) => {
 
     const [response, setResponse] = useState({});
@@ -226,6 +227,15 @@ useEffect(() => {
       mutationKey: ['toggleFavorite', response.isCurrentUserFavorite ? 'delete' : 'add'],
     });
 
+    const synth = window.speechSynthesis;
+    function Voice(voiceText) {
+      let text = response.describe;
+      const utterThis = new SpeechSynthesisUtterance(voiceText);
+      synth.lang = "fa-IR";
+      synth.speak(utterThis);
+
+      // console.log(myRef)
+    }
     console.log(response);
     const dark = useSelector((state) => state.darkMood);
     return (
@@ -244,12 +254,20 @@ useEffect(() => {
               </span>
             </div>
           </div>
-          <div className="relative bg-gray-200 rounded-lg overflow-hidden mt-4">
-            <img
-              src={response.currentImageAddress}
-              className="w-full h-auto max-h-[400px] object-cover"
-              alt=""
-            />
+          <div
+            className={`relative h-[400px] w-full rounded-lg overflow-hidden mt-4 ${
+              dark.bgHigh == "#ffffff"
+                ? "bg-gradient-to-r from-blue-200 to-blue-50"
+                : "bg-gradient-to-r from-[#202020] to-[#414141] "
+            }`}
+          >
+            {response.currentImageAddress ? (
+              <img
+                src={response.currentImageAddress}
+                className="w-full h-auto max-h-[400px] object-cover"
+                alt=""
+              />
+            ) : null}
             <div
               style={{ background: dark.bgLow, color: dark.textLow }}
               className="absolute top-[0.7vw] left-[0.7vw]  p-2  rounded-full shadow-md"
@@ -264,7 +282,17 @@ useEffect(() => {
               commentCount={response.commentsCount}
             />
           </div>
-          <p className=" mt-2 py-[20px] text-right">{response.describe}</p>
+          <p className=" mt-2 py-[20px] text-right">
+            {response.describe}
+            <br />
+            <br />
+            <RiUserVoiceLine
+              className="cursor-pointer"
+              onClick={() => {
+                Voice(response.describe);
+              }}
+            />
+          </p>
           <div className="border-t border-gray-300 my-4"></div>
           <h3 className=" text-sm text-right">شاید علاقمند باشید:</h3>
           <ul className="list-disc list-inside mt-2 text-right">

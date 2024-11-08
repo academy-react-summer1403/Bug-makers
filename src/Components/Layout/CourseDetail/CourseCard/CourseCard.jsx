@@ -39,6 +39,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
+import { RiUserVoiceLine } from "react-icons/ri";
 
 
 function CourseCard({id}) {
@@ -224,6 +225,15 @@ function CourseCard({id}) {
     },
     mutationKey: ['toggleFavorite', response.isUserFavorite ? 'delete' : 'add'],
   });
+   const synth = window.speechSynthesis;
+   function Voice(voiceText) {
+     let text = response.describe;
+     const utterThis = new SpeechSynthesisUtterance(voiceText);
+     synth.lang = "fa-IR";
+     synth.speak(utterThis);
+
+     // console.log(myRef)
+   }
   const dark = useSelector((state) => state.darkMood);
   
   // return (
@@ -511,7 +521,16 @@ function CourseCard({id}) {
                 detailPage === 0 ? "block" : "hidden"
               }`}
             >
-              <h2 className="academyH1 text-2xl m-2">توضیحات دوره</h2>
+              <div
+                
+                className="academyH1 flex justify-between text-2xl m-2"
+              >
+                <span> توضیحات دوره</span>
+
+                <RiUserVoiceLine className="cursor-pointer" onClick={() => {
+                  Voice(response.describe);
+                }}/>
+              </div>
               {response.describe}
             </div>
             <div
