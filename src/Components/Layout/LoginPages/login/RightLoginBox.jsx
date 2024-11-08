@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { LoginAPI } from "../../../../Core/Services/Api/auth.js";
 
 import { useNavigate } from "react-router-dom";
-import { setItem } from "../../../../Core/Services/common/storage.services.js";
+import { getItem, setItem } from "../../../../Core/Services/common/storage.services.js";
 import "../forAll/login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setPassword, setTowStepCode } from "../../../../Redux/Slice/Login/TowStep.js";
@@ -38,14 +38,18 @@ const RightLoginBox = () => {
     const response = await LoginAPI(values);
     dispatch(setTowStepCode(response));
     dispatch(setPassword(values.password))
-    setTimeout(() => {
+    setTimeout(async ()  => {
       if (response.token != null) {
         setItem("token", response.token);
         setItem("userId", response.id);
-        const ress = addMultiAcc({
+        const accIdStore = getItem("accId");
+        const ress = await addMultiAcc({
           "token" : `${response.token}`, 
-          "id" : `${response.id}`
+          "id" : `${response.id}`,
+          "accId":`${accIdStore}`
         });
+        console.log(ress)
+        setItem("accId", ress.data.accId);
       } 
     }, 50);
   };

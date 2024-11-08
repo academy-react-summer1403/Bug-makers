@@ -8,3 +8,13 @@ export const addMultiAcc = async (id) => {
 
   return response;
 };
+
+export const getMultiAcc = async (id) => {
+  let url = "https://taharahimycode.liara.run/multiAccount/all";
+
+  const set = {"accId" : `${id}`}
+  console.log(set)
+  const response = await instance.get(url);
+
+  return response;
+};
