@@ -25,7 +25,7 @@ const MultiAcc = ({ multiAccount, setMultiAccount }) => {
           keepPreviousData: true,
         }
       );
-      if (isLoading) return <Loading />;
+      // if (isLoading) return <p>در حال بارگذاری ...</p>;
       if (error) return <p>خطایی رخ داده است...</p>;
 console.log(mulltiData);
 
@@ -125,6 +125,7 @@ console.log(mulltiData);
                     setItem("userId", ithem.token);
                     setTimeout(() => {
                       queryClient.invalidateQueries("getProfileInfo");
+                      queryClient.invalidateQueries("comments");
                     }, 1000);
                   }}>
                     <svg

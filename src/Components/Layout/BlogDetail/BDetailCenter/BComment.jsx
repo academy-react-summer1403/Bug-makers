@@ -29,7 +29,7 @@ const BComment = ({
       return <p></p>; 
     }
 
-    
+    console.log(commenting);
     return commenting.map((commenting) => (
       <Comments
         key={commenting.id}
@@ -71,7 +71,7 @@ const BComment = ({
     setCommenting(sortedComments);
   };
   
-console.log(commenting);
+
 const dark = useSelector((state) => state.darkMood);
   return (
     <div

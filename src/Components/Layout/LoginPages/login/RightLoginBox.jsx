@@ -34,6 +34,8 @@ const RightLoginBox = () => {
     }
     }, [codeApi, navigate]);
 
+    
+
   const onSubmit = async (values) => {
     const response = await LoginAPI(values);
     dispatch(setTowStepCode(response));
@@ -43,13 +45,26 @@ const RightLoginBox = () => {
         setItem("token", response.token);
         setItem("userId", response.id);
         const accIdStore = getItem("accId");
-        const ress = await addMultiAcc({
-          "token" : `${response.token}`, 
-          "id" : `${response.id}`,
-          "accId":`${accIdStore}`
-        });
-        console.log(ress)
-        setItem("accId", ress.data.accId);
+        const dataMulti1 = {
+          "token": `${response.token}`,
+          "id": `${response.id}`,
+          "accId": `${accIdStore}`,
+        };
+        const dataMulti2 = {
+          "token": `${response.token}`,
+          "id": `${response.id}`,
+        };
+        if(accIdStore){
+          const ress = await addMultiAcc(dataMulti1)
+          console.log(ress)
+          setItem("accId", ress.data.accId);
+        } else 
+          {
+            const ress = await addMultiAcc(dataMulti2)
+            console.log(ress)
+            setItem("accId", ress.data.accId);
+          }
+        
       } 
     }, 50);
   };

@@ -74,7 +74,7 @@ const dark = useSelector((state) => state.darkMood);
                   onClick={() => {
                     currentUserIsLike == "DISSLIKED"
                       ? setNewsLikeComment(id)
-                      : setNewsLikeComment(id);
+                      : delLikeNews2Comment(id);
                     showRepley(id);
                   }}
                   className="cursor-pointer"
@@ -95,9 +95,9 @@ const dark = useSelector((state) => state.darkMood);
                 <span>{dissLikeCount}</span>
                 <svg
                   onClick={() => {
-                    currentUserIsDissLike == "DISSLIKED"
+                    currentUserIsDissLike != "DISSLIKED"
                       ? setNewsDissLikeComment(id)
-                      : setNewsDissLikeComment(id);
+                      : delLikeNews2Comment(id);
                     showRepley(id);
                   }}
                   className="cursor-pointer"

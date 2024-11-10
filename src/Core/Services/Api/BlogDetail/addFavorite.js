@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import instance from "../../interseptore/Interceptor";
 
-export const AddBlogFavorite = async ({ id }) => {
+export const AddBlogFavorite = async ( id ) => {
   try {
     const response = await instance.post(`/News/AddFavoriteNews?NewsId=${id}`);
     // toast.success("znvjlaefvkfs");

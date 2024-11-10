@@ -62,7 +62,7 @@ function PersianCalendarComponent() {
   const CourseListItem = useSelector(
     (state) => state.ClientInfoSlice.ClientInfo
   );
-  console.log(CourseListItem);
+  
    const dark = useSelector((state) => state.darkMood);
     return (
       <div

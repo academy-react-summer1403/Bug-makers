@@ -542,7 +542,7 @@ useEffect(() => {
         <Button
           onClick={() => {
             removeItem("token");
-
+            removeItem("accId");
             toast.success("با موفقیت از اکانت خود خارج شدید");
             navigator("/");
           }}
