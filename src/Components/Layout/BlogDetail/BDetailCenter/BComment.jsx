@@ -38,7 +38,7 @@ const BComment = ({
         describe={commenting.describe}
         likeCount={commenting.likeCount}
         dissLikeCount={commenting.dissLikeCount}
-        title={commenting.title}
+        title={commenting.autor}
         replyCount={commenting.replyCount}
         currentUserIsLike={commenting.currentUserIsLike}
         currentUserIsDissLike={commenting.currentUserIsDissLike}
@@ -80,10 +80,10 @@ const dark = useSelector((state) => state.darkMood);
     >
       {commenting && Array.isArray(commenting) && commenting.length > 0 ? (
         <div className="h-auto w-full flex flex-col md:flex-row justify-between items-center">
-          <span className="text-[18px] w-full md:w-[20%] text-right">
+          <span className="text-[24px] max-md:text-[18px] w-full md:w-[20%] text-right">
             نظرات
           </span>
-          <div className=" max-md:w-[60%] w-[40%] flex flex-wrap justify-between items-center text-[12px] my-1">
+          <div className=" max-md:w-[80%] w-[40%] flex flex-wrap justify-between items-center max-md:text-[12px] text-[16px] my-1">
             <div
               onClick={handleLikeSort}
               className="hover:text-blue-600 cursor-pointer w-1/4 text-center"
@@ -105,9 +105,9 @@ const dark = useSelector((state) => state.darkMood);
               جدید‌ترین
             </div>
           </div>
-          <div className="w-full md:w-[20%] text-right mt-2 md:mt-0">
-            <span className="text-[10px]">{commenting.length}</span>
-            <span className="text-[10px]"> نظر ثبت شده</span>
+          <div className="w-full text-[16px] max-md:text-[12px] md:w-[40%] text-right mt-2 md:my-2 ">
+            <span className="">{commenting.length}</span>
+            <span className=""> نظر ثبت شده</span>
           </div>
         </div>
       ) : (

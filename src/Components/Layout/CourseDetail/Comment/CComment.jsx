@@ -24,7 +24,7 @@ const CComment = ({
       return <p></p>; // در صورتی که comment خالی یا undefined باشد، پیام نشان داده می‌شود.
     }
 
-    // console.log(comment);
+    console.log(comment);
 
     return comment.map((comment) => (
       <CourseComments
@@ -35,7 +35,7 @@ const CComment = ({
         describe={comment.describe}
         likeCount={comment.likeCount}
         dissLikeCount={comment.disslikeCount}
-        title={comment.title}
+        title={comment.author}
         replyCount={comment.acceptReplysCount}
         currentUserIsLike={comment.currentUserEmotion}
         currentUserIsDissLike={comment.currentUserEmotion}
@@ -56,6 +56,27 @@ const CComment = ({
     ));
   };
 const dark = useSelector((state) => state.darkMood);
+
+const handleLikeSort = () => {
+  const sortedComments = [...comment].sort((a, b) => b.likeCount - a.likeCount);
+  setCommenting(sortedComments);
+};
+const handleDateSort = () => {
+  const sortedComments = [...comment].sort(
+    (a, b) => new Date(b.inserDate) - new Date(a.inserDate)
+  );
+  setCommenting(sortedComments);
+};
+const handleDateDownSort = () => {
+  const sortedComments = [...comment].sort(
+    (a, b) => new Date(a.inserDate) - new Date(b.inserDate)
+  );
+  setCommenting(sortedComments);
+};
+
+
+
+
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
@@ -67,9 +88,27 @@ const dark = useSelector((state) => state.darkMood);
             نظرات
           </span>
           <div className="max-md:hidden flex max-md:text-[8px] w-[40%] text-[0.8vw] justify-between items-center">
-            <div className="h-[1vw] w-1/4 cursor-pointer"> تعداد لایک </div>-
-            <div className="h-[1vw] w-1/4 cursor-pointer">قدیمی‌ترین</div>-
-            <div className="h-[1vw] w-1/4 cursor-pointer">جدید‌ترین</div>
+            <div
+              onClick={handleLikeSort}
+              className="h-[1vw] w-1/4 cursor-pointer"
+            >
+              {" "}
+              تعداد لایک{" "}
+            </div>
+            -
+            <div
+              onClick={handleDateDownSort}
+              className="h-[1vw] w-1/4 cursor-pointer"
+            >
+              قدیمی‌ترین
+            </div>
+            -
+            <div
+              onClick={handleDateSort}
+              className="h-[1vw] w-1/4 cursor-pointer"
+            >
+              جدید‌ترین
+            </div>
           </div>
           <div className="w-[7.30vw] max-md:w-[20%]">
             <span className="text-[1vw] max-md:text-[8px]">

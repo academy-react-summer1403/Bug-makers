@@ -34,7 +34,7 @@ const CourseComments = ({
  
   
 }) => {
-  console.log(commentId);
+  // console.log(commentId);
   calculateDateDifference(convertToJalali(date));
   const [repleyModal, setRepleyModal]=useState(false)
 
@@ -72,7 +72,7 @@ const dark = useSelector((state) => state.darkMood);
                 <span>{likeCount}</span>
                 <svg
                   onClick={() => {
-                    currentUserIsLike == "DISSLIKED"
+                    currentUserIsLike != "LIKED"
                       ? setNewsLikeComment(id)
                       : delLikeNews2Comment(id);
                     showRepley(id);
@@ -95,7 +95,7 @@ const dark = useSelector((state) => state.darkMood);
                 <span>{dissLikeCount}</span>
                 <svg
                   onClick={() => {
-                    currentUserIsDissLike != "DISSLIKED"
+                    currentUserIsLike != "DISSLIKED"
                       ? setNewsDissLikeComment(id)
                       : delLikeNews2Comment(id);
                     showRepley(id);

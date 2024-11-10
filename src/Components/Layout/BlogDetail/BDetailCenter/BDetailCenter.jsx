@@ -78,6 +78,7 @@ const BDetailCenter = ({ id }) => {
     setNewsId(id);
   };
 
+  
   const GetComment = async () => {
     const re = await getBlogDetailComment(id);
     setComment(re);
