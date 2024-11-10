@@ -39,42 +39,53 @@ import { Link } from "react-router-dom";
 import { Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
+import { RiUserVoiceLine } from "react-icons/ri";
 
 
 function CourseCard({id}) {
-  
-  const [response,setResponse]=useState({})
+  const [response, setResponse] = useState({});
   const [comment, setComment] = useState({});
-  const [detailPage,setDetailPage] = useState(0)
-  const [repleyModal,setRepleyModal]=useState(false)
+  const [detailPage, setDetailPage] = useState(0);
+  const [repleyModal, setRepleyModal] = useState(false);
   const userId = getItem("userId");
-  const NewsId =id;
-  const handelPage = (value)=>{
+  const NewsId = id;
+  const handelPage = (value) => {
     setDetailPage(value);
-  }
+  };
 
   const CorseReserveF = useMutation({
     mutationFn: async (id) => {
-      return response.isCourseReseve == 1 
-        ? await deleteCorseReserve(response.courseReseveId) 
+      return response.isCourseReseve == 1
+        ? await deleteCorseReserve(response.courseReseveId)
         : await CorseReserve({ courseId: id });
     },
     onSuccess: (data) => {
+      GetId();
+
       if (data.success) {
-        const message = response.isCourseReseve == 1 
-          ? 'دوره ' + '(' + response.title + ')' + 'از رزرو حذف شد 🥳' 
-          : 'دوره ' + '(' + response.title + ')' + 'رزرو شد 🥳';
+        const message =
+          response.isCourseReseve == 1
+            ? "دوره " + "(" + response.title + ")" + "از رزرو حذف شد 🥳"
+            : "دوره " + "(" + response.title + ")" + "رزرو شد 🥳";
 
-          toast.custom((t) => (
-            <div 
-              className={`flex items-center justify-between p-4 bg-[#FFFFFF] text-black rounded-lg shadow-md transition-opacity duration-300 ${t.visible ? 'opacity-100' : 'opacity-0'}`}
+        toast.custom((t) => (
+          <div
+            className={`flex items-center justify-between p-4 bg-[#FFFFFF] text-black rounded-lg shadow-md transition-opacity duration-300 ${
+              t.visible ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <span>{message}</span>
+            <Link
+              to={"/ClientPanel/MyReserve"}
+              onClick={() => toast.dismiss(t.id)}
+              className="  text-green-500 ml-2"
             >
-              <span>{message}</span>
-              <Link to={'/ClientPanel/MyReserve'} onClick={() => toast.dismiss(t.id)} className="  text-green-500 ml-2">مشاهده</Link>
-            </div>
-          ));
+              مشاهده
+            </Link>
+          </div>
+        ));
 
-        setResponse(prev => ({
+        setResponse((prev) => ({
           ...prev,
           isCourseReseve: prev.isCourseReseve === 1 ? 0 : 1,
         }));
@@ -82,123 +93,78 @@ function CourseCard({id}) {
     },
   });
 
-
-
-  const GetId= async ()=>{
+  const GetId = async () => {
     const res = await getCourseDetail(id);
     setResponse(res);
-  }
-  const GetComment= async ()=>{
+  };
+  const GetComment = async () => {
     const re = await getCourseDetailComment(id);
-        setComment(re);
-        console.log(comment);
-  }
-  useEffect(()=>{
+    setComment(re);
+    console.log(comment);
+  };
+  useEffect(() => {
     GetId();
     GetComment();
-  },[])
+  }, []);
 
   const setNewsDissLike = async () => {
-    const result = await Swal.fire({
-      title: 'آیا مطمئن هستید؟',
-      text: "این دوره را دیس لایک کنید.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'بله، دیس لایک کن!',
-      cancelButtonText: 'خیر، لغو کن!'
-    });
+    const res = await postDissLikeNews(id);
+    console.log(res);
+    toast.success(" دیس لایک شد 😁");
 
-    if (result.isConfirmed) {
-      await postDissLikeNews(id);
-      toast.success(' دیس لایک شد 😁');
-      GetId();
-    }
-
+    GetId();
   };
   const setNewsLike = async () => {
-      const result = await Swal.fire({
-        title: 'آیا مطمئن هستید؟',
-        text: "این دوره را لایک کنید.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'بله، لایک کن!',
-        cancelButtonText: 'خیر، لغو کن!'
-      });
-  
-      if (result.isConfirmed) {
-        await postLikeNews(id);
-        toast.success('لایک شد 😁');
-        GetId();
-      }
+    const res = await postLikeNews(id);
+    console.log(res);
+    toast.success("لایک شد 😁");
+    GetId();
   };
 
   const delLikeNews2 = async () => {
     console.log(response.userLikeId);
     const res = await delLikeNews(response.userLikeId);
     console.log(res);
+    toast.success("نظر شما با موفقییت حذف شد 😁");
     GetId();
   };
-  
+
   const onSubmit = async (val) => {
     const res = await setCourseRepleyComment(val);
-    res.success ? toast.success('نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉') : '';
+    res.success
+      ? toast.success("نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉")
+      : "";
   };
 
   const onSubmit2 = async (val) => {
-      const res = await setCourseComment(val);
-      res.success ? toast.success('نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉') : '';
-    }
+    const res = await setCourseComment(val);
+    res.success
+      ? toast.success("نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉")
+      : "";
+  };
 
   // comment .............................................
 
   const setNewsDissLikeComment = async (id) => {
     const res = await commentDissLikeCourse(id, false);
     console.log(res);
-    GetComment();
-    const result = await Swal.fire({
-      title: 'آیا مطمئن هستید؟',
-      text: "این کامنت را دیس لایک کنید.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'بله، لایک کن!',
-      cancelButtonText: 'خیر، لغو کن!'
-    });
+          toast.success(" دیس لایک شد 😁");
 
-    if (result.isConfirmed) {
-      await commentDissLikeCourse(id, false);
-      toast.success(' دیس لایک شد 👎');
-      GetComment();
-    }
+    GetComment();
   };
   const setNewsLikeComment = async (id) => {
-    const result = await Swal.fire({
-      title: 'آیا مطمئن هستید؟',
-      text: "این کامنت را لایک کنید.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'بله، لایک کن!',
-      cancelButtonText: 'خیر، لغو کن!'
-    });
-
-    if (result.isConfirmed) {
-      await commentLikeCourse(id, true);
-      toast.success('لایک شد 👍');
-      GetComment();
-    }
+    const res = await commentLikeCourse(id, true);
+    console.log(res);
+    toast.success("لایک شد 😁");
+    GetComment();
   };
 
   const delLikeNews2Comment = async (currentUserLikeId) => {
     console.log(currentUserLikeId);
     const res = await comentDelLikeCourse(currentUserLikeId);
     console.log(res);
+        toast.success("نظر شما با موفقییت حذف شد 😁");
+
     GetComment();
   };
 
@@ -214,18 +180,27 @@ function CourseCard({id}) {
     },
     onSuccess: (data) => {
       if (data.success) {
-        const message = response.isUserFavorite 
-          ? 'دوره ' + '(' + response.title + ')' + ' از علاقه‌مندی‌ها حذف شد' 
-          : 'دوره ' + '(' + response.title + ')' + ' به علاقه‌مندی‌ها اضافه شد';
-        
+        const message = response.isUserFavorite
+          ? "دوره " + "(" + response.title + ")" + " از علاقه‌مندی‌ها حذف شد"
+          : "دوره " + "(" + response.title + ")" + " به علاقه‌مندی‌ها اضافه شد";
+
         toast.success(message);
-        GetId(); 
+        GetId();
       }
     },
-    mutationKey: ['toggleFavorite', response.isUserFavorite ? 'delete' : 'add'],
+    mutationKey: ["toggleFavorite", response.isUserFavorite ? "delete" : "add"],
   });
+  const synth = window.speechSynthesis;
+  function Voice(voiceText) {
+    let text = response.describe;
+    const utterThis = new SpeechSynthesisUtterance(voiceText);
+    synth.lang = "fa-IR";
+    synth.speak(utterThis);
+
+    // console.log(myRef)
+  }
   const dark = useSelector((state) => state.darkMood);
-  
+
   // return (
   //     <div className="mx-auto w-full shadow-lg text-[#5E5E5E]">
   //       <div className="relative w-full h-auto flex flex-col md:flex-row justify-between mt-[3vw]">
@@ -252,7 +227,7 @@ function CourseCard({id}) {
   //         <div className="w-full   md:w-1/2 ml-[2vw] max-h-[460px] bg-gradient-to-b  from-[#C4CDD5] to-[#F2F2F2] rounded-[1vw] shadow-[-0.78vw_0.78vw_0.78vw_0_rgba(100,100,100,0.1)]">
   //           <img className="h-[60vw] md:h-full w-full object-cover mx-auto" src={response.imageAddress ? response.imageAddress : noImg} onError={(e) => {e.target.src = noImg}} alt="" />
   //         </div>
-          
+
   //         <div className=" max-[1360px]:top-[40vw]  max-[768px]:top-[80vw] /*end responsive */ h-[2vw] w-[25vw]  absolute top-[35vw] left-[2vw] flex flex-row-reverse justify-between">
   //           <div className="text-[0.8vw] justify-between text-gray-800 w-2/3 h-[1.46vw] flex ">
   //             <div className="cursor-pointer  flex justify-evenly h-full  w-[50%] items-center">
@@ -314,106 +289,106 @@ function CourseCard({id}) {
   //           </svg>
 
   //           <RatingStar id={id} />
-  //         </div> 
+  //         </div>
   //       </div>
 
   //       <CoursePreviwe0 response={response} CorseReserve={CorseReserveF} id={id} />
 
-        // <div className="w-full rounded-[1vw] p-[1vw] mt-[2.71vw]">
-        //   <CourseMenu handelPage={handelPage} />
-        //   <div className="w-full p-[1vw]">
-        //     <div className={`w-full  h-full py-[4vw] text-right md:leading-[2.5vw] text-[2vw] leading-5 md:text-[0.9vw] ${detailPage === 0 ? "block" : "hidden"}`}>
-        //       {response.describe}
-        //     </div>
-        //     <div className={`w-full h-full bg-blue-700 ${detailPage === 1 ? "block" : "hidden"}`}></div>
-        //     <div className={`w-full h-full bg-gray-100 text-[1.5vw] ${detailPage === 2 ? "block" : "hidden"}`}>
-        //       این قابلیت در حال حاضر موجود نیست !!
-        //     </div>
-        //     <div className={`w-full h-full ${detailPage === 3 ? "block" : "hidden"}`}>
-        //       <div onClick={() => { setRepleyModal(true); window.scrollTo({ top: 780, behavior: 'smooth' }) }} className="w-full rounded-[0.5vw] h-[3vw] text-[1.5vw] bg-gray-300 cursor-pointer">
-        //         ثبت نظر
-        //       </div>
-        //       <div className={repleyModal ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center" : "hidden"} onClick={() => setRepleyModal(false)}>
-        //         <div className={repleyModal ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40" : "hidden"} onClick={(e) => e.stopPropagation()}>
-        //           <AddCommentForm onSubmit={onSubmit} newsId={id} parentId={null} onSubmit2={onSubmit2} setRepleyModal={setRepleyModal} />
-        //         </div>
-        //       </div>
-        //       <CComment comment={comment} onSubmit={onSubmit} userId={userId} GetComment={GetComment} newsId={id} setNewsDissLikeComment={setNewsDissLikeComment} setNewsLikeComment={setNewsLikeComment} delLikeNews2Comment={delLikeNews2Comment} onSubmit2={onSubmit2} />
-        //     </div>
-        //     <div className={`w-full h-full bg-yellow-500 ${detailPage === 4 ? "block" : "hidden"}`}></div>
-        //   </div>
-        // </div>
-      // </div>
+  // <div className="w-full rounded-[1vw] p-[1vw] mt-[2.71vw]">
+  //   <CourseMenu handelPage={handelPage} />
+  //   <div className="w-full p-[1vw]">
+  //     <div className={`w-full  h-full py-[4vw] text-right md:leading-[2.5vw] text-[2vw] leading-5 md:text-[0.9vw] ${detailPage === 0 ? "block" : "hidden"}`}>
+  //       {response.describe}
+  //     </div>
+  //     <div className={`w-full h-full bg-blue-700 ${detailPage === 1 ? "block" : "hidden"}`}></div>
+  //     <div className={`w-full h-full bg-gray-100 text-[1.5vw] ${detailPage === 2 ? "block" : "hidden"}`}>
+  //       این قابلیت در حال حاضر موجود نیست !!
+  //     </div>
+  //     <div className={`w-full h-full ${detailPage === 3 ? "block" : "hidden"}`}>
+  //       <div onClick={() => { setRepleyModal(true); window.scrollTo({ top: 780, behavior: 'smooth' }) }} className="w-full rounded-[0.5vw] h-[3vw] text-[1.5vw] bg-gray-300 cursor-pointer">
+  //         ثبت نظر
+  //       </div>
+  //       <div className={repleyModal ? "fixed z-10 top-0 left-0 h-full w-full bg-[#8a8a8a96] backdrop-blur-[3px] flex justify-center items-center" : "hidden"} onClick={() => setRepleyModal(false)}>
+  //         <div className={repleyModal ? "h-max w-[90vw] max-w-[50vw] rounded-[1vw] bg-white z-40" : "hidden"} onClick={(e) => e.stopPropagation()}>
+  //           <AddCommentForm onSubmit={onSubmit} newsId={id} parentId={null} onSubmit2={onSubmit2} setRepleyModal={setRepleyModal} />
+  //         </div>
+  //       </div>
+  //       <CComment comment={comment} onSubmit={onSubmit} userId={userId} GetComment={GetComment} newsId={id} setNewsDissLikeComment={setNewsDissLikeComment} setNewsLikeComment={setNewsLikeComment} delLikeNews2Comment={delLikeNews2Comment} onSubmit2={onSubmit2} />
+  //     </div>
+  //     <div className={`w-full h-full bg-yellow-500 ${detailPage === 4 ? "block" : "hidden"}`}></div>
+  //   </div>
+  // </div>
+  // </div>
 
   // );
   console.log(response);
-//   capacity: 10
-// ​
-// commentCount: 25
-// ​
-// cost: 100000000
-// ​
-// courseGroupCount: 0
-// ​
-// courseId: "c79954bc-1f31-ef11-b6c8-c6ea51a59bbe"
-// ​
-// courseLevelName: "مبتدی"
-// ​
-// courseReseveId: "00000000-0000-0000-0000-000000000000"
-// ​
-// courseStatusName: "شروع ثبت نام"
-// ​
-// currentRate: 0
-// ​
-// currentRegistrants: 0
-// ​
-// currentUserDissLike: "0"
-// ​
-// currentUserLike: "1"
-// ​
-// currentUserRateNumber: 60
-// ​
-// currentUserSetRate: true
-// ​
-// describe: "xzzzzzzzzzzzzzzzzzzzzzzzzz"
-// ​
-// dissLikeCount: 3
-// ​
-// endTime: "2024-07-06T00:00:00"
-// ​
-// googleSchema: null
-// ​
-// googleTitle: null
-// ​
-// imageAddress: "testimg"
-// ​
-// insertDate: "2024-06-23T08:46:25.517"
-// ​
-// isCourseReseve: "0"
-// ​
-// isCourseUser: "0"
-// ​
-// isUserFavorite: false
-// ​
-// likeCount: 11
-// ​
-// miniDescribe: "dsdsdsdsds"
-// ​
-// startTime: "2024-06-25T00:00:00"
-// ​
-// teacherId: 13
-// ​
-// teacherName: "MMM Sadaty"
-// ​
-// techs: Array [ "ّفرانت اند" ]
-// ​
-// title: "این یک تست است"
-// ​
-// uniqeUrlString: "655d96b9-dcbe-4de4-9e0f-e49086"
-// ​
-// userFavoriteId: "00000000-0000-0000-0000-000000000000"
-// ​
-// userLikeId: "55e96b41-a98b-ef11-b6e0-cc9c195ebe36"
+  //   capacity: 10
+  // ​
+  // commentCount: 25
+  // ​
+  // cost: 100000000
+  // ​
+  // courseGroupCount: 0
+  // ​
+  // courseId: "c79954bc-1f31-ef11-b6c8-c6ea51a59bbe"
+  // ​
+  // courseLevelName: "مبتدی"
+  // ​
+  // courseReseveId: "00000000-0000-0000-0000-000000000000"
+  // ​
+  // courseStatusName: "شروع ثبت نام"
+  // ​
+  // currentRate: 0
+  // ​
+  // currentRegistrants: 0
+  // ​
+  // currentUserDissLike: "0"
+  // ​
+  // currentUserLike: "1"
+  // ​
+  // currentUserRateNumber: 60
+  // ​
+  // currentUserSetRate: true
+  // ​
+  // describe: "xzzzzzzzzzzzzzzzzzzzzzzzzz"
+  // ​
+  // dissLikeCount: 3
+  // ​
+  // endTime: "2024-07-06T00:00:00"
+  // ​
+  // googleSchema: null
+  // ​
+  // googleTitle: null
+  // ​
+  // imageAddress: "testimg"
+  // ​
+  // insertDate: "2024-06-23T08:46:25.517"
+  // ​
+  // isCourseReseve: "0"
+  // ​
+  // isCourseUser: "0"
+  // ​
+  // isUserFavorite: false
+  // ​
+  // likeCount: 11
+  // ​
+  // miniDescribe: "dsdsdsdsds"
+  // ​
+  // startTime: "2024-06-25T00:00:00"
+  // ​
+  // teacherId: 13
+  // ​
+  // teacherName: "MMM Sadaty"
+  // ​
+  // techs: Array [ "ّفرانت اند" ]
+  // ​
+  // title: "این یک تست است"
+  // ​
+  // uniqeUrlString: "655d96b9-dcbe-4de4-9e0f-e49086"
+  // ​
+  // userFavoriteId: "00000000-0000-0000-0000-000000000000"
+  // ​
+  // userLikeId: "55e96b41-a98b-ef11-b6e0-cc9c195ebe36"
   return (
     <div className="max-[688px]:mt-10  w-full max-[688px]:flex-row flex   flex-wrap flex-col gap-5">
       <div
@@ -511,7 +486,16 @@ function CourseCard({id}) {
                 detailPage === 0 ? "block" : "hidden"
               }`}
             >
-              <h2 className="academyH1 text-2xl m-2">توضیحات دوره</h2>
+              <div className="academyH1 flex justify-between text-2xl m-2">
+                <span> توضیحات دوره</span>
+
+                <RiUserVoiceLine
+                  className="cursor-pointer"
+                  onClick={() => {
+                    Voice(response.describe);
+                  }}
+                />
+              </div>
               {response.describe}
             </div>
             <div
@@ -679,7 +663,6 @@ function CourseCard({id}) {
       </div>
     </div>
   );
-
 }
 
 

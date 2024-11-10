@@ -18,7 +18,13 @@ const BlogTrands = ({id,newsImg,title,date,like,comment}) => {
         style={{ background: dark.bgHigh, color: dark.textHigh }}
         className="w-full h-[4.1vw] flex items-center justify-between  mt-[0.47vw]"
       >
-        <div className="h-[3.4vw] w-[3.4vw] bg-gray-200 rounded-[0.42vw] overflow-hidden">
+        <div
+          className={`h-[3.4vw] w-[3.4vw] rounded-[0.42vw] overflow-hidden ${
+            dark.bgHigh == "#ffffff"
+              ? "bg-gradient-to-r from-blue-200 to-blue-100"
+              : "bg-gradient-to-r from-[#333] to-[#555] "
+          }`}
+        >
           <img className="h-full" src={newsImg} alt="" />
         </div>
 

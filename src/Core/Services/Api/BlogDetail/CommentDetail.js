@@ -36,10 +36,10 @@ export const commentDissLikeNews = async (id) => {
 };
 
 export const comentDelLikeCourse = async (id) => {
-  let url = `/Course/DeleteCourseCommentLike?CourseCommandId=${id}`;
+  let url = `/News/DeleteCommentLikeNews`;
 
   console.log(id);
-  const response = await instance.delete(url);
+  const response = await instance.delete(url,{data:id});
 
   return response;
 };

@@ -21,13 +21,13 @@ const onError = (err) => {
     console.log(err);
     if(err.status === 401){
         removeItem("token")
-        setTimeout(() => {
-            window.location.pathname="/sign/login"            
-        }, 1500);
+        // setTimeout(() => {
+        //     window.location.pathname="/sign/login"            
+        // }, 1500);
         toast.error('ابتدا وارد حساب کاربری خود شوید')
     }
 
-    if(err.response.status >= 400 && err.response.status < 500){
+    if(err.response.status >= 400 && err.response.status < 500 && err.response.status != 401){
         {
           err.response.data.ErrorMessage[0]
             ? notifyError(err.response.data.ErrorMessage[0])

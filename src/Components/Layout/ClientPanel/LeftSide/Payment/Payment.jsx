@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import CoursePage from "../Dashbord/CourseListDeatail/Base";
 import { useSelector } from "react-redux";
+import CoursePage from "./Base";
 
 const Payment = () => {
   const [showMoreCourse, setShowMoreCourse] = useState(false);

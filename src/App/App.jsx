@@ -33,7 +33,8 @@ const dark = useSelector((state) => state.darkMood);
       dir="rtl"
       style={{ background: dark.bgLow, color: dark.textHigh }}
     >
-     <Outlet/>
+      <Toaster />
+      <Outlet />
     </div>
   );
 }

@@ -37,7 +37,7 @@ export const delLikeNews = async (id) => {
   formData.append("CourseLikeId", id);
 
   console.log(formData);
-  const response = await instance.delete(url, formData);
+  const response = await instance.delete(url, { data: formData });
 
   return response;
 };

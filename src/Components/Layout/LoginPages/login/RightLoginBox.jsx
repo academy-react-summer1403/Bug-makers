@@ -5,10 +5,11 @@ import * as yup from "yup";
 import { LoginAPI } from "../../../../Core/Services/Api/auth.js";
 
 import { useNavigate } from "react-router-dom";
-import { setItem } from "../../../../Core/Services/common/storage.services.js";
+import { getItem, setItem } from "../../../../Core/Services/common/storage.services.js";
 import "../forAll/login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setPassword, setTowStepCode } from "../../../../Redux/Slice/Login/TowStep.js";
+import { addMultiAcc } from "../../../../Core/Services/Api/Client/multiAccont.js";
 
 const RightLoginBox = () => {
   const navigate = useNavigate();
@@ -33,14 +34,37 @@ const RightLoginBox = () => {
     }
     }, [codeApi, navigate]);
 
+    
+
   const onSubmit = async (values) => {
     const response = await LoginAPI(values);
     dispatch(setTowStepCode(response));
     dispatch(setPassword(values.password))
-    setTimeout(() => {
+    setTimeout(async ()  => {
       if (response.token != null) {
         setItem("token", response.token);
         setItem("userId", response.id);
+        const accIdStore = getItem("accId");
+        const dataMulti1 = {
+          "token": `${response.token}`,
+          "id": `${response.id}`,
+          "accId": `${accIdStore}`,
+        };
+        const dataMulti2 = {
+          "token": `${response.token}`,
+          "id": `${response.id}`,
+        };
+        if(accIdStore){
+          const ress = await addMultiAcc(dataMulti1)
+          console.log(ress)
+          setItem("accId", ress.data.accId);
+        } else 
+          {
+            const ress = await addMultiAcc(dataMulti2)
+            console.log(ress)
+            setItem("accId", ress.data.accId);
+          }
+        
       } 
     }, 50);
   };

@@ -37,7 +37,7 @@ const dark = useSelector((state) => state.darkMood);
         <NextUIProvider>
           <Header />
           <Outlet />
-          <Toaster />
+          
           {/* <ThemeColor /> */}
           <ScrollTopButton />
         </NextUIProvider>

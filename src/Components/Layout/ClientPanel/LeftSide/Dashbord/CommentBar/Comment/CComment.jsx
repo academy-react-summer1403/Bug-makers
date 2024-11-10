@@ -24,11 +24,15 @@ const CComment = () => {
   const setNewsDissLikeComment = async (id) => {
     const res = await commentDissLikeCourse(id, false);
     console.log(res);
+              toast.success(" دیس لایک شد 😁");
+
     GetComment();
   };
   const setNewsLikeComment = async (id) => {
     const res = await commentLikeCourse(id, true);
     console.log(res);
+    toast.success("لایک شد 😁");
+
     GetComment();
   };
 
@@ -36,6 +40,8 @@ const CComment = () => {
     console.log(currentUserLikeId);
     const res = await comentDelLikeCourse(currentUserLikeId);
     console.log(res);
+        toast.success("نظر شما با موفقییت حذف شد 😁");
+
     GetComment();
   };
 
@@ -48,7 +54,6 @@ const CComment = () => {
       return <p></p>; // در صورتی که comment خالی یا undefined باشد، پیام نشان داده می‌شود.
     }
 
-    // console.log(comment);
 
     return comment.map((comment) => (
       <CourseComments

@@ -55,7 +55,7 @@ export const setProfilePic = async (id) => {
   let url = "/SharePanel/AddProfileImage";
   const formData = new FormData();
     formData.append("formFile", id);
-    
+    console.log(formData)
   console.log(formData);
   const response = await instance.post(url, formData);
 
@@ -106,9 +106,11 @@ export const setPayment = async (id) => {
 
   return response;
 };
+
+
 export const setPaymentStep2 = async (id) => {
-  let url = "/CoursePayment/AddPeymentImage";
-  
+  let url = "/CoursePayment/StudentAddPeymentImage";
+  console.log(id)
   const response = await instance.post(url, id);
 
   return response;

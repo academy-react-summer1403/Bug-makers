@@ -24,11 +24,15 @@ const CComentBlog = () => {
   const setNewsDissLikeComment = async (id) => {
     const res = await commentDissLikeNews(id, false);
     console.log(res);
+              toast.success(" دیس لایک شد 😁");
+
     GetComment();
   };
   const setNewsLikeComment = async (id) => {
     const res = await commentLikeNews(id, true);
     console.log(res);
+        toast.success("لایک شد 😁");
+
     GetComment();
   };
 
@@ -38,6 +42,8 @@ const CComentBlog = () => {
       deleteEntityId: `${currentUserLikeId}`,
     });
     console.log(res);
+        toast.success("نظر شما با موفقییت حذف شد 😁");
+
     GetComment();
   };
   const convertToJalali = (miladiDate) => {

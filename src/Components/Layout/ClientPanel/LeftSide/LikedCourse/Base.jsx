@@ -189,15 +189,19 @@ const delfilter=()=>{
               className="w-full h-[3vw] max-md:justify-between max-md:border-b-1 max-md:h-[40px] rounded-[0.4vw] flex items-center text-[0.9vw]  hover:bg-gray-100"
             >
               <div
-                className={`w-[8%] max-md:hidden justify-center h-full rounded-[0.5vw] overflow-hidden   ${
-                  location == "BlogFav" ? "flex" : "hidden"
-                }`}
+                className={`w-[8%] max-md:hidden justify-center h-[90%] overflow-hidden rounded-lg bg
+                  ${
+                    dark.bgHigh == "#ffffff"
+                      ? "bg-gradient-to-r from-blue-200 to-blue-50"
+                      : "bg-gradient-to-r from-[#222] to-[#333] "
+                  }
+                  ${location == "BlogFav" ? "flex" : "hidden"}`}
               >
-                <img
-                  className=" h-full rounded-[0.5vw]"
+                {course.currentImageAddressTumb != null ? <img
+                  className=" h-full rounded-lg w-full"
                   src={course.currentImageAddressTumb}
                   alt=""
-                />
+                />: null}
               </div>
               <div className="w-[16%] h-full  py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[30%] max-md:text-[14px]">
                 {course.courseTitle ? course.courseTitle : null}

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { setPayment } from "../../../../../../Core/Services/Api/Client/Profile";
 import FacturePeyment from "./FacturePeyment";
+import { useNavigate } from "react-router-dom";
 
 const PaymentFirstStep = ()=>{
     const [paymentId,setPaymentId]=useState(null)
@@ -11,7 +12,7 @@ const PaymentFirstStep = ()=>{
     const [date,setDate] = useState()
     const [open,setOpen] = useState(false)   
 
-
+const navigate = useNavigate()
 
  const getTodayDate = () => {
   const today = new Date();
@@ -29,7 +30,7 @@ const CoursePaymentItem = useSelector((state) => state.payment.paymentList);
 console.log(CoursePaymentItem);
 
 const onsubmit = async ()=>{
-  setOpen(true)
+  setOpen(true);
 
   const data = {
     courseId: CoursePaymentItem.courseId,
@@ -38,7 +39,19 @@ const onsubmit = async ()=>{
     PaymentInvoiceNumber:price
   };
   const res = await setPayment(data)
-  setPaymentId(res)
+  
+  if (!res.paymentId) {
+    alert();
+    navigate(`FacturePeyment/${paymentId}/${CoursePaymentItem.courseId}/${1}`);
+  }
+    setPaymentId(res.paymentId);
+  setTimeout(() => {
+    navigate(
+      `FacturePeyment/${paymentId}/${CoursePaymentItem.courseId}/${
+          0 
+      }`
+    );
+  }, 1000);
 }
 const dark = useSelector((state) => state.darkMood);
 
@@ -47,14 +60,6 @@ const dark = useSelector((state) => state.darkMood);
         style={{ background: dark.bgHigh, color: dark.textHigh }}
         className="w-full h-full  flex justify-center items-center"
       >
-        <div
-          style={{ background: dark.bgLow, color: dark.text }}
-          className={`z-20 absolute top-[11%] h-[87%] w-[77%]  ${
-            open == true ? "block" : "hidden"
-          }`}
-        >
-          <FacturePeyment corseId={CoursePaymentItem.courseId} id={paymentId} />
-        </div>
         <div className="flex flex-col justify-start gap-y-6 items-start p-[1vw] w-[50%] text-center h-[60%] rounded-2xl shadow-xl border border-gray-300 ">
           <span className="text-[1.6vw] ">مشخصات دوره</span>
 
