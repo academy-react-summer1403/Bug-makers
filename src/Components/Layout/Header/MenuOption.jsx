@@ -16,27 +16,31 @@ const MenuOption = ({ className }) => {
   return (
     <>
       <NavLink
-        to='/CoursePage' 
-        className={({ isActive }) => 
+        to="/CoursePage"
+        className={({ isActive }) =>
           isActive ? ` ${className} ${selectNavLink}` : `curses ${className}`
         }
       >
-       {t("header.Course")}
-      </NavLink>         
+        {t("header.Course")}
+      </NavLink>
       <NavLink
-        to='/BlogPage' 
-        className={({ isActive }) => 
+        to="/BlogPage"
+        className={({ isActive }) =>
           isActive ? `${className} ${selectNavLink}` : `curses ${className}`
         }
       >
-       {t("header.News")}
-      </NavLink>         
-      <div className={`Events ${className}`}>
-        {t("header.Events")}
-      </div>
-      <div className={`contactUs ${className}`}>
-        {t("header.ContactMe")}
-      </div>
+        {t("header.News")}
+      </NavLink>
+      <NavLink
+        to="/PodcastPage"
+        className={({ isActive }) =>
+          isActive ? `${className} ${selectNavLink}` : `curses ${className}`
+        }
+      >
+        {t("header.Podcast")}
+      </NavLink>
+      <div className={`Events ${className}`}>{t("header.Events")}</div>
+      <div className={`contactUs ${className}`}>{t("header.ContactMe")}</div>
     </>
   );
 }

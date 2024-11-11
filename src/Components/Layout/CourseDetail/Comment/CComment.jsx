@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CourseComments from "./CourseComments";
 import moment from "moment-jalaali";
 import { useSelector } from "react-redux";
@@ -17,16 +17,19 @@ const CComment = ({
   const convertToJalali = (miladiDate) => {
     return moment(miladiDate, "YYYY-MM-DD").locale("fa").format("YYYY/MM/DD");
   };
-  
+  const [commenting, setCommenting] = useState([]);
+  useEffect(() => {
+    setCommenting(comment);
+  }, [comment]);
 
-  const renderCourses = (comment,id) => {
-    if (!Array.isArray(comment) || comment.length === 0) {
+  const renderCourses = (commenting, id) => {
+    if (!Array.isArray(commenting) || commenting.length === 0) {
       return <p></p>; // در صورتی که comment خالی یا undefined باشد، پیام نشان داده می‌شود.
     }
 
-    console.log(comment);
+    console.log(commenting);
 
-    return comment.map((comment) => (
+    return commenting.map((comment) => (
       <CourseComments
         commentId={id}
         key={comment.id}
@@ -63,13 +66,13 @@ const handleLikeSort = () => {
 };
 const handleDateSort = () => {
   const sortedComments = [...comment].sort(
-    (a, b) => new Date(b.inserDate) - new Date(a.inserDate)
+    (a, b) => new Date(b.insertDate) - new Date(a.insertDate)
   );
   setCommenting(sortedComments);
 };
 const handleDateDownSort = () => {
   const sortedComments = [...comment].sort(
-    (a, b) => new Date(a.inserDate) - new Date(b.inserDate)
+    (a, b) => new Date(a.insertDate) - new Date(b.insertDate)
   );
   setCommenting(sortedComments);
 };
@@ -121,7 +124,7 @@ const handleDateDownSort = () => {
         <div>هیچ نظری برای این پست ثبت نشده</div>
       )}
 
-      <div className="w-full">{renderCourses(comment, 0)}</div>
+      <div className="w-full">{renderCourses(commenting, 0)}</div>
     </div>
   );
 };

@@ -42,6 +42,8 @@ import AcceptGmail from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Sec
 import Root from './App/Root.jsx'
 import PaymentSecoundTab from './Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/secoundTab.jsx'
 import FacturePeyment from './Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/FacturePeyment.jsx'
+import PodcastPage from './Components/Layout/PodcastPage/PodcastPage.jsx'
+import PodcastDetail from './Components/Layout/PodcastDetail/PodcastDetail.jsx'
 const queryClient = new QueryClient();
 
 
@@ -74,6 +76,16 @@ const router = createBrowserRouter([
           {
             path: "BlogDetail/:id",
             element: <BlogDetail />,
+            errorElement: <Error />,
+          },
+          {
+            path: "/PodcastPage",
+            element: <PodcastPage />,
+            errorElement: <Error />,
+          },
+          {
+            path: "PodcastDetail/:id",
+            element: <PodcastDetail />,
             errorElement: <Error />,
           },
           {
