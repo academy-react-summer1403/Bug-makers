@@ -40,32 +40,35 @@ const RightLoginBox = () => {
     const response = await LoginAPI(values);
     dispatch(setTowStepCode(response));
     dispatch(setPassword(values.password))
+    const newUser = getItem("newUser")
+    console.log(newUser);
     setTimeout(async ()  => {
-      if (response.token != null) {
-        setItem("token", response.token);
-        setItem("userId", response.id);
-        const accIdStore = getItem("accId");
-        const dataMulti1 = {
-          "token": `${response.token}`,
-          "id": `${response.id}`,
-          "accId": `${accIdStore}`,
-        };
-        const dataMulti2 = {
-          "token": `${response.token}`,
-          "id": `${response.id}`,
-        };
-        if(accIdStore){
-          const ress = await addMultiAcc(dataMulti1)
-          console.log(ress)
-          setItem("accId", ress.data.accId);
-        } else 
-          {
-            const ress = await addMultiAcc(dataMulti2)
-            console.log(ress)
+      if (newUser == false){
+        setItem("newUser",1);
+      }
+        if (response.token != null) {
+          setItem("token", response.token);
+          setItem("userId", response.id);
+          const accIdStore = getItem("accId");
+          const dataMulti1 = {
+            token: `${response.token}`,
+            id: `${response.id}`,
+            accId: `${accIdStore}`,
+          };
+          const dataMulti2 = {
+            token: `${response.token}`,
+            id: `${response.id}`,
+          };
+          if (accIdStore) {
+            const ress = await addMultiAcc(dataMulti1);
+            console.log(ress);
+            setItem("accId", ress.data.accId);
+          } else {
+            const ress = await addMultiAcc(dataMulti2);
+            console.log(ress);
             setItem("accId", ress.data.accId);
           }
-        
-      } 
+        } 
     }, 50);
   };
 

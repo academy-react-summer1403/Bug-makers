@@ -1,39 +1,14 @@
+import axios from "axios";
 import instance from "../../interseptore/Interceptor";
+
 export const getPodcastListWithPagination = async (queryValue) => {
-  let url = `https://taharahimicode.liara.run/api/podcast/getAll/1/10`;
+  let url = `https://taharahimicode.liara.run/podcast/getAll?query=&page=1&perPage=3`;
 
-  if (queryValue) {
-    url += `/${queryValue}`;
-  }
-  else if(!queryValue) {
-    url += `/20%`;
-  }
-
-  // if (teacherId) {
-  //   url += `&TeacherId=${teacherId}`;
-  // }
-  
-  // if (categoryQuery) {
-  //   url += `&NewsCategoryId=${categoryQuery}`;
-  // }
-  // if (categoryQuery) {
-  //   url += `&TechCount=1&ListTech=${categoryQuery}`;
+  // if (queryValue) {
+  //   url += `&query=${queryValue}`;
   // }
 
-  // if (startDate) {
-  //   url += `&StartDate=${startDate}`;
-  // }
-  // if (endDate) {
-  //   url += `&EndDate=${endDate}`;
-  // }
-  // if (minCost) {
-  //   url += `&CostDown=${minCost}`;
-  // }
-  // if (maxCost) {
-  //   url += `&CostUp=${maxCost}`;
-  // }
-
-  const response = await instance.get(url);
+  const response = await axios.get(url);
   return response.news; 
 };
 

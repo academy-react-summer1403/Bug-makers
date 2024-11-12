@@ -148,7 +148,7 @@ const CoursePage = () => {
   const dark = useSelector((state) => state.darkMood);
   return (
     <div
-      className="mx-auto w-full bg-transparent relative text-center"
+      className="step5 mx-auto w-full bg-transparent relative text-center"
       style={{ background: dark.bgLow, color: dark.textHigh }}
     >
       <div className="w-[90%] lg:w-[76%] mt-[5vw] m-auto">

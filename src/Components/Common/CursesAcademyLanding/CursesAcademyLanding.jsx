@@ -28,7 +28,7 @@ const dark = useSelector((state) => state.darkMood);
 
   return (
     <div
-      className={`max-[714px]:mt-[170vw] max-[714px]:w-[80%] max-[570px]:w-[66%] max-[714px]:scale-125 max-[570px]:mt-[190vw] max-[570px]:scale-150  m-auto w-[100%] relative text-center mt-[85.63541666666667vw] bg-transparent ${
+      className={` max-[714px]:mt-[170vw] max-[714px]:w-[80%] max-[570px]:w-[66%] max-[714px]:scale-125 max-[570px]:mt-[190vw] max-[570px]:scale-150  m-auto w-[100%] relative text-center mt-[85.63541666666667vw] bg-transparent ${
         dark.selectedButton === 1 ? "mt-[123.111vw]" : ""
       }`}
     >

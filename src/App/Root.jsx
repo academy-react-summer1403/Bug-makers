@@ -13,6 +13,8 @@ import ThemeColor from '../Components/Common/ThemeColor/ThemeColor.jsx'
 import ScrollTopButton from '../Components/Common/ScrollTopButton/ScrollTopButton.jsx'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import { TourProvider } from '../Components/Common/Tuor/TourContext.jsx'
+import AppTour from '../Components/Common/Tuor/Tour.jsx'
 
 
 
@@ -33,15 +35,17 @@ const dark = useSelector((state) => state.darkMood);
       style={{ background: dark.bgLow, color: dark.textHigh }}
     >
       <Suspense fallback={<>loading</>}>
-        {/* <BlogDetail/> */}
-        <NextUIProvider>
-          <Header />
-          <Outlet />
+      <NextUIProvider>
+        <TourProvider>
           
-          {/* <ThemeColor /> */}
-          <ScrollTopButton />
+            <AppTour />
+            <Header />
+            <Outlet />
+
+            <ScrollTopButton />
+          
+        </TourProvider>
         </NextUIProvider>
-        {/* <CourseDetail/> */}
       </Suspense>
     </div>
   );

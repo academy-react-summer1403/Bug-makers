@@ -50,18 +50,18 @@ const navigate = useNavigate()
   return (
     <div
       ref={ref}
-      className={`z-[1000]  min-[1940px]:h-36 h-16  flex items-center justify-center flex-row flex-nowrap shadow-[0px_10px_10px_0px_#00000008] transition-all duration-300 
+      className={`z-[1000] step2 min-[1940px]:h-36 h-16  flex items-center justify-center flex-row flex-nowrap shadow-[0px_10px_10px_0px_#00000008] transition-all duration-300 
       ${isSticky ? "fixed top-0 right-0 w-[100%] " : "relative w-[100%] "}`}
       style={{ background: dark.bgHigh, color: dark.textHigh }}
     >
       {/* Menu in Responsive */}
-      <div className="max-[625px]:block  /* end responsive */ mobileMode w-8 h-8 absolute right-[40px] cursor-pointer hidden ">
+      <div className=" max-[625px]:block  /* end responsive */ mobileMode w-8 h-8 absolute right-[40px] cursor-pointer hidden ">
         <CiMenuBurger
-          className="max-[394px]:w-5 max-[394px]:h-6 max-[394px]:mt-1 /*end responsive*/ m-auto w-7 h-7"
+          className="max-[394px]:w-5  max-[394px]:h-6 max-[394px]:mt-1 /*end responsive*/ m-auto w-7 h-7"
           onClick={() => setOpenMenu(!openMenu)}
         />
         <ul
-          className={`max-[362px]:w-[200px] lg:text-xl   max-[254px]:w-[150px] /*end responsive*/ border w-[300px] rounded-lg mt-2  shadow-[0px_10px_10px_0px_#00000008] transition-all duration-100 ${
+          className={` max-[362px]:w-[200px] lg:text-xl   max-[254px]:w-[150px] /*end responsive*/ border w-[300px] rounded-lg mt-2  shadow-[0px_10px_10px_0px_#00000008] transition-all duration-100 ${
             openMenu ? "visible opacity-100" : "invisible opacity-0"
           }`}
         >
@@ -80,7 +80,7 @@ const navigate = useNavigate()
           className="max-[842px]:w-[100px] max-[842px]:h-[25px] max-[842px]:top-5 max-[625px]:m-auto /*end responsive*/ logo h-[40px] w-[170px] absolute top-3 right-[80px]"
         />
       </Link>
-      <div className="max-[710px]:text-[13px] max-[710px]:gap-5 max-[394px]:text-[10px] max-[394px]:gap-3 max-[652px]:hidden /*end responsive*/ menu w-[42vw] whitespace-nowrap text-[14px] flex justify-center items-center flex-row flex-nowrap gap-10">
+      <div className=" max-[710px]:text-[13px] max-[710px]:gap-5 max-[394px]:text-[10px] max-[394px]:gap-3 max-[652px]:hidden /*end responsive*/ menu w-[42vw] whitespace-nowrap text-[14px] flex justify-center items-center flex-row flex-nowrap gap-10">
         <MenuOption
           className={`cursor-pointer 
             ${dark.selectedButton === 0 ? "hover:text-blue-500" : ""}

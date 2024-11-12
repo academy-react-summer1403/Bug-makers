@@ -27,19 +27,9 @@ const PodcastPage = () => {
   console.log(CourseListItem);
 
 
-  // const { isLoading, error, data } = useQuery(
-  //   ["get", queryValue],
-  //   () => getBlogListWithPagination(queryValue),
-  //   {
-  //     onSuccess: (data) => {
-  //       dispatch(setBlogList(data || data));
-  //     },
-  //     keepPreviousData: true,
-  //   }
-  // );
   const { isLoading, error, data } = useQuery(
-    ["get", queryValue, categoryQuery],
-    () => getBlogListWithPagination(queryValue, categoryQuery),
+    ["get", queryValue],
+    () => getPodcastListWithPagination(queryValue),
     {
       onSuccess: (data) => {
         dispatch(setBlogList(data || data));
@@ -47,6 +37,16 @@ const PodcastPage = () => {
       keepPreviousData: true,
     }
   );
+  // const { isLoading, error, data } = useQuery(
+  //   ["get", queryValue, categoryQuery],
+  //   () => getBlogListWithPagination(queryValue, categoryQuery),
+  //   {
+  //     onSuccess: (data) => {
+  //       dispatch(setBlogList(data || data));
+  //     },
+  //     keepPreviousData: true,
+  //   }
+  // );
 
   const handleSearch = (e) => {
     setQueryValue(e.target.value);
@@ -98,7 +98,7 @@ const PodcastPage = () => {
   };
   const dark = useSelector((state) => state.darkMood);
   return (
-    <div className="m-auto w-full bg-transparent relative text-center">
+    <div className="step7 m-auto w-full bg-transparent relative text-center">
       <div className="w-full max-w-[1200px] mt-[5vw] m-auto px-4">
         <TextLanding h3Text="پادکست" pText="پادکست های علمی ما" />
 

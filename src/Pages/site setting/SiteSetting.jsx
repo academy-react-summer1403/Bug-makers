@@ -69,7 +69,7 @@ const SiteSetting = () => {
       <DropdownTrigger>
         <button 
         onClick={()=>{isOpen ==true ? setIsOpen(false) : setIsOpen(true)}}
-        className="cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[150px] max-[465px]:left-[120px] max-[394px]:w-7 max-[394px]:h-7 profile border rounded-[15px] w-[45px] h-[30px] absolute left-[90px] shadow-xl">
+        className="step4 cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[150px] max-[465px]:left-[120px] max-[394px]:w-7 max-[394px]:h-7 profile border rounded-[15px] w-[45px] h-[30px] absolute left-[90px] shadow-xl">
           <CiSettings className="m-auto" size={18} />
         </button>
       </DropdownTrigger>
