@@ -4,13 +4,14 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { removeItem } from "../../../../Core/Services/common/storage.services";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MultiAcc from "../common/MultiAcc";
+import { removeLoginToken, setLoginToken } from "../../../../Redux/Slice/Login/Login";
 
 const RightBar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const navigator = useNavigate();
-  
+  const dispatch = useDispatch()
   const currentUrl = window.location.href;
   const urlParts = currentUrl.split("/");
   const lastPart = urlParts[urlParts.length - 1];
@@ -419,8 +420,9 @@ useEffect(() => {
             className={`flex items-center text-bold text-[0.9vw] gap-x-[1vw] justify-start w-full h-[14%] hover:border-[#E1C461] ${
               activeIndex === item.id
                 ? `${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
-          ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
-          ${dark.selectedButton === 2 ? "bg-yellow-600" : ""} text-white`
+                  ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+                  ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                  ${dark.selectedButton === 3 ? "bg-red-600" : ""} text-white`
                 : "bg-transparent "
             }`}
             color={activeIndex === item.id ? "warning" : "default"}
@@ -447,7 +449,8 @@ useEffect(() => {
             activeIndex === 6
               ? `${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
                 ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
-                ${dark.selectedButton === 2 ? "bg-yellow-600" : ""} text-white`
+                ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                ${dark.selectedButton === 3 ? "bg-red-600" : ""} text-white`
               : " text-gray-500"
           }`}
           auto
@@ -541,9 +544,10 @@ useEffect(() => {
         </Button>
         <Button
           onClick={() => {
-            removeItem("token");
-            removeItem("accId");
             toast.success("با موفقیت از اکانت خود خارج شدید");
+            removeItem("token");
+            // removeItem("accId");
+            dispatch(removeLoginToken());
             navigator("/");
           }}
           radius="full"

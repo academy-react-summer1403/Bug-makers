@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { twoStepVerify } from "../../../../Core/Services/Api/auth";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoginToken } from "../../../../Redux/Slice/Login/Login";
 
 const OptCode = ({ phoneNumber, password }) => {
+    const dispatch = useDispatch()
     const dark = useSelector((state) => state.darkMood);
     const [otp, setOtp] = useState(new Array(5).fill(""));
     const [errorMessage, setErrorMessage] = useState("");
@@ -18,8 +20,10 @@ const OptCode = ({ phoneNumber, password }) => {
             onSuccess: (response) => {
                 if (response.token !== null) {
                     setItem("token", response.token); 
+                    dispatch(setLoginToken(response.token));
                     navigate("/");
                     toast.success('دوست خوبم خوش اومدی به کمپ ما 😀');
+
                 } else {
                     toast.success('کد رو اشتباه نوشتی قشنگم؟ 🙂');
                     setErrorMessage("کد وارد شده اشتباه است، مجدد امتحان کنید");

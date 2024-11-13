@@ -26,7 +26,9 @@ const dark = useSelector((state) => state.darkMood);
               ? ` max-custom4:m-0  border-b-[0.2vw] max-md:border-b-2 pr-5 
                 ${dark.selectedButton === 0 ? "border-blue-600" : ""} 
                 ${dark.selectedButton === 1 ? "border-green-600" : ""} 
-                ${dark.selectedButton === 2 ? "border-yellow-600" : ""}`
+                ${dark.selectedButton === 2 ? "border-yellow-600" : ""}
+                ${dark.selectedButton === 3 ? "border-red-600" : ""}
+                `
               : ""
           }`}
         >

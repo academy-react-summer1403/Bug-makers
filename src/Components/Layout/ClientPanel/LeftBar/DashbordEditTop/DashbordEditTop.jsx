@@ -30,6 +30,7 @@ const DashbordEditTop = () => {
           ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
           ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
           ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+          ${dark.selectedButton === 3 ? "bg-red-600" : ""}
           `}
       ></div>
       <div
@@ -208,7 +209,9 @@ const DashbordEditTop = () => {
                   activeTab === tab.id
                     ? `${dark.selectedButton === 0 ? "text-blue-600" : ""} 
                       ${dark.selectedButton === 1 ? "text-green-600" : ""} 
-                      ${dark.selectedButton === 2 ? "text-yellow-600" : ""}`
+                      ${dark.selectedButton === 2 ? "text-yellow-600" : ""}
+                      ${dark.selectedButton === 3 ? "text-red-600" : ""}
+                      `
                     : ""
                 } `}
             >
@@ -221,7 +224,9 @@ const DashbordEditTop = () => {
                       dark.selectedButton === 0 ? "border-blue-600" : ""
                     } 
                 ${dark.selectedButton === 1 ? "border-green-600" : ""} 
-                ${dark.selectedButton === 2 ? "border-yellow-600" : ""}`
+                ${dark.selectedButton === 2 ? "border-yellow-600" : ""}
+                ${dark.selectedButton === 3 ? "border-red-600" : ""}
+                `
                   : ""
               }`}
             ></div>

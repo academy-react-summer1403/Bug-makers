@@ -39,6 +39,9 @@ export const darkMoodSlice = createSlice({
       } else if (action.payload === 2) {
         state.color = "yellow";
       }
+      else if (action.payload === 3) {
+        state.color = "red";
+      }
     },
   },
 });

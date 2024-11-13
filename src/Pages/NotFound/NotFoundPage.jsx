@@ -1,9 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const NotFoundPage = () => {
+  const dark = useSelector((state) => state.darkMood);
   return (
-    <div style={styles.container}>
+    <div style={{ background: dark.bgLow, color: dark.textHigh,height: '100vh',display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center'}}>
       <h1 style={styles.title}>404</h1>
       <p style={styles.message}>متاسفیم! صفحه مورد نظر پیدا نشد.</p>
       <Link to="/" style={styles.link}>
@@ -14,15 +20,7 @@ const NotFoundPage = () => {
 };
 
 const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#f8f9fa',
-    textAlign: 'center',
-  },
+
   title: {
     fontSize: '6rem',
     color: '#343a40',

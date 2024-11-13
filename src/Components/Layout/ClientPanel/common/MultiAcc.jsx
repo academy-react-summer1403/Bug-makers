@@ -21,6 +21,12 @@ const MultiAcc = ({ multiAccount, setMultiAccount }) => {
             setMulltiData(data.data.filter((i)=>{
               return i.accId == accId;
             }));
+            setMulltiData((arr) => {
+            const uniqueObjects = arr.filter((item, index, self) => 
+              index === self.findIndex((t) => t.UserId === item.UserId)
+            );
+            return uniqueObjects;
+          })
           },
           keepPreviousData: true,
         }

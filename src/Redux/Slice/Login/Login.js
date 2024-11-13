@@ -5,7 +5,7 @@ import { getItem } from '../../../Core/Services/common/storage.services';
 const LoginTokenSlice = createSlice({
   name: 'LoginToken',
   initialState: {
-    token: getItem('token') || null,
+    token: null
   },
   reducers: {
     setLoginToken: (state, action) => {

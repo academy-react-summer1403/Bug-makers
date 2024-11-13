@@ -106,7 +106,8 @@ const [twoStep, setTwoStep] = useState(response.twoStepAuth);
               className={`min-h-[50px] max-md:text-[16px] mt-[2%] text-white  rounded-[0.6vw] max-md:rounded-xl w-[30%] max-md:w-full h-[12%] text-[0.83vw] leading-[1.46vw] p-0 m-0
                 ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
                 ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
-                ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                ${dark.selectedButton === 2 ? "bg-yellow-600" : ""} 
+                ${dark.selectedButton === 3 ? "bg-red-600" : ""}
                 `}
             >
               اعمال تغیررات

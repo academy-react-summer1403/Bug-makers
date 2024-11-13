@@ -15,6 +15,9 @@ import { CiSettings } from "react-icons/ci";
 import { selectButton, selectdark } from "../../Redux/Slice/darkMood/darkMood";
 import { SunIcon } from "./sunIcon";
 import { MoonIcon } from "./moonIcon";
+import { removeLoginToken, setLoginToken } from "../../Redux/Slice/Login/Login";
+import { removeItem } from "../../Core/Services/common/storage.services";
+import toast from "react-hot-toast";
 
 
 const SiteSetting = () => {
@@ -58,7 +61,6 @@ const SiteSetting = () => {
   return (
     <Dropdown
       isOpen={isOpen}
-      
       showArrow
       radius="sm"
       classNames={{
@@ -67,9 +69,12 @@ const SiteSetting = () => {
       }}
     >
       <DropdownTrigger>
-        <button 
-        onClick={()=>{isOpen ==true ? setIsOpen(false) : setIsOpen(true)}}
-        className="step4 cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[150px] max-[465px]:left-[120px] max-[394px]:w-7 max-[394px]:h-7 profile border rounded-[15px] w-[45px] h-[30px] absolute left-[90px] shadow-xl">
+        <button
+          onClick={() => {
+            isOpen == true ? setIsOpen(false) : setIsOpen(true);
+          }}
+          className="step4 cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[150px] max-[465px]:left-[120px] max-[394px]:w-7 max-[394px]:h-7 profile border rounded-[15px] w-[45px] h-[30px] absolute left-[90px] shadow-xl"
+        >
           <CiSettings className="m-auto" size={18} />
         </button>
       </DropdownTrigger>
@@ -114,6 +119,7 @@ const SiteSetting = () => {
                 <option onClick={() => handleColorSelect(0)}>آبی</option>
                 <option onClick={() => handleColorSelect(1)}>سبز</option>
                 <option onClick={() => handleColorSelect(2)}>زرد</option>
+                <option onClick={() => handleColorSelect(3)}>قرمز</option>
               </select>
             }
           >
@@ -123,10 +129,10 @@ const SiteSetting = () => {
         <DropdownSection aria-label="Dark">
           <DropdownItem onClick={handleThemeChange} key="Dark">
             {theme === 1 ? "روشن" : "تیره"}
-            
+
             <Switch
-            className="mr-[30%]"
-              defaultSelected={theme === 1 ?true : false}
+              className="mr-[30%]"
+              defaultSelected={theme === 1 ? true : false}
               size="lg"
               color="secondary"
               onClick={handleThemeChange}
@@ -141,7 +147,17 @@ const SiteSetting = () => {
           </DropdownItem>
         </DropdownSection>
         <DropdownSection aria-label="Help & Feedback">
-          <DropdownItem key="logout">Log Out</DropdownItem>
+          <DropdownItem
+            key="logout"
+            onClick={() => {
+              toast.success("با موفقیت از اکانت خود خارج شدید");
+              removeItem("token");
+
+              dispatch(removeLoginToken());
+            }}
+          >
+            خروج
+          </DropdownItem>
         </DropdownSection>
       </DropdownMenu>
     </Dropdown>

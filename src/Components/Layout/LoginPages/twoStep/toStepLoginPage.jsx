@@ -14,6 +14,8 @@ import { useMutation } from "react-query";
 import toast from "react-hot-toast";
 import { LoginAPI } from "../../../../Core/Services/Api/auth.js";
 import { Button } from "@nextui-org/react";
+import { setLoginToken } from "../../../../Redux/Slice/Login/Login.js";
+import { data } from "autoprefixer";
 
 const TowStepLoginPage = () => {
     const navigate = useNavigate();
@@ -56,7 +58,8 @@ const TowStepLoginPage = () => {
     const mutation = useMutation(
         (data) => LoginAPI(data),
         {
-            onSuccess: () => {
+            onSuccess: (data) => {
+                dispatch(setLoginToken(data.token));
                 toast.success('کد ارسال شده دوست خوبم 😍');
             },
             onError: () => {

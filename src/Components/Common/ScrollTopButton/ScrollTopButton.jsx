@@ -30,7 +30,9 @@ const ScrollTopButton = () => {
           className={`  min-[1700px]:w-16 min-[1700px]:h-16  /* end responsive */ border w-10 z-[1000] h-10 rounded-full fixed bottom-[0.5208333333333334vw] right-[3.15625vw] cursor-pointer flex items-center justify-center
           ${dark.selectedButton === 0 ? "bg-blue-500" : ""}
           ${dark.selectedButton === 1 ? "bg-green-500" : ""}
-          ${dark.selectedButton === 2 ? "bg-yellow-500" : ""}`}
+          ${dark.selectedButton === 2 ? "bg-yellow-500" : ""}
+          ${dark.selectedButton === 3 ? "bg-red-500" : ""}
+          `}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}

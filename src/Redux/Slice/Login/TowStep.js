@@ -3,10 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getItem } from '../../../Core/Services/common/storage.services';
 
 const towStepSlice = createSlice({
-  name: 'towStep',
+  name: "towStep",
   initialState: {
-    TowStepConfig:[],
-    PassWord:[]
+    TowStepConfig: [],
+    PassWord: [],
   },
   reducers: {
     setTowStepCode: (state, action) => {
@@ -15,8 +15,12 @@ const towStepSlice = createSlice({
     setPassword: (state, action) => {
       state.PassWord = action.payload;
     },
+    removeTowstep: (state) => {
+      state.TowStepConfig = null;
+      state.PassWord = null;
+    },
   },
 });
 
-export const { setTowStepCode , setPassword } = towStepSlice.actions;
+export const { setTowStepCode, setPassword, removeTowstep } = towStepSlice.actions;
 export default towStepSlice.reducer;

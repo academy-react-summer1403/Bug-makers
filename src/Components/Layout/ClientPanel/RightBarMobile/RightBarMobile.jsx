@@ -3,10 +3,12 @@ import { Button } from "@nextui-org/react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { removeItem } from "../../../../Core/Services/common/storage.services";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MultiAcc from "../common/MultiAcc";
+import { removeLoginToken, setLoginToken } from "../../../../Redux/Slice/Login/Login";
 
 const RightBarMobile = () => {
+  const dispatch = useDispatch();
   const [activeIndex, setActiveIndex] = useState(0);
   const [overmenu,setOvermenu] = useState(false)
   const navigator = useNavigate();
@@ -306,12 +308,14 @@ const dark = useSelector((state) => state.darkMood);
             } 
                 ${dark.selectedButton === 1 ? "hover:border-green-600" : ""} 
                 ${dark.selectedButton === 2 ? "hover:border-yellow-600" : ""} 
+                ${dark.selectedButton === 3 ? "hover:border-red-600" : ""}
                 ${
                   activeIndex === item.id
                     ? ` text-white
               ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
               ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
               ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+              ${dark.selectedButton === 3 ? "bg-red-600" : ""}
               `
                     : ""
                 }`}
@@ -328,6 +332,7 @@ const dark = useSelector((state) => state.darkMood);
             ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
               ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
               ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+              ${dark.selectedButton === 3 ? "bg-[#dd0208]" : ""}
             `
               : ""
           }`}
@@ -383,6 +388,7 @@ const dark = useSelector((state) => state.darkMood);
                   ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
                   ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
                   ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                  ${dark.selectedButton === 3 ? "bg-[#dd0208]" : ""}
                   `
                     : ""
                 }`}
@@ -402,7 +408,7 @@ const dark = useSelector((state) => state.darkMood);
               className="flex bg-transparent items-center text-bold text-[20px] gap-x-[2vw] justify-start w-full h-[25%] "
               auto
               onClick={() => {
-                setMultiAccount(true)
+                setMultiAccount(true);
               }}
             >
               <svg
@@ -436,7 +442,7 @@ const dark = useSelector((state) => state.darkMood);
             <Button
               onClick={() => {
                 setOvermenu(false);
-
+                dispatch(removeLoginToken());
                 removeItem("token");
 
                 toast.success("با موفقیت از اکانت خود خارج شدید");

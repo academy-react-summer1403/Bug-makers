@@ -60,7 +60,8 @@ const ScrollSvg = () => {
           d={`
           ${dark.selectedButton === 0 ? svgThemeBlue : ""} 
           ${dark.selectedButton === 1 ? svgThemeBlue : ""} 
-          ${dark.selectedButton === 2 ? svgThemeBlue : ""}`}
+          ${dark.selectedButton === 2 ? svgThemeBlue : ""}
+          ${dark.selectedButton === 3 ? svgThemeBlue : ""}`}
           stroke={
             dark.selectedButton === 0
               ? "#3772FF"
@@ -68,6 +69,8 @@ const ScrollSvg = () => {
               ? "green"
               : dark.selectedButton === 2
               ? "#ca8a04"
+              : dark.selectedButton === 3
+              ? "#dd0208"
               : "#3772FF"
           }
           strokeWidth={2}

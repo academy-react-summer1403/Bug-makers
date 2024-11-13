@@ -8,8 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { getItem, setItem } from "../../../../Core/Services/common/storage.services.js";
 import "../forAll/login.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setPassword, setTowStepCode } from "../../../../Redux/Slice/Login/TowStep.js";
+import { removeTowstep, setPassword, setTowStepCode } from "../../../../Redux/Slice/Login/TowStep.js";
 import { addMultiAcc } from "../../../../Core/Services/Api/Client/multiAccont.js";
+import { setLoginToken } from "../../../../Redux/Slice/Login/Login.js";
 
 const RightLoginBox = () => {
   const navigate = useNavigate();
@@ -23,21 +24,21 @@ const RightLoginBox = () => {
     setChecked(!checked);
   };
 
-  const codeApi = useSelector((state) => state.ToStep.TowStepConfig);
-
-  useEffect(() => {
-    if (codeApi.phoneNumber && codeApi.token && codeApi.success === true) {
-      navigate("/");
-    }
-    if (codeApi.phoneNumber && codeApi.token === null && codeApi.success === true) {
-      navigate("/sign/login/twoStep")
-    }
-    }, [codeApi, navigate]);
-
-    
+  // const codeApi = useSelector((state) => state.ToStep.TowStepConfig);    
 
   const onSubmit = async (values) => {
     const response = await LoginAPI(values);
+    console.log(response)
+    if (
+      response.message == "ارسال پیامک انجام شد." &&
+      response.token === null &&
+      response.success === true
+    ) {
+      navigate("/sign/login/twoStep");
+    }
+    else if(response.token != null){
+      navigate("/");
+    }
     dispatch(setTowStepCode(response));
     dispatch(setPassword(values.password))
     const newUser = getItem("newUser")
@@ -47,6 +48,8 @@ const RightLoginBox = () => {
         setItem("newUser",1);
       }
         if (response.token != null) {
+          dispatch(setLoginToken(response.token));
+          
           setItem("token", response.token);
           setItem("userId", response.id);
           const accIdStore = getItem("accId");
@@ -70,6 +73,7 @@ const RightLoginBox = () => {
           }
         } 
     }, 50);
+    // navigate('/')
   };
 
 

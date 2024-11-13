@@ -14,7 +14,9 @@ const Header = () => {
   
 
 
-  const getItem = useSelector((state) => state.LoginToken.token)
+  const isLogin = getItem('token');
+  const getItem2 = useSelector((state) => state.LoginToken.token)
+  console.log(getItem2);
   // Handle scroll event
   const handleScroll = () => {
     if (window.scrollY > 200) {
@@ -70,6 +72,7 @@ const navigate = useNavigate()
               ${dark.selectedButton === 0 ? "hover:text-blue-500 " : ""}
               ${dark.selectedButton === 1 ? "hover:text-green-600" : ""}
               ${dark.selectedButton === 2 ? "hover:text-yellow-600" : ""}
+              ${dark.selectedButton === 3 ? "hover:text-[#dd0208]" : ""}
             `}
           />
         </ul>
@@ -86,6 +89,7 @@ const navigate = useNavigate()
             ${dark.selectedButton === 0 ? "hover:text-blue-500" : ""}
             ${dark.selectedButton === 1 ? "hover:text-green-600" : ""}
             ${dark.selectedButton === 2 ? "hover:text-yellow-600" : ""}
+            ${dark.selectedButton === 3 ? "hover:text-[#dd0208]" : ""}
           `}
         />
       </div>
@@ -94,7 +98,7 @@ const navigate = useNavigate()
       <SearchModal />
 
       <div className="cursor-pointer max-[710px]:w-[30px] max-[710px]:h-[30px] max-[625px]:left-[30px] max-[465px]:left-[8px] max-[394px]:w-7 max-[394px]:h-7 /*end responsive*/ profile border rounded-[15px] w-[45px] h-[30px] absolute left-[150px]  shadow-xl">
-        {getItem ? (
+        {getItem2 || isLogin ? (
           <CiUser
             className="m-auto h-5 w-5 mt-1"
             onClick={() => navigate("/ClientPanel/dashbord")}

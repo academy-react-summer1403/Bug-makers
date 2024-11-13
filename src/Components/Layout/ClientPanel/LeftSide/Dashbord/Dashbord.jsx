@@ -13,12 +13,17 @@ import { useDispatch } from "react-redux";
 import { useQuery } from "react-query";
 import { ProfileGet } from "../../../../../Core/Services/Api/Client/Profile";
 import { setClientInfo } from "../../../../../Redux/Slice/ClientInfo/ClientInfo";
-import { Calendar } from "@nextui-org/react";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { I18nProvider } from "@react-aria/i18n";
 import CComment from "./CommentBar/Comment/CComment";
 import CComentBlog from "./CommentBar/Comment/CComentBlog";
-
+import DatePicker, { Calendar } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import "react-multi-date-picker/styles/colors/yellow.css";
+// import "react-multi-date-picker/styles/colors/teal.css";
+import "react-multi-date-picker/styles/colors/green.css";
+import "react-multi-date-picker/styles/colors/red.css";
 
 const Dashbord =()=>{
   const [openCommentBar,setOpenCommentBar] = useState(false)
@@ -42,17 +47,26 @@ function createCalendar(identifier) {
       throw new Error(`Unsupported calendar ${identifier}`);
   }
 }
-
+const dark = useSelector((state) => state.darkMood);
 function PersianCalendarComponent() {
   return (
     <I18nProvider locale="">
       <Calendar
-        calendarWidth={"280px"}
-        className="h-[100%] bg-transparent "
-        
+        calendar={persian} // استفاده از تقویم شمسی
+        locale={persian_fa} // تنظیم زبان فارسی
+        className={
+          dark.selectedButton === 2
+            ? "yellow"
+            : dark.selectedButton === 1
+            ? "green"
+            : dark.selectedButton === 3
+            ? "red"
+            : null
+        }
         aria-label="Date (Uncontrolled)"
         defaultValue={today(getLocalTimeZone())}
         value={today(getLocalTimeZone())}
+        style={{ background: dark.bgHigh, color: dark.textHigh }}
         showMonthAndYearPickers
       />
     </I18nProvider>
@@ -63,7 +77,7 @@ function PersianCalendarComponent() {
     (state) => state.ClientInfoSlice.ClientInfo
   );
   
-   const dark = useSelector((state) => state.darkMood);
+   
     return (
       <div
         style={{ background: dark.bgHigh, color: dark.textHigh }}
