@@ -1,9 +1,11 @@
 {
     "header": {
-        "Course": "Courses",
-        "News": "Articles",
-        "Events": "Events",
-        "ContactMe": "Contact Us"
+      "Course": "Courses",
+      "News": "Articles",
+      "Podcast": "Podcast",
+
+      "Events": "Events",
+      "ContactMe": "Contact Us"
     },
     "content": {
         "bahrAcademy": {

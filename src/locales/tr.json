@@ -1,9 +1,11 @@
 {
     "header": {
-        "Course": "Kurslar",
-        "News": "Makaleler",
-        "Events": "Etkinlikler",
-        "ContactMe": "İletişime Geçin"
+      "Course": "Kurslar",
+      "News": "Makaleler",
+      "Events": "Etkinlikler",
+      "Podcast": "Podgast",
+
+      "ContactMe": "İletişime Geçin"
     },
     "content": {
         "bahrAcademy": {
