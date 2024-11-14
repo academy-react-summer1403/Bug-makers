@@ -4,8 +4,6 @@ import BDetailLikeSvg from "../BDcommon/BDetailLikeSvg";
 import { Formik, Form, Field } from "formik";
 import BComment from "./BComment";
 import {
-  getBlogDetail,
-  getBlogDetailComment,
   postDissLikeNews,
   postLikeNews,
   delLikeNews,
@@ -24,12 +22,11 @@ import { deleteBlogFavorite } from "../../../../Core/Services/Api/BlogDetail/del
 import { useMutation, useQuery } from "react-query";
 import { Button } from "@nextui-org/react";
 import Swal from 'sweetalert2';
-import { getBlogListWithPagination } from "../../../../Core/Services/Api/BlogPage/getBlogListWithPagination";
 import {Skeleton} from "@nextui-org/react";
 import { setBlogList } from "../../../../Redux/Slice/Blog/BlogList";
 import { RiUserVoiceLine } from "react-icons/ri";
 import MusicPlayer from "./MusicPlayer";
-import { getPodcastDetail } from "../../../../Core/Services/Api/PodcastDetail/BlogDetail";
+import { getPodcastComment, getPodcastDetail } from "../../../../Core/Services/Api/PodcastDetail/BlogDetail";
 const BDetailCenter = ({ id }) => {
   // const [data, setdata] = useState();
   const [response,setResponse]=useState({})
@@ -91,107 +88,111 @@ const BDetailCenter = ({ id }) => {
         setResponse(data.data.data || []);
       },
   }
-   );  
-  // const GetComment = async () => {
-  //   const re = await getBlogDetailComment(id);
-  //   setComment(re);
-  // };
+  );  
+     const {
+       isLoading: isLoading2,
+       error: error2,
+       data: data2,
+     } = useQuery({
+       queryKey: ["get3"],
+       queryFn: () => getPodcastComment(id),
+       enabled: !!id,
+       onSuccess: (data) => {
+         setComment(data.data || []);
+       },
+     });  
+  
+console.log(comment)
+  const setNewsDissLike = async () => {
+    const res = await postDissLikeNews(id);
+    console.log(res);
+    toast.success(" دیس لایک شد 😁");
 
-  // useEffect(() => {
-  //   // GetId();
-  //   GetComment();
-  // }, []);
+    // GetId();
+  };
+  const setNewsLike = async () => {
+    const res = await postLikeNews(id);
+    console.log(res);
+    toast.success("لایک شد 😁");
+    // GetId();
+  };
 
-  // const setNewsDissLike = async () => {
-  //   const res = await postDissLikeNews(id);
-  //   console.log(res);
-  //   toast.success(" دیس لایک شد 😁");
+  const delLikeNews2 = async () => {
+    console.log(response.likeId);
+    const res = await delLikeNews(response.likeId);
+    console.log(res);
+    toast.success("نظر شما با موفقییت حذف شد 😁");
 
-  //   // GetId();
-  // };
-  // const setNewsLike = async () => {
-  //   const res = await postLikeNews(id);
-  //   console.log(res);
-  //   toast.success("لایک شد 😁");
-  //   // GetId();
-  // };
+    // GetId();
+  };
+  const userId = getItem("userId");
 
-  // const delLikeNews2 = async () => {
-  //   console.log(response.likeId);
-  //   const res = await delLikeNews(response.likeId);
-  //   console.log(res);
-  //   toast.success("نظر شما با موفقییت حذف شد 😁");
+  const onSubmit = async (val) => {
+    const res = await setNewComment(val);
+    res.success
+      ? toast.success("نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉")
+      : "";
+  };
 
-  //   // GetId();
-  // };
-  // const userId = getItem("userId");
+  // comment.....................................
 
-  // const onSubmit = async (val) => {
-  //   const res = await setNewComment(val);
-  //   res.success
-  //     ? toast.success("نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉")
-  //     : "";
-  // };
+  const setNewsDissLikeComment = async (id) => {
+    const res = await commentDissLikeNews(id, false);
+    console.log(res);
+          toast.success(" دیس لایک شد 😁");
 
-  // // comment.....................................
+    
+  };
+  const setNewsLikeComment = async (id) => {
+    const res = await commentLikeNews(id, true);
+    console.log(res);
+    toast.success("لایک شد 😁");
+    
+  };
 
-  // const setNewsDissLikeComment = async (id) => {
-  //   const res = await commentDissLikeNews(id, false);
-  //   console.log(res);
-  //         toast.success(" دیس لایک شد 😁");
+  const delLikeNews2Comment = async (currentUserLikeId) => {
+    console.log(currentUserLikeId);
+    const res = await comentDelLikeCourse({
+      deleteEntityId: `${currentUserLikeId}`,
+    });
+    console.log(res);
+        toast.success("نظر شما با موفقییت حذف شد 😁");
+    
+  };
 
-  //   GetComment();
-  // };
-  // const setNewsLikeComment = async (id) => {
-  //   const res = await commentLikeNews(id, true);
-  //   console.log(res);
-  //   toast.success("لایک شد 😁");
-  //   GetComment();
-  // };
+  const mutation = useMutation({
+    mutationFn: async () => {
+      if (response.isCurrentUserFavorite === true) {
+        return await deleteBlogFavorite(id);
+      } else {
+        return await AddBlogFavorite(id);
+      }
+    },
+    onSuccess: (data) => {
+      if (data.success) {
+        const message = response.isCurrentUserFavorite
+          ? "دوره " + "(" + response.title + ")" + " از علاقه‌مندی‌ها حذف شد"
+          : "دوره " + "(" + response.title + ")" + " به علاقه‌مندی‌ها اضافه شد";
 
-  // const delLikeNews2Comment = async (currentUserLikeId) => {
-  //   console.log(currentUserLikeId);
-  //   const res = await comentDelLikeCourse({
-  //     deleteEntityId: `${currentUserLikeId}`,
-  //   });
-  //   console.log(res);
-  //       toast.success("نظر شما با موفقییت حذف شد 😁");
-  //   GetComment();
-  // };
+        toast.success(message);
+        // GetId();
+      }
+    },
+    mutationKey: [
+      "toggleFavorite",
+      response ? "delete" : "add",
+    ],
+  });
 
-  // const mutation = useMutation({
-  //   mutationFn: async () => {
-  //     if (response.isCurrentUserFavorite === true) {
-  //       return await deleteBlogFavorite(id);
-  //     } else {
-  //       return await AddBlogFavorite(id);
-  //     }
-  //   },
-  //   onSuccess: (data) => {
-  //     if (data.success) {
-  //       const message = response.isCurrentUserFavorite
-  //         ? "دوره " + "(" + response.title + ")" + " از علاقه‌مندی‌ها حذف شد"
-  //         : "دوره " + "(" + response.title + ")" + " به علاقه‌مندی‌ها اضافه شد";
+  const synth = window.speechSynthesis;
+  function Voice(voiceText) {
+    let text = response.describe;
+    const utterThis = new SpeechSynthesisUtterance(voiceText);
+    synth.lang = "fa-IR";
+    synth.speak(utterThis);
 
-  //       toast.success(message);
-  //       // GetId();
-  //     }
-  //   },
-  //   mutationKey: [
-  //     "toggleFavorite",
-  //     response ? "delete" : "add",
-  //   ],
-  // });
-
-  // const synth = window.speechSynthesis;
-  // function Voice(voiceText) {
-  //   let text = response.describe;
-  //   const utterThis = new SpeechSynthesisUtterance(voiceText);
-  //   synth.lang = "fa-IR";
-  //   synth.speak(utterThis);
-
-  //   // console.log(myRef)
-  // }
+    // console.log(myRef)
+  }
   console.log(response.FileLink);
   const dark = useSelector((state) => state.darkMood);
   return (
@@ -246,16 +247,16 @@ const BDetailCenter = ({ id }) => {
         {/* <AddCommentForm userId={userId} onSubmit={onSubmit} newsId={newsId} /> */}
       </div>
       <div>
-        {/* <BComment
+        <BComment
           comment={comment}
           onSubmit={onSubmit}
           userId={userId}
-          GetComment={GetComment}
+          // GetComment={GetComment}
           newsId={id}
           setNewsDissLikeComment={setNewsDissLikeComment}
           setNewsLikeComment={setNewsLikeComment}
           delLikeNews2Comment={delLikeNews2Comment}
-        /> */}
+        />
       </div>
     </div>
   );

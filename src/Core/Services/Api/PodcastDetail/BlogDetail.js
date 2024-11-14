@@ -9,11 +9,11 @@ export const getPodcastDetail = async (id) => {
   return response; 
 };
 
-export const getBlogDetailComment  = async (id) => {
-  let url = `/News/${id}`;
+export const getPodcastComment = async (id) => {
+  let url = `https://taharahimycode.liara.run/podcast/comment/ByPOD/${id}`;
 
-  const response = await instance.get(url);
-  return response.commentDtos; 
+  const response = await axios.get(url);
+  return response;
 };
 
 export const postLikeNews = async (id) => {

@@ -8,7 +8,7 @@ const BComment = ({
   comment = [],
   onSubmit,
   userId,
-  GetComment,
+  // GetComment,
   newsId,
   setNewsDissLikeComment,
   setNewsLikeComment,
@@ -34,7 +34,7 @@ const BComment = ({
       <Comments
         key={commenting.id}
         id={commenting.id}
-        inserDate={commenting.commentingCatregoryName}
+        inserDate={commenting.Date}
         describe={commenting.describe}
         likeCount={commenting.likeCount}
         dissLikeCount={commenting.dissLikeCount}
@@ -49,7 +49,7 @@ const BComment = ({
         renderCourses={renderCourses}
         onSubmit={onSubmit}
         userId={userId}
-        GetComment={GetComment}
+        // GetComment={GetComment}
         newsId={newsId}
         setNewsDissLikeComment={setNewsDissLikeComment}
         setNewsLikeComment={setNewsLikeComment}

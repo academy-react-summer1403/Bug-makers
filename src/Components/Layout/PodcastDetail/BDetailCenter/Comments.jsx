@@ -22,7 +22,7 @@ const Comments = ({
   date,
   onSubmit,
   userId,
-  GetComment,
+  // GetComment,
   newsId,
   setNewsDissLikeComment,
   setNewsLikeComment,
