@@ -21,10 +21,11 @@ const PodcastPage = () => {
   const [queryValue, setQueryValue] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [filterValue, setFilterValue] = useState(false);
+  const [podcast,setPodcast]=useState([])
   const itemsPerPage = 10;
   const dispatch = useDispatch();
-  const CourseListItem = useSelector((state) => state.BlogSlice.BlogList);
-  console.log(CourseListItem);
+  // const podcast = useSelector((state) => state.BlogSlice.BlogList);
+  // console.log(podcast);
 
 
   const { isLoading, error, data } = useQuery(
@@ -32,11 +33,13 @@ const PodcastPage = () => {
     () => getPodcastListWithPagination(queryValue),
     {
       onSuccess: (data) => {
-        dispatch(setBlogList(data || data));
+        setPodcast(data.data.data.Dots || data.data.data.Dots);
+        
       },
       keepPreviousData: true,
     }
   );
+  console.log(podcast);
   // const { isLoading, error, data } = useQuery(
   //   ["get", queryValue, categoryQuery],
   //   () => getBlogListWithPagination(queryValue, categoryQuery),
@@ -48,6 +51,7 @@ const PodcastPage = () => {
   //   }
   // );
 
+  
   const handleSearch = (e) => {
     setQueryValue(e.target.value);
   };
@@ -69,32 +73,31 @@ const PodcastPage = () => {
     if (isLoading) return <Loading />;
     if (error) return <p>خطایی رخ داده است...</p>;
 
-    return CourseListItem.slice(
-      currentPage * itemsPerPage,
-      (currentPage + 1) * itemsPerPage
-    ).map((news) => (
-      <motion.div
-        key={news.id}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.5 }}
-      >
-        <MinimalBlog
-          id={news.id}
-          title={news.title}
-          cat={news.newsCatregoryName}
-          desc={news.miniDescribe}
-          newsImg={news.currentImageAddressTumb}
-          userImg={news.addUserProfileImage}
-          writer={news.addUserFullName}
-          comment={news.currentView}
-          like={news.currentLikeCount}
-          date={convertToJalali(news.updateDate)}
-          datePass={convertToJalali(news.updateDate)}
-        />
-      </motion.div>
-    ));
+    return podcast
+      .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
+      .map((news) => (
+        <motion.div
+          key={news.id}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5 }}
+        >
+          <MinimalBlog
+            id={news.id}
+            title={news.title}
+            cat={news.newsCatregoryName}
+            desc={news.miniDescribe}
+            newsImg={news.currentImageAddressTumb}
+            userImg={news.addUserProfileImage}
+            writer={news.addUserFullName}
+            comment={news.currentView}
+            like={news.currentLikeCount}
+            date={convertToJalali(news.InsertTime)}
+            datePass={convertToJalali(news.InsertTime)}
+          />
+        </motion.div>
+      ));
   };
   const dark = useSelector((state) => state.darkMood);
   return (
@@ -132,27 +135,20 @@ const PodcastPage = () => {
             }}
             className="h-[40px] w-[100px] max-[1312px]:w-full whitespace-nowrap text-center text-[12px] leading-[40px] rounded-[9px] "
           >
-            {CourseListItem.length} آیتم یافت شد
+            {podcast.length} آیتم یافت شد
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-[50px] mt-[2vw]">
+        <div className="flex flex-wrap justify-center gap-[50px] my-[2vw]">
           {renderCourses()}
         </div>
 
         <Pagination
-          pageCount={Math.ceil(CourseListItem.length / itemsPerPage)}
+          pageCount={Math.ceil(podcast.length / itemsPerPage)}
           handlePageClick={(data) => setCurrentPage(data.selected)}
         />
 
-        <div className="w-full h-max mt-[1.04vw] relative flex flex-col md:flex-row justify-between items-start gap-[2vw]">
-          <BlogDownRight
-            className="w-full md:w-1/3"
-            title={"بر اساس سلیقه شما"}
-          />
-          <BlogDownRight className="w-full md:w-1/3" title={"ترند ها"} />
-          <BlogDownLeft className="w-full md:w-1/3" />
-        </div>
+        
       </div>
     </div>
   );

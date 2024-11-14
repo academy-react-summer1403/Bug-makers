@@ -1,14 +1,15 @@
+import axios from "axios";
 import instance from "../../interseptore/Interceptor";
 
 
-export const getBlogDetail = async (id) => {
-  let url = `/News/${id}`;
+export const getPodcastDetail = async (id) => {
+  let url = `https://taharahimycode.liara.run/podcast/getById/${id}?accId=2`;
 
-  const response = await instance.get(url);
-  return response.detailsNewsDto; 
+  const response = await axios.get(url);
+  return response; 
 };
 
-export const getBlogDetailComment = async (id) => {
+export const getBlogDetailComment  = async (id) => {
   let url = `/News/${id}`;
 
   const response = await instance.get(url);
