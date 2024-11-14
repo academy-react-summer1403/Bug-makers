@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { setBlogList } from '../../../Redux/Slice/Blog/BlogList.js';
 import { getBlogListWithPagination } from '../../../Core/Services/Api/BlogPage/getBlogListWithPagination'; 
-import SearchBox from '../../../Components/Common/SearchBox/SearchBox.jsx';
 import TextLanding from '../../../Components/Common/TextInLanding/TextLanding';
 import MinimalBlog from './BlogsComponent/MinimalBlog/MinimalBlog';
 import Pagination from '../../../Components/Common/Paginate/Paginate';
-import SelectOpt from '../../../Components/Common/Select/SelectOpt';
-import SelectOpt2 from "../../Common/Select/SelectOpt2.jsx";
+
 import BlogDownRight from "./BlogDown.jsx/BlogDownRight/BlogDownRight.jsx";
 import BlogDownLeft from "./BlogDown.jsx/BlogDownLeft/BlogDownLeft";
 import { motion } from 'framer-motion'; // Import motion
 import moment from 'jalali-moment'; 
 import Loading from '../../Common/loadingWeb/Loading.jsx';
 import { getPodcastListWithPagination } from '../../../Core/Services/Api/PodcastPage/getBlogListWithPagination.js';
+import SearchBox from './SearchBox/SearchBox.jsx';
+import SelectOpt2 from './Select/SelectOpt2.jsx';
+import SelectOpt from '../../Common/Select/SelectOpt.jsx';
+import convertToJalali from '../../Common/TimeChanger/TimeToShamsi.jsx';
 
 const PodcastPage = () => {
   const [categoryQuery, setCategoryQuery] = useState("");
@@ -22,6 +24,7 @@ const PodcastPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [filterValue, setFilterValue] = useState(false);
   const [podcast,setPodcast]=useState([])
+  const [originalData, setOriginalData] = useState([]);
   const itemsPerPage = 10;
   const dispatch = useDispatch();
   // const podcast = useSelector((state) => state.BlogSlice.BlogList);
@@ -33,41 +36,32 @@ const PodcastPage = () => {
     () => getPodcastListWithPagination(queryValue),
     {
       onSuccess: (data) => {
-        setPodcast(data.data.data.Dots || data.data.data.Dots);
-        
+        setPodcast(data.data.data.Dots || []);
+        setOriginalData(data.data.data.Dots || [])
       },
       keepPreviousData: true,
     }
   );
-  console.log(podcast);
-  // const { isLoading, error, data } = useQuery(
-  //   ["get", queryValue, categoryQuery],
-  //   () => getBlogListWithPagination(queryValue, categoryQuery),
-  //   {
-  //     onSuccess: (data) => {
-  //       dispatch(setBlogList(data || data));
-  //     },
-  //     keepPreviousData: true,
-  //   }
-  // );
-
+  console.log(originalData)
+  const filterCat = ()=>{
+    console.log(categoryQuery);
+    if(categoryQuery == false){
+      setPodcast(originalData)
+    }
+    const filterData = podcast.filter((el)=>{
+      return el.Category == categoryQuery;
+    })
+    setPodcast(filterData)
+  }
+  useEffect(() => {
+    filterCat();
+  }, [categoryQuery]);
   
   const handleSearch = (e) => {
     setQueryValue(e.target.value);
   };
 
-  const handleRemoveFilter = () => {
-    setQueryValue("");
-    setCategoryQuery("");
-    setFilterValue(true);
-    setTimeout(() => {
-      setFilterValue(false);
-    }, 100);
-  };
 
-  const convertToJalali = (miladiDate) => {
-    return moment(miladiDate, "YYYY-MM-DD").locale("fa").format("YYYY/MM/DD");
-  };
 
   const renderCourses = () => {
     if (isLoading) return <Loading />;
@@ -86,13 +80,13 @@ const PodcastPage = () => {
           <MinimalBlog
             id={news.id}
             title={news.title}
-            cat={news.newsCatregoryName}
-            desc={news.miniDescribe}
-            newsImg={news.currentImageAddressTumb}
-            userImg={news.addUserProfileImage}
-            writer={news.addUserFullName}
-            comment={news.currentView}
-            like={news.currentLikeCount}
+            cat={news.Category}
+            desc={news.miniDesc}
+            newsImg={news.imageLink}
+            userImg={news.imageLink}
+            writer={news.creator}
+            comment={10}
+            like={news.view}
             date={convertToJalali(news.InsertTime)}
             datePass={convertToJalali(news.InsertTime)}
           />
@@ -116,18 +110,19 @@ const PodcastPage = () => {
             className="w-[520px]"
           />
           <SelectOpt2
-            placeholder="دسته‌بندی"
+            dataCat={podcast}
+            placeholder="مرتب سازی"
             onChange={(value) => setCategoryQuery(value)}
             FilterValue={filterValue}
           />
-          <SelectOpt
+          {/* <SelectOpt
             width={"160px"}
             placeholder="ترتیب نمایش"
             isSortSelect={true}
             onChange={(value) => setSorting(value)}
             FilterValue={filterValue}
             className="w-[235px]"
-          />
+          /> */}
           <div
             style={{
               background: dark.bgLow,
@@ -147,8 +142,6 @@ const PodcastPage = () => {
           pageCount={Math.ceil(podcast.length / itemsPerPage)}
           handlePageClick={(data) => setCurrentPage(data.selected)}
         />
-
-        
       </div>
     </div>
   );

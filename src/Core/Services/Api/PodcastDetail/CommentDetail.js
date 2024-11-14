@@ -1,3 +1,4 @@
+import axios from "axios";
 import instance from "../../interseptore/Interceptor";
 
 export const getRepleyComment = async (id) => {
@@ -8,15 +9,12 @@ export const getRepleyComment = async (id) => {
   return response
 };
 
-export const setNewComment = async (id) => {
-  let url;
-  id.parentId
-    ? (url = `/News/CreateNewsReplyComment`)
-    : (url = `/News/CreateNewsComment`);
-  console.log(id)
+export const setPodcastComment = async (id) => {
+  let url = `https://taharahimycode.liara.run/podcast/comment/create`;
+  console.log(id);
 
-  const response = await instance.post(url,id);
-  return response
+  const response = await axios.post(url, id);
+  return response;
 };
 
 export const commentLikeNews = async (id) => {

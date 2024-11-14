@@ -211,15 +211,20 @@ const BDetailCenter = ({ id }) => {
               alt=""
             />
           ) : null}
-          <div
-            style={{ background: dark.bgLow, color: dark.textLow }}
-            className="absolute top-[0.7vw] left-[0.7vw]  p-2  rounded-full shadow-md"
-          >
-            <span className="">{response.addUserFullName}</span>
+
+         
+        </div> 
+        <div className="size-[7vw] max-md:size-24 absolute top-[25%] max-md:top-[22%] left-[22%] max-md:left-[10%] flex items-center flex-col ">
+            <div
+              style={{ background: dark.bgLow, color: dark.textLow }}
+              className=" size-[4vw] max-md:size-16 rounded-full bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]"
+            ></div>
+            <span className="mt-[0.6vw] max-md:text-[8px] text-gray-800 text-[0.6vw]">
+              {response.addUserFullName}
+            </span>
           </div>
-        </div>
         <h2 className="text-xl  mt-2 text-right">{response.title}</h2>
-        <div className="flex justify-end  mt-2">
+        <div className="flex justify-end  mt-14">
           <BDetailLikeSvg
             likeCount={response.inUsersFavoriteCount}
             commentCount={response.commentsCount}

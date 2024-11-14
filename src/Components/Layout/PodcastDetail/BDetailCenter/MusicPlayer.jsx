@@ -72,7 +72,7 @@ const MusicPlayer = ({ audioUrl }) => {
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
-      className="flex items-center space-x-4 p-4  rounded-lg shadow-md"
+      className="flex items-center max-md:flex-col max-md:gap-y-4 space-x-4 p-4 max-md:p-0 rounded-lg shadow-md"
     >
       {/* دکمه پخش و توقف */}
       <div className="flex space-x-2">
@@ -93,20 +93,18 @@ const MusicPlayer = ({ audioUrl }) => {
       {/* ناحیه موج صوتی */}
       <div
         ref={waveformRef}
-        className="flex-1"
+        className="flex-1 max-md:w-full"
         style={{ background: dark.bgHigh, color: dark.textHigh }}
       ></div>
 
       {/* تنظیم سرعت پخش */}
       <div className="flex items-center space-x-2 text-sm text-gray-400">
-        <aria-label htmlFor="speed" className="text-gray-300">
-          Speed:
-        </aria-label>
+        <span>سرعت پخش</span>
         <Select
           id="speed"
           value={playbackRate}
           onChange={(e) => setPlaybackRate(parseFloat(e.target.value))}
-          className="w-[120px]"
+          className="w-[120px] max-md:w-[60%]"
         >
           <SelectItem key="0.5">0.5x</SelectItem>
           <SelectItem key="0.75">0.75x</SelectItem>

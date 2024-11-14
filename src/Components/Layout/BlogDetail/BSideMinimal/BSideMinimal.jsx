@@ -58,7 +58,7 @@ const BSideMinimal = ({id,cat,newsImg,title,desc,userImg,writer,like,comment,dat
                       alt=""
                     />
                   </div>
-                  <span className="w-[3.23vw] indent-1 text-[#8A8A8A]  whitespace-nowrap font-[400] text-[0.7161458333333334vw]">
+                  <span className="w-[3.23vw] indent-1 text-[#8A8A8A] overflow-hidden text-ellipsis ...  whitespace-nowrap font-[400] text-[0.7161458333333334vw]">
                     {writer}
                   </span>
                 </div>

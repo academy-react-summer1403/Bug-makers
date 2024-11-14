@@ -20,42 +20,45 @@ const BComment = ({
 
   const [commenting, setCommenting] = useState([])
   useEffect(() => {
-    setCommenting(comment);
+    setCommenting(comment.data);
   }, [comment]);
 
 
   const renderCourses = (commenting) => {
-      if (!Array.isArray(commenting) || commenting.length === 0) {
-      return <p></p>; 
+      if (commenting) {
+        console.log(commenting);
+      
+        return commenting.map((commenting) => (
+        <Comments
+          key={commenting.id}
+          id={commenting.id}
+          inserDate={commenting.Date}
+          describe={commenting.Desc}
+          likeCount={commenting.likeCount}
+          dissLikeCount={commenting.dissLikeCount}
+          title={commenting.UserName}
+          replyCount={commenting.replyCount}
+          currentUserIsLike={commenting.currentUserIsLike}
+          currentUserIsDissLike={commenting.currentUserIsDissLike}
+          pictureAddress={commenting.File}
+          date={convertToJalali(commenting.Date)}
+          parentId={commenting.PODId}
+          currentUserLikeId={0}
+          renderCourses={renderCourses}
+          onSubmit={onSubmit}
+          userId={commenting.UserId}
+          // GetComment={GetComment}
+          newsId={commenting.PODId}
+          setNewsDissLikeComment={setNewsDissLikeComment}
+          setNewsLikeComment={setNewsLikeComment}
+          delLikeNews2Comment={delLikeNews2Comment}
+        />
+      ));
     }
 
-    console.log(commenting);
-    return commenting.map((commenting) => (
-      <Comments
-        key={commenting.id}
-        id={commenting.id}
-        inserDate={commenting.Date}
-        describe={commenting.describe}
-        likeCount={commenting.likeCount}
-        dissLikeCount={commenting.dissLikeCount}
-        title={commenting.autor}
-        replyCount={commenting.replyCount}
-        currentUserIsLike={commenting.currentUserIsLike}
-        currentUserIsDissLike={commenting.currentUserIsDissLike}
-        pictureAddress={commenting.pictureAddress}
-        date={convertToJalali(commenting.inserDate)}
-        parentId={commenting.id}
-        currentUserLikeId={commenting.currentUserLikeId}
-        renderCourses={renderCourses}
-        onSubmit={onSubmit}
-        userId={userId}
-        // GetComment={GetComment}
-        newsId={newsId}
-        setNewsDissLikeComment={setNewsDissLikeComment}
-        setNewsLikeComment={setNewsLikeComment}
-        delLikeNews2Comment={delLikeNews2Comment}
-      />
-    ));
+    
+    
+    ;
   };
 
   const handleLikeSort = () => {
@@ -111,8 +114,7 @@ const dark = useSelector((state) => state.darkMood);
           </div>
         </div>
       ) : (
-        <div>هیچ نظری برای این پست ثبت نشده</div>
-      )}
+null      )}
 
       <div className="w-full">{renderCourses(commenting)}</div>
     </div>

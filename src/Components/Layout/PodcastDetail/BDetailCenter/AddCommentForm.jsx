@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 
 const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) => {
   const validationSchema = Yup.object({
-    title: Yup.string()
+    Title: Yup.string()
       .min(7, "عنوان باید حداقل 7 حرف باشد")
       .required("عنوان اجباری است"),
-    describe: Yup.string()
+    Desc: Yup.string()
       .min(10, "دیدگاه باید حداقل 10 حرف باشد")
       .required("دیدگاه اجباری است"),
   });
@@ -18,24 +18,15 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
 
   return (
     <Formik
-      initialValues={
-        parentId
-          ? {
-              title: "",
-              describe: "",
-              newsId: `${newsId}`,
-              userIpAddress: "1.1.1.1",
-              userId: `${userId}`,
-              parentId: parentId,
-            }
-          : {
-              title: "",
-              describe: "",
-              newsId: `${newsId}`,
-              userIpAddress: "1.1.1.1",
-              userId: `${userId}`,
-            }
-      }
+      initialValues={{
+        PODId: `${newsId}`,
+        Title: "",
+        Desc: "",
+        UserName: "mehdi",
+        File: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/df2abcf3-0c0e-4b0d-bced-86c3a3d6bf8e/dg08eso-d59e1506-e048-4bc8-b2ce-6e21f13a6a2c.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2RmMmFiY2YzLTBjMGUtNGIwZC1iY2VkLTg2YzNhM2Q2YmY4ZVwvZGcwOGVzby1kNTllMTUwNi1lMDQ4LTRiYzgtYjJjZS02ZTIxZjEzYTZhMmMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.-V3Eho2OHQyZAS19kGBRvLBz6R3GtlUPS4PLzi_X2pw",
+        IsAccept: true,
+        UserId: `${8888}`,
+      }}
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
         onSubmit(values);
@@ -49,14 +40,14 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
             <Field
               placeholder="عنوان دیدگاه خود را وارد کنید"
               type="text"
-              name="title"
+              name="Title"
               style={{ background: dark.bgLow, color: dark.textHigh }}
               className={` border outline-none  border-[#C4CDD5] w-full md:w-full h-10  max-md:w-full  max-md:h-[10%]  rounded-md  mb-2 ${
-                errors.title && touched.title ? "border-red-500" : ""
+                errors.Title && touched.Title ? "border-red-500" : ""
               }`}
             />
             <ErrorMessage
-              name="title"
+              name="Title"
               component="div"
               className="text-red-500 text-sm"
             />
@@ -65,15 +56,15 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
           <div className="mb-4">
             <Field
               as="textarea"
-              name="describe"
+              name="Desc"
               placeholder="دیدگاه خود را وارد کنید"
               style={{ background: dark.bgLow, color: dark.textHigh }}
               className={`max-md:max-h-[160px] max-md:h-[160px] max-md:min-h-[160px] max-h-[14vw] outline-none min-h-[14vw] p-2  border border-[#C4CDD5] w-full h-32 rounded-md ${
-                errors.describe && touched.describe ? "border-red-500" : ""
+                errors.Desc && touched.Desc ? "border-red-500" : ""
               }`}
             />
             <ErrorMessage
-              name="describe"
+              name="Desc"
               component="div"
               className="text-red-500 text-sm"
             />
