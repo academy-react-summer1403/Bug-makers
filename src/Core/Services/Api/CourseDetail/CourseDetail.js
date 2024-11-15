@@ -72,3 +72,13 @@ export const deleteCorseReserve = async (id) => {
   );
   return response;
 };
+
+
+// scazhol
+
+export const getScDetail = async (id) => {
+  let url = `/api/Schedual/GetStudentScheduals/${id}`;
+
+  const response = await instance.get(url);
+  return response;
+};

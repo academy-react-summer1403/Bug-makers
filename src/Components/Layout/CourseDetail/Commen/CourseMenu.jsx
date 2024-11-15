@@ -14,7 +14,7 @@ const dark = useSelector((state) => state.darkMood);
       style={{ background: dark.bgHigh, color: dark.textLow }}
       className="  whitespace-nowrap /* end responsive  */ pt-2 w-full h-16 rounded-[0.52vw] shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)] flex  gap-5 items-center text-[#9F9F9F]  text-[1.09vw]"
     >
-      {["توضیحات", , "دیدگاه ها"].map((item, index) => (
+      {["توضیحات", "زمانبندی کلاس ها" , "دیدگاه ها"].map((item, index) => (
         <div
           key={index}
           onClick={() => {

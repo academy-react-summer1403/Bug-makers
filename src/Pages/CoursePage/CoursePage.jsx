@@ -42,7 +42,7 @@ const CoursePage = () => {
   const [maxCost, setMaxCost] = useState(null);
 
 
-  const itemsPerPage = 8; 
+  const itemsPerPage = 10; 
   const dispatch = useDispatch();
 
   // getCourseListFromRedux

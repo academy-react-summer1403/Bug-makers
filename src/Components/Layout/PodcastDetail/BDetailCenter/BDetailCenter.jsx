@@ -34,6 +34,7 @@ const BDetailCenter = ({ id }) => {
   const [response,setResponse]=useState({})
   const [comment, setComment] = useState({});
   const [newsId, setNewsId] = useState(id);
+  const [likeId,setLikeId]=useState()
   const accId = getItem("accId");
   console.log(accId)
    const { isLoading, error, data } = useQuery({
@@ -64,6 +65,7 @@ const BDetailCenter = ({ id }) => {
     console.log(id)
     const res = await postDissLikePodcast(id, accId);
     console.log(res);
+    setLikeId(res.id);
     queryClient.invalidateQueries("getPodcastDetail");
     !accId ? toast.error("ابتدا وارد شوید") : toast.success(" دیس لایک شد 😁");
  
@@ -72,6 +74,7 @@ const BDetailCenter = ({ id }) => {
   const setPodcastLike = async () => {
     const res = await postLikePodcast(id, accId);
     console.log(res);
+    setLikeId(res.id);
     queryClient.invalidateQueries("getPodcastDetail");
     !accId ? toast.error("ابتدا وارد شوید") : toast.success("لایک شد 😁");
     // GetId();
@@ -79,7 +82,7 @@ const BDetailCenter = ({ id }) => {
 
   const delPodcastLike = async () => {
     
-    const res = await delLikePodcast(id);
+    const res = await delLikePodcast(likeId);
     console.log(res);
     queryClient.invalidateQueries("getPodcastDetail");
     toast.success("نظر شما با موفقییت حذف شد 😁");
