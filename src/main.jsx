@@ -44,6 +44,7 @@ import PaymentSecoundTab from './Components/Layout/ClientPanel/LeftSide/Payment/
 import FacturePeyment from './Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/FacturePeyment.jsx'
 import PodcastPage from './Components/Layout/PodcastPage/PodcastPage.jsx'
 import PodcastDetail from './Components/Layout/PodcastDetail/PodcastDetail.jsx'
+import Tornoment from './Components/Layout/ClientPanel/LeftSide/Tornoment/Tornoment.jsx'
 const queryClient = new QueryClient();
 
 
@@ -127,6 +128,11 @@ const router = createBrowserRouter([
           {
             path: "LikedBlog",
             element: <LikedBlog />,
+            errorElement: <Error />,
+          },
+          {
+            path: "Tornoment",
+            element: <Tornoment />,
             errorElement: <Error />,
           },
           {

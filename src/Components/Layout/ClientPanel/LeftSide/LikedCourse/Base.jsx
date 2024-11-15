@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useQuery } from "react-query";
-import { setCourseList } from "../../../../../Redux/Slice/Course/CourseList";
-import { getCourseListWithPagination } from "../../../../../Core/Services/Api/CoursePage/getCourseListWithPagination";
-import TextLanding from "../../../../Common/TextInLanding/TextLanding";
-// import Pagination from "../../../../Common/Paginate/Paginate";
-import moment from "jalali-moment";
-// import PriceFilter from "../../../../ComponentOnce/PriceFilter/PriceFilter";
-// import SearchBox from "./SearchBox/SearchBox";
-// import SelectOpt from "./Select/SelectOpt";
-// import DateModal from "./Date/Date";
 import { Button, Tooltip } from "@nextui-org/react";
 import CourseCard from "../../../CourseDetail/CourseCard/CourseCard";
 import { getCourseDetail } from "../../../../../Core/Services/Api/CourseDetail/CourseDetail";
@@ -577,29 +567,6 @@ const dark = useSelector((state) => state.darkMood);
             </Button>
             <span className="text-gray-500">ترتیب :</span>
           </div>
-
-          {/* <SelectOpt
-            
-            lgWidth={"160px"}
-            placeholder="استاد دوره"
-            isTeacherSelect={true}
-            onChange={(value) => setTeacherId(value)}
-            FilterValue={filterValue}
-          /> */}
-
-          {/* <span className="block lg:hidden text-[10px] text-[#978A8A] absolute bottom-2 right-4">
-            تعداد {CourseListItem.length} نتیجه از{" "}
-            {point == "dashbord"
-              ? Data?.totalCount || 0
-              : data?.totalCount || 0}{" "}
-            دوره طبق جستجوی شما یافت شد
-          </span> */}
-          {/* <span
-            className="block lg:hidden w-[106px] h-[20px] rounded-[16px] text-center text-[10px] bottom-2 m-auto relative  text-[#FE8E8E] cursor-pointer bg-white  "
-            onClick={handleRemoveFilter}
-          >
-            حذف تمامی فیلتر
-          </span> */}
         </div>
 
         <div className=" w-full mt-[0.5vw] max-md:py-[10px]">
