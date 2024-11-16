@@ -1,3 +1,4 @@
+import axios from "axios";
 import instance from "../../interseptore/Interceptor";
 
 
@@ -80,5 +81,19 @@ export const getScDetail = async (id) => {
   let url = `/api/Schedual/GetStudentScheduals/${id}`;
 
   const response = await instance.get(url);
+  return response;
+};
+
+export const getDiscount = async (id) => {
+  let url = `https://taharahimycode.liara.run/DisCost/ById/${id}`;
+
+  const response = await axios.get(url);
+  return response;
+};
+
+export const getDiscountAll = async () => {
+  let url = `https://taharahimycode.liara.run/DisCost/All`;
+
+  const response = await axios.get(url);
   return response;
 };

@@ -25,7 +25,7 @@ const BlogDownRight = ({ title }) => {
     return (
       <div
         style={{ background: dark.bgHigh, color: dark.textHigh }}
-        className="text-right h-auto w-full p-3 rounded-[0.625vw] shadow-blogDown  mb-4"
+        className="text-right h-[88%] overflow-auto w-full p-3 rounded-[0.625vw] shadow-blogDown  mb-4"
       >
         <span className="mr-[1.35vw] font-[400] w-max text-[1.25vw] mt-[0.99vw]">
           {title}

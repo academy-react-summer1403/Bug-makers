@@ -1,70 +1,75 @@
 import axios from 'axios';
 import { list } from 'postcss'
 import React,{ useState , useEffect } from 'react'
-import { useMutation , useQueryClient } from 'react-query'; 
+import { useMutation , useQuery, useQueryClient } from 'react-query'; 
 import { getLikeCount } from '../../../Core/Services/Api/CoursePage/LikeCount';
 import { toast } from 'react-hot-toast';
 import img2 from '../../../../public/images/icon/image.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-const CourseItem = ({ 
-    title, 
-    courseId, 
-    img, 
-    description, 
-    technologyList, 
-    teacherName, 
-    likeCount, 
-    commandCount, 
-    courseRate, 
-    statusName, 
-    price, 
-    currentRegistrants, 
-    date, 
-    listStyle 
+import { getDiscount } from '../../../Core/Services/Api/CourseDetail/CourseDetail';
+const CourseItem = ({
+  title,
+  courseId,
+  img,
+  description,
+  technologyList,
+  teacherName,
+  likeCount,
+  commandCount,
+  courseRate,
+  statusName,
+  price,
+  currentRegistrants,
+  date,
+  listStyle,
+  discount,
 }) => {
+  const [likeBtn, setLikeBtn] = useState(false);
+  const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
 
-    const [likeBtn, setLikeBtn] = useState(false);
-    const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
-
-    useEffect(() => {
-        const likedPosts = JSON.parse(localStorage.getItem('likedPosts')) || [];
-        if (likedPosts.includes(courseId)) {
-            setLikeBtn(true);
-        }
-    }, [courseId]);
-
-    const mutation = useMutation({
-        mutationFn: getLikeCount,
-        onSuccess: () => {
-            const likedPosts = JSON.parse(localStorage.getItem('likedPosts')) || [];
-            if (!likedPosts.includes(courseId)) {
-                likedPosts.push(courseId);
-                localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
-            }
-            setLikeBtn(prev => !prev);
-            setCurrentLikeCount(prev => prev + (likeBtn ? -1 : 1)); 
-            toast.success('لایک شد' ,title, 'دوره')
-        },
-        onError: (error) => {
-            console.error("Error adding like:", error);
-        }
-    });
-
-    const handleLike = (e) => {
-        // Call API to add like
-        e.stopPropagation();
-        e.preventDefault();    
-        e.preventDefault();
-        mutation.mutate(courseId);
-    };
-    const navigate = useNavigate()
-
-    const handleNavigate = () => {
-        navigate(`/CourseDetail/${courseId}`)
-        window.scrollTo({top:0 , behavior: 'smooth'})
+  useEffect(() => {
+    const likedPosts = JSON.parse(localStorage.getItem("likedPosts")) || [];
+    if (likedPosts.includes(courseId)) {
+      setLikeBtn(true);
     }
-    const dark = useSelector((state) => state.darkMood);
+  }, [courseId]);
+
+
+
+  discount ? console.log(discount) :null
+
+  const mutation = useMutation({
+    mutationFn: getLikeCount,
+    onSuccess: () => {
+      const likedPosts = JSON.parse(localStorage.getItem("likedPosts")) || [];
+      if (!likedPosts.includes(courseId)) {
+        likedPosts.push(courseId);
+        localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
+      }
+      setLikeBtn((prev) => !prev);
+      setCurrentLikeCount((prev) => prev + (likeBtn ? -1 : 1));
+      toast.success("لایک شد", title, "دوره");
+    },
+    onError: (error) => {
+      console.error("Error adding like:", error);
+    },
+  });
+
+  const handleLike = (e) => {
+    // Call API to add like
+    e.stopPropagation();
+    e.preventDefault();
+    e.preventDefault();
+    mutation.mutate(courseId);
+  };
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(`/CourseDetail/${courseId}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  const dark = useSelector((state) => state.darkMood);
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
@@ -157,7 +162,7 @@ const CourseItem = ({
         className={`absolute  h-[2.6041666666666665vw]  flex flex-row gap-[0.5208333333333334vw] justify-center items-center ${
           listStyle
             ? "top-[14.583333333333334vw] right-[0.78125vw]"
-            : "top-[261px] left-[15px]"
+            : "top-[245px] left-[15px]"
         }`}
       >
         <span className="text-[13px] text-[#8A8A8A]">{teacherName}</span>
@@ -189,7 +194,7 @@ const CourseItem = ({
         className={`absolute h-[1.5625vw]  flex flex-row gap-1 justify-center items-center ${
           listStyle
             ? "top-[17.96875vw] right-[2.6041666666666665vw]"
-            : "top-[308px] left-[15px] "
+            : "top-[292px] left-[15px] "
         }`}
       >
         <svg
@@ -220,29 +225,44 @@ const CourseItem = ({
       </span>
       <div
         dir="rtl"
-        className={`absolute h-[24px]  flex flex-row gap-2 justify-center items-center ${
+        className={`absolute h-[38px]  ${
           listStyle
             ? " top-[17.96875vw] right-[27.018229166666668vw]"
-            : " top-[343px] left-[15px]"
+            : discount 
+            ? " top-[320px] left-[15px]"
+            : " top-[335px] left-[15px]"
         }`}
       >
-        <h3 className="text-[16px] text-[#DC6C6C] font-semibold price">
-          {price}
-        </h3>
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M2.49352 0.990824L3.36666 0.142822L4.2581 0.999967L3.37124 1.84683L2.49352 0.990824ZM6.18496 3.82512C6.18496 4.53598 6.0021 5.09484 5.63867 5.50169C5.40895 5.75427 5.11067 5.94741 4.74381 6.07884C4.34474 6.21048 3.92623 6.27347 3.50609 6.26512H2.87181C2.39066 6.26512 1.95637 6.18055 1.57009 6.01027C1.15277 5.83468 0.795441 5.54167 0.541515 5.16684C0.270814 4.74114 0.132042 4.24491 0.142656 3.74055C0.142656 3.67312 0.143799 3.60683 0.147228 3.5394C0.181513 2.91083 0.380371 2.21597 0.747229 1.4514L1.99866 2.00454C1.70495 2.61254 1.54495 3.1474 1.5198 3.60797C1.51752 3.65369 1.51523 3.6994 1.51523 3.74512C1.51523 4.03312 1.57809 4.26855 1.70495 4.4514C1.84133 4.64985 2.04389 4.79327 2.27638 4.85598C2.37352 4.88798 2.4798 4.91083 2.59409 4.92455C2.68438 4.93598 2.77695 4.94055 2.87181 4.94055H3.50609C4.02952 4.94055 4.38495 4.84798 4.57238 4.66169C4.73238 4.50283 4.81238 4.22398 4.81238 3.82626V1.30854H6.18382V3.82512H6.18496ZM12.3941 7.46398L11.5713 6.66398L12.3815 5.85712L13.2215 6.66513L12.3941 7.46513L12.3941 7.46398ZM9.13011 7.81599C9.74954 7.81599 10.2421 8.03313 10.6078 8.46627C10.9473 8.8617 11.1164 9.35427 11.1164 9.94399V10.36H11.3221V10.3554H11.7907C12.0433 10.3554 12.2215 10.3234 12.3244 10.2594C12.4307 10.1966 12.4844 10.0994 12.4844 9.96456V9.8857C12.489 9.60799 12.5038 8.69256 12.4844 8.61142L13.857 8.19999V9.99885C13.8604 10.355 13.745 10.702 13.529 10.9851C13.1793 11.448 12.6101 11.6789 11.8204 11.6789H11.1038C11.0341 12.5166 10.6078 13.1154 9.82725 13.4766C9.52211 13.616 9.16439 13.7166 8.75639 13.7794C8.41074 13.8323 8.06148 13.8579 7.71182 13.856V12.5314C8.41125 12.5314 8.93696 12.4377 9.28897 12.2491C9.57468 12.0983 9.71868 11.9086 9.71868 11.6789H9.13011C8.63182 11.6789 8.20782 11.5497 7.85811 11.2914C7.43868 10.9794 7.22953 10.5291 7.22953 9.94285C7.22953 9.38513 7.36896 8.91313 7.64896 8.5257C7.98725 8.05142 8.48096 7.81484 9.13011 7.81484L9.13011 7.81599ZM9.73925 10.36V9.94399C9.73925 9.69599 9.68439 9.49942 9.57582 9.35427C9.47157 9.21391 9.30483 9.13396 9.13011 9.14056C8.95357 9.13444 8.78497 9.21406 8.67753 9.35428C8.56866 9.50256 8.51381 9.68364 8.52211 9.86742C8.52193 9.89298 8.52307 9.91854 8.52553 9.94399C8.53468 10.0868 8.60096 10.1954 8.72782 10.2674C8.83411 10.3291 8.96782 10.3588 9.13011 10.3588H9.73925L9.73925 10.36ZM9.85697 6.66512L10.6798 7.46513L11.5073 6.66512L10.6673 5.85712L9.85697 6.66512ZM2.20666 12.2514H2.24095C2.73581 12.24 3.09238 12.1303 3.31181 11.92C3.33924 11.9337 3.38609 11.96 3.44895 11.9977L3.53352 12.0423L3.62609 12.0903C3.78038 12.1737 3.92438 12.2423 4.05924 12.296C4.45352 12.4629 4.82495 12.5474 5.17581 12.5474C5.54576 12.5554 5.90362 12.4156 6.1701 12.1589C6.51296 11.8331 6.68324 11.3428 6.68324 10.6891C6.67918 10.2259 6.54664 9.77291 6.30039 9.38056C5.95867 8.85827 5.46381 8.5977 4.81467 8.5977C4.24095 8.5977 3.76781 8.81713 3.39524 9.25484C3.26609 9.4057 3.15524 9.57942 3.05924 9.77599C3.02266 9.84684 2.99066 9.91884 2.96324 9.99427C2.94936 10.023 2.93789 10.0528 2.92895 10.0834C2.92013 10.1061 2.91175 10.129 2.90381 10.152C2.78609 10.5051 2.70838 10.7063 2.66952 10.7577C2.58723 10.8606 2.42495 10.9177 2.18152 10.9257C2.04095 10.92 1.94266 10.8914 1.88895 10.8388C1.8238 10.7771 1.7918 10.664 1.7918 10.4994V6.99998L0.419228 6.42855V10.4994C0.419228 10.7977 0.474086 11.0663 0.582657 11.3029C0.6638 11.4834 0.774658 11.6411 0.914087 11.7749C1.05466 11.9097 1.21809 12.016 1.40552 12.0949C1.6318 12.1909 1.88552 12.2434 2.16552 12.2503V12.2514L2.20666 12.2514ZM5.35181 11.0926C5.39951 10.9638 5.41672 10.8257 5.4021 10.6891C5.39307 10.4955 5.32751 10.3088 5.21353 10.152C5.09924 9.99885 4.96553 9.92227 4.81353 9.92227C4.60781 9.92227 4.43638 10.04 4.30267 10.2766C4.25467 10.3577 4.21124 10.4571 4.17238 10.576C4.15596 10.6213 4.14072 10.667 4.12667 10.7131L4.10952 10.7737L4.09238 10.8263C4.25467 10.9611 4.46153 11.0731 4.7141 11.1611C4.91981 11.232 5.08553 11.2663 5.20896 11.2663C5.25924 11.2663 5.30724 11.2091 5.35181 11.0926Z"
-            fill="#7D7D7D"
-          />
-        </svg>
+        <div className="flex flex-row gap-2 justify-center items-cente">
+          <h3 className="text-[16px] text-[#DC6C6C] font-semibold price">
+            {discount  ? discount.Pcost : price}
+          </h3>
+
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M2.49352 0.990824L3.36666 0.142822L4.2581 0.999967L3.37124 1.84683L2.49352 0.990824ZM6.18496 3.82512C6.18496 4.53598 6.0021 5.09484 5.63867 5.50169C5.40895 5.75427 5.11067 5.94741 4.74381 6.07884C4.34474 6.21048 3.92623 6.27347 3.50609 6.26512H2.87181C2.39066 6.26512 1.95637 6.18055 1.57009 6.01027C1.15277 5.83468 0.795441 5.54167 0.541515 5.16684C0.270814 4.74114 0.132042 4.24491 0.142656 3.74055C0.142656 3.67312 0.143799 3.60683 0.147228 3.5394C0.181513 2.91083 0.380371 2.21597 0.747229 1.4514L1.99866 2.00454C1.70495 2.61254 1.54495 3.1474 1.5198 3.60797C1.51752 3.65369 1.51523 3.6994 1.51523 3.74512C1.51523 4.03312 1.57809 4.26855 1.70495 4.4514C1.84133 4.64985 2.04389 4.79327 2.27638 4.85598C2.37352 4.88798 2.4798 4.91083 2.59409 4.92455C2.68438 4.93598 2.77695 4.94055 2.87181 4.94055H3.50609C4.02952 4.94055 4.38495 4.84798 4.57238 4.66169C4.73238 4.50283 4.81238 4.22398 4.81238 3.82626V1.30854H6.18382V3.82512H6.18496ZM12.3941 7.46398L11.5713 6.66398L12.3815 5.85712L13.2215 6.66513L12.3941 7.46513L12.3941 7.46398ZM9.13011 7.81599C9.74954 7.81599 10.2421 8.03313 10.6078 8.46627C10.9473 8.8617 11.1164 9.35427 11.1164 9.94399V10.36H11.3221V10.3554H11.7907C12.0433 10.3554 12.2215 10.3234 12.3244 10.2594C12.4307 10.1966 12.4844 10.0994 12.4844 9.96456V9.8857C12.489 9.60799 12.5038 8.69256 12.4844 8.61142L13.857 8.19999V9.99885C13.8604 10.355 13.745 10.702 13.529 10.9851C13.1793 11.448 12.6101 11.6789 11.8204 11.6789H11.1038C11.0341 12.5166 10.6078 13.1154 9.82725 13.4766C9.52211 13.616 9.16439 13.7166 8.75639 13.7794C8.41074 13.8323 8.06148 13.8579 7.71182 13.856V12.5314C8.41125 12.5314 8.93696 12.4377 9.28897 12.2491C9.57468 12.0983 9.71868 11.9086 9.71868 11.6789H9.13011C8.63182 11.6789 8.20782 11.5497 7.85811 11.2914C7.43868 10.9794 7.22953 10.5291 7.22953 9.94285C7.22953 9.38513 7.36896 8.91313 7.64896 8.5257C7.98725 8.05142 8.48096 7.81484 9.13011 7.81484L9.13011 7.81599ZM9.73925 10.36V9.94399C9.73925 9.69599 9.68439 9.49942 9.57582 9.35427C9.47157 9.21391 9.30483 9.13396 9.13011 9.14056C8.95357 9.13444 8.78497 9.21406 8.67753 9.35428C8.56866 9.50256 8.51381 9.68364 8.52211 9.86742C8.52193 9.89298 8.52307 9.91854 8.52553 9.94399C8.53468 10.0868 8.60096 10.1954 8.72782 10.2674C8.83411 10.3291 8.96782 10.3588 9.13011 10.3588H9.73925L9.73925 10.36ZM9.85697 6.66512L10.6798 7.46513L11.5073 6.66512L10.6673 5.85712L9.85697 6.66512ZM2.20666 12.2514H2.24095C2.73581 12.24 3.09238 12.1303 3.31181 11.92C3.33924 11.9337 3.38609 11.96 3.44895 11.9977L3.53352 12.0423L3.62609 12.0903C3.78038 12.1737 3.92438 12.2423 4.05924 12.296C4.45352 12.4629 4.82495 12.5474 5.17581 12.5474C5.54576 12.5554 5.90362 12.4156 6.1701 12.1589C6.51296 11.8331 6.68324 11.3428 6.68324 10.6891C6.67918 10.2259 6.54664 9.77291 6.30039 9.38056C5.95867 8.85827 5.46381 8.5977 4.81467 8.5977C4.24095 8.5977 3.76781 8.81713 3.39524 9.25484C3.26609 9.4057 3.15524 9.57942 3.05924 9.77599C3.02266 9.84684 2.99066 9.91884 2.96324 9.99427C2.94936 10.023 2.93789 10.0528 2.92895 10.0834C2.92013 10.1061 2.91175 10.129 2.90381 10.152C2.78609 10.5051 2.70838 10.7063 2.66952 10.7577C2.58723 10.8606 2.42495 10.9177 2.18152 10.9257C2.04095 10.92 1.94266 10.8914 1.88895 10.8388C1.8238 10.7771 1.7918 10.664 1.7918 10.4994V6.99998L0.419228 6.42855V10.4994C0.419228 10.7977 0.474086 11.0663 0.582657 11.3029C0.6638 11.4834 0.774658 11.6411 0.914087 11.7749C1.05466 11.9097 1.21809 12.016 1.40552 12.0949C1.6318 12.1909 1.88552 12.2434 2.16552 12.2503V12.2514L2.20666 12.2514ZM5.35181 11.0926C5.39951 10.9638 5.41672 10.8257 5.4021 10.6891C5.39307 10.4955 5.32751 10.3088 5.21353 10.152C5.09924 9.99885 4.96553 9.92227 4.81353 9.92227C4.60781 9.92227 4.43638 10.04 4.30267 10.2766C4.25467 10.3577 4.21124 10.4571 4.17238 10.576C4.15596 10.6213 4.14072 10.667 4.12667 10.7131L4.10952 10.7737L4.09238 10.8263C4.25467 10.9611 4.46153 11.0731 4.7141 11.1611C4.91981 11.232 5.08553 11.2663 5.20896 11.2663C5.25924 11.2663 5.30724 11.2091 5.35181 11.0926Z"
+              fill="#7D7D7D"
+            />
+          </svg>
+        </div>
+        {discount  ? (
+          <div className="flex justify-between">
+            <h3 className="text-[14px] block line-through decoration-[1.5px]	decoration-gray-500 text-[#f3aeae]  price">
+              {discount.Tcost}
+            </h3>
+            <div className="size-[22px] text-center leading-[20px] rounded-full bg-red-500 text-[10px] text-white">
+              {discount.discount}%
+            </div>
+          </div>
+        ) : null}
       </div>
       <div
         className={` bg-[#f2eefb] absolute  h-[1px] ${
@@ -336,6 +356,6 @@ const CourseItem = ({
       </div>
     </div>
   );
-}
+};
 
 export default CourseItem

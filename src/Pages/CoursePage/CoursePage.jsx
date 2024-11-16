@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { setCourseList } from '../../Redux/Slice/Course/CourseList';
 import { getCourseListWithPagination } from '../../Core/Services/Api/CoursePage/getCourseListWithPagination'; 
 import SearchBox from '../../Components/Common/SearchBox/SearchBox';
@@ -13,6 +13,7 @@ import moment from 'jalali-moment';
 import PriceFilter from '../../Components/ComponentOnce/PriceFilter/PriceFilter';
 import {Card, Skeleton} from "@nextui-org/react";
 import Loading from '../../Components/Common/loadingWeb/Loading';
+import { getDiscount, getDiscountAll } from '../../Core/Services/Api/CourseDetail/CourseDetail';
 
 const CoursePage = () => {
   // stateForCategoryFilter
@@ -118,31 +119,59 @@ const CoursePage = () => {
     };
   }, []);
   // renderCourseItems
+
+  const {
+    isLoading: isLoad,
+    error: err,
+    data: data2,
+  } = useQuery({
+    queryKey: ["getDiscountAll"],
+    queryFn:getDiscountAll,
+    retry:false,
+    onSuccess: (data) => {
+      setDiscount(data.data.data || []);
+      console.log(data.data.data);
+    },
+  });
+  const [discount, setDiscount] = useState([]);
+  const GetDiscount = (courseId) => {
+    const filterDis = discount.find((el) => 
+        courseId ===  el.PODID
+    );
+
+    console.log(discount[0].PODID);
+      return filterDis;
+  };
+
+
   const renderCourses = () => {
     if (isLoading)  return <Loading />;
     if (error) return <p>خطایی رخ داده است...</p>;
 
-    return CourseListItem
-      .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
-      .map((course) => (
-        <CourseItem
-          key={course.courseId}
-          courseId={course.courseId}
-          title={course.title}
-          img={course.tumbImageAddress}
-          technologyList={course.technologyList}
-          description={course.describe}
-          teacherName={course.teacherName}
-          likeCount={course.likeCount}
-          commandCount={course.commandCount}
-          courseRate={course.courseRate}
-          statusName={course.statusName}
-          price={course.cost}
-          currentRegistrants={course.currentRegistrants}
-          date={convertToJalali(course.lastUpdate)}
-          listStyle={listStyle}
-        />
-      ));
+    return CourseListItem.slice(
+      currentPage * itemsPerPage,
+      (currentPage + 1) * itemsPerPage
+    ).map((course) => (
+      <CourseItem
+        key={course.courseId}
+        courseId={course.courseId}
+        title={course.title}
+        img={course.tumbImageAddress}
+        technologyList={course.technologyList}
+        description={course.describe}
+        teacherName={course.teacherName}
+        likeCount={course.likeCount}
+        commandCount={course.commandCount}
+        courseRate={course.courseRate}
+        statusName={course.statusName}
+        price={course.cost}
+        currentRegistrants={course.currentRegistrants}
+        date={convertToJalali(course.lastUpdate)}
+        listStyle={listStyle}
+        discount={GetDiscount(course.courseId)}
+        // discount={resDis}
+      />
+    ));
   };
 
   const dark = useSelector((state) => state.darkMood);

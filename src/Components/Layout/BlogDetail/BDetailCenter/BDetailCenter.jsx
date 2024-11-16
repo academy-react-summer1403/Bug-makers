@@ -214,23 +214,23 @@ const BDetailCenter = ({ id }) => {
 
          
         </div> 
-        <div className="size-[7vw] max-md:size-24 absolute top-[25%] max-md:top-[22%] left-[22%] max-md:left-[10%] flex items-center flex-col ">
+        <div className="size-[7vw] max-md:size-24 absolute top-[21%] max-md:top-[26%] left-[22%] max-md:left-[10%] flex items-center flex-col ">
             <div
               style={{ background: dark.bgLow, color: dark.textLow }}
               className=" size-[4vw] max-md:size-16 rounded-full bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]"
             ></div>
-            <span className="mt-[0.6vw] max-md:text-[8px] text-gray-800 text-[0.6vw]">
+            <span className="mt-2 max-md:text-[8px] text-gray-800 text-[0.6vw]">
               {response.addUserFullName}
             </span>
           </div>
-        <h2 className="text-xl  mt-2 text-right">{response.title}</h2>
+        <h2 className="text-xl  mt-20 text-right">{response.title}</h2>
         <div className="flex justify-end  mt-14">
           <BDetailLikeSvg
             likeCount={response.inUsersFavoriteCount}
             commentCount={response.commentsCount}
           />
         </div>
-        <p className=" mt-2 py-[20px] text-right">
+        <p className=" mt-2 py-[20px] text-right break-words">
           {response.describe}
           <br />
           <br />
@@ -243,12 +243,12 @@ const BDetailCenter = ({ id }) => {
         </p>
         <div className="border-t border-gray-300 my-4"></div>
         <h3 className=" text-sm text-right">شاید علاقمند باشید:</h3>
-        <ul className="list-disc list-inside mt-2 text-right">
+        <ul className="list-disc list-inside mt-2 text-sm text-right">
           {renderCourses()}
         </ul>
-        <div className="text-[0.8vw] gap-[2vw] mt-[8vw]  w-full h-[1.46vw] px-[1vw] flex justify-end">
-          <div className="flex justify-evenly h-full w-[10%] items-center">
-            <span className="text-[0.9765625vw] max-[941px]:text-[1.565625vw] max-[941px]:mt-[0.8vw] max-[941px]:ml-[0.2vw] ">
+        <div className="text-[0.8vw] gap-[2vw] mt-[8vw]  w-full h-[1.46vw] max-md:h-[60px] items-center  px-[1vw] flex justify-end">
+          <div className="flex justify-evenly h-full w-[10%] max-md:w-[20%] items-center">
+            <span className="text-[0.9765625vw] max-md:w-[60%] max-[941px]:text-[14px] max-[941px]:mt-[0.8vw] max-[941px]:ml-[0.2vw] ">
               {response.currentLikeCount}
             </span>
             <svg
@@ -271,8 +271,8 @@ const BDetailCenter = ({ id }) => {
           <span className="text-[1.171875vw] max-[1131px]:text-[2vw] max-[1131px]:mt-[-1vw]">
             |
           </span>
-          <div className="flex justify-evenly h-full w-[10%] items-center">
-            <span className="text-[0.9765625vw] max-[941px]:text-[1.565625vw] max-[941px]:mt-[0.2vw] max-[941px]:ml-[0.4vw] ">
+          <div className="flex justify-evenly h-full w-[10%] max-md:w-[20%] items-center">
+            <span className="text-[0.9765625vw] max-[941px]:text-[14px] max-[941px]:mt-[0.2vw] max-[941px]:ml-[0.4vw] ">
               {response.currentDissLikeCount}
             </span>
             <svg

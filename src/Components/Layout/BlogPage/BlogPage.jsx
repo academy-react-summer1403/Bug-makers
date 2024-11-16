@@ -133,7 +133,7 @@ const dark = useSelector((state) => state.darkMood);
           handlePageClick={(data) => setCurrentPage(data.selected)}
         />
 
-        <div className=" w-full h-max mt-[1.04vw] relative flex flex-col md:flex-row justify-between items-start gap-[2vw]">
+        <div className=" w-full  h-[700px] overflow-hidden mt-[1.04vw] relative flex flex-col md:flex-row justify-between items-start gap-[2vw]">
           <BlogDownRight title={"بر اساس سلیقه شما"} />
           <BlogDownRight title={"ترند ها"} />
           <BlogDownLeft />
