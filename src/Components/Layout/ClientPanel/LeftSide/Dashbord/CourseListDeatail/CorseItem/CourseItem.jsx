@@ -2,9 +2,9 @@ import { Tooltip } from "@nextui-org/react";
 import { list } from "postcss";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { CorseReserve, deleteCorseReserve, delLikeNews, getCourseDetail, postDissLikeNews, postLikeNews } from "../../../../../../../Core/Services/Api/CourseDetail/CourseDetail";
+import { CorseReserve, deleteCorseReserve, delLikeNews, getCourseDetail, getDiscount, postDissLikeNews, postLikeNews } from "../../../../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import { Link, useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
@@ -36,6 +36,30 @@ const CourseItem = ({
   userIsLiked,
   userLikeId,
 }) => {
+
+  const [discount, setDiscount] = useState();
+  const {
+    isLoading: isLoad,
+    error: err,
+    data: data2,
+  } = useQuery({
+    queryKey: ["getDiscountDetail"],
+    queryFn: () => getDiscount(id),
+    retry: false,
+    onSuccess: (data) => {
+      setDiscount(data.data.data || []);
+      if (data.data.data == null) {
+        setDiscount(false);
+      }
+      console.log(data.data.data || []);
+      
+    },
+  });
+
+
+
+
+console.log(discount);
 const [response, setResponse] = useState({});
   const navigator =useNavigate()
   console.log(id);
@@ -111,7 +135,7 @@ const GetId2 = async () => {
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
       className={`p-[0.5vw] relative shadow-[0px_0px_15px_0px_#666]  rounded-[1vw]  overflow-hidden
-          "w-[100%]  max-h-[100%] max-md:h-full`}
+          "w-[100%]   max-h-[100%] max-md:h-full`}
     >
       <div className="h-[1.8vw] max-md:h-[7%] w-full text-right flex justify-between items-center mb-[0.5vw]">
         <span className="text-[1.4vw] max-md:text-[20px] font-[600]">دوره</span>
@@ -467,13 +491,25 @@ const GetId2 = async () => {
             <span>{endDate} ( پایان )</span>
           </div>
         </div>
-        <div className="w-[50%] h-[50%]  flex justify-end items-center gap-x-[0.3vw]">
-          <span className="text-[1.3vw] max-md:text-[16px] font-[600]">
-            {price}
-          </span>
-          <span className="mt-[0.3vw] text-[0.7vw] max-md:text-[9px] font-[600] text-[#E1C461]">
-            تومان
-          </span>
+        <div className="flex flex-col justify-start w-[50%] h-[100%]">
+          <div className="  flex justify-end items-center gap-x-[0.3vw]">
+            <span className="text-[1.3vw] max-md:text-[16px] font-[600]">
+              {!discount ? price : discount.Pcost}
+            </span>
+            <span className="mt-[0.3vw] text-[0.7vw] max-md:text-[9px] font-[600] text-[#E1C461]">
+              تومان
+            </span>
+          </div>
+          {discount ? (
+            <div className=" w-[100%] gap-x-2 flex justify-center flex-row  ">
+              <h3 className="text-[14px] block line-through decoration-[1.5px]	decoration-gray-500 text-[#f3aeae]  price">
+                {discount.Tcost}
+              </h3>
+              <div className="size-[22px] text-center leading-[20px] rounded-full bg-red-500 text-[10px] text-white">
+                {discount.discount}%
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

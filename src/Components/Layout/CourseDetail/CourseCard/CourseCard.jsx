@@ -4,8 +4,8 @@ import CoursePreviwe0 from "../Commen/CoursePreviwe0";
 import RatingStar from "../Commen/RatingStar";
 import toast from "react-hot-toast";
 import CourseMenu from "../Commen/CourseMenu";
-import Swal from 'sweetalert2';
-import noImg from '../../../../../public/images/icon/image.jpg'
+import Swal from "sweetalert2";
+import noImg from "../../../../../public/images/icon/image.jpg";
 import { FaChalkboardTeacher, FaPlus } from "react-icons/fa";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { PiStudent } from "react-icons/pi";
@@ -22,6 +22,7 @@ import {
   CorseReserve,
   deleteCorseReserve,
   getScDetail,
+  getDiscount,
 } from "../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CComment from "../Comment/CComment";
 import {
@@ -43,30 +44,46 @@ import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 import { RiUserVoiceLine } from "react-icons/ri";
 import DataTable from "react-data-table-component";
 
-
-function CourseCard({id}) {
+function CourseCard({ id }) {
   const [response, setResponse] = useState({});
   const [comment, setComment] = useState({});
   const [detailPage, setDetailPage] = useState(0);
   const [repleyModal, setRepleyModal] = useState(false);
-  const [time,setTime]=useState()
+  const [time, setTime] = useState();
   const userId = getItem("userId");
   const NewsId = id;
   const handelPage = (value) => {
     setDetailPage(value);
   };
 
+  const [discount, setDiscount] = useState();
+  const {
+    isLoading: isLoad,
+    error: err,
+    data: data2,
+  } = useQuery({
+    queryKey: ["getDiscountDetail"],
+    queryFn: () => getDiscount(id),
+    retry: false,
+    onSuccess: (data) => {
+      setDiscount(data.data.data||[])
+      if(data.data.data == null ){
+        setDiscount(false);
+      }
+      console.log(data.data.data||[]);
+      console.log(discount);
+    },
+  });
 
-   const { isLoading, error, data } = useQuery({
-     queryKey: ["getscazholDetail"],
-     queryFn: () => getScDetail(id),
-     enabled: !!id,
-     onSuccess: (data) => {
-       setTime(data || []);
-       console.log(data);
-     },
-   });
-
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["getscazholDetail"],
+    queryFn: () => getScDetail(id),
+    enabled: !!id,
+    onSuccess: (data) => {
+      setTime(data || []);
+      console.log(data);
+    },
+  });
 
   const CorseReserveF = useMutation({
     mutationFn: async (id) => {
@@ -111,7 +128,7 @@ function CourseCard({id}) {
   const GetId = async () => {
     const res = await getCourseDetail(id);
     setResponse(res);
-    console.log(res)
+    console.log(res);
   };
   const GetComment = async () => {
     const re = await getCourseDetailComment(id);
@@ -164,7 +181,7 @@ function CourseCard({id}) {
   const setNewsDissLikeComment = async (id) => {
     const res = await commentDissLikeCourse(id, false);
     console.log(res);
-          toast.success(" دیس لایک شد 😁");
+    toast.success(" دیس لایک شد 😁");
 
     GetComment();
   };
@@ -179,7 +196,7 @@ function CourseCard({id}) {
     console.log(currentUserLikeId);
     const res = await comentDelLikeCourse(currentUserLikeId);
     console.log(res);
-        toast.success("نظر شما با موفقییت حذف شد 😁");
+    toast.success("نظر شما با موفقییت حذف شد 😁");
 
     GetComment();
   };
@@ -214,7 +231,6 @@ function CourseCard({id}) {
     synth.speak(utterThis);
 
     // console.log(myRef)
-
   }
 
   const columnsSchedual = [
@@ -288,10 +304,6 @@ function CourseCard({id}) {
     },
   ];
 
-
-
-
-
   const dark = useSelector((state) => state.darkMood);
 
   return (
@@ -314,14 +326,27 @@ function CourseCard({id}) {
               id={id}
               className="max-[688px]:hidden w-64 h-11 mr-5 academyH1"
             />
-            <div className="max-[688px]:hidden max-[1440px]:mr-64 max-[1325px]:mr-52 max-[1273px]:mr-32 max-[1181px]:mr-16 max-[1051px]:mr-10 max-[991px]:mr-0  max-[945px]:w-52 max-[883px]:w-32 max-[788px]:absolute max-[788px]:top-16 max-[788px]:right-32 /*end responsive */ flex justify-center mr-80  w-64 h-32 items-center gap-2">
-              <div className="   text-2xl price">{response.cost}</div>
+            <div className="max-[688px]:hidden ml-6 justify-end max-[1440px]:mr-64 max-[1325px]:mr-52 max-[1273px]:mr-32 max-[1181px]:mr-16 max-[1051px]:mr-10 max-[991px]:mr-0  max-[945px]:w-52 max-[883px]:w-32 max-[788px]:absolute max-[788px]:top-16 max-[788px]:right-32 /*end responsive */ flex  mr-80 w-64 h-32 items-center gap-2">
+              <div className="   text-2xl price">
+                {!discount ? response.cost : discount.Pcost}
+              </div>
               <img
                 src="../../../../../public/images/icon/toman.png"
                 className="w-5 h-5"
                 alt=""
               />
             </div>
+
+            {discount ? (
+              <div className="flex w-[10%] max-md:hidden justify-between">
+                <h3 className="text-[14px] block line-through decoration-[1.5px]	decoration-gray-500 text-[#f3aeae]  price">
+                  {discount.Tcost}
+                </h3>
+                <div className="size-[22px] text-center leading-[20px] rounded-full bg-red-500 text-[10px] text-white">
+                  {discount.discount}%
+                </div>
+              </div>
+            ) : null}
           </div>
           <img
             onError={(e) => {
@@ -342,13 +367,25 @@ function CourseCard({id}) {
           />
 
           <div className=" max-[688px]:flex hidden max-[688px]:h-0 /*end responsive */  justify-center    m-[1rem_auto] items-center gap-2">
-            <button className="   text-2xl price">{response.cost}</button>
+            <button className="   text-2xl price">
+              {!discount ? response.cost : discount.Pcost}
+            </button>
             <img
               src="../../../../../public/images/icon/toman.png"
               className="w-5 h-5"
               alt=""
             />
           </div>
+          {discount ? (
+            <div className="mx-auto max-md:flex  hidden  w-[25%] justify-between">
+              <h3 className="text-[14px] block line-through decoration-[1.5px]	decoration-gray-500 text-[#f3aeae]  price">
+                {discount.Tcost}
+              </h3>
+              <div className="size-[22px] text-center leading-[20px] rounded-full bg-red-500 text-[10px] text-white">
+                {discount.discount}%
+              </div>
+            </div>
+          ) : null}
           <span className="hidden max-[688px]:block  text-right m-[1rem_auto]    h-fit  t text-sm">
             نام مدرس : {response.teacherName}
           </span>
@@ -586,6 +623,4 @@ function CourseCard({id}) {
   );
 }
 
-
 export default CourseCard;
-

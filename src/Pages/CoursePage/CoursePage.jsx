@@ -139,7 +139,7 @@ const CoursePage = () => {
         courseId ===  el.PODID
     );
 
-    console.log(discount[0].PODID);
+    // console.log(discount[0].PODID);
       return filterDis;
   };
 
