@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { TourProvider } from '../Components/Common/Tuor/TourContext.jsx'
 import AppTour from '../Components/Common/Tuor/Tour.jsx'
+import Help from '../Components/Common/Help/Help.jsx'
 
 
 
@@ -41,6 +42,7 @@ const dark = useSelector((state) => state.darkMood);
             <AppTour />
             <Header />
             <Outlet />
+            <Help/>
 
             <ScrollTopButton />
           
