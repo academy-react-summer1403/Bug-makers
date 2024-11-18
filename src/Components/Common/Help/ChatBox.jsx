@@ -10,6 +10,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { getItem } from "../../../Core/Services/common/storage.services";
 import { getHelpPm, postHelpPm } from "../../../Core/Services/Api/help";
+import convertToJalali from "../TimeChanger/TimeToShamsi";
 
 const sendMessageToApi = async (message) => {
   const response = await fetch("/api/send-message", {
@@ -46,7 +47,7 @@ const ChatBox = () => {
             id: msg.id,
             sender: "support",
             text: msg.text,
-            timestamp: msg.time,
+            timestamp: convertToJalali(msg.time),
             status: "sent",
           }));
           console.log(adminRepliesMsg);
@@ -165,6 +166,13 @@ const ChatBox = () => {
   //   }
   // }, [responseAdmin]);
 
+
+    const handleKeyPress = (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault(); // جلوگیری از ارسال فرم به طور پیش‌فرض
+        handleSendMessage();
+      }
+    };
   return (
     <div
       style={{ backgroundColor: dark.bgLow, color: dark.textHigh }}
@@ -290,6 +298,7 @@ const ChatBox = () => {
             style={{ backgroundColor: dark.bgLow, color: dark.textHigh }}
             value={userMessage}
             onChange={(e) => setUserMessage(e.target.value)}
+            onKeyPress={handleKeyPress}
             placeholder="پیام خود را بنویسید..."
             className="flex-1 border rounded-md py-2 px-4 text-gray-700 text-right focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
