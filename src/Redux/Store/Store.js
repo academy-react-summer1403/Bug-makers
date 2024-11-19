@@ -8,6 +8,7 @@ import towStepSliceReducer from '../Slice/Login/TowStep'
 import favoriteeSliceReducer from '../Slice/Course/favoritee'
 import paymentSliceReducer from '../Slice/payment/payment'
 import darkMoodReducer from '../Slice/darkMood/darkMood'
+import helpSliceReducer from '../Slice/helpchat/helpChat'
 export const Store = configureStore({
   reducer: {
     
@@ -19,6 +20,7 @@ export const Store = configureStore({
     ToStep: towStepSliceReducer,
     favorite: favoriteeSliceReducer,
     payment: paymentSliceReducer,
+    help: helpSliceReducer,
     themeColor: ThemeColorReducer,
   },
 });

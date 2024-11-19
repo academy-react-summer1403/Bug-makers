@@ -7,27 +7,24 @@ import {
   FaRedo,
 } from "react-icons/fa";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getItem } from "../../../Core/Services/common/storage.services";
-import { getHelpPm, postHelpPm } from "../../../Core/Services/Api/help";
+import { getHelpPm, postHelpPm, postHelpPmInChat } from "../../../Core/Services/Api/help";
 import convertToJalali from "../TimeChanger/TimeToShamsi";
+import { setHelpStatus } from "../../../Redux/Slice/helpchat/helpChat";
 
-const sendMessageToApi = async (message) => {
-  const response = await fetch("/api/send-message", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message }),
-  });
-  if (!response.ok) throw new Error("خطا در ارسال پیام");
-  return response.json();
-};
+
 
 const ChatBox = () => {
+  const dispatch = useDispatch();
+
+
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [userMessage, setUserMessage] = useState("");
-  const [responseAdmin, setResponseAdmin] = useState();
-
+  const [responseAdmin, setResponseAdmin] = useState({});
+  const [adminMassegeNotif,setAdminMassegeNotif]=useState([])
+  const [groupId, setGroupId] = useState(false);
   const queryClient = useQueryClient();
 
   const { data: adminMessages } = useQuery(
@@ -36,7 +33,7 @@ const ChatBox = () => {
     // 673b8a25c0fdffcbdefdc5db
     {
       enabled: isChatOpen,
-      refetchInterval: 5000,
+      refetchInterval: 50000,
       onSuccess: (data) => {
         if (data) {
           const adminReplies = data?.dataText.filter(
@@ -50,6 +47,7 @@ const ChatBox = () => {
             timestamp: convertToJalali(msg.time),
             status: "sent",
           }));
+
           console.log(adminRepliesMsg);
 
           setMessages((prevMessages) => {
@@ -59,13 +57,41 @@ const ChatBox = () => {
             );
             return [...prevMessages, ...newMessages];
           });
-          
+
+          // ارسال نوتیفیکیشن به کاربر
+          if (adminRepliesMsg.length > 0) {
+            const lastMessage = adminRepliesMsg[adminRepliesMsg.length - 1];
+            if (
+              "Notification" in window &&
+              Notification.permission === "granted"
+            ) {
+              new Notification("پیام جدید از پشتیبانی", {
+                body: lastMessage.text,
+              });
+            } else if (
+              "Notification" in window &&
+              Notification.permission !== "denied"
+            ) {
+              Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                  new Notification("پیام جدید از پشتیبانی", {
+                    body: lastMessage.text,
+                  });
+                }
+              });
+            }
+          }
         }
       },
     }
   );
+const HelpStatus = useSelector((state) => state.help);
+useEffect(()=>{
+  setGroupId(HelpStatus.helpStatus);
+},[])
 
   const handleSendMessage = async () => {
+    
     const userId = getItem("userId");
     if (userMessage !== "") {
       const newMessage = {
@@ -75,11 +101,27 @@ const ChatBox = () => {
         status: "pending",
         timestamp: new Date().toLocaleTimeString(),
       };
-
+      
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       try {
-        const res = await postHelpPm({ id: userId, message: newMessage.text });
-        setResponseAdmin(res.data.data);
+        console.log(groupId);
+        const res = groupId
+          ? await postHelpPmInChat({
+              SenderId: groupId.SenderId,
+              text: groupId.text,
+              ReciveId: groupId.ReciveId,
+              GroupId: groupId.GroupId,
+            })
+          : await postHelpPm({ id: userId, message: newMessage.text });
+        
+        
+        if(groupId == false) {
+          setResponseAdmin(res.data.data)
+          setGroupId(res.data.data.dataText)
+          console.log(res.data)
+        } 
+        
+        dispatch(setHelpStatus(res.data.data.dataText || {}));
         setMessages((prevMessages) =>
           prevMessages.map((msg) =>
             msg.id === newMessage.id
@@ -107,7 +149,14 @@ const ChatBox = () => {
       )
     );
     try {
-      const res = await postHelpPm({ id: message.id, message: message.text });
+      const res = groupId
+        ? await postHelpPmInChat({
+            SenderId: groupId.dataText.SenderId,
+            text: groupId.dataText.text,
+            ReciveId: groupId.dataText.ReciveId,
+            GroupId: groupId.dataText.groupId,
+          })
+        : await postHelpPm({ id: message.id, message: message.text });
       setMessages((prevMessages) =>
         prevMessages.map((msg) =>
           msg.id === message.id ? { ...msg, status: "sent" } : msg
@@ -149,7 +198,7 @@ const ChatBox = () => {
     ]);
     setIsChatOpen(true);
   };
-
+ 
   const dark = useSelector((state) => state.darkMood);
 
   // useEffect(() => {
