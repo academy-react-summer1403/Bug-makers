@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
-import { setBlogList } from '../../../Redux/Slice/Blog/BlogList.js';
-import { getBlogListWithPagination } from '../../../Core/Services/Api/BlogPage/getBlogListWithPagination'; 
-import TextLanding from '../../../Components/Common/TextInLanding/TextLanding';
-import MinimalBlog from './BlogsComponent/MinimalBlog/MinimalBlog';
-import Pagination from '../../../Components/Common/Paginate/Paginate';
-
-import BlogDownRight from "./BlogDown.jsx/BlogDownRight/BlogDownRight.jsx";
-import BlogDownLeft from "./BlogDown.jsx/BlogDownLeft/BlogDownLeft";
+import TextLanding from '../../Components/Common/TextInLanding/TextLanding';
+import MinimalBlog from '../../Components/Layout/PodcastPage/BlogsComponent/MinimalBlog/MinimalBlog';
+import Pagination from '../../Components/Common/Paginate/Paginate';
 import { motion } from 'framer-motion'; // Import motion
-import moment from 'jalali-moment'; 
-import Loading from '../../Common/loadingWeb/Loading.jsx';
-import { getPodcastListWithPagination } from '../../../Core/Services/Api/PodcastPage/getBlogListWithPagination.js';
-import SearchBox from './SearchBox/SearchBox.jsx';
-import SelectOpt2 from './Select/SelectOpt2.jsx';
-import SelectOpt from '../../Common/Select/SelectOpt.jsx';
-import convertToJalali from '../../Common/TimeChanger/TimeToShamsi.jsx';
+import Loading from '../../Components/Common/loadingWeb/Loading.jsx';
+import { getPodcastListWithPagination } from '../../Core/Services/Api/PodcastPage/getBlogListWithPagination.js';
+import SearchBox from "../../Components/Layout/PodcastPage/SearchBox/SearchBox.jsx";
+import SelectOpt2 from '../../Components/Layout/PodcastPage/Select/SelectOpt2.jsx';
+import convertToJalali from '../../Components/Common/TimeChanger/TimeToShamsi.jsx';
 
 const PodcastPage = () => {
   const [categoryQuery, setCategoryQuery] = useState("");
@@ -25,7 +18,7 @@ const PodcastPage = () => {
   const [filterValue, setFilterValue] = useState(false);
   const [podcast,setPodcast]=useState([])
   const [originalData, setOriginalData] = useState([]);
-  const itemsPerPage = 10;
+  const itemsPerPage = 8;
   const dispatch = useDispatch();
   // const podcast = useSelector((state) => state.BlogSlice.BlogList);
   // console.log(podcast);

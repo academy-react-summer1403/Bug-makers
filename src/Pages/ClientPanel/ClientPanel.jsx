@@ -1,10 +1,10 @@
 import { Button, Input } from "@nextui-org/react";
 import React from "react";
-import TopBar from "./common/TopBar";
-import RightBar from "./RightBar/RightBar";
+import TopBar from "../../Components/Layout/ClientPanel/common/TopBar";
+import RightBar from "../../Components/Layout/ClientPanel/RightBar/RightBar";
 
 import { Outlet } from "react-router-dom";
-import RightBarMobile from "./RightBarMobile/RightBarMobile";
+import RightBarMobile from "../../Components/Layout/ClientPanel/RightBarMobile/RightBarMobile";
 import { useSelector } from "react-redux";
 
 const ClientPanel = ()=>{

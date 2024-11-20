@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion"; // Import motion
-import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Outlet } from "react-router-dom";
 
 const LoginPage = () => {
 const dark = useSelector((state) => state.darkMood);

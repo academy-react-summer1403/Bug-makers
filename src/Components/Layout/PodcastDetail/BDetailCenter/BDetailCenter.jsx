@@ -149,15 +149,7 @@ const BDetailCenter = ({ id }) => {
     ],
   });
 
-  const synth = window.speechSynthesis;
-  function Voice(voiceText) {
-    let text = response.describe;
-    const utterThis = new SpeechSynthesisUtterance(voiceText);
-    synth.lang = "fa-IR";
-    synth.speak(utterThis);
-
-    // console.log(myRef)
-  }
+  
   console.log(response.isLike);
   const dark = useSelector((state) => state.darkMood);
   return (
@@ -177,7 +169,7 @@ const BDetailCenter = ({ id }) => {
           </div>
         </div>
         <div
-          className={`relative h-max max-h-[600px] w-full rounded-lg overflow-hidden mt-4 
+          className={`relative  max-h-[600px] w-full rounded-lg overflow-hidden mt-4 
             ${response.imageLink ? "h-[600px] max-md:h-[200px]" : null}
             ${
               dark.bgHigh == "#ffffff"
@@ -201,10 +193,10 @@ const BDetailCenter = ({ id }) => {
         </div>
         <div className="size-[7vw] max-md:size-24 absolute top-[23%] max-md:top-[18%] left-[13%] max-md:left-[10%] flex items-center flex-col ">
           <div
-            style={{ background: dark.bgLow, color: dark.textLow }}
+            style={{ background: dark.bgLow, color: dark.textHigh }}
             className=" size-[4vw] max-md:size-16 rounded-full bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]"
           ></div>
-          <span className=" max-md:text-[10px] mt-2 text-gray-800 text-[0.6vw]">
+          <span className=" max-md:text-[10px] mt-2  text-[0.6vw]">
             {response.creator}
           </span>
         </div>

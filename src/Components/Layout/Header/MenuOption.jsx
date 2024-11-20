@@ -4,13 +4,15 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 const MenuOption = ({ className }) => {
-  const { selectedButton } = useSelector((state) => state.themeColor);
-
+const dark = useSelector((state) => state.darkMood);
   const selectNavLink = `
-    ${selectedButton === 0 ? 'text-blue-600' : ''}
-    ${selectedButton === 1 ? 'text-green-600' : ''}
-    ${selectedButton === 2 ? 'text-yellow-600' : ''}
-  `.trim().replace(/\s+/g, ' ');
+    ${dark.selectedButton === 0 ? "text-blue-600" : ""}
+    ${dark.selectedButton === 1 ? "text-green-600" : ""}
+    ${dark.selectedButton === 2 ? "text-yellow-600" : ""}
+    ${dark.selectedButton === 3 ? "text-red-600" : ""}
+  `
+    .trim()
+    .replace(/\s+/g, " ");
 
   const {t} = useTranslation()
   return (

@@ -3,8 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from '../src/App/App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-
-import LoginPage from './Components/Layout/LoginPages/LoginPage'
+import LoginPage from './Pages/LoginPage/LoginPage.jsx'
 import Login from './Components/Layout/LoginPages/login/Login'
 import ForgetPass from './Components/Layout/LoginPages/passForget/ForgetPass'
 import ForgetPassStep2 from './Components/Layout/LoginPages/passForgetStep2/ForgetPassStep2'
@@ -14,10 +13,6 @@ import ReStep4 from './Components/Layout/LoginPages/register/step4/ReStep4'
 import { Provider } from 'react-redux'
 import { Store } from '../src/Redux/Store/Store';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import BlogDetail from './Components/Layout/BlogDetail/BlogDetail.jsx'
-import BlogPage from './Components/Layout/BlogPage/BlogPage.jsx'
-import CourseDetail from './Components/Layout/CourseDetail/CourseDetail.jsx'
-import ClientPanel from './Components/Layout/ClientPanel/ClientPanel.jsx'
 import PersonalInfo from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/PersonalInfo/PersonalInfo.jsx'
 import ProfilePic from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/ProfilePic/ProfilePic.jsx'
 import Address from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Address/Address.jsx'
@@ -42,9 +37,14 @@ import AcceptGmail from './Components/Layout/ClientPanel/LeftBar/LeftBarDown/Sec
 import Root from './App/Root.jsx'
 import PaymentSecoundTab from './Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/secoundTab.jsx'
 import FacturePeyment from './Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/FacturePeyment.jsx'
-import PodcastPage from './Components/Layout/PodcastPage/PodcastPage.jsx'
-import PodcastDetail from './Components/Layout/PodcastDetail/PodcastDetail.jsx'
 import Tornoment from './Components/Layout/ClientPanel/LeftSide/Tornoment/Tornoment.jsx'
+import BlogPage from './Pages/BlogPage/BlogPage.jsx'
+import BlogDetail from './Pages/BlogDetail/BlogDetail.jsx'
+import PodcastPage from './Pages/PodcastPage/PodcastPage.jsx'
+import PodcastDetail from './Pages/PodcastDetail/PodcastDetail.jsx'
+import CourseDetail from './Pages/CourseDetail/CourseDetail.jsx'
+import ClientPanel from './Pages/ClientPanel/ClientPanel.jsx'
+
 const queryClient = new QueryClient();
 
 

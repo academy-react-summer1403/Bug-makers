@@ -61,9 +61,10 @@ const BahrAcademy = () => {
           className={`${
             direction == "ltr" ? "left-[3vw]" : "right-[3vw]"
           } max-[468px]:text-[2vw] max-[714px]:text-[3vw] /* end responsive */ absolute  px-[2.8vw] py-[0.7vw] text-[1.2vw]  mt-[1vw] rounded-3xl text-white 
-          ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
-          ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
-          ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+          ${dark.selectedButton === 0 ? "bg-blue-500" : ""}
+                ${dark.selectedButton === 1 ? "bg-green-500" : ""}
+                ${dark.selectedButton === 2 ? "bg-yellow-500" : ""}
+                ${dark.selectedButton === 3 ? "bg-red-500" : ""}
         `}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}

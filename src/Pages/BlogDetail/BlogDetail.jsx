@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion"; // Import motion
-import BDetailRight from "./BDetailRight/BDetailRight";
-import BDetailLeft from "./BDetailLeft/BDetailLeft";
-import BDetailCenter from "./BDetailCenter/BDetailCenter";
+import BDetailRight from "../../Components/Layout/BlogDetail/BDetailRight/BDetailRight";
+import BDetailLeft from "../../Components/Layout/BlogDetail/BDetailLeft/BDetailLeft";
+import BDetailCenter from "../../Components/Layout/BlogDetail/BDetailCenter/BDetailCenter";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 

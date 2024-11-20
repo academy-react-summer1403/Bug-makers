@@ -1,5 +1,5 @@
 import React from "react";
-import CourseCard from "./CourseCard/CourseCard";
+import CourseCard from "../../Components/Layout/CourseDetail/CourseCard/CourseCard";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion"; // Import motion
 import { useSelector } from "react-redux";
