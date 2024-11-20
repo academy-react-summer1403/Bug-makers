@@ -6,7 +6,7 @@ import ChatBox from "./ChatBox";
 
 
 const Help = ()=>{
-    const [openHelp, setOpenHelp] = useState(true);
+    const [openHelp, setOpenHelp] = useState(false);
 
     const dark = useSelector((state) => state.darkMood);
     return (

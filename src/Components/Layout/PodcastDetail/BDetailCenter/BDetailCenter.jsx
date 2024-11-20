@@ -177,7 +177,7 @@ const BDetailCenter = ({ id }) => {
           </div>
         </div>
         <div
-          className={`relative h-max max-h-[600px] w-full rounded-lg overflow-hidden mt-4 
+          className={`relative max-h-[600px] w-full rounded-lg overflow-hidden mt-4 
             ${response.imageLink ? "h-[600px] max-md:h-[200px]" : null}
             ${
               dark.bgHigh == "#ffffff"
@@ -204,7 +204,7 @@ const BDetailCenter = ({ id }) => {
             style={{ background: dark.bgLow, color: dark.textLow }}
             className=" size-[4vw] max-md:size-16 rounded-full bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]"
           ></div>
-          <span className=" max-md:text-[10px] mt-2 text-gray-800 text-[0.6vw]">
+          <span className=" max-md:text-[10px] mt-2  text-[0.6vw]">
             {response.creator}
           </span>
         </div>

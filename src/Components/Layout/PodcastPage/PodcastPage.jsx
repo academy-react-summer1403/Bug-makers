@@ -25,7 +25,7 @@ const PodcastPage = () => {
   const [filterValue, setFilterValue] = useState(false);
   const [podcast,setPodcast]=useState([])
   const [originalData, setOriginalData] = useState([]);
-  const itemsPerPage = 10;
+  const itemsPerPage = 8;
   const dispatch = useDispatch();
   // const podcast = useSelector((state) => state.BlogSlice.BlogList);
   // console.log(podcast);
