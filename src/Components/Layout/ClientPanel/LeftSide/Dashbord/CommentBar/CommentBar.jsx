@@ -99,9 +99,7 @@ console.log(NewsComment);
                   <div className="w-full h-[50%] px-[0.5vw] overflow-hidden pt-[0.6vw] text-[0.7vw] max-md:mt-[8px] max-md:py-[8px] max-md:text-[10px]">
                     <span>{CourseComent.title}</span>
                     <br />
-                    <span>
-                      {CourseComent.describe}
-                    </span>
+                    <span>{CourseComent.describe}</span>
                   </div>
                   <div
                     style={{ background: dark.bgLow, color: dark.textHigh }}
@@ -131,7 +129,13 @@ console.log(NewsComment);
                 </span>
                 <div className="w-full h-[85%] mt-[0.5vw]">
                   <div className="w-full h-[25%] px-[0.5vw] flex gap-x-[0.5vw] ">
-                    <div className="h-full w-[15%] bg-gray-600 rounded-[0.5vw]  max-md:rounded-md"></div>
+                    <div className="h-full w-[15%] bg-gray-600 rounded-[0.5vw] overflow-hidden max-md:rounded-md">
+                      <img
+                        src={CourseListItem.currentPictureAddress}
+                        className="w-full h-full"
+                        alt=""
+                      />
+                    </div>
                     <div className="flex flex-col text-[0.7vw] max-md:text-[12px] ">
                       <span className="font-[600]">
                         {CourseListItem.fName} {CourseListItem.lName}
@@ -142,9 +146,7 @@ console.log(NewsComment);
                   <div className="w-full h-[50%] px-[0.5vw] overflow-hidden pt-[0.6vw] text-[0.7vw] max-md:mt-[8px] max-md:py-[8px] max-md:text-[10px]">
                     <span>{NewsComment.title}</span>
                     <br />
-                    <span >
-                      {NewsComment.describe}
-                    </span>
+                    <span>{NewsComment.describe}</span>
                   </div>
                   <div
                     style={{ background: dark.bgLow, color: dark.textHigh }}

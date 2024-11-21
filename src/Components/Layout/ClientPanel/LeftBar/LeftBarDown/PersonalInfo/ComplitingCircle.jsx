@@ -14,7 +14,7 @@ const Gauge = ({ value }) => {
           value={percentage}
           text={`${percentage}%`}
           styles={buildStyles({
-            textColor: "#000",
+            textColor: "#888",
             pathColor: color,
             trailColor: "lightgray",
           })}

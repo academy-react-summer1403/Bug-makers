@@ -5,7 +5,7 @@ const SearchBox = ({width, placeHolder, icon, value, onChange }) => {
   return (
     <div
       style={{ background: dark.bgLow, color: dark.textHigh }}
-      className="relative max-md:col-span-2 text-gray-500 flex-grow-[2] h-[40px] rounded-[10px] text-[12px] overflow-hidden"
+      className="relative max-md:col-span-2 max-md:w-full text-gray-500 w-[30%] h-[40px] rounded-[10px] text-[12px] overflow-hidden"
     >
       <input
         type="text"

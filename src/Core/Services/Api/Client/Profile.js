@@ -14,6 +14,7 @@ export const ProfileStep1 = async (id) => {
     formData.append("Gender", id.gender);
     // formData.append("CourseFavoriteId", id.email);
     formData.append("HomeAdderess", id.address);
+    
 
     if(id.telegram!=null)
       {formData.append("TelegramLink", id.telegram)}

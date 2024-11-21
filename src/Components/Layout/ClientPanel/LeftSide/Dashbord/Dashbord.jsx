@@ -117,7 +117,7 @@ function PersianCalendarComponent() {
               </span>
             </div>
           </div>
-          <div className="h-full w-[9%] max-md:w-[30%] flex max-md:justify-start max-md:gap-x-[10px] items-center mr-[10%] max-md:mr-[2%]">
+          <div className="h-full w-[9%] justify-between  max-md:w-[30%] flex max-md:justify-start max-md:gap-x-[10px] items-center mr-[10%] max-md:mr-[2%]">
             <div className="size-[1.7vw] max-md:size-[40px] rounded-full bg-white flex items-center justify-center">
               <svg
                 width=""

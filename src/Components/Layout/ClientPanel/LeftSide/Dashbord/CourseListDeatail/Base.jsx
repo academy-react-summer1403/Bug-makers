@@ -125,7 +125,7 @@ const dark = useSelector((state) => state.darkMood);
     {
       onSuccess: (Data) => {
         dispatch(setMyCourseList(Data.listOfMyCourses || Data),setOriginalData(Data.listOfMyCourses));
-        
+        console.log(Data.listOfMyCourses);
       },
       keepPreviousData: true,
     }
@@ -252,9 +252,9 @@ const dark = useSelector((state) => state.darkMood);
               <span>{course.describe}</span>
             </Tooltip>
           </div>
-          <div className="w-[16%] h-full py-3 px-6 text-right max-md:w-[40%] max-md:text-[14px] whitespace-nowrap">
+          <div className="w-[16%] h-full  py-3 px-6 text-right max-md:w-[40%] max-md:text-[14px] whitespace-nowrap overflow-hidden text-ellipsis ...">
             <Tooltip
-              className="text-gray-700 text-[0.8vw]"
+              className="text-gray-700 text-[0.8vw] "
               content={`استاد: ${
                 point == "myCourse" ? course.fullName : course.teacherName
               }`}
@@ -517,7 +517,7 @@ const dark = useSelector((state) => state.darkMood);
       <div className="w-[100%] selection: mt-[0vw] ">
         {/* searchAndFilterSection */}
         <div
-          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-center items-center gap-x-3 max-md:gap-y-[20px] rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-start items-center gap-x-3 max-md:gap-y-[20px] rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
             ${show == true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
         >
           <SearchBox

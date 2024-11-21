@@ -52,7 +52,7 @@ const dark = useSelector((state) => state.darkMood);
   return (
     <div
       style={{ background: dark.bgLow, color: dark.textHigh }}
-      className={`text-gray-500 relative flex-grow-[1] ${
+      className={`text-gray-500 rounded-lg relative flex-grow-[1] ${
         isOpen ? "z-10" : "z-0"
       } ${width == "myCourse" ? "hidden" : "block"}`}
     >

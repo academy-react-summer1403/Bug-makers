@@ -39,19 +39,25 @@ const onsubmit = async ()=>{
     PaymentInvoiceNumber:price
   };
   const res = await setPayment(data)
-  
-  if (!res.paymentId) {
-    alert();
-    navigate(`FacturePeyment/${paymentId}/${CoursePaymentItem.courseId}/${1}`);
-  }
-    setPaymentId(res.paymentId);
-  setTimeout(() => {
+  setPaymentId(res.paymentId);
+  if (res.paymentId) {
     navigate(
-      `FacturePeyment/${paymentId}/${CoursePaymentItem.courseId}/${
-          0 
-      }`
+      `../../../../ClientPanel/Payment/FacturePeyment/${paymentId}/${
+        CoursePaymentItem.courseId
+      }/${0}`
+    );
+  }
+    
+  else{
+  
+    setTimeout(() => {
+    navigate(
+      `ClientPanel/Payment/FacturePeyment/${paymentId}/${
+        CoursePaymentItem.courseId
+      }/${1}`
     );
   }, 1000);
+}
 }
 const dark = useSelector((state) => state.darkMood);
 
