@@ -7,6 +7,11 @@ import Gauge from "./ComplitingCircle";
 import { ProfileStep1 } from "../../../../../../Core/Services/Api/Client/Profile";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import DatePicker from "react-multi-date-picker";
+import moment from "moment-jalaali";
+import persian_fa from "react-date-object/locales/persian_fa";
+import persian from "react-date-object/calendars/persian";
+import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
 
 const PersonalInfo = () => {
   
@@ -21,18 +26,40 @@ const validationSchema = Yup.object({
   lastName: Yup.string().required("نام خانوادگی را وارد کنید"),
   about: Yup.string(),
   nationalCode: Yup.string().required("کد ملی را وارد کنید"),
-  birthDate: Yup.date().required("تاریخ تولد را وارد کنید"),
   email: Yup.string()
     .email("ایمیل معتبر وارد کنید")
     .required("ایمیل را وارد کنید"),
   address: Yup.string(),
 });
   const [step, setStep] = useState(0);
-  // اسکیمای اعتبارسنجی با Yup
+  const [selectedDate, setSelectedDate] = useState(null);
+
+
+  const convertTimestampToMiladi = (timestamp) => {
+    // تبدیل timestamp به تاریخ میلادی
+    const miladiDate = new Date(timestamp).toISOString().split("T")[0]; // تاریخ به فرمت YYYY-MM-DD
+    return miladiDate;
+  };
+
 
   const onSubmit = async (values) => {
+        const data = {
+          firstName: `${values.firstName}`,
+          lastName: `${values.lastName}`,
+          about: `${values.about}`,
+          nationalCode: `${values.nationalCode}`,
+          phone: `${CourseListItem.phoneNumber}`,
+          birthDate: convertTimestampToMiladi(selectedDate),
+          gender: values.gender,
+          email: `${CourseListItem.email}`,
+          address: `${values.address}`,
+          linkedin: CourseListItem.linkdinProfile,
+          telegram: CourseListItem.telegramLink,
+          latitude: CourseListItem.latitude,
+          longitude: CourseListItem.longitude,
+        };
     try {
-      await ProfileStep1(values);
+      await ProfileStep1(data);
       toast.success("اطلاعات با موفقیت ذخیره شد!");
     } catch (error) {
       toast.error("خطا در ذخیره اطلاعات!");
@@ -53,7 +80,7 @@ const validationSchema = Yup.object({
             about: `${CourseListItem.userAbout}`,
             nationalCode: `${CourseListItem.nationalCode}`,
             phone: `${CourseListItem.phoneNumber}`,
-            birthDate: null,
+            birthDate: CourseListItem.birthDay,
             gender: true,
             email: `${CourseListItem.email}`,
             address: `${CourseListItem.homeAdderess}`,
@@ -185,7 +212,36 @@ const validationSchema = Yup.object({
                 </label>
                 <Field name="birthDate">
                   {({ field }) => (
-                    <Input {...field} className={dark.input} type="date" />
+                    <DatePicker
+                      value={selectedDate}
+                      onChange={setSelectedDate}
+                      calendar={persian}
+                      fullWidth
+                      className={
+                        dark.selectedButton === 2
+                          ? "yellow"
+                          : dark.selectedButton === 1
+                          ? "green"
+                          : dark.selectedButton === 3
+                          ? "red"
+                          : null
+                      }
+                      style={{ background: dark.bgHigh, color: dark.textHigh }}
+                      locale={persian_fa}
+                      render={(value, openCalendar) => (
+                        <Input
+                          readOnly
+                          defaultValue={convertToJalali(
+                            CourseListItem.birthDay
+                          )}
+                          placeholder="تاریخ تولد خود را وارد کنید"
+                          value={value} // نمایش تاریخ انتخاب شده
+                          onClick={openCalendar} // باز کردن تقویم
+                          className={dark.input}
+                          fullWidth
+                        />
+                      )}
+                    />
                   )}
                 </Field>
                 <ErrorMessage
