@@ -35,7 +35,7 @@ export const delLikeNews = async (id) => {
   let url = "/News/DeleteLikeNews";
 
   console.log(id);
-  const response = await instance.delete(url, { data: { deleteEntityId: id } });
+  const response = await instance.delete(url, { data: id });
 
   return response;
 };
