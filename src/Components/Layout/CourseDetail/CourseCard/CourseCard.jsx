@@ -37,7 +37,7 @@ import AddCommentForm from "../Comment/AddCommentForm";
 import { useMutation, useQuery } from "react-query";
 import { AddCourseFavorite } from "../../../../Core/Services/Api/CourseDetail/AddCourseFavorite";
 import { deleteCourseFavorite } from "../../../../Core/Services/Api/CourseDetail/deleteCourseFavorite";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, CardHeader } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
@@ -45,12 +45,15 @@ import { RiUserVoiceLine } from "react-icons/ri";
 import DataTable from "react-data-table-component";
 
 function CourseCard({ id }) {
+    const dark = useSelector((state) => state.darkMood);
+
   const [response, setResponse] = useState({});
   const [comment, setComment] = useState({});
   const [detailPage, setDetailPage] = useState(0);
   const [repleyModal, setRepleyModal] = useState(false);
   const [time, setTime] = useState();
   const userId = getItem("userId");
+  const navigate = useNavigate()
   const NewsId = id;
   const handelPage = (value) => {
     setDetailPage(value);
@@ -74,6 +77,20 @@ function CourseCard({ id }) {
       console.log(discount);
     },
   });
+const GetId = async () => {
+    const res = await getCourseDetail(id);
+    setResponse(res);
+    console.log(res);
+  };
+  const GetComment = async () => {
+    const re = await getCourseDetailComment(id);
+    setComment(re);
+    console.log(comment);
+  };
+  useEffect(() => {
+    GetId();
+    GetComment();
+  }, []);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["getscazholDetail"],
@@ -107,13 +124,16 @@ function CourseCard({ id }) {
             }`}
           >
             <span>{message}</span>
-            <Link
-              to={"/ClientPanel/MyReserve"}
-              onClick={() => toast.dismiss(t.id)}
-              className="  text-green-500 ml-2"
+            <Button
+              onClick={() => {
+                toast.dismiss(t.id);
+                navigate("../../ClientPanel/MyReserve");
+              }}
+              className="  text-green-500 ml-2 "
+              style={{ background: dark.bgHigh}}
             >
               مشاهده
-            </Link>
+            </Button>
           </div>
         ));
 
@@ -125,21 +145,7 @@ function CourseCard({ id }) {
     },
   });
 
-  const GetId = async () => {
-    const res = await getCourseDetail(id);
-    setResponse(res);
-    console.log(res);
-  };
-  const GetComment = async () => {
-    const re = await getCourseDetailComment(id);
-    setComment(re);
-    console.log(comment);
-  };
-  useEffect(() => {
-    GetId();
-    GetComment();
-  }, []);
-
+  
   const setNewsDissLike = async () => {
     const res = await postDissLikeNews(id);
     console.log(res);
@@ -304,7 +310,6 @@ function CourseCard({ id }) {
     },
   ];
 
-  const dark = useSelector((state) => state.darkMood);
 
   return (
     <div className="max-[688px]:mt-10  w-full max-[688px]:flex-row flex   flex-wrap flex-col gap-5">

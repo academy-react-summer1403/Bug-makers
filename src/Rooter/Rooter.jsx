@@ -42,6 +42,9 @@ import { Toaster } from "react-hot-toast";
 import { TourProvider } from "../Components/Common/Tuor/TourContext";
 import { NextUIProvider } from "@nextui-org/react";
 
+import { Store } from "../Redux/Store/Store";
+import { Provider, useSelector } from "react-redux";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -241,17 +244,15 @@ const router = createBrowserRouter([
   },
 ]);
 
-const Rooter = () => {
+
+const Rooter = () => {    
+
   return (
     <RouterProvider router={router}>
-      <Suspense fallback={<>loading</>}>
-        <NextUIProvider>
-          
-            <Outlet />
-            
-         
-        </NextUIProvider>
-      </Suspense>
+      <>
+        
+        <Outlet />
+      </>
     </RouterProvider>
   );
 };
