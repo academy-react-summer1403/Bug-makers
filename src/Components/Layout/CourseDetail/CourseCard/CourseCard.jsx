@@ -38,7 +38,7 @@ import { useMutation, useQuery } from "react-query";
 import { AddCourseFavorite } from "../../../../Core/Services/Api/CourseDetail/AddCourseFavorite";
 import { deleteCourseFavorite } from "../../../../Core/Services/Api/CourseDetail/deleteCourseFavorite";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, CardHeader } from "@nextui-org/react";
+import { Button, Card, CardHeader, Input } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 import { RiUserVoiceLine } from "react-icons/ri";
@@ -51,6 +51,7 @@ function CourseCard({ id }) {
   const [comment, setComment] = useState({});
   const [detailPage, setDetailPage] = useState(0);
   const [repleyModal, setRepleyModal] = useState(false);
+  const [present,setPresent]=useState(false)
   const [time, setTime] = useState();
   const userId = getItem("userId");
   const navigate = useNavigate()
@@ -309,7 +310,26 @@ const GetId = async () => {
       ),
     },
   ];
+  
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      console.log("فایل انتخاب شده:", file.name);
+    }
+  };
 
+  const setAbsent=()=>{
+    setPresent(false),toast.success("😊غیبتت ثبت شد")
+  }
+  const setPre=()=>{
+    setPresent(true);
+    toast.success("😁حضورت ثبت شد");
+  }
+  const PresenceContext=(val)=>{
+    val == true ? present == true ? toast.error("بسه خب فهمیدم حاضری😒"):setPre():present==false ? toast.error("چرا انقد به غیبت اصرار داری 🧐"):setAbsent()
+
+
+  }
 
   return (
     <div className="max-[688px]:mt-10  w-full max-[688px]:flex-row flex   flex-wrap flex-col gap-5">
@@ -425,7 +445,10 @@ const GetId = async () => {
       </div>
       <div className="flex w-[100%] flex-col md:flex-row gap-16 flex-wrap justify-between items-start">
         <div className="w-[100%] md:w-[65%] flex-grow">
-          <CourseMenu handelPage={handelPage} />
+          <CourseMenu
+            handelPage={handelPage}
+            isCourseReseve={response.isCourseReseve}
+          />
           <div className="w-full p-[1vw] ">
             <div
               style={{ background: dark.bgHigh, color: dark.textLow }}
@@ -520,8 +543,58 @@ const GetId = async () => {
               />
             </div>
             <div
+              style={{ background: dark.bgHigh, color: dark.textHigh }}
+              className={`w-full py-3 h-full ${
+                detailPage === 3 ? "block" : "hidden"
+              }
+              `}
+            >
+              <span className=" text-right text-[18px]">تکلیف روز</span>
+              <br />
+              <div className="text-center py-3 px-6  mt-8 flex justify-between items-center">
+                {/* دکمه سفارشی برای انتخاب فایل */}
+                <span>ارسال تکالیف</span>
+                <label htmlFor="file-upload" className="cursor-pointer">
+                  <div
+                    className={`w-[100%] px-6 py-3 text-white text-sm font-medium rounded-lg shadow-md duration-400 transition-all hover:bg-gray-600 
+                      ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+                ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+                ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                ${dark.selectedButton === 3 ? "bg-red-600" : ""}
+                      
+                      `}
+                  >
+                    انتخاب فایل
+                  </div>
+                </label>
+
+                {/* ورودی فایل مخفی */}
+                <input
+                  id="file-upload" // id باید با htmlFor مطابقت داشته باشد
+                  type="file"
+                  accept="*/*"
+                  onChange={handleFileChange}
+                  className="hidden" // مخفی کردن ورودی فایل
+                />
+              </div>
+            </div>
+            <div
+              style={{ background: dark.bgHigh, color: dark.textHigh }}
+              className={`w-full h-full py-5 ${detailPage === 4 ? "block" : "hidden"}
+              `}
+            >
+              <span className="block text-[20px] mb-5">حضور غیاب</span>
+              <div className="p-5 w-full flex justify-between items-center">
+                <span className="text-[16px]">حضور داری؟!</span>
+                <div className="w-[30%] text-white flex justify-evenly">
+                  <Button onClick={()=>{PresenceContext(true)}} className="w-[45%] text-white " color="success">حاضرم</Button>
+                  <Button onClick={()=>{PresenceContext(false)}} className="w-[45%]" color="danger">غایبم</Button>
+                </div>
+              </div>
+            </div>
+            <div
               className={`w-full h-full bg-yellow-500 ${
-                detailPage === 4 ? "block" : "hidden"
+                detailPage === 5 ? "block" : "hidden"
               }`}
             ></div>
           </div>
