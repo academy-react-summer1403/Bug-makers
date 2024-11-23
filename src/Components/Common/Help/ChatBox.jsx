@@ -9,7 +9,7 @@ import {
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { getItem } from "../../../Core/Services/common/storage.services";
-import { getHelpPm, postHelpPm, postHelpPmInChat } from "../../../Core/Services/Api/help";
+import { getHelpPm, postHelpPm, postHelpPmInChat } from "../../../Core/Services/Api/HelpChat/help";
 import convertToJalali from "../TimeChanger/TimeToShamsi";
 import { setHelpStatus } from "../../../Redux/Slice/helpchat/helpChat";
 

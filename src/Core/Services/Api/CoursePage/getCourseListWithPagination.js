@@ -1,7 +1,10 @@
 import instance from "../../interseptore/Interceptor";
 
 export const getCourseListWithPagination = async (query, teacherId, categoryQuery, startDate, endDate , sorting , minCost , maxCost) => {
-  let url = `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=300&SortingCol=${sorting ? sorting : 'Active'}&SortType=DESC`;
+try {
+  let url = `/Home/GetCoursesWithPagination?PageNumber=1&RowsOfPage=300&SortingCol=${
+    sorting ? sorting : "Active"
+  }&SortType=DESC`;
 
   if (query) {
     url += `&Query=${query}`;
@@ -29,5 +32,8 @@ export const getCourseListWithPagination = async (query, teacherId, categoryQuer
   }
 
   const response = await instance.get(url);
-  return response; 
+  return response;
+} catch (error) {
+  console.log(error);
+}
 };

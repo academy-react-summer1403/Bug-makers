@@ -1,39 +1,50 @@
 import instance from "../../interseptore/Interceptor";
 
 export const getLikedCourse = async () => {
+try {
   let url = `/SharePanel/GetMyFavoriteCourses`;
 
   const response = await instance.get(url);
-  return response; 
+  return response;
+} catch (error) {
+  console.log(error);
+}
 };
 
 export const getLikedNews = async () => {
-  let url = `/SharePanel/GetMyFavoriteNews`;
+try{  let url = `/SharePanel/GetMyFavoriteNews`;
 
   const response = await instance.get(url);
   return response; 
+}
+  catch (error) {
+    console.log(error);
+  }
 };
+
 
 export const getCourseServ = async () => {
-  let url = `/SharePanel/GetMyCoursesReserve`;
+  try {
+    let url = `/SharePanel/GetMyCoursesReserve`;
 
-  const response = await instance.get(url);
-  return response; 
+    const response = await instance.get(url);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 
 
-export const getMyCourseListWithPagination = async (
-  query,
-  
-) => {
-  let url = `/SharePanel/GetMyCourses?PageNumber=1&RowsOfPage=10&SortingCol=DESC&SortType=LastUpdate`;
-
-  if (query) {
-    url += `&Query=${query}`;
+export const getMyCourseListWithPagination = async (query) => {
+  try {
+    let url = `/SharePanel/GetMyCourses?PageNumber=1&RowsOfPage=10&SortingCol=DESC&SortType=LastUpdate`;
+    if (query) {
+      url += `&Query=${query}`;
+    }
+    const response = await instance.get(url);
+    return response;
+  } catch (error) {
+    console.log(error);
   }
-
-
-  const response = await instance.get(url);
-  return response;
 };

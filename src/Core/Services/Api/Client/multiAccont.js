@@ -2,19 +2,25 @@ import instance from "../../interseptore/Interceptor";
 
 
 export const addMultiAcc = async (id) => {
-  let url = "https://taharahimycode.liara.run/multiAccount/add";
-
-  const response = await instance.post(url, id);
-
-  return response;
+  try {
+    let url = "https://taharahimycode.liara.run/multiAccount/add";
+    const response = await instance.post(url, id);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getMultiAcc = async (id) => {
-  let url = "https://taharahimycode.liara.run/multiAccount/all";
+  try {
+    let url = "https://taharahimycode.liara.run/multiAccount/all";
 
-  const set = {"accId" : `${id}`}
-  console.log(set)
-  const response = await instance.get(url);
+    const set = { accId: `${id}` };
+    console.log(set);
+    const response = await instance.get(url);
 
-  return response;
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };

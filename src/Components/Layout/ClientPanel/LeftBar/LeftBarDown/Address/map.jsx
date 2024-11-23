@@ -6,6 +6,7 @@ import instance from "../../../../../../Core/Services/interseptore/Interceptor";
 import { useSelector } from "react-redux";
 import { ProfileStep1 } from "../../../../../../Core/Services/Api/Client/Profile";
 import '../../../../../../index.css'
+import toast from "react-hot-toast";
 function useProfileDetail() {
   return useQuery("userProfile", () => instance.get("/SharePanel/GetProfileInfo"));
 }
@@ -42,45 +43,13 @@ function LocationMarkers() {
     data.latitude && data.longitude ? [[data.latitude, data.longitude]] : [[0, 0]]
   );
 
-//   birthDay: "2000-01-01T00:00:00"
-// ​
-// currentPictureAddress: "Not-set"
-// ​
-// email: "mohammadsdgaming@gmail.com"
-// ​
-// fName: "bgffxgnfgnf"
-// ​
-// gender: false
-// ​
-// homeAdderess: "sari home jogi male"
-// ​
-// lName: "dfbhdbg"
-// ​
-// latitude: "25.358142484479476"
-// ​
-// linkdinProfile: null
-// ​
-// longitude: "55.461737845875874"
-// ​
-// nationalCode: "0251116751"
-// ​
-// phoneNumber: "09304323133"
-// ​
-// profileCompletionPercentage: 70
-// ​
-// receiveMessageEvent: false
-// ​
-// telegramLink: null
-// ​
-// userAbout: "dbgdbdxgn dgbdgbfdgbf"
   const CourseListItem = useSelector((state) => state.ClientInfoSlice.ClientInfo);
-  // console.log(CourseListItem);
   const map = useMapEvents({
     async click(e) {
       setMarkers([[e.latlng.lat, e.latlng.lng]]);
 
-      alert(e.latlng.lng);
-      alert(e.latlng.lat);
+      // alert(e.latlng.lng);
+      // alert(e.latlng.lat);
       const date = "2004-07-17";
       const data = {
         firstName: `${CourseListItem.fName}`,
@@ -97,10 +66,9 @@ function LocationMarkers() {
         linkedin: CourseListItem.linkdinProfile,
         telegram: CourseListItem.telegramLink,
       };
-      console.log(date);
-
       const setdata= async ()=>{
         const res = await ProfileStep1(data);
+        res.success ==	true  ? toast.success("عملیات موفقیت امیز بود"):toast.error("دوباره تلاش کنید")
       }
       setdata()
 

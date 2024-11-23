@@ -12,7 +12,7 @@ import BlogDownLeft from "./BlogDown.jsx/BlogDownLeft/BlogDownLeft";
 import { motion } from 'framer-motion'; // Import motion
 import moment from 'jalali-moment'; 
 import Loading from '../../Common/loadingWeb/Loading.jsx';
-import { getPodcastListWithPagination } from '../../../Core/Services/Api/PodcastPage/getBlogListWithPagination.js';
+import { getPodcastListWithPagination } from '../../../Core/Services/Api/PodcastPage/getPodcastListWithPagination.js';
 import SearchBox from './SearchBox/SearchBox.jsx';
 import SelectOpt2 from './Select/SelectOpt2.jsx';
 import SelectOpt from '../../Common/Select/SelectOpt.jsx';

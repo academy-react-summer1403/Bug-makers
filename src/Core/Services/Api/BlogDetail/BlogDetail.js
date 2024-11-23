@@ -2,41 +2,63 @@ import instance from "../../interseptore/Interceptor";
 
 
 export const getBlogDetail = async (id) => {
-  let url = `/News/${id}`;
+  try {
+    let url = `/News/${id}`;
 
-  const response = await instance.get(url);
-  return response.detailsNewsDto; 
+    const response = await instance.get(url);
+    return response.detailsNewsDto;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getBlogDetailComment = async (id) => {
-  let url = `/News/${id}`;
+  try {
+    let url = `/News/${id}`;
 
-  const response = await instance.get(url);
-  return response.commentDtos; 
+    const response = await instance.get(url);
+    return response.commentDtos;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const postLikeNews = async (id) => {
-  let url = `/News/NewsLike/${id}`;
-  console.log(url)
+  try {
+    let url = `/News/NewsLike/${id}`;
+    console.log(url);
 
-  const response = await instance.post(url);
-  return response; 
+    const response = await instance.post(url);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const postDissLikeNews = async (id) => {
-  let url = `/News/NewsDissLike/${id}`;
-  console.log(url)
+  try {
+    let url = `/News/NewsDissLike/${id}`;
+    console.log(url);
 
-  const response = await instance.post(url);
-  return response
+    const response = await instance.post(url);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const delLikeNews = async (id) => {
-  let url = "/News/DeleteLikeNews";
+ try {
+   let url = "/News/DeleteLikeNews";
 
-  console.log(id);
-  const response = await instance.delete(url, { data: { deleteEntityId: `${id}` } });
+   console.log(id);
+   const response = await instance.delete(url, {
+     data: { deleteEntityId: `${id}` },
+   });
 
-  return response;
+   return response;
+ } catch (error) {
+   console.log(error);
+ }
 };
 

@@ -1,57 +1,72 @@
 import instance from "../../interseptore/Interceptor";
 
 export const getRepleyCommentCorse = async (id, NewsId) => {
-  let url = `/Course/GetCourseReplyCommnets/${NewsId}/${id}`;
+ try {
+   let url = `/Course/GetCourseReplyCommnets/${NewsId}/${id}`;
 
-  const response = await instance.get(url);
-  return response;
+   const response = await instance.get(url);
+   return response;
+ } catch (error) {
+   console.log(error);
+ }
 };
 
 export const setCourseComment = async (id) => {
-  let url = `/Course/AddCommentCourse`;
+  try {
+    let url = `/Course/AddCommentCourse`;
 
-  const data = new FormData()
-  data.append("Title", id.Title)
-  data.append("Describe",id.Describe);
-  data.append("CourseId", id.CourseId);
+    const data = new FormData();
+    data.append("Title", id.Title);
+    data.append("Describe", id.Describe);
+    data.append("CourseId", id.CourseId);
 
-  console.log(data)
-  const response = await instance.post(url,data);
-  return response
+    const response = await instance.post(url, data);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 export const setCourseRepleyComment = async (id) => {
-  let url = `/Course/AddCommentCourse`;
-  const data = new FormData()
-  data.append("Title", id.Title)
-  data.append("Describe",id.Describe);
-  data.append("CourseId", id.CourseId);
-  data.append("CommentId", id.CommentId);
-  console.log(data)
-
-  const response = await instance.post(url, data);
-  return response
+  try {
+    let url = `/Course/AddCommentCourse`;
+    const data = new FormData();
+    data.append("Title", id.Title);
+    data.append("Describe", id.Describe);
+    data.append("CourseId", id.CourseId);
+    data.append("CommentId", id.CommentId);
+    const response = await instance.post(url, data);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 export const commentLikeCourse = async (id) => {
-  let url = `/Course/AddCourseCommentLike?CourseCommandId=${id}`;
-  console.log(url)
-
-  const response = await instance.post(url);
-  return response; 
+  try {
+    let url = `/Course/AddCourseCommentLike?CourseCommandId=${id}`;
+    const response = await instance.post(url);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const commentDissLikeCourse = async (id) => {
+try {
   let url = `/Course/AddCourseCommentDissLike?CourseCommandId=${id}`;
-  console.log(url)
-
   const response = await instance.post(url);
-  return response
+  return response;
+} catch (error) {
+  console.log(error);
+}
 };
 
 export const comentDelLikeCourse = async (id) => {
+try {
   let url = `/Course/DeleteCourseCommentLike?CourseCommandId=${id}`;
-  
-  console.log(id)
   const response = await instance.delete(url);
-  
-  return response
+
+  return response;
+} catch (error) {
+  console.log(error);
+}
 };

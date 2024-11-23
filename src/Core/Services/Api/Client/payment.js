@@ -1,9 +1,11 @@
 import instance from "../../interseptore/Interceptor";
 
 export const getPayment = async () => {
-  let url = "/CoursePayment/StudentUserPayList";
-
-  const response = await instance.get(url);
-
-  return response;
+  try {
+    let url = "/CoursePayment/StudentUserPayList";
+    const response = await instance.get(url);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };

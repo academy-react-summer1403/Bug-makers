@@ -1,10 +1,14 @@
 import instance from "../../interseptore/Interceptor";
 
 export const deleteBlogFavorite = async (id) => {
-  let url = "/News/DeleteFavoriteNews";
+ try {
+   let url = "/News/DeleteFavoriteNews";
 
-  const data = { data: { deleteEntityId: `${id}` } };
-  const response = await instance.delete(url, data);
+   const data = { data: { deleteEntityId: `${id}` } };
+   const response = await instance.delete(url, data);
 
-  return response;
+   return response;
+ } catch (error) {
+   console.log(error);
+ }
 };

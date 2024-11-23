@@ -1,7 +1,11 @@
 import instance from "../../interseptore/Interceptor";
 
 export const getCategoryList = async () => {
-  const response = await instance.get('/Home/GetTechnologies');
-  return response; 
+try {
+  const response = await instance.get("/Home/GetTechnologies");
+  return response;
+} catch (error) {
+  console.log(error);
+}
   
 };

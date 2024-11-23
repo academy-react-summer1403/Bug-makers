@@ -391,7 +391,7 @@ const handleSearch = (e) => {
       <div className="w-[100%] selection: mt-[0vw] ">
         {/* searchAndFilterSection */}
         <div
-          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-center items-center gap-x-3 max-md:gap-y-[20px] rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-start items-center gap-x-3 max-md:gap-y-[20px] rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
             ${show == true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
         >
           <SearchBox
