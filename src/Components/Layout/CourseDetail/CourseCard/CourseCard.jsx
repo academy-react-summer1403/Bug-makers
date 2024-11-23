@@ -103,6 +103,9 @@ const GetId = async () => {
     },
   });
 
+  useEffect(() => {
+    response.isCourseReseve ==0 ? handelPage(0):null
+  }, [response.isCourseReseve]);
   const CorseReserveF = useMutation({
     mutationFn: async (id) => {
       return response.isCourseReseve == 1
@@ -545,7 +548,9 @@ const GetId = async () => {
             <div
               style={{ background: dark.bgHigh, color: dark.textHigh }}
               className={`w-full py-3 h-full ${
-                detailPage === 3 ? "block" : "hidden"
+                detailPage === 3 && response.isCourseReseve == 1
+                  ? "block"
+                  : "hidden"
               }
               `}
             >
@@ -580,15 +585,35 @@ const GetId = async () => {
             </div>
             <div
               style={{ background: dark.bgHigh, color: dark.textHigh }}
-              className={`w-full h-full py-5 ${detailPage === 4 ? "block" : "hidden"}
+              className={`w-full h-full py-5 ${
+                detailPage === 4 && response.isCourseReseve == 1
+                  ? "block"
+                  : "hidden"
+              }
               `}
             >
               <span className="block text-[20px] mb-5">حضور غیاب</span>
               <div className="p-5 w-full flex justify-between items-center">
                 <span className="text-[16px]">حضور داری؟!</span>
                 <div className="w-[30%] text-white flex justify-evenly">
-                  <Button onClick={()=>{PresenceContext(true)}} className="w-[45%] text-white " color="success">حاضرم</Button>
-                  <Button onClick={()=>{PresenceContext(false)}} className="w-[45%]" color="danger">غایبم</Button>
+                  <Button
+                    onClick={() => {
+                      PresenceContext(true);
+                    }}
+                    className="w-[45%] text-white "
+                    color="success"
+                  >
+                    حاضرم
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      PresenceContext(false);
+                    }}
+                    className="w-[45%]"
+                    color="danger"
+                  >
+                    غایبم
+                  </Button>
                 </div>
               </div>
             </div>

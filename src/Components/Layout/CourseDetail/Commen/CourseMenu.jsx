@@ -1,10 +1,12 @@
 // Menu.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const CourseMenu = ({ handelPage, isCourseReseve }) => {
   const [selected, setSelected] = useState(0);
-
+  useEffect(() => {
+    isCourseReseve == 0 ? handleClick(0) : null;
+  }, [isCourseReseve]);
   const handleClick = (index) => {
     setSelected(index);
   };
