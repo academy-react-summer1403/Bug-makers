@@ -38,7 +38,7 @@ console.log(mulltiData);
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
-      className={`py-3 px-2 h-[350%] w-full transition-all duration-250 absolute top-[-350%] max-md:top-0 max-md:h-full z-20 shadow-[0_-10px_40px_10px_rgba(0,0,0,0.3)] rounded-xl 
+      className={`py-3 px-2 h-[800%] w-full transition-all duration-250 absolute top-[-800%] max-md:top-0 max-md:h-full z-20 shadow-[0_-10px_40px_10px_rgba(0,0,0,0.3)] rounded-xl 
             ${multiAccount == true ? "block" : "hidden"}
             `}
     >

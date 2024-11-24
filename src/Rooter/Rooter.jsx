@@ -44,6 +44,7 @@ import { NextUIProvider } from "@nextui-org/react";
 
 import { Store } from "../Redux/Store/Store";
 import { Provider, useSelector } from "react-redux";
+import Wallet from "../Components/Layout/ClientPanel/LeftSide/Wallet/Wallet";
 
 const router = createBrowserRouter([
   {
@@ -53,14 +54,17 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <LandingPage />,
+        errorElement: <Error />,
       },
       {
         path: "/CoursePage",
         element: <CoursePage />,
+        errorElement: <Error />,
       },
       {
         path: "/ContactUs",
         element: <ContactUs />,
+        errorElement: <Error />,
       },
       {
         path: "/BlogPage",
@@ -129,8 +133,12 @@ const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
+        path: "Wallet",
+        element: <Wallet />,
+        errorElement: <Error />,
+      },
+      {
         path: "Payment",
-
         errorElement: <Error />,
         children: [
           {
