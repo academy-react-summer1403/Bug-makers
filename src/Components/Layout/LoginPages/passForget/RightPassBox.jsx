@@ -24,7 +24,7 @@ const RightPassBox=()=>{
         <div className="w-1/2 max-sm:w-[100%]">
                 <div className=" mx-[6.51vw] py-[4.163vw] h-full ">
                     <Formik
-                    initialValues={{ email: "", baseUrl: "http://localhost:5173/sign/resetPass/:"}}
+                    initialValues={{ email: "", baseUrl: "http://localhost:5173/sign/resetPass/"}}
                     validationSchema={validation}
                     onSubmit={(values)=>{onSubmit(values)}}
                     >

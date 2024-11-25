@@ -33,7 +33,6 @@ import LoginPage from "../Components/Layout/LoginPages/LoginPage";
 import Login from "../Components/Layout/LoginPages/login/Login";
 import TwoStepLogin from "../Components/Layout/LoginPages/twoStep/twoStep";
 import ForgetPass from "../Components/Layout/LoginPages/passForget/ForgetPass";
-import { ForgetPassStep2 } from "../Core/Services/Api/auth";
 import ReStep1 from "../Components/Layout/LoginPages/register/step1/ReStep1";
 import ReStep2 from "../Components/Layout/LoginPages/register/step2/ReStep2";
 import ReStep4 from "../Components/Layout/LoginPages/register/step4/ReStep4";
@@ -45,6 +44,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { Store } from "../Redux/Store/Store";
 import { Provider, useSelector } from "react-redux";
 import Wallet from "../Components/Layout/ClientPanel/LeftSide/Wallet/Wallet";
+import ForgetPassStep2 from "../Components/Layout/LoginPages/passForgetStep2/ForgetPassStep2";
 
 const router = createBrowserRouter([
   {

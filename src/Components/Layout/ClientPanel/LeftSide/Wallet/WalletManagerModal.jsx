@@ -52,6 +52,7 @@ const WalletManagerModal = ({
     const res = await CreateWallet(newWallet);
     console.log(res);
     resetForm();
+    const res2 = await activeWallet()
     GetWall();
     onOpenChange(false); // بستن مودال
   };

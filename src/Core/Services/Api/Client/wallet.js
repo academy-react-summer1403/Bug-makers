@@ -71,3 +71,16 @@ export const CreateWallet = async (id) => {
     console.log(error);
   }
 };
+
+export const activeWallet = async (id) => {
+  try {
+    let url = `https://taharahimycode.liara.run/wallet/active/access/${id}`;
+    const response = await axios.post(url, {
+      code: `0000`,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
