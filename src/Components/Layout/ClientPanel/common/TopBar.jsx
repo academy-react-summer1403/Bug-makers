@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Button, Avatar } from "@nextui-org/react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { ProfileGet } from "../../../../Core/Services/Api/Client/Profile";
 import { setClientInfo } from "../../../../Redux/Slice/ClientInfo/ClientInfo";
 import { selectdark } from "../../../../Redux/Slice/darkMood/darkMood";
+import NotificationBox from "./NotifBox";
 
 
 
 const TopBar = () => {
 
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
 
     const { data: getProfileInfo } = useQuery({
       queryKey: ["getProfileInfo"],
@@ -20,6 +22,11 @@ const TopBar = () => {
         dispatch(setClientInfo(data || []));
       },
     });
+
+    // useEffect(()=>{
+    //   queryClient.invalidateQueries("getNotifList");
+    //   queryClient.invalidateQueries("getNotifMessage");
+    // },[])
         const dark = useSelector((state) => state.darkMood);
         const [theme, setTheme] = useState(dark.selectedDark);
 
@@ -41,12 +48,11 @@ const TopBar = () => {
       className="w-full h-full flex flex-row-reverse justify-between items-center  shadow-md px-[1%] py-[0.5%] rounded-lg"
     >
       {/* Left Icons */}
-      <div className="flex items-center justify-end gap-x-[2%] max-md:w-[20%]   h-full">
+      <div className="flex items-center justify-end gap-x-[2%] max-md:w-[20%] w-[10%]  h-full">
         {/* Clock Icon Button */}
         <Button
-          auto
-          
-          className={` rounded-full h-full w-[100%]  p-0 max-md:max-w-[70px]
+                    
+          className={` rounded-full h-full w-[10%]  p-0 max-md:max-w-[70px]
             ${theme == 1 ? "bg-yellow-300" : "bg-gray-600"}
             `}
           onClick={() => {
@@ -82,44 +88,9 @@ const TopBar = () => {
         </Button>
 
         {/* Notification Icon Button */}
-        {/* <div className="relative h-full w-[40%]"> */}
-        {/* <Button
-          auto
-          style={{
-            background: dark.bgLow,
-          }}
-          className="bg-gray-500 rounded-full max-md:hidden h-full w-[30%]"
-        >
-          <svg
-            width=""
-            height="70%"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2.52992 14.7696C2.31727 16.1636 3.268 17.1312 4.43205 17.6134C8.89481 19.4622 15.1052 19.4622 19.5679 17.6134C20.732 17.1312 21.6827 16.1636 21.4701 14.7696C21.3394 13.9129 20.6932 13.1995 20.2144 12.5029C19.5873 11.5793 19.525 10.5718 19.5249 9.5C19.5249 5.35786 16.1559 2 12 2C7.84413 2 4.47513 5.35786 4.47513 9.5C4.47503 10.5718 4.41272 11.5793 3.78561 12.5029C3.30684 13.1995 2.66061 13.9129 2.52992 14.7696Z"
-              stroke="#5e5e5e"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M8 19C8.45849 20.7252 10.0755 22 12 22C13.9245 22 15.5415 20.7252 16 19"
-              stroke="#5e5e5e"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </Button> */}
-        {/* Notification Badge */}
-        {/* <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-            1
-          </span> */}
-        {/* </div> */}
-      </div>
 
+        <NotificationBox/>
+</div>
       {/* User Profile Section */}
       <div className="flex items-center justify-end gap-x-3 flex-row-reverse h-full max-md:w-[50%]">
         <div className="text-right">
