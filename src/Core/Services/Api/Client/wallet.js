@@ -34,9 +34,9 @@ export const deleteWalletById = async (id) => {
   }
 };
 
-export const getTractionById = async (id) => {
+export const getTractionGetAll = async (id) => {
   try {
-    let url = `https://taharahimycode.liara.run/wallet/Traction/getById/${id}`;
+    let url = `https://taharahimycode.liara.run/wallet/Traction/getAll`;
     const response = await axios.get(url);
 
     return response;
@@ -48,7 +48,12 @@ export const getTractionById = async (id) => {
 export const CreateTractionById = async (id) => {
   try {
     let url = `https://taharahimycode.liara.run/wallet/Traction/create`;
-    const response = await axios.post(url,id);
+    const response = await axios.post(url, {
+      WalletId: `${id.walletId}`,
+      Cost: id.amount,
+      Title: `${id.title}`,
+      Serial: "222",
+    });
 
     return response;
   } catch (error) {
@@ -72,7 +77,7 @@ export const CreateWallet = async (id) => {
   }
 };
 
-export const activeWallet = async (id) => {
+export const activeWalletApi = async (id) => {
   try {
     let url = `https://taharahimycode.liara.run/wallet/active/access/${id}`;
     const response = await axios.post(url, {

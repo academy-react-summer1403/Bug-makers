@@ -6,11 +6,14 @@ import { getCourseDetail } from '../../../../../../Core/Services/Api/CourseDetai
 import { Button } from '@nextui-org/react';
 import { useSelector } from 'react-redux';
 import { setPaymentStep2 } from '../../../../../../Core/Services/Api/Client/Profile';
+import { getItem } from '../../../../../../Core/Services/common/storage.services';
+import { CreateTractionById } from '../../../../../../Core/Services/Api/Client/wallet';
 
 const FacturePeyment = () => {
   const {payId} = useParams()
   const {id} = useParams()
   const { status } = useParams();
+  const walletId = getItem("walletId");
   console.log(status)
   const elementRef = useRef(null);
   const navigate = useNavigate();
@@ -39,10 +42,22 @@ const FacturePeyment = () => {
         console.log(err);
       });
   };
+const [course, setCourse] = useState();
 
 
+  const hendelWallet= async ()=> {
+    const newTransaction = {
+      walletId: walletId,
+      amount: -Number(course.cost),
+      title: "کسر از کیف پول",
+    };
 
-  const [course, setCourse] = useState();
+    const res = await CreateTractionById(newTransaction);
+
+  }
+
+
+  
 
   async function getCourseById() {
     const getApi = await getCourseDetail(id);
@@ -51,6 +66,7 @@ const FacturePeyment = () => {
   useEffect(() => {
     getCourseById();
   }, []);
+
 const dark = useSelector((state) => state.darkMood);
   return (
     <div className="h-full  max-md:w-full flex ">
@@ -117,14 +133,26 @@ const dark = useSelector((state) => state.darkMood);
             </tbody>
           </table>
           <Button
-            className="butten1"
+            className="butten1 mt-4"
             onClick={() => {
               htmlToImageConvert();
               status != 1 ? navigate(`../PaymentSecoundTab/${payId}`) : null;
             }}
           >
             {status == 1 ? "دانلود" : "دانلود و پرداخت"}
-          </Button>
+          </Button >
+          
+          {status != 1 ? <Button
+            className="butten1 mr-6 mt-4"
+            onClick={() => {
+              htmlToImageConvert();
+              hendelWallet()
+              navigate(`../PaymentSecoundTab/${payId}`);
+
+            }}
+          >
+            پرداخت با کیف پول
+          </Button>:null}
         </div>
       ) : (
         "no data"

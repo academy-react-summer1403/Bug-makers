@@ -63,7 +63,9 @@ function PersianCalendarComponent() {
             ? "red"
             : null
         }
+        shadow=""
         aria-label="Date (Uncontrolled)"
+        borderColor="#fffff"
         defaultValue={today(getLocalTimeZone())}
         value={today(getLocalTimeZone())}
         style={{ background: dark.bgHigh, color: dark.textHigh }}
@@ -81,7 +83,7 @@ function PersianCalendarComponent() {
     return (
       <div
         style={{ background: dark.bgHigh, color: dark.textHigh }}
-        className="relative w-full h-full overflow-auto"
+        className="relative px-2 w-full h-full overflow-auto"
       >
         <div className="h-[10%] w-full flex items-center py-[1vw] max-md:h-[8%]">
           <span className="font-[600] text-[1.8vw] max-md:text-[16px]">
@@ -171,12 +173,12 @@ function PersianCalendarComponent() {
             </div>
           </div>
         </div>
-        <div className="relative w-full h-[35%] max-md:h-[50%] max-md:flex-wrap justify-between  flex">
-          <div className="w-[59%] max-md:w-full h-full max-md:h-[50%] max-md:overflow-auto">
+        <div className="relative w-full h-[34.2%] max-md:h-[50%] max-md:flex-wrap justify-evenly  flex">
+          <div className="border border-[#eee] rounded-xl w-[59%] max-md:w-full h-full max-md:h-[50%] max-md:overflow-auto">
             <CommentSection setOpenCommentBar={setOpenCommentBar} />
           </div>
 
-          <div className="h-[99%] w-[19%] max-md:w-[49%] max-md:h-[50%]">
+          <div className="h-[99%] w-[18%] max-md:w-[49%] max-md:h-[50%] overflow-auto">
             {/* <PersianCalender /> */}
             {PersianCalendarComponent()}
           </div>
@@ -187,7 +189,7 @@ function PersianCalendarComponent() {
             <Gauge value={CourseListItem.profileCompletionPercentage} />
           </div>
         </div>
-        <div className="w-full h-[54%] max-md:h-[60%] max-md:mt-[15px]  rounded-[0.5vw] pb-[2.8vw] pt-[0.2vw] px-[0.5vw]  overflow-auto mt-[0.2vw] shadow-lg">
+        <div className="w-full h-[54%] max-md:h-[60.8%] max-md:mt-[15px]  rounded-[0.5vw] pb-[2.8vw] pt-[0.2vw] px-[0.5vw]  overflow-auto mt-[0.2vw] shadow-lg">
           <CoursePage
             show={false}
             itemPerpage={4}

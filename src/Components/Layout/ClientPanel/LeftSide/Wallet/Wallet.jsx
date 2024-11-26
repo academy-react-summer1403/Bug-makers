@@ -13,36 +13,74 @@ import {
 import { FaWallet } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import WalletManagerModal from "./WalletManagerModal"; // کامپوننت جدید
-import { getWalletById } from "../../../../../Core/Services/Api/Client/wallet";
-import { useQuery } from "react-query";
+import { CreateTractionById, getAllWallet, getTractionGetAll, getWalletById } from "../../../../../Core/Services/Api/Client/wallet";
+import { useQuery, useQueryClient } from "react-query";
+import { getItem, setItem } from "../../../../../Core/Services/common/storage.services";
+import convertToJalali from "../../../../Common/TimeChanger/TimeToShamsi";
 
 const Wallet = () => {
-  const [balance, setBalance] = useState(150000); // موجودی اولیه
+  const queryClient = useQueryClient();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const[response,setResponse]=useState({})
-  const [transactions, setTransactions] = useState([
-    { id: 1, date: "2024-11-20", amount: 50000, title: "افزایش موجودی" },
-    { id: 2, date: "2024-11-18", amount: -20000, title: "خرید محصول" },
-    { id: 3, date: "2024-11-15", amount: 100000, title: "افزایش موجودی" },
-  ]);
   const [amount, setAmount] = useState(""); // مقدار ورودی برای افزایش موجودی
 
   const dark = useSelector((state) => state.darkMood);
 
+  const userId = getItem("userId");
+    const { data:allWallet } = useQuery({
+      queryKey: ["getAllWallet"],
+      queryFn: getAllWallet,
+    });
+    const filterWallet = allWallet
+      ? allWallet?.data.data.filter(
+          (el) => el.UserId == userId && el.IsActive != false
+        )
+      : "درحال بارگذاری";
 
-  const fetchWalletById = async (id)=>{
-    const res = await getWalletById(id)
-    console.log(res.data.data)
-    setResponse(res.data.data)
-  }
-
-  useEffect(()=>{
-    fetchWalletById("67435ed4c688ef48df5ba51d");
-  },[])
+setItem("walletId", filterWallet[0].id)
 
 
+  const walletId = filterWallet[0]?.id;
+  const id =  walletId ;
+  
+  const { data: response, isLoading } = useQuery({
+    queryKey: ["getWalletById", id],
+    queryFn: () => getWalletById(id),
+    enabled: !!id,
+    onSuccess:(data)=>{
+      setItem("walletId", data?.data.data.id);
+    }
+  });
+  // const fetchWalletById = async (id)=>{
+  //   const res = await getWalletById(id)
+  //   console.log(res.data.data)
+  //   setResponse(res.data.data)
+  // }
+
+  // useEffect(()=>{
+  //   fetchWalletById("67435ed4c688ef48df5ba51d");
+  // },[])
+
+  const {
+    data: tractions,
+    isLoading: isLoadTr,
+    error: errTr,
+  } = useQuery({
+    queryKey: ["getWalletTractionById", id],
+    queryFn: () => getTractionGetAll(id),
+    enabled: !!id,
+  });
+
+  const transactions = tractions
+    ? tractions?.data.data
+        .filter((el) => el.WalletId == response?.data.data.id)
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+    : [];
 
 
+
+  console.log(tractions)
+
+console.log(transactions);
 
 
 
@@ -67,16 +105,17 @@ const Wallet = () => {
     onOpenChange: onManagerOpenChange,
   } = useDisclosure();
 
-  const handleAddCredit = () => {
+  const handleAddCredit = async () => {
     const newTransaction = {
-      id: transactions.length + 1,
-      date: new Date().toISOString().slice(0, 10),
+      walletId:response?.data.data.id,
       amount: Number(amount),
       title: "افزایش موجودی",
     };
 
-    setTransactions([newTransaction, ...transactions]);
-    setBalance(balance + Number(amount));
+    const res = await CreateTractionById(newTransaction);
+
+    queryClient.invalidateQueries("getWalletById");
+    queryClient.invalidateQueries("getWalletTractionById");
     setAmount(""); // پاک کردن مقدار ورودی
     onOpenChange(false); // بستن مودال
   };
@@ -108,7 +147,7 @@ const Wallet = () => {
         <div className="ml-6 flex flex-col justify-between h-full w-[30%] text-right">
           <div className="flex items-center gap-x-4 mb-4">
             <h2 className=" text-lg font-bold">موجودی کیف‌پول :</h2>
-            <p className=" text-2xl mt-2">{response.Cost} تومان</p>
+            <p className=" text-2xl mt-2">{response?.data.data.Cost} تومان</p>
           </div>
           {/* دکمه افزایش اعتبار */}
           <Button
@@ -129,7 +168,7 @@ const Wallet = () => {
         <h3 className="text-xl font-bold mb-4">تراکنش‌های اخیر</h3>
         <div
           style={{ background: dark.bgHigh, color: dark.textLow }}
-          className="shadow-md rounded-lg overflow-hidden"
+          className="shadow-md rounded-lg overflow-auto"
         >
           <table className="w-full text-right border-collapse">
             <thead style={{ background: dark.bgLow, color: dark.textHigh }}>
@@ -140,19 +179,27 @@ const Wallet = () => {
               </tr>
             </thead>
             <tbody>
-              {transactions.map((transaction) => (
-                <tr key={transaction.id} className="border-t">
-                  <td className="py-3 px-4">{transaction.date}</td>
-                  <td
-                    className={`py-3 px-4 ${
-                      transaction.amount > 0 ? "text-green-500" : "text-red-500"
-                    }`}
-                  >
-                    {transaction.amount.toLocaleString()} تومان
-                  </td>
-                  <td className="py-3 px-4">{transaction.title}</td>
-                </tr>
-              ))}
+              {errTr ? <div>تراکنشی پیدا نشد </div> : null}
+              {isLoadTr ? <p>در حال بارگذاری</p> : null}
+              {transactions.length > 0 ? (
+                transactions?.map((transaction) => (
+                  <tr key={transaction.id} className="border-t">
+                    <td className="py-3 px-4">
+                      {convertToJalali(transaction.date)}
+                    </td>
+                    <td
+                      className={`py-3 px-4 ${
+                        transaction.Cost > 0 ? "text-green-500" : "text-red-500"
+                      }`}
+                    >
+                      {transaction.Cost.toLocaleString()} تومان
+                    </td>
+                    <td className="py-3 px-4">{transaction.Title}</td>
+                  </tr>
+                ))
+              ) : (
+                <div className="text-lg p-4">تراکنشی موجود نیست </div>
+              )}
             </tbody>
           </table>
         </div>
@@ -214,7 +261,8 @@ const Wallet = () => {
         setWallets={setWallets}
         activeWallet={activeWallet}
         setActiveWallet={setActiveWallet}
-        fetchWalletById={fetchWalletById}
+        fetchWalletById={setActiveWallet}
+        filterWallet={filterWallet}
       />
     </div>
   );

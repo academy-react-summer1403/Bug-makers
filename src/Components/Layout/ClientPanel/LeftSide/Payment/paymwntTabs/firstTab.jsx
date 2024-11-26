@@ -52,7 +52,7 @@ const onsubmit = async ()=>{
   
     setTimeout(() => {
     navigate(
-      `ClientPanel/Payment/FacturePeyment/${paymentId}/${
+      `../../../../ClientPanel/Payment/FacturePeyment/${paymentId}/${
         CoursePaymentItem.courseId
       }/${1}`
     );

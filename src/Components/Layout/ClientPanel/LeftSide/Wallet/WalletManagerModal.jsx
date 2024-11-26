@@ -11,8 +11,8 @@ import {
 import { Formik, Form, Field } from "formik";
 import { useQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
-import { CreateWallet, getAllWallet } from "../../../../../Core/Services/Api/Client/wallet";
-import { getItem } from "../../../../../Core/Services/common/storage.services";
+import { activeWalletApi, CreateWallet, getAllWallet } from "../../../../../Core/Services/Api/Client/wallet";
+import { getItem, setItem } from "../../../../../Core/Services/common/storage.services";
 
 const WalletManagerModal = ({
   isOpen,
@@ -21,6 +21,7 @@ const WalletManagerModal = ({
   activeWallet,
   setActiveWallet,
   fetchWalletById,
+  filterWallet,
 }) => {
   const queryClient = useQueryClient();
 
@@ -28,19 +29,6 @@ const WalletManagerModal = ({
   const userId = getItem("userId");
 
   const [response, setResponse] = useState([]);
-
-  const GetWall = async () => {
-    const res = await getAllWallet();
-    res
-      ? setResponse(res.data.data.filter((el) => el.UserId == userId))
-      : "درحال بارگذاری";
-    console.log(res.data.data[7].UserId);
-    console.log(`${userId}`);
-  };
-
-  useEffect(() => {
-    GetWall();
-  }, []);
 
   const handleCreateWallet = async (values, { resetForm }) => {
     const newWallet = {
@@ -52,8 +40,12 @@ const WalletManagerModal = ({
     const res = await CreateWallet(newWallet);
     console.log(res);
     resetForm();
-    const res2 = await activeWallet()
-    GetWall();
+    console.log(res.data.data.id);
+    setTimeout( async () => {
+      const res2 = await activeWalletApi(res.data.data.id);
+    }, 2000);
+
+    queryClient.invalidateQueries("getAllWallet");
     onOpenChange(false); // بستن مودال
   };
 
@@ -77,7 +69,7 @@ const WalletManagerModal = ({
                   کیف‌پول‌های موجود:
                 </h3>
                 <ul className="max-h-[200px] overflow-auto mb-6">
-                  {response.map((wallet) => (
+                  {filterWallet.map((wallet) => (
                     <li
                       key={wallet.id}
                       className={`p-2 flex justify-between rounded-md cursor-pointer ${
@@ -100,7 +92,7 @@ const WalletManagerModal = ({
                       }`}
                       onClick={() => {
                         setActiveWallet(wallet);
-                        fetchWalletById(wallet.id);
+                        queryClient.invalidateQueries(["getWalletById", wallet.id]);
                       }}
                     >
                       <span>{wallet.UserName}</span>
