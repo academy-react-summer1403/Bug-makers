@@ -123,7 +123,7 @@ console.log(transactions);
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
-      className="w-full h-full p-4"
+      className="w-full h-full p-4 "
     >
       {/* نیمه بالایی */}
       <div
@@ -164,21 +164,21 @@ console.log(transactions);
       </div>
 
       {/* نیمه پایینی: جدول تراکنش‌ها */}
-      <div className="mt-6 w-full">
+      <div className="mt-6 w-full  ">
         <h3 className="text-xl font-bold mb-4">تراکنش‌های اخیر</h3>
         <div
           style={{ background: dark.bgHigh, color: dark.textLow }}
-          className="shadow-md rounded-lg overflow-auto"
+          className="shadow-md  max-h-[550px] overflow-auto  rounded-lg "
         >
-          <table className="w-full text-right border-collapse">
-            <thead style={{ background: dark.bgLow, color: dark.textHigh }}>
+          <table className="w-full relative  text-right border-collapse">
+            <thead className="sticky top-0" style={{ background: dark.bgLow, color: dark.textHigh }}>
               <tr className="text-sm font-semibold">
                 <th className="py-3 px-4">تاریخ</th>
                 <th className="py-3 px-4">مبلغ</th>
                 <th className="py-3 px-4">توضیحات</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="">
               {errTr ? <div>تراکنشی پیدا نشد </div> : null}
               {isLoadTr ? <p>در حال بارگذاری</p> : null}
               {transactions.length > 0 ? (
