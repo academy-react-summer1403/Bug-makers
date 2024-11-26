@@ -440,7 +440,7 @@ const dark = useSelector((state) => state.darkMood);
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
-      className="relative  m-auto w-[100%] bg-transparent text-center max-md:w-full"
+      className="relative h-full m-auto w-[100%] bg-transparent text-center max-md:w-full "
     >
       <div
         className={`fixed top-[40%] left-[50%] translate-x-[-100%] ${
@@ -497,7 +497,7 @@ const dark = useSelector((state) => state.darkMood);
           <span>بستن</span>
         </div>
       </div>
-      <div className="w-[100%] selection: mt-[0vw] ">
+      <div className="w-[100%] h-[100%] selection: mt-[0vw] ">
         {/* for dashbord........  */}
         <div
           className={` justify-between items-center my-[1vw] max-md:h-[50px] ${
@@ -626,7 +626,7 @@ const dark = useSelector((state) => state.darkMood);
           </div>
         </div>
         {/* courseItemsSection */}
-        <div className="flex flex-wrap justify-center items-center  mt-[0.5vw]">
+        <div className="flex flex-wrap justify-center items-center max-h-[70%] overflow-scroll  mt-[0.5vw]">
           {renderCourses()}
         </div>
 
