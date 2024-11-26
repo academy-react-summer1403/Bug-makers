@@ -543,7 +543,12 @@ const dark = useSelector((state) => state.darkMood);
               radius="full"
               className={`${
                 selectedStatus === "notApproved"
-                  ? "bg-[#E1C461] text-white"
+                  ? `
+                    ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+                    ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+                    ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                    ${dark.selectedButton === 3 ? "bg-red-600" : ""}
+                   text-white`
                   : "bg-transparent border-gray-400 text-gray-500"
               }`}
               bordered
@@ -556,7 +561,12 @@ const dark = useSelector((state) => state.darkMood);
               radius="full"
               className={`${
                 selectedStatus === "approved"
-                  ? "bg-[#E1C461] text-white"
+                  ? `
+                  ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+                  ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+                  ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                  ${dark.selectedButton === 3 ? "bg-red-600" : ""}
+                  text-white`
                   : "bg-transparent border-gray-400 text-gray-500"
               }`}
               bordered

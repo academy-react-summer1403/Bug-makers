@@ -5,29 +5,40 @@ import { useSelector } from "react-redux";
 import { setPayment } from "../../../../../../Core/Services/Api/Client/Profile";
 import FacturePeyment from "./FacturePeyment";
 import { useNavigate } from "react-router-dom";
+import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
 
 const PaymentFirstStep = ()=>{
     const [paymentId,setPaymentId]=useState(null)
-    const price = Math.floor(10000 + Math.random() * 90000);
-    const [date,setDate] = useState()
+
     const [open,setOpen] = useState(false)   
 
 const navigate = useNavigate()
 
- const getTodayDate = () => {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0"); // ماه از 0 شروع می‌شود، پس 1 اضافه می‌کنیم
-  const day = String(today.getDate()).padStart(2, "0");
-
-  const date2 = `${year}-${month}-${day}`;
-  setDate(date2)
-};
-
-useEffect(()=>{getTodayDate()},[])
-console.log(date);
 const CoursePaymentItem = useSelector((state) => state.payment.paymentList);
 console.log(CoursePaymentItem);
+
+
+// ​
+// classRoomName:
+// cost:
+// courseGroupId: ​
+// courseId:
+// courseTitle
+// describe
+// fullName: 
+// groupName: ​
+// isActive:
+// isExpire: false
+// isdelete: false​
+// lastUpdate: "2024-11-04T20:49:50.633"
+// levelName: "متوسط"
+// paymentStatus: "پرداخت نشده"
+// statusName: "شروع ثبت نام"​
+// studentId: 1​
+// teacherId: 20205 ​
+// termName: "بهار1404"​
+// tumbImageAddress: null
+// typeName: "حضوری"
 
 const onsubmit = async ()=>{
   setOpen(true);
@@ -39,25 +50,22 @@ const onsubmit = async ()=>{
     PaymentInvoiceNumber:price
   };
   const res = await setPayment(data)
-  setPaymentId(res.paymentId);
-  if (res.paymentId) {
+  setPaymentId(res.id);
+  if (res.id) {
     navigate(
-      `../../../../ClientPanel/Payment/FacturePeyment/${paymentId}/${
+      `../../../../ClientPanel/Payment/FacturePeyment/${res.id}/${
         CoursePaymentItem.courseId
       }/${0}`
     );
-  }
-    
-  else{
-  
+  } else {
     setTimeout(() => {
-    navigate(
-      `../../../../ClientPanel/Payment/FacturePeyment/${paymentId}/${
-        CoursePaymentItem.courseId
-      }/${1}`
-    );
-  }, 1000);
-}
+      navigate(
+        `../../../../ClientPanel/Payment/FacturePeyment/${res.id}/${
+          CoursePaymentItem.courseId
+        }/${1}`
+      );
+    }, 1000);
+  }
 }
 const dark = useSelector((state) => state.darkMood);
 
@@ -71,9 +79,11 @@ const dark = useSelector((state) => state.darkMood);
 
           <span className="text-[1.2vw]">{CoursePaymentItem.courseTitle}</span>
 
-          <span>تاریخ امروز : {date}</span>
+          <span>
+            اخرین بروزرسانی : {convertToJalali(CoursePaymentItem.lastUpdate)}
+          </span>
 
-          <span>{price} تومان</span>
+          <span>{CoursePaymentItem.cost} تومان</span>
 
           <Button
             onClick={() => {

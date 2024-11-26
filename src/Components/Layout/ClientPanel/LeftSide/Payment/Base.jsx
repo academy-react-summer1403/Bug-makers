@@ -197,7 +197,7 @@ const handleSearch = (e) => {
             dispatch(setpaymentList(course || []));
             navigator(
               `FacturePeyment/${course.paymentId}/${course.courseId}/${
-                course.paymentInvoiceImage == null ? 0 : 1
+                course.paymentInvoiceImage == null ? 1 : 0
               }`
             );
           }}

@@ -13,7 +13,7 @@ const FacturePeyment = () => {
   const {payId} = useParams()
   const {id} = useParams()
   const { status } = useParams();
-  const walletId = getItem("walletId");
+  
   console.log(status)
   const elementRef = useRef(null);
   const navigate = useNavigate();
@@ -46,6 +46,7 @@ const [course, setCourse] = useState();
 
 
   const hendelWallet= async ()=> {
+    const walletId = getItem("walletId");
     const newTransaction = {
       walletId: walletId,
       amount: -Number(course.cost),
@@ -136,23 +137,24 @@ const dark = useSelector((state) => state.darkMood);
             className="butten1 mt-4"
             onClick={() => {
               htmlToImageConvert();
-              status != 1 ? navigate(`../PaymentSecoundTab/${payId}`) : null;
+              status == 1 ? navigate(`../PaymentSecoundTab/${payId}`) : null;
             }}
           >
-            {status == 1 ? "دانلود" : "دانلود و پرداخت"}
-          </Button >
-          
-          {status != 1 ? <Button
-            className="butten1 mr-6 mt-4"
-            onClick={() => {
-              htmlToImageConvert();
-              hendelWallet()
-              navigate(`../PaymentSecoundTab/${payId}`);
+            {status == 1 ? "دانلود و پرداخت" : "دانلود"}
+          </Button>
 
-            }}
-          >
-            پرداخت با کیف پول
-          </Button>:null}
+          {status == 1 ? (
+            <Button
+              className="butten1 mr-6 mt-4"
+              onClick={() => {
+                htmlToImageConvert();
+                hendelWallet();
+                navigate(`../PaymentSecoundTab/${payId}`);
+              }}
+            >
+              پرداخت با کیف پول
+            </Button>
+          ) : null}
         </div>
       ) : (
         "no data"
