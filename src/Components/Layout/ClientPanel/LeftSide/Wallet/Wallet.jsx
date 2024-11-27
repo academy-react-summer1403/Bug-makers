@@ -144,10 +144,10 @@ console.log(transactions);
         </Tooltip>
 
         {/* موجودی کیف پول */}
-        <div className="ml-6 flex flex-col justify-between h-full w-[30%] text-right">
-          <div className="flex items-center gap-x-4 mb-4">
-            <h2 className=" text-lg font-bold">موجودی کیف‌پول :</h2>
-            <p className=" text-2xl mt-2">{response?.data.data.Cost} تومان</p>
+        <div className="ml-6 flex flex-col justify-between h-full max-md:w-[60%] w-[30%] text-right">
+          <div className="flex items-center gap-x-4 max-md:flex-col mb-4 max-md:gap-x-1">
+            <h2 className=" text-lg  max-md:font-normal font-bold">موجودی کیف‌پول :</h2>
+            <p className=" text-2xl  mt-2">{response?.data.data.Cost} تومان</p>
           </div>
           {/* دکمه افزایش اعتبار */}
           <Button

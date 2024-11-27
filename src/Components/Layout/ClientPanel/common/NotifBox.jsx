@@ -97,7 +97,7 @@ const NotificationBox = () => {
       <Button
         isIconOnly
         onPress={toggleBox}
-        className="rounded-full w-[100%] h-full bg-gray-600 text-white hover:bg-gray-700"
+        className="rounded-full w-[100%] max-md:size-12 h-full bg-gray-600 text-white hover:bg-gray-700"
       >
         <svg
           width=""
@@ -134,7 +134,7 @@ const NotificationBox = () => {
       {isBoxOpen && (
         <Card
           style={{ background: dark.bgHigh, color: dark.textHigh }}
-          className="absolute  top-14 left-0 z-50 w-[500%] shadow-lg"
+          className="absolute max-md:w-[700%] top-14 left-0 z-50 w-[500%] shadow-lg"
           isHoverable
           variant="flat"
         >

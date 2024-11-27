@@ -48,11 +48,10 @@ const TopBar = () => {
       className="w-full h-full flex flex-row-reverse justify-between items-center  shadow-md px-[1%] py-[0.5%] rounded-lg"
     >
       {/* Left Icons */}
-      <div className="flex items-center justify-end gap-x-[2%] max-md:w-[20%] w-[10%]  h-full">
+      <div className="flex max-md:size-12 items-center justify-end gap-x-[2%] max-md:w-[20%] w-[10%]  h-full">
         {/* Clock Icon Button */}
         <Button
-                    
-          className={` rounded-full h-full w-[10%]  p-0 max-md:max-w-[70px]
+          className={`  rounded-full h-full w-[10%]  p-0 max-md:max-w-[70px]
             ${theme == 1 ? "bg-yellow-300" : "bg-gray-600"}
             `}
           onClick={() => {
@@ -89,8 +88,8 @@ const TopBar = () => {
 
         {/* Notification Icon Button */}
 
-        <NotificationBox/>
-</div>
+        <NotificationBox />
+      </div>
       {/* User Profile Section */}
       <div className="flex items-center justify-end gap-x-3 flex-row-reverse h-full max-md:w-[50%]">
         <div className="text-right">
