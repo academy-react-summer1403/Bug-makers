@@ -48,7 +48,6 @@ const SiteSetting = () => {
 
   useEffect(() => {
     changeTheme();
-    console.log("ali");
   }, [theme]);
 
   const handleThemeChange = () => {
