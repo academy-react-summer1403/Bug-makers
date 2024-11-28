@@ -20,7 +20,6 @@ const LandingPage = () => {
       className="step1 step8 overflow-hidden relative max-w-[100%]"
       style={{ background: dark.bgLow, color: dark.textHigh }}
     >
-      {/* <VoiceCommand /> */}
       <BahrAcademy />
       <StoreService />
       <CourseTraining />
