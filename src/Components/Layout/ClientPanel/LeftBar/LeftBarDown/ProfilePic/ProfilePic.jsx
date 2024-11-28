@@ -7,17 +7,20 @@ import {
   ProfileGet,
   selectCurentProfilePic, // assuming this is the API function to get profile info
 } from "../../../../../../Core/Services/Api/Client/Profile";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { Button, Input } from "@nextui-org/react";
 import { setClientInfo } from "../../../../../../Redux/Slice/ClientInfo/ClientInfo";
 // import { setClientInfo } from "../../../../../../Core/Store/Slices/ClientInfoSlice"; // Assuming this is the correct action
-
+import { FaRobot } from "react-icons/fa6";
+import img2 from '../../../../../../../public/images/icon/image.jpg';
+import { CreateImg } from "../../../../../../Core/Services/Api/imageGenrator/imgGenerator";
 const ProfilePic = () => {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectPic, setSelectPic] = useState(0);
   const [mainImageId, setMainImageId] = useState(null);
   const dispatch = useDispatch();
+  const [inputText, setInputText] = useState('');
 
   // Fetch the profile info with react-query, auto-refetching every 6 seconds
   const { data: CourseListItem, refetch } = useQuery({
@@ -80,6 +83,7 @@ const ProfilePic = () => {
   const handleFileUpload = async (files) => {
     try {
       const file = files[0]; // Assuming a single file
+      console.log(file);
       await setProfilePic(file); // Upload the file
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -101,6 +105,34 @@ const ProfilePic = () => {
       },
     });
   };
+
+  // Ai 
+  
+  const ImgGenerator = useMutation({
+    mutationKey:['generateImg'],
+    mutationFn: (imgData) => CreateImg(imgData),
+  })
+  const sendAiImgUpload = useMutation({
+    mutationKey:['createUpload'],
+    mutationFn: (id) => setProfilePic(id),
+  })
+  console.log(ImgGenerator?.data);
+
+  const sendImgToApi = () => {
+    const imgData = {
+      "prompt": inputText,
+      "seed": 17123564234,
+      "scheduler": "DDIM",
+      "num_inference_steps": 20,
+      "negative_prompt": "NONE",
+      "samples": 1,
+      "guidance_scale": 7.5,
+      "strength": 1,
+      "shape": 512
+    }
+    
+    ImgGenerator.mutate(imgData)
+  }
 const dark = useSelector((state) => state.darkMood);
   return (
     <form
@@ -113,7 +145,7 @@ const dark = useSelector((state) => state.darkMood);
             key={image.id}
             className="relative rounded-[1vw] h-[45%] w-[15%] max-md:w-[32%] max-md:h-[25%]"
           >
-            <div className="duration-300 rounded-full size-[1.5vw] max-md:size-[25px] bg-white absolute top-[0.2vw] right-[0.2vw] flex items-center justify-center cursor-pointer">
+            <div className="duration-300  rounded-full size-[1.5vw] max-md:size-[25px] bg-white absolute top-[0.2vw] right-[0.2vw] flex items-center justify-center cursor-pointer">
               <svg
                 onClick={() => {
                   setSelectPic(image.id);
@@ -141,7 +173,7 @@ const dark = useSelector((state) => state.darkMood);
                 />
               </svg>
               <div
-                className={`duration-300 absolute z-30 top-[0vw] right-[0vw] w-[8vw] h-[5vw] max-md:w-[100px] max-md:h-[70px] bg-white rounded-[0.5vw] p-[0.5vw] flex-col justify-between ${
+                className={`duration-300 absolute z-30 top-[0vw] right-[1vw] w-[8vw] h-[5vw] max-md:w-[100px] max-md:h-[70px] bg-white rounded-[0.5vw] p-[0.5vw] flex-col justify-between ${
                   selectPic === image.id ? "flex" : "hidden"
                 }`}
               >
@@ -169,7 +201,7 @@ const dark = useSelector((state) => state.darkMood);
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <span>انتخاب عکس اصلی</span>
+                  <span className="whitespace-nowrap "  >انتخاب عکس اصلی</span>
                 </div>
                 <hr />
                 <div
@@ -198,15 +230,16 @@ const dark = useSelector((state) => state.darkMood);
                       strokeWidth="1.5"
                     />
                   </svg>
-                  <span>حذف عکس</span>
+                  <span  className="whitespace-nowrap ">حذف عکس</span>
                 </div>
               </div>
             </div>
             <img
+              onError={(e) => {e.target.src = img2}}
               className={`rounded-[1vw] h-full w-full object-cover ${
                 selectedImage === image.id ? "border-2 border-[#FF5454]" : ""
               } ${mainImageId === image.id ? "border-2 border-green-500" : ""}`}
-              src={image.puctureAddress}
+              src={image.puctureAddress ? image.puctureAddress : img2}
               alt={`${image.puctureAddress}`}
               onClick={() => handleImageClick(image.id)}
             />
@@ -287,6 +320,94 @@ const dark = useSelector((state) => state.darkMood);
           <span className="text-[0.7vw] text-gray-500 max-md:hidden">
             اندازه فریم ( 236*236 )
           </span>
+        </div>
+        <div
+          className={`w-[15%] max-md:w-[32%] max-md:h-[25%] h-[45%] flex flex-col gap-y-[0.5vw] justify-center items-center border-[0.1vw] rounded-[0.5vw]
+          ${dark.selectedButton === 0 ? "border-blue-600" : ""} 
+                ${dark.selectedButton === 1 ? "border-green-600" : ""} 
+                ${dark.selectedButton === 2 ? "border-yellow-600" : ""}
+                ${dark.selectedButton === 3 ? "border-red-600" : ""}
+          `}
+        >
+          <input
+            type="text"
+            id="text-input"
+            className="form-control w-[150px] rounded-lg outline-black"
+            placeholder="متن خود را وارد کنید"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+          />
+          <svg
+            className="max-md:hidden"
+            width=""
+            height="30%"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M29.3327 8.99996C29.8849 8.99996 30.3327 8.55224 30.3327 7.99996C30.3327 7.44768 29.8849 6.99996 29.3327 6.99996V8.99996ZM18.666 6.99996C18.1137 6.99996 17.666 7.44768 17.666 7.99996C17.666 8.55224 18.1137 8.99996 18.666 8.99996V6.99996ZM24.9993 2.66663C24.9993 2.11435 24.5516 1.66663 23.9993 1.66663C23.4471 1.66663 22.9993 2.11435 22.9993 2.66663H24.9993ZM22.9993 13.3333C22.9993 13.8856 23.4471 14.3333 23.9993 14.3333C24.5516 14.3333 24.9993 13.8856 24.9993 13.3333H22.9993ZM29.3327 6.99996H23.9993V8.99996H29.3327V6.99996ZM23.9993 6.99996H18.666V8.99996H23.9993V6.99996ZM22.9993 2.66663V7.99996H24.9993V2.66663H22.9993ZM22.9993 7.99996V13.3333H24.9993V7.99996H22.9993Z"
+              fill={`${dark.selectedButton === 0 ? "blue" : ""} 
+                ${dark.selectedButton === 1 ? "green" : ""} 
+                ${dark.selectedButton === 2 ? "yellow" : ""}
+                ${dark.selectedButton === 3 ? "#dd0208" : ""}
+                `}
+            />
+            <path
+              d="M15.3327 4C9.36156 4 6.376 4 4.521 5.85499C2.66602 7.70999 2.66602 10.6955 2.66602 16.6667C2.66602 22.6377 2.66602 25.6233 4.521 27.4784C6.376 29.3333 9.36156 29.3333 15.3327 29.3333C21.3037 29.3333 24.2894 29.3333 26.1444 27.4784C27.9994 25.6233 27.9993 22.6377 27.9993 16.6667V16"
+              stroke={`${dark.selectedButton === 0 ? "blue" : ""} 
+                ${dark.selectedButton === 1 ? "green" : ""} 
+                ${dark.selectedButton === 2 ? "yellow" : ""}
+                ${dark.selectedButton === 3 ? "#dd0208" : ""}
+                `}
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+            <path
+              d="M2.66602 18.8473C3.49138 18.7274 4.3258 18.6682 5.16163 18.6703C8.69755 18.5955 12.1469 19.6973 14.8941 21.779C17.442 23.7095 19.2323 26.3666 19.9993 29.3334"
+              stroke={`${dark.selectedButton === 0 ? "blue" : ""} 
+                ${dark.selectedButton === 1 ? "green" : ""} 
+                ${dark.selectedButton === 2 ? "yellow" : ""}
+                ${dark.selectedButton === 3 ? "#dd0208" : ""}
+                `}
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M28 22.5283C26.4328 21.7345 24.8117 21.3317 23.1816 21.3335C20.7127 21.3237 18.2687 22.2311 16 24"
+              stroke={`${dark.selectedButton === 0 ? "blue" : ""} 
+                ${dark.selectedButton === 1 ? "green" : ""} 
+                ${dark.selectedButton === 2 ? "yellow" : ""}
+                ${dark.selectedButton === 3 ? "#dd0208" : ""}
+                `}
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+          </svg>
+          {ImgGenerator?.data ? (
+                      <Button
+                      onClick={() => sendAiImgUpload.mutate(ImgGenerator?.data)}
+                      auto
+                      className="max-w-40 bg-[#E7E7E7] hover:bg-gray-300 max-md:w-full"
+                      size="sm"
+                    >
+                       آپلود عکس
+                    </Button>
+          ) : (
+            <>
+          <Button
+            onClick={sendImgToApi}
+            auto
+            className="max-w-40 bg-[#E7E7E7] hover:bg-gray-300 max-md:w-full"
+            size="sm"
+          >
+          {ImgGenerator?.status === 'loading' ? 'در حال ساخت' : 'ساخت عکس'}
+          </Button>
+          <span className="text-[0.7vw] text-gray-500 max-md:hidden">
+            اندازه فریم ( 236*236 )
+          </span>
+          </>
+          )}
         </div>
       </div>
     </form>
