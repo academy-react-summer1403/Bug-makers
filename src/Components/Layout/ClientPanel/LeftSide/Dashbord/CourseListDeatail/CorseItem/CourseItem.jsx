@@ -300,12 +300,12 @@ const GetId2 = async () => {
         onClick={() => CorseReserveF2.mutate(id)}
         className={`w-[4vw] max-md:text-[12px] max-md:w-[25%] max-md:h-[5%] max-md:my-[5px] h-[2vw] rounded-full bg-[#E1C461] text-white flex justify-center items-center text-[0.7vw] font-[600] cursor-pointer
  ${
-   response.isCourseReseve == 1
+   response?.isCourseReseve == 1
      ? "bg-red-600 hover:bg-red-700"
      : "bg-[#E1C461] hover:bg-[#E1C461]"
  }`}
       >
-        {response.isCourseReseve == 1 ? "حذف دوره" : "ثبت نام "}
+        {response?.isCourseReseve == 1 ? "حذف دوره" : "ثبت نام "}
       </button>
 
       <div className="text-right max-md:text-[8px] text-[0.7vw] text-[#787878] font-[600] my-[0.4vw]">

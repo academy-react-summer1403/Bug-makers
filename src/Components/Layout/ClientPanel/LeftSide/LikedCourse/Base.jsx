@@ -548,7 +548,7 @@ const dark = useSelector((state) => state.darkMood);
                     ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
                     ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
                     ${dark.selectedButton === 3 ? "bg-red-600" : ""}
-                   text-white`
+                    text-white`
                   : "bg-transparent border-gray-400 text-gray-500"
               }`}
               bordered
