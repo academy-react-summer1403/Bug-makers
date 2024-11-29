@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { FiMic } from 'react-icons/fi'; // اضافه کردن آیکون میکروفن از react-icons
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import DataTableVoice from './dataTable';
 
 const DynamicVoiceWizard = () => {
   const [step, setStep] = useState(1);
@@ -84,9 +86,14 @@ const DynamicVoiceWizard = () => {
     navigate('/')
     toast.success('صداتو ضبط کردم')
   }
+
+  const dark = useSelector((state) => state.darkMood);
+
   return (
-    <div className="max-w-4xl mx-auto p-8   bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-6">فرم ویزارد اضافه کردن شورتکات</h2>
+    <div className='overflow-y-scroll max-h-[550px]'>
+    <div         style={{ background: dark.bgHigh, color: dark.textHigh }}
+    className="max-w-4xl mx-auto p-8    rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold text-center mb-6">دستیار صوتی</h2>
 
       <div className="step-content">
         {step === 1 && (
@@ -224,6 +231,8 @@ const DynamicVoiceWizard = () => {
           </div>
         )}
       </div>
+    </div>
+    <DataTableVoice />
     </div>
   );
 };

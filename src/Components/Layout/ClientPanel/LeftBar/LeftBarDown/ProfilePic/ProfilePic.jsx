@@ -14,13 +14,15 @@ import { setClientInfo } from "../../../../../../Redux/Slice/ClientInfo/ClientIn
 import { FaRobot } from "react-icons/fa6";
 import img2 from '../../../../../../../public/images/icon/image.jpg';
 import { CreateImg } from "../../../../../../Core/Services/Api/imageGenrator/imgGenerator";
+import { getRandom , promptIdeas } from "../../../../../../Core/Services/utils/utils";
+import { setVoiceAction } from "../../../../../../Redux/Slice/voicecommand/voiceSlice";
 const ProfilePic = () => {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectPic, setSelectPic] = useState(0);
   const [mainImageId, setMainImageId] = useState(null);
   const dispatch = useDispatch();
-  const [inputText, setInputText] = useState('');
+  const inputText = useSelector((state) => state.voice.value)
 
   // Fetch the profile info with react-query, auto-refetching every 6 seconds
   const { data: CourseListItem, refetch } = useQuery({
@@ -133,6 +135,11 @@ const ProfilePic = () => {
     
     ImgGenerator.mutate(imgData)
   }
+  const handleSurpriseMe = (e) => {
+    const surprisePrompt = getRandom(promptIdeas);
+    dispatch(setVoiceAction(surprisePrompt));
+  };
+
 const dark = useSelector((state) => state.darkMood);
   return (
     <form
@@ -335,7 +342,7 @@ const dark = useSelector((state) => state.darkMood);
             className="form-control w-[150px] rounded-lg outline-black"
             placeholder="متن خود را وارد کنید"
             value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
+            onChange={(e) => dispatch(setVoiceAction(e.target.value))}
           />
           <svg
             className="max-md:hidden"
@@ -395,6 +402,7 @@ const dark = useSelector((state) => state.darkMood);
                     </Button>
           ) : (
             <>
+            <Button onClick={handleSurpriseMe}> عکس تصادفی</Button>
           <Button
             onClick={sendImgToApi}
             auto

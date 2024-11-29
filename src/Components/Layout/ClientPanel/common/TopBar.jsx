@@ -7,7 +7,8 @@ import { ProfileGet } from "../../../../Core/Services/Api/Client/Profile";
 import { setClientInfo } from "../../../../Redux/Slice/ClientInfo/ClientInfo";
 import { selectdark } from "../../../../Redux/Slice/darkMood/darkMood";
 import NotificationBox from "./NotifBox";
-
+import VoiceCommand from "../../../Common/VoiceAssit/VoiceAssit";
+import img2 from '../../../../../public/images/icon/image.jpg'
 
 
 const TopBar = () => {
@@ -49,6 +50,9 @@ const TopBar = () => {
     >
       {/* Left Icons */}
       <div className="flex max-md:size-12 items-center justify-end gap-x-[2%] max-md:w-[20%] w-[10%]  h-full">
+        <div className=" p-5">
+          <VoiceCommand  />
+        </div>
         {/* Clock Icon Button */}
         <Button
           className={`  rounded-full h-full w-[10%]  p-0 max-md:max-w-[70px]
@@ -103,8 +107,9 @@ const TopBar = () => {
         </div>
         {/* User Avatar */}
         <Avatar
-          src={CourseListItem.currentPictureAddress} // لینک تصویر آواتار را تغییر دهید
+          src={CourseListItem.currentPictureAddress ? CourseListItem.currentPictureAddress : img2} // لینک تصویر آواتار را تغییر دهید
           size="lg"
+          onError={(e) => {e.target.src = img2}}
           className="border border-gray-200 w-[17%] h-full max-md:w-[70px] max-md:min-w-[60px]"
         />
       </div>
