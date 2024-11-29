@@ -18,7 +18,7 @@ function VoiceCommand() {
   const dark = useSelector((state) => state.darkMood);
   const [theme, setTheme] = useState(dark.selectedDark);
 
-console.log(theme);
+  console.log(theme);
   const changeTheme = () => {
     dispatch(selectdark(theme));
   };
@@ -26,9 +26,24 @@ console.log(theme);
     changeTheme();
   }, [theme]);
  
-    const [isListening, setIsListening] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const annyangRef = useRef(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const loadCustomCommands = () => {
+    const customNames = JSON.parse(localStorage.getItem('customNames')) || {};
+    const commands = {};
+
+    Object.keys(customNames).forEach((tag) => {
+      const customName = customNames[tag];
+      commands[customName] = () => {
+        console.log(`Command triggered for: ${tag}`);
+        navigate(`/${tag}`); 
+      };
+    });
+
+    return commands;
+  };
 
   useEffect(() => {
     const loadAnnyang = async () => {
@@ -58,8 +73,9 @@ console.log(theme);
             "say goodbye": () => alert("Goodbye! Have a great day!"),
           };
 
-          annyang.addCommands(commands);
+          Object.assign(commands, loadCustomCommands());
 
+          annyang.addCommands(commands);
           annyangRef.current = annyang;
         }
       } catch (error) {
@@ -97,6 +113,7 @@ console.log(theme);
       alert("Microphone access is required to use the voice assistant.");
     }
   };
+
   return (
     <div onClick={toggleListening} className="absolute cursor-pointer z-30 top-[-21px] left-[320px] transform -translate-x-1/2 p-4">
       <div className=" p-4 rounded-lg  flex items-center space-x-4">
@@ -115,70 +132,3 @@ console.log(theme);
 }
 
 export default VoiceCommand;
-// import annyang from "annyang";
-
-// import { useNavigate } from "react-router-dom";
-
-// const VoiceCommand = () => {
-//   const navigate = useNavigate();
-//   const [message, setMessage] = useState(
-//     "Press the button to start voice recognition"
-//   );
-//   const [isListening, setIsListening] = useState(false);
-
-//   const startListening = () => {
-//     if (annyang) {
-//       const commands = {
-//         hello: () => setMessage("Hello! How can I assist you?"),
-//         "change color to :color": (color) => {
-//           setMessage(`Changing color to ${color}`);
-//           document.body.style.backgroundColor = color;
-//         },
-//         "go to course page": () => {
-//           setMessage("go to course page");
-//           navigate("/course");
-//         },
-//         reset: () => {
-//           setMessage("Resetting color");
-//           document.body.style.backgroundColor = "white";
-//         },
-//       };
-
-//       annyang.addCommands(commands);
-
-//       annyang.start();
-//       setIsListening(true);
-//     } else {
-//       setMessage("Voice recognition is not supported in this browser.");
-//     }
-//   };
-
-//   const stopListening = () => {
-//     if (annyang) {
-//       annyang.abort();
-//       setIsListening(false);
-//       setMessage("Voice recognition stopped");
-//     }
-//   };
-
-//   const handleButtonClick = () => {
-//     if (isListening) {
-//       stopListening();
-//     } else {
-//       startListening();
-//     }
-//   };
-
-//   return (
-//     <div style={{ textAlign: "center", paddingTop: "50px" }}>
-//       <h1>{message}</h1>
-//       <button onClick={handleButtonClick}>
-//         {isListening ? "Stop Listening" : "Start Listening"}
-//       </button>
-//       <p>Try saying "hello", "change color to blue", or "reset".</p>
-//       <button onClick={() => navigate("/course")}>navigate</button>
-//     </div>
-//   );
-// };
-
-// export default VoiceCommand;

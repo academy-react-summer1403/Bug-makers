@@ -18,6 +18,7 @@ import MyReserve from "../Components/Layout/ClientPanel/LeftSide/MyReserve/MyRes
 import LikedCourse from "../Components/Layout/ClientPanel/LeftSide/LikedCourse/LikedCourse";
 import LikedBlog from "../Components/Layout/ClientPanel/LeftSide/LikedBlog/LikedBlog";
 import Tornoment from "../Components/Layout/ClientPanel/LeftSide/Tornoment/Tornoment";
+import DynamicVoice from "../Components/Common/VoiceAssit/dynamicVoice";
 import Payment from "../Components/Layout/ClientPanel/LeftSide/Payment/Payment";
 import PaymentFirstStep from "../Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/firstTab";
 import PaymentSecoundTab from "../Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/secoundTab";
@@ -130,6 +131,11 @@ const router = createBrowserRouter([
       {
         path: "Tornoment",
         element: <Tornoment />,
+        errorElement: <Error />,
+      },
+      {
+        path: "voiceCommand",
+        element: <DynamicVoice />,
         errorElement: <Error />,
       },
       {
