@@ -5,6 +5,7 @@ import instance from "../../interseptore/Interceptor";
 export const getCourseDetail = async (id) => {
   try {
     let url = `/Home/GetCourseDetails?CourseId=${id}`;
+    
 
     const response = await instance.get(url);
     return response;
@@ -12,7 +13,17 @@ export const getCourseDetail = async (id) => {
     console.log(error);
   }
 };
+export const getCourseDetailAdmin = async (id) => {
+  try {
+    let url = `/Course/${id}`;
+    // /Home/GetCourseDetails?CourseId=
 
+    const response = await instance.get(url);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const getCourseDetailComment = async (id) => {
   try {
     let url = `/Course/GetCourseCommnets/${id}`;
@@ -121,6 +132,25 @@ export const getDiscountAll = async () => {
     let url = `https://taharahimycode.liara.run/DisCost/All`;
 
     const response = await axios.get(url);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+// session 
+
+export const CorseAB = async (id) => {
+  try {
+    let url = `/Session/Student_AP`;
+    const response = await instance.post(url, {
+      sessionId: `${id.id}`,
+      courseStudent: `${id.id}`,
+      present: id.val,
+      studentHand: true,
+      absentReason: "none",
+    });
     return response;
   } catch (error) {
     console.log(error);

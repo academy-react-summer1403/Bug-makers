@@ -110,7 +110,7 @@ const CourseItem = ({
         {technologyList}
       </div>
       <h2
-        className={`absolute  text-[16px] font-semibold  text-right ${
+        className={`absolute  text-[16px] font-semibold  text-right overflow-hidden text-ellipsis ... h-[7%] ${
           listStyle
             ? "top-[1.166666666666667vw] right-[0.78125vw]"
             : "top-[168px] "

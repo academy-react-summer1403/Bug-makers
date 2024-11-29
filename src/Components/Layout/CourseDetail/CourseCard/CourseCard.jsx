@@ -23,6 +23,8 @@ import {
   deleteCorseReserve,
   getScDetail,
   getDiscount,
+  getCourseDetailAdmin,
+  CorseAB,
 } from "../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CComment from "../Comment/CComment";
 import {
@@ -48,6 +50,7 @@ function CourseCard({ id }) {
     const dark = useSelector((state) => state.darkMood);
 
   const [response, setResponse] = useState({});
+  const [responseAdmin, setResponseAdmin] = useState({});
   const [comment, setComment] = useState({});
   const [detailPage, setDetailPage] = useState(0);
   const [repleyModal, setRepleyModal] = useState(false);
@@ -80,8 +83,10 @@ function CourseCard({ id }) {
   });
 const GetId = async () => {
     const res = await getCourseDetail(id);
+    const res2 = await getCourseDetailAdmin(id)
+    setResponseAdmin(res2)
     setResponse(res);
-    console.log(res);
+    console.log(res2);
   };
   const GetComment = async () => {
     const re = await getCourseDetailComment(id);
@@ -266,52 +271,52 @@ const GetId = async () => {
     },
     {
       name: "روز دوره",
-      selector: (row) => useDay(row.startDate),
+      selector: (row) => convertToJalali(row.startDate),
       sortable: true,
     },
-    {
-      name: "حالت دوره",
-      selector: (row) => row.forming,
-      sortable: true,
-      cell: (row) => (
-        <Active
-          isActive={row.forming}
-          id={row.id}
-          styled={{ minWidth: "50px", cursor: "pointer", padding: "5px" }}
-          api="/Schedual/SchedualFroming"
-          method="put"
-          text2="تشکیل شده"
-          text="تشکیل نشده"
-        />
-      ),
-    },
-    {
-      name: "حضور غیاب دانشجو",
-      selector: (row) => row.lockToRaise,
-      sortable: true,
-      cell: (row) => (
-        <Active
-          isActive={row.lockToRaise}
-          id={row.id}
-          styled={{ minWidth: "50px", cursor: "pointer", padding: "5px" }}
-          api="/Schedual/LockToRiase"
-          method="put"
-          text2="نمیتوانند شرکت کنند"
-          text="میتوانند شرکت کنند"
-        />
-      ),
-    },
-    {
-      name: "عملیات",
-      cell: (row) => (
-        <div
-          onClick={() => setSchedualId(row.id)}
-          className="d-flex justify-content-center align-items-center gap-1"
-        >
-          <CreateSchedual schedual={getSchdualDataid} />
-        </div>
-      ),
-    },
+    // {
+    //   name: "حالت دوره",
+    //   selector: (row) => row.forming,
+    //   sortable: true,
+    //   cell: (row) => (
+    //     <Active
+    //       isActive={row.forming}
+    //       id={row.id}
+    //       styled={{ minWidth: "50px", cursor: "pointer", padding: "5px" }}
+    //       api="/Schedual/SchedualFroming"
+    //       method="put"
+    //       text2="تشکیل شده"
+    //       text="تشکیل نشده"
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "حضور غیاب دانشجو",
+    //   selector: (row) => row.lockToRaise,
+    //   sortable: true,
+    //   cell: (row) => (
+    //     <Active
+    //       isActive={row.lockToRaise}
+    //       id={row.id}
+    //       styled={{ minWidth: "50px", cursor: "pointer", padding: "5px" }}
+    //       api="/Schedual/LockToRiase"
+    //       method="put"
+    //       text2="نمیتوانند شرکت کنند"
+    //       text="میتوانند شرکت کنند"
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "عملیات",
+    //   cell: (row) => (
+    //     <div
+    //       onClick={() => setSchedualId(row.id)}
+    //       className="d-flex justify-content-center align-items-center gap-1"
+    //     >
+          
+    //     </div>
+    //   ),
+    // },
   ];
   
   const handleFileChange = (event) => {
@@ -328,7 +333,9 @@ const GetId = async () => {
     setPresent(true);
     toast.success("😁حضورت ثبت شد");
   }
-  const PresenceContext=(val)=>{
+  const PresenceContext= async (val)=>{
+    const res = await CorseAB({id:id,val:val})
+    console.log(res)
     val == true ? present == true ? toast.error("بسه خب فهمیدم حاضری😒"):setPre():present==false ? toast.error("چرا انقد به غیبت اصرار داری 🧐"):setAbsent()
 
 
@@ -485,7 +492,7 @@ const GetId = async () => {
                     responsive
                     pagination
                     columns={columnsSchedual}
-                    data={time?.courseSchedules || []}
+                    data={responseAdmin?.courseSchedules || []}
                     className="react-dataTable"
                     sortIcon={<BiChevronDown size={10} />}
                   />
