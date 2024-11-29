@@ -276,9 +276,9 @@ const delfilter=()=>{
                           ? setDetailId(course.newsId)
                           : setDetailId(course.courseId);
                       }
-                      setTimeout(() => {
+                      
                         setDetailCourse(true);
-                      }, 2000);
+                      
 
                       console.log(detailCourse);
                     }}
@@ -400,36 +400,36 @@ const delfilter=()=>{
     if(location != "BlogFav"){
         return (
           <CourseItem
-            key={detail.courseId}
-            id={detail.courseId}
-            courseId={detail.courseId}
-            title={detail.title}
-            img={detail.imageAddress}
+            key={detail?.courseId}
+            id={detail?.courseId}
+            courseId={detail?.courseId}
+            title={detail?.title}
+            img={detail?.imageAddress}
             technologyList={
-              detail.techs != null ? detail.techs : "برنامه نویسی"
+              detail?.techs != null ? detail?.techs : "برنامه نویسی"
             }
-            description={detail.describe}
-            teacherName={detail.teacherName}
-            likeCount={detail.likeCount}
-            commandCount={detail.commandCount}
-            courseRate={detail.currentRate}
-            statusName={detail.statusName}
-            price={detail.cost}
-            currentRegistrants={detail.currentRegistrants}
-            date={detail.lastUpdate}
+            description={detail?.describe}
+            teacherName={detail?.teacherName}
+            likeCount={detail?.likeCount}
+            commandCount={detail?.commandCount}
+            courseRate={detail?.currentRate}
+            statusName={detail?.statusName}
+            price={detail?.cost}
+            currentRegistrants={detail?.currentRegistrants}
+            date={detail?.lastUpdate}
             listStyle={listStyle}
-            level={detail.courseLevelName}
-            state={detail.courseStatusName}
-            courseGroupCount={detail.courseGroupCount}
-            capacity={detail.capacity}
-            startDate={convertToJalali(detail.startTime)}
-            endDate={convertToJalali(detail.endTime)}
+            level={detail?.courseLevelName}
+            state={detail?.courseStatusName}
+            courseGroupCount={detail?.courseGroupCount}
+            capacity={detail?.capacity}
+            startDate={convertToJalali(detail?.startTime)}
+            endDate={convertToJalali(detail?.endTime)}
             setDetailCourse={setDetailCourse}
             detailCourse={detailCourse}
             GetId={GetId}
-            userIsLiked={detail.currentUserLike}
-            currentUserDissLike={detail.currentUserDissLike}
-            userLikeId={detail.userLikeId}
+            userIsLiked={detail?.currentUserLike}
+            currentUserDissLike={detail?.currentUserDissLike}
+            userLikeId={detail?.userLikeId}
           />
         );
     }

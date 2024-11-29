@@ -415,47 +415,45 @@ const dark = useSelector((state) => state.darkMood);
     setDetail(res);
   };
   useEffect(() => {
-    if (detailId) GetId(detailId);
+    if (detailId) {GetId(detailId)};
   }, [detailId]);
 
   const renderDetail = () => {
     if (isLoading) return <p>در حال بارگذاری...</p>;
     if (error) return <p>خطایی رخ داده است...</p>;
 
-    {
-      detail == null ? alert() : "";
-    }
+
 
     return (
       <CourseItem
-        key={detail.courseId}
-        id={detail.courseId}
-        courseId={detail.courseId}
-        title={detail.title}
-        img={detail.imageAddress}
-        technologyList={detail.techs != null ? detail.techs : "برنامه نویسی"}
-        description={detail.describe}
-        teacherName={detail.teacherName}
-        likeCount={detail.likeCount}
-        commandCount={detail.commandCount}
-        courseRate={detail.currentRate}
-        statusName={detail.statusName}
-        price={detail.cost}
-        currentRegistrants={detail.currentRegistrants}
-        date={detail.lastUpdate}
+        key={detail?.courseId}
+        id={detail?.courseId}
+        courseId={detail?.courseId}
+        title={detail?.title}
+        img={detail?.imageAddress}
+        technologyList={detail?.techs != null ? detail?.techs : "برنامه نویسی"}
+        description={detail?.describe}
+        teacherName={detail?.teacherName}
+        likeCount={detail?.likeCount}
+        commandCount={detail?.commandCount}
+        courseRate={detail?.currentRate}
+        statusName={detail?.statusName}
+        price={detail?.cost}
+        currentRegistrants={detail?.currentRegistrants}
+        date={detail?.lastUpdate}
         listStyle={listStyle}
-        level={detail.courseLevelName}
-        state={detail.courseStatusName}
-        courseGroupCount={detail.courseGroupCount}
-        capacity={detail.capacity}
-        startDate={convertToJalali(detail.startTime)}
-        endDate={convertToJalali(detail.endTime)}
+        level={detail?.courseLevelName}
+        state={detail?.courseStatusName}
+        courseGroupCount={detail?.courseGroupCount}
+        capacity={detail?.capacity}
+        startDate={convertToJalali(detail?.startTime)}
+        endDate={convertToJalali(detail?.endTime)}
         setDetailCourse={setDetailCourse}
         detailCourse={detailCourse}
         GetId={GetId}
-        userIsLiked={detail.currentUserLike}
-        currentUserDissLike={detail.currentUserDissLike}
-        userLikeId={detail.userLikeId}
+        userIsLiked={detail?.currentUserLike}
+        currentUserDissLike={detail?.currentUserDissLike}
+        userLikeId={detail?.userLikeId}
       />
     );
   };

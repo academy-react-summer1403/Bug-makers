@@ -59,10 +59,9 @@ const CourseItem = ({
 
 
 
-console.log(discount);
 const [response, setResponse] = useState({});
   const navigator =useNavigate()
-  console.log(id);
+
 const GetId2 = async () => {
       const res = await getCourseDetail(id);
       setResponse(res);
@@ -82,23 +81,7 @@ const GetId2 = async () => {
           response.isCourseReseve === 1
             ? "دوره " + "(" + response.title + ")" + "از رزرو حذف شد 🥳"
             : "دوره " + "(" + response.title + ")" + "رزرو شد 🥳";
-
-        toast.custom((t) => (
-          <div
-            className={`flex items-center justify-between p-4 bg-[#FFFFFF] text-black rounded-lg shadow-md transition-opacity duration-300 ${
-              t.visible ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <span>{message}</span>
-            <Link
-              to={"/ClientPanel/MyReserve"}
-              onClick={() => toast.dismiss(t.id)}
-              className="  text-green-500 ml-2"
-            >
-              مشاهده
-            </Link>
-          </div>
-        ));
+            toast.success(message)
 
         setResponse((prev) => ({
           ...prev,

@@ -10,9 +10,24 @@ import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
 const PaymentFirstStep = ()=>{
     const [paymentId,setPaymentId]=useState(null)
 
-    const [open,setOpen] = useState(false)   
+    const [open,setOpen] = useState(false)  
+    const price = Math.floor(10000 + Math.random() * 90000);
+    const [date, setDate] = useState();
 
 const navigate = useNavigate()
+ const getTodayDate = () => {
+   const today = new Date();
+   const year = today.getFullYear();
+   const month = String(today.getMonth() + 1).padStart(2, "0"); // ماه از 0 شروع می‌شود، پس 1 اضافه می‌کنیم
+   const day = String(today.getDate()).padStart(2, "0");
+
+   const date2 = `${year}-${month}-${day}`;
+   setDate(date2);
+ };
+
+ useEffect(() => {
+   getTodayDate();
+ }, []);
 
 const CoursePaymentItem = useSelector((state) => state.payment.paymentList);
 console.log(CoursePaymentItem);
@@ -45,13 +60,13 @@ const onsubmit = async ()=>{
 
   const data = {
     courseId: CoursePaymentItem.courseId,
-    price: price,
+    price: CoursePaymentItem.cost,
     PeymentDate: date,
-    PaymentInvoiceNumber:price
+    PaymentInvoiceNumber: price,
   };
   const res = await setPayment(data)
   setPaymentId(res.id);
-  if (res.id) {
+  if (!res.id) {
     navigate(
       `../../../../ClientPanel/Payment/FacturePeyment/${res.id}/${
         CoursePaymentItem.courseId
