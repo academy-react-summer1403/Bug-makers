@@ -17,7 +17,7 @@ const dark = useSelector((state) => state.darkMood);
 
   const {t} = useTranslation()
   return (
-    <>
+    <div className='max-md:flex max-md:flex-col max-md:text-right flex gap-x-12'>
       <NavLink
         to="/CoursePage"
         className={({ isActive }) =>
@@ -44,7 +44,7 @@ const dark = useSelector((state) => state.darkMood);
       </NavLink>
       <div className={`Events ${className}`}>{t("header.Events")}</div>
       <div className={`contactUs ${className}`}>{t("header.ContactMe")}</div>
-    </>
+    </div>
   );
 }
 

@@ -44,14 +44,14 @@ const BahrAcademy = () => {
       <h1
         className={`${
           direction == "ltr" ? "text-left" : "text-right"
-        } max-[750px]:text-[3vw] max-[714px]:text-[5vw] max-[714px]:leading-[10vw] max-[714px]:text-blue-600   max-[468px]:text-[4vw] /* end responsive */ text-[1.953125vw] academyH1 text-[#5E5E5E]`}
+        } max-[750px]:text-[3vw] max-[714px]:text-[5vw] max-[714px]:leading-[10vw] max-[714px]:text-blue-600   max-[468px]:text-[4vw] /* end responsive */ text-[1.953125vw] academyH1 `}
       >
         {t("content.bahrAcademy.h1")}
       </h1>
       <p
         className={`${
           direction == "ltr" ? "text-left" : "text-right"
-        } max-[750px]:text-[1.5vw] max-[714px]:text-[3vw] max-[714px]:leading-[5vw]  max-[468px]:text-[2vw]  /* end responsive */ text-[0.9114583333333334vw]  text-[#7E7E7E] font-bold mt-[1vw] leading-[3vw]`}
+        } max-[750px]:text-[1.5vw] max-[714px]:text-[3vw] max-[714px]:leading-[5vw]  max-[468px]:text-[2vw]  /* end responsive */ text-[0.9114583333333334vw]   font-[600] mt-[1vw] leading-[3vw]`}
       >
         {t("content.bahrAcademy.p")}
       </p>

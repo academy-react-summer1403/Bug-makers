@@ -33,7 +33,7 @@ try {
   }
   console.log(formData);
   const response = await instance.put(url, formData);
-  // toast.success("عملیات موفقییت امیز بود 🫡")
+  toast.success("عملیات موفقییت امیز بود 🫡")
   return response;
 } catch (error) {
   console.log(error);

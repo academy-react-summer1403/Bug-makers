@@ -67,6 +67,7 @@ const navigate = useNavigate()
           className={` max-[362px]:w-[200px] lg:text-xl   max-[254px]:w-[150px] /*end responsive*/ border w-[300px] rounded-lg mt-2  shadow-[0px_10px_10px_0px_#00000008] transition-all duration-100 ${
             openMenu ? "visible opacity-100" : "invisible opacity-0"
           }`}
+          style={{ background: dark.bgHigh, color: dark.textHigh }}
         >
           <MenuOption
             className={` lg:text-xl p-1 indent-4 cursor-pointer 
@@ -84,7 +85,7 @@ const navigate = useNavigate()
           className="max-[842px]:w-[100px] max-[842px]:h-[25px] max-[842px]:top-5 max-[625px]:m-auto /*end responsive*/ logo h-[40px] w-[170px] absolute top-3 right-[80px]"
         />
       </Link>
-      <div className=" max-[710px]:text-[13px] max-[710px]:gap-5 max-[394px]:text-[10px] max-[394px]:gap-3 max-[652px]:hidden /*end responsive*/ menu w-[42vw] whitespace-nowrap text-[14px] flex justify-center items-center flex-row flex-nowrap gap-10">
+      <div className=" max-[710px]:text-[13px] max-md:flex max-md:flex-col max-[710px]:gap-5 max-[394px]:text-[10px] max-[394px]:gap-3 max-[652px]:hidden /*end responsive*/ menu w-[42vw] whitespace-nowrap text-[14px] flex justify-center items-center flex-row flex-nowrap gap-10">
         <MenuOption
           className={`cursor-pointer 
             ${dark.selectedButton === 0 ? "hover:text-blue-500" : ""}

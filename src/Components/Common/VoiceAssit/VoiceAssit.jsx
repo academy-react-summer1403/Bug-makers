@@ -98,7 +98,7 @@ console.log(theme);
     }
   };
   return (
-    <div onClick={toggleListening} className="absolute cursor-pointer z-30 top-[-21px] left-[320px] transform -translate-x-1/2 p-4">
+    <div onClick={toggleListening} className="absolute cursor-pointer max-md:left-[200px] max-md:h-[100%] max-md:p-0 max-md:pt-3   z-30 top-[-21px] left-[320px] transform -translate-x-1/2 p-4">
       <div className=" p-4 rounded-lg  flex items-center space-x-4">
         <div className={`relative w-12 h-12 ${isListening ? "animate-pulse" : ""}`}>
           <div className={`absolute inset-0 flex items-center justify-center 

@@ -215,6 +215,7 @@ const validationSchema = Yup.object({
                     <DatePicker
                       value={selectedDate}
                       onChange={setSelectedDate}
+                      defaultValue={convertToJalali(CourseListItem.birthDay)}
                       calendar={persian}
                       fullWidth
                       className={
@@ -259,11 +260,23 @@ const validationSchema = Yup.object({
               >
                 <label>جنسیت :</label>
                 <label className="flex gap-x-[0.5vw]">
-                  <Field type="radio" name="gender" value="true" />
+                  <Field
+                    type="radio"
+                    name="gender"
+                    value="true"
+                    defaultValue={CourseListItem.gender == true ? true : false}
+                  />
                   مرد
                 </label>
                 <label className="flex gap-x-[0.5vw]">
-                  <Field type="radio" name="gender" value="false" />
+                  <Field
+                    type="radio"
+                    name="gender"
+                    value="false"
+                    defaultValue={
+                      CourseListItem.gender == false ? false : true
+                    }
+                  />
                   زن
                 </label>
               </div>

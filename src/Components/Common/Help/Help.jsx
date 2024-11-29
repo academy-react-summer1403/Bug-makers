@@ -29,7 +29,7 @@ const Help = ()=>{
           </motion.div>
         </AnimatePresence>
         <div
-          className={`fixed bottom-[70px] left-[70px] w-[400px] rounded-lg h-[500px] bg-white ${
+          className={`fixed bottom-[70px] max-md:w-[350px] max-md:h-[400px] left-[70px] max-md:left-[40px] max-md:bottom-[50px] z-[5000] w-[400px] rounded-lg h-[500px] bg-white ${
             openHelp ? "block" : "hidden"
           } `}
         >

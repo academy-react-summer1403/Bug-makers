@@ -97,7 +97,7 @@ const dark = useSelector((state) => state.darkMood);
 
         {/* Animated Button */}
         <motion.button
-          className={`max-[714px]:top-[18vw]  max-[714px]:left-[35vw] max-[570px]:left-[28vw] /* end responsive */ px-[2vw] py-[1vw] w-fit cursor-pointer z-10 absolute top-[45vw] left-[43.5vw] text-white rounded-[2vw] text-[1.2vw] transition-all duration-300 hover:scale-110
+          className={`max-md:top-[80px]  max-md:w-[80px] max-md:h-[25px] max-md:text-[10px] max-md:left-[50%] max-md:translate-x-[-50%] /* end responsive */ px-[2vw] py-[1vw] w-fit cursor-pointer z-10 absolute top-[45vw] left-[43.5vw] text-white rounded-[2vw] text-[1.2vw] transition-all duration-300 hover:scale-110
             ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
             ${dark.selectedButton === 1 ? "bg-green-600 " : ""} 
             ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}`}

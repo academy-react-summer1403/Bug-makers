@@ -25,7 +25,7 @@ const LandingSlider = () => {
         <div className={` ${direction === 'ltr' ? 'left-0' : 'right-0'} w-[7vw] h-[7vw] bg-[#F5F5F4] absolute right-0 bottom-[0.2vw] shadow-custom-shadow rounded-full flex justify-center `}>
           <PiStudentFill className='m-auto w-[4vw] h-[4vw]' />
         </div>
-        <h3 className={` ${direction === 'ltr' ? 'text-left' : 'text-right'} text-[1.5625vw]  indent-[8vw] mt-[2vw]`}>{t("content.slider.student")}</h3>
+        <h3 className={` ${direction === 'ltr' ? 'text-left' : 'text-right'} text-[1.5625vw] max-md:text-[8px]  indent-[8vw] mt-[2vw]`}>{t("content.slider.student")}</h3>
         <p className={` ${direction === 'ltr' ? 'text-left ml-[8.2vw]' : 'text-right mr-[8vw]'} text-[1.171875vw] max-w-[20.4375vw] break-words`}>
         {t("content.slider.studentP")}
         </p>

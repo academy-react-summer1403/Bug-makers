@@ -225,7 +225,7 @@ useEffect(()=>{
   return (
     <div
       style={{ backgroundColor: dark.bgLow, color: dark.textHigh }}
-      className="w-[400px] h-[500px] flex flex-col border rounded-lg shadow-lg overflow-hidden"
+      className="w-[100%] h-[100%] flex flex-col border rounded-lg shadow-lg overflow-hidden"
       dir="rtl"
     >
       {/* هدر */}
@@ -235,7 +235,7 @@ useEffect(()=>{
           ${dark.selectedButton === 1 ? "bg-green-500" : ""}
           ${dark.selectedButton === 2 ? "bg-yellow-500" : ""}
           ${dark.selectedButton === 3 ? "bg-red-500" : ""}
-          text-white flex flex-row-reverse justify-between items-center px-4 py-2
+          text-white flex flex-row-reverse justify-between max-md:h-[15%] items-center px-4 py-2
         `}
       >
         <button
@@ -342,17 +342,17 @@ useEffect(()=>{
 
       {/* ورودی پیام */}
       {isChatOpen && (
-        <div className="flex flex-row-reverse items-center px-4 py-2 border-t">
+        <div className="flex flex-row-reverse items-center px-4  py-2 border-t">
           <input
             style={{ backgroundColor: dark.bgLow, color: dark.textHigh }}
             value={userMessage}
             onChange={(e) => setUserMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="پیام خود را بنویسید..."
-            className="flex-1 border rounded-md py-2 px-4 text-gray-700 text-right focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="max-md:w-[100%] border rounded-md py-2 px-4 text-gray-500 text-right focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
           <button
-            className={`ml-3 text-white rounded-md px-4 py-2 flex items-center hover:bg-blue-600 transition
+            className={`ml-3 text-white rounded-md px-4  py-2 flex items-center hover:bg-blue-600 transition
               ${dark.selectedButton === 0 ? "bg-blue-500" : ""}
                 ${dark.selectedButton === 1 ? "bg-green-500" : ""}
                 ${dark.selectedButton === 2 ? "bg-yellow-500" : ""}
@@ -361,7 +361,7 @@ useEffect(()=>{
             onClick={handleSendMessage}
           >
             ارسال
-            <FaPaperPlane className="ml-2" />
+            <FaPaperPlane className="ml-2 " />
           </button>
         </div>
       )}

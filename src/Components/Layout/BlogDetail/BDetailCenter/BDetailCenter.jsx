@@ -185,7 +185,7 @@ const BDetailCenter = ({ id }) => {
     <div className="w-[60%] mx-auto max-md:w-full  px-4">
       <div
         style={{ background: dark.bgHigh, color: dark.textHigh }}
-        className=" rounded-lg shadow-lg p-4 mb-4"
+        className="relative rounded-lg shadow-lg p-4 mb-4"
       >
         <div className="flex justify-between items-center">
           <span className=" text-lg">{response.newsCatregoryName}</span>
@@ -204,25 +204,23 @@ const BDetailCenter = ({ id }) => {
               : "bg-gradient-to-r from-[#202020] to-[#414141] "
           }`}
         >
-          {response.currentImageAddress ? (
+          {response.currentImageAddressTumb ? (
             <img
-              src={response.currentImageAddress}
+              src={response.currentImageAddressTumb}
               className="w-full h-auto max-h-[400px] object-cover"
               alt=""
             />
           ) : null}
-
-         
-        </div> 
-        <div className="size-[7vw] max-md:size-24 absolute top-[21%] max-md:top-[26%] left-[22%] max-md:left-[10%] flex items-center flex-col ">
-            <div
-              style={{ background: dark.bgLow, color: dark.textLow }}
-              className=" size-[4vw] max-md:size-16 rounded-full bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]"
-            ></div>
-            <span className="mt-2 max-md:text-[8px] text-gray-800 text-[0.6vw]">
-              {response.addUserFullName}
-            </span>
-          </div>
+        </div>
+        <div className="size-[7vw] max-md:size-24 absolute top-[26%] max-md:top-[26%] left-[3%] max-md:left-[10%] flex items-center flex-col ">
+          <div
+            style={{ background: dark.bgLow, color: dark.textLow }}
+            className=" size-[4vw] max-md:size-16 rounded-full bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]"
+          ></div>
+          <span className="mt-2 max-md:text-[8px] text-gray-800 text-[0.6vw]">
+            {response.addUserFullName}
+          </span>
+        </div>
         <h2 className="text-xl  mt-20 text-right">{response.title}</h2>
         <div className="flex justify-end  mt-14">
           <BDetailLikeSvg

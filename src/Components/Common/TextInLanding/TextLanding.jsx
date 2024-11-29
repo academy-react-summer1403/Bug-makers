@@ -12,7 +12,7 @@ const TextLanding = ({ h3Text , pText  }) => {
     <div >
         {/* Animated h3 and p */}
       <motion.h3 
-        className='max-[784px]:text-[3vw] text-[1.953125vw]  '
+        className='max-md:text-[15px] text-[1.953125vw]  '
         variants={itemVariants}
         initial="hidden"
         whileInView="visible"
@@ -22,7 +22,7 @@ const TextLanding = ({ h3Text , pText  }) => {
       </motion.h3>
 
       <motion.p
-        className='max-[784px]:text-[1.5vw] text-[0.9416666666666667vw] leading-[4.369791666666667vw]'
+        className='max-md:text-[10px] max-md:leading-7 text-[0.9416666666666667vw] leading-[4.369791666666667vw]'
         variants={itemVariants}
         initial="hidden"
         whileInView="visible"
