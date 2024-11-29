@@ -6,6 +6,7 @@ import { selectButton, selectdark } from "../../../Redux/Slice/darkMood/darkMood
 import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
 import { setVoiceAction } from "../../../Redux/Slice/voicecommand/voiceSlice";
 import { getRandom, promptIdeas } from "../../../Core/Services/utils/utils";
+import toast from "react-hot-toast";
 
 function VoiceCommand({classes}) {
   const {i18n} = useTranslation()
@@ -14,6 +15,7 @@ function VoiceCommand({classes}) {
   const handleSurpriseMe = (e) => {
     const surprisePrompt = getRandom(promptIdeas);
     dispatch(setVoiceAction(surprisePrompt));
+    toast.success('عکس تصادفی ایجاد شد')
   };
 
   const changeLanguages = (lng) => {

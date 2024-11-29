@@ -41,7 +41,7 @@ import AcceptGmail from "../Components/Layout/ClientPanel/LeftBar/LeftBarDown/Se
 import { Toaster } from "react-hot-toast";
 import { TourProvider } from "../Components/Common/Tuor/TourContext";
 import { NextUIProvider } from "@nextui-org/react";
-
+import SpeechToText from '../Components/Common/SpeechToText/SpeechToText'
 import { Store } from "../Redux/Store/Store";
 import { Provider, useSelector } from "react-redux";
 import Wallet from "../Components/Layout/ClientPanel/LeftSide/Wallet/Wallet";
@@ -55,6 +55,11 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <LandingPage />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/SpeechToText",
+        element: <SpeechToText />,
         errorElement: <Error />,
       },
       {
