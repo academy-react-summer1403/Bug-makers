@@ -156,3 +156,13 @@ export const CorseAB = async (id) => {
     console.log(error);
   }
 };
+export const getCourseHomeWork = async (id) => {
+  try {
+    let url = `/Session/GetSessionHomeWork?SessionId=${id}`;
+
+    const response = await instance.get(url);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -25,6 +25,7 @@ import {
   getDiscount,
   getCourseDetailAdmin,
   CorseAB,
+  getCourseHomeWork,
 } from "../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CComment from "../Comment/CComment";
 import {
@@ -51,6 +52,7 @@ function CourseCard({ id }) {
 
   const [response, setResponse] = useState({});
   const [responseAdmin, setResponseAdmin] = useState({});
+  const [homeWork, setHomeWork] = useState([]);
   const [comment, setComment] = useState({});
   const [detailPage, setDetailPage] = useState(0);
   const [repleyModal, setRepleyModal] = useState(false);
@@ -86,6 +88,7 @@ const GetId = async () => {
     const res2 = await getCourseDetailAdmin(id)
     setResponseAdmin(res2)
     setResponse(res);
+    GetHomework(res2?.courseSchedules[0].id);
     console.log(res2);
   };
   const GetComment = async () => {
@@ -93,9 +96,15 @@ const GetId = async () => {
     setComment(re);
     console.log(comment);
   };
+  const GetHomework = async (id)=>{
+    const res = await getCourseHomeWork(id);
+    setHomeWork(res)
+    console.log(res)
+  }
   useEffect(() => {
     GetId();
     GetComment();
+    
   }, []);
 
   const { isLoading, error, data } = useQuery({
@@ -341,6 +350,9 @@ const GetId = async () => {
 
   }
 
+
+  
+
   return (
     <div className="max-[688px]:mt-10  w-full max-[688px]:flex-row flex   flex-wrap flex-col gap-5">
       <div
@@ -563,32 +575,40 @@ const GetId = async () => {
             >
               <span className=" text-right text-[18px]">تکلیف روز</span>
               <br />
-              <div className="text-center py-3 px-6  mt-8 flex justify-between items-center">
-                {/* دکمه سفارشی برای انتخاب فایل */}
-                <span>ارسال تکالیف</span>
-                <label htmlFor="file-upload" className="cursor-pointer">
-                  <div
-                    className={`w-[100%] px-6 py-3 text-white text-sm font-medium rounded-lg shadow-md duration-400 transition-all hover:bg-gray-600 
+              {homeWork?.map((ithem) => (
+                <div
+                  key={ithem.id}
+                  className="text-center py-3 px-6  mt-8 flex justify-between items-center"
+                >
+                  {/* دکمه سفارشی برای انتخاب فایل */}
+                  <div className="h-full w-[60%] flex flex-col justify-between items-start">
+                    <span>{ithem.hwTitle}</span>
+                    <span>{ithem.hwDescribe}</span>
+                  </div>
+                  <label htmlFor="file-upload" className="cursor-pointer">
+                    <div
+                      className={`w-[100%] px-6 py-3 text-white text-sm font-medium rounded-lg shadow-md duration-400 transition-all hover:bg-gray-600 
                       ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
-                ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
-                ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
-                ${dark.selectedButton === 3 ? "bg-red-600" : ""}
+                      ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+                      ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                      ${dark.selectedButton === 3 ? "bg-red-600" : ""}
                       
                       `}
-                  >
-                    انتخاب فایل
-                  </div>
-                </label>
+                    >
+                      انتخاب فایل
+                    </div>
+                  </label>
 
-                {/* ورودی فایل مخفی */}
-                <input
-                  id="file-upload" // id باید با htmlFor مطابقت داشته باشد
-                  type="file"
-                  accept="*/*"
-                  onChange={handleFileChange}
-                  className="hidden" // مخفی کردن ورودی فایل
-                />
-              </div>
+                  {/* ورودی فایل مخفی */}
+                  <input
+                    id="file-upload" // id باید با htmlFor مطابقت داشته باشد
+                    type="file"
+                    accept="*/*"
+                    onChange={handleFileChange}
+                    className="hidden" // مخفی کردن ورودی فایل
+                  />
+                </div>
+              ))}
             </div>
             <div
               style={{ background: dark.bgHigh, color: dark.textHigh }}
