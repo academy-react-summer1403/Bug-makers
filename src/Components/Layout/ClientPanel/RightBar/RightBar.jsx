@@ -296,7 +296,7 @@ useEffect(() => {
       ),
     },
     {
-      id: 9,
+      id: 10,
       name: "voiceCommand",
       label: "دستیار صوتی",
       icon: (
