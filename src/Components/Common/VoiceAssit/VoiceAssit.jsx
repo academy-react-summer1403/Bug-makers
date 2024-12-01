@@ -4,10 +4,19 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from "react-redux";
 import { selectButton, selectdark } from "../../../Redux/Slice/darkMood/darkMood";
 import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
+import { setVoiceAction } from "../../../Redux/Slice/voicecommand/voiceSlice";
+import { getRandom, promptIdeas } from "../../../Core/Services/utils/utils";
+import toast from "react-hot-toast";
 
-function VoiceCommand() {
+function VoiceCommand({classes}) {
   const {i18n} = useTranslation()
   const dispatch = useDispatch()
+
+  const handleSurpriseMe = (e) => {
+    const surprisePrompt = getRandom(promptIdeas);
+    dispatch(setVoiceAction(surprisePrompt));
+    toast.success('عکس تصادفی ایجاد شد')
+  };
 
   const changeLanguages = (lng) => {
       i18n.changeLanguage(lng);
@@ -18,7 +27,7 @@ function VoiceCommand() {
   const dark = useSelector((state) => state.darkMood);
   const [theme, setTheme] = useState(dark.selectedDark);
 
-console.log(theme);
+  console.log(theme);
   const changeTheme = () => {
     dispatch(selectdark(theme));
   };
@@ -26,9 +35,24 @@ console.log(theme);
     changeTheme();
   }, [theme]);
  
-    const [isListening, setIsListening] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const annyangRef = useRef(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const loadCustomCommands = () => {
+    const customNames = JSON.parse(localStorage.getItem('customNames')) || {};
+    const commands = {};
+
+    Object.keys(customNames).forEach((tag) => {
+      const customName = customNames[tag];
+      commands[customName] = () => {
+        console.log(`Command triggered for: ${tag}`);
+        navigate(`/${tag}`); 
+      };
+    });
+
+    return commands;
+  };
 
   useEffect(() => {
     const loadAnnyang = async () => {
@@ -42,24 +66,23 @@ console.log(theme);
             'open blog': () => navigate('/BlogPage'),
             'open podcast': () => navigate('/PodcastPage'),
             'change english': () => changeLanguages('en'),
-            'change persian ': () => changeLanguages('fa'),
+            'change persian': () => changeLanguages('fa'),
             'change turkish': () => changeLanguages('tr'),
             'change to blue': () => handleColorSelect(0),
             'change to green': () => handleColorSelect(1),
             'change to yellow': () => handleColorSelect(2),
             'change to red': () => handleColorSelect(3),
-            'dark': () => setTheme(1),
-            'light': () => setTheme(0),
-            
-            "open firefox": () =>
-              window.open("https://www.google.com", "_blank"),
-            "change background": () =>
-              (document.body.style.backgroundColor = "lightblue"),
-            "say goodbye": () => alert("Goodbye! Have a great day!"),
+            'dark mode': () => setTheme(1),
+            'light mode': () => setTheme(0),
+
           };
+          if (window.location.pathname === '/ClientPanel/DashbordEdit/Picture') {
+            commands['generate image'] = handleSurpriseMe;
+          }
+
+          Object.assign(commands, loadCustomCommands());
 
           annyang.addCommands(commands);
-
           annyangRef.current = annyang;
         }
       } catch (error) {
@@ -97,8 +120,9 @@ console.log(theme);
       alert("Microphone access is required to use the voice assistant.");
     }
   };
+
   return (
-    <div onClick={toggleListening} className="absolute cursor-pointer max-md:left-[200px] max-md:h-[100%] max-md:p-0 max-md:pt-3   z-30 top-[-21px] left-[320px] transform -translate-x-1/2 p-4">
+    <div onClick={toggleListening} className={` ${classes} cursor-pointer z-30  transform -translate-x-1/2 p-4`}>
       <div className=" p-4 rounded-lg  flex items-center space-x-4">
         <div className={`relative w-12 h-12 ${isListening ? "animate-pulse" : ""}`}>
           <div className={`absolute inset-0 flex items-center justify-center 
@@ -115,70 +139,3 @@ console.log(theme);
 }
 
 export default VoiceCommand;
-// import annyang from "annyang";
-
-// import { useNavigate } from "react-router-dom";
-
-// const VoiceCommand = () => {
-//   const navigate = useNavigate();
-//   const [message, setMessage] = useState(
-//     "Press the button to start voice recognition"
-//   );
-//   const [isListening, setIsListening] = useState(false);
-
-//   const startListening = () => {
-//     if (annyang) {
-//       const commands = {
-//         hello: () => setMessage("Hello! How can I assist you?"),
-//         "change color to :color": (color) => {
-//           setMessage(`Changing color to ${color}`);
-//           document.body.style.backgroundColor = color;
-//         },
-//         "go to course page": () => {
-//           setMessage("go to course page");
-//           navigate("/course");
-//         },
-//         reset: () => {
-//           setMessage("Resetting color");
-//           document.body.style.backgroundColor = "white";
-//         },
-//       };
-
-//       annyang.addCommands(commands);
-
-//       annyang.start();
-//       setIsListening(true);
-//     } else {
-//       setMessage("Voice recognition is not supported in this browser.");
-//     }
-//   };
-
-//   const stopListening = () => {
-//     if (annyang) {
-//       annyang.abort();
-//       setIsListening(false);
-//       setMessage("Voice recognition stopped");
-//     }
-//   };
-
-//   const handleButtonClick = () => {
-//     if (isListening) {
-//       stopListening();
-//     } else {
-//       startListening();
-//     }
-//   };
-
-//   return (
-//     <div style={{ textAlign: "center", paddingTop: "50px" }}>
-//       <h1>{message}</h1>
-//       <button onClick={handleButtonClick}>
-//         {isListening ? "Stop Listening" : "Start Listening"}
-//       </button>
-//       <p>Try saying "hello", "change color to blue", or "reset".</p>
-//       <button onClick={() => navigate("/course")}>navigate</button>
-//     </div>
-//   );
-// };
-
-// export default VoiceCommand;

@@ -9,6 +9,9 @@ import favoriteeSliceReducer from '../Slice/Course/favoritee'
 import paymentSliceReducer from '../Slice/payment/payment'
 import darkMoodReducer from '../Slice/darkMood/darkMood'
 import helpSliceReducer from '../Slice/helpchat/helpChat'
+import VoiceSliceReducer from '../Slice/voicecommand/voiceSlice'
+import SpechToTextSliceReducer from '../Slice/SpechToText/spechToText'
+
 export const Store = configureStore({
   reducer: {
     
@@ -22,5 +25,7 @@ export const Store = configureStore({
     payment: paymentSliceReducer,
     help: helpSliceReducer,
     themeColor: ThemeColorReducer,
+    voice : VoiceSliceReducer,
+    speak : SpechToTextSliceReducer,
   },
 });

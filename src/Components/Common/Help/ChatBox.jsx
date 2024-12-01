@@ -12,6 +12,8 @@ import { getItem } from "../../../Core/Services/common/storage.services";
 import { getHelpPm, postHelpPm, postHelpPmInChat } from "../../../Core/Services/Api/HelpChat/help";
 import convertToJalali from "../TimeChanger/TimeToShamsi";
 import { setHelpStatus } from "../../../Redux/Slice/helpchat/helpChat";
+import SpeechToText from "../SpeechToText/SpeechToText";
+import { setVoiceType } from "../../../Redux/Slice/SpechToText/spechToText";
 
 
 
@@ -21,12 +23,13 @@ const ChatBox = () => {
 
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [userMessage, setUserMessage] = useState("");
   const [responseAdmin, setResponseAdmin] = useState({});
   const [adminMassegeNotif,setAdminMassegeNotif]=useState([])
   const [groupId, setGroupId] = useState(false);
   const queryClient = useQueryClient();
 
+  const userMessage = useSelector((state) => state.speak.value)
+  
   const { data: adminMessages } = useQuery(
     "adminMessages",
     () => getHelpPm(responseAdmin.id),
@@ -138,7 +141,7 @@ useEffect(()=>{
           )
         );
       }
-      setUserMessage("");
+      dispatch(setVoiceType(""));
     }
   };
 
@@ -201,19 +204,7 @@ useEffect(()=>{
  
   const dark = useSelector((state) => state.darkMood);
 
-  // useEffect(() => {
-  //   if (responseAdmin) {
-  //     setMessages((prevMessages) => [
-  //       ...prevMessages,
-  //       {
-  //         id: Date.now(),
-  //         sender: "support",
-  //         text: responseAdmin.dataText.text,
-  //         timestamp: new Date().toLocaleTimeString(),
-  //       },
-  //     ]);
-  //   }
-  // }, [responseAdmin]);
+  
 
 
     const handleKeyPress = (event) => {
@@ -342,11 +333,12 @@ useEffect(()=>{
 
       {/* ورودی پیام */}
       {isChatOpen && (
-        <div className="flex flex-row-reverse items-center px-4  py-2 border-t">
+        <div className="flex flex-row-reverse items-center px-4 py-2 border-t">
+          <SpeechToText />
           <input
             style={{ backgroundColor: dark.bgLow, color: dark.textHigh }}
             value={userMessage}
-            onChange={(e) => setUserMessage(e.target.value)}
+            onChange={(e) => dispatch(setVoiceType(e.target.value))}
             onKeyPress={handleKeyPress}
             placeholder="پیام خود را بنویسید..."
             className="max-md:w-[100%] border rounded-md py-2 px-4 text-gray-500 text-right focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"

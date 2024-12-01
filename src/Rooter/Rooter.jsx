@@ -18,6 +18,7 @@ import MyReserve from "../Components/Layout/ClientPanel/LeftSide/MyReserve/MyRes
 import LikedCourse from "../Components/Layout/ClientPanel/LeftSide/LikedCourse/LikedCourse";
 import LikedBlog from "../Components/Layout/ClientPanel/LeftSide/LikedBlog/LikedBlog";
 import Tornoment from "../Components/Layout/ClientPanel/LeftSide/Tornoment/Tornoment";
+import DynamicVoice from "../Components/Common/VoiceAssit/dynamicVoice";
 import Payment from "../Components/Layout/ClientPanel/LeftSide/Payment/Payment";
 import PaymentFirstStep from "../Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/firstTab";
 import PaymentSecoundTab from "../Components/Layout/ClientPanel/LeftSide/Payment/paymwntTabs/secoundTab";
@@ -40,7 +41,7 @@ import AcceptGmail from "../Components/Layout/ClientPanel/LeftBar/LeftBarDown/Se
 import { Toaster } from "react-hot-toast";
 import { TourProvider } from "../Components/Common/Tuor/TourContext";
 import { NextUIProvider } from "@nextui-org/react";
-
+import SpeechToText from '../Components/Common/SpeechToText/SpeechToText'
 import { Store } from "../Redux/Store/Store";
 import { Provider, useSelector } from "react-redux";
 import Wallet from "../Components/Layout/ClientPanel/LeftSide/Wallet/Wallet";
@@ -54,6 +55,11 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <LandingPage />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/SpeechToText",
+        element: <SpeechToText />,
         errorElement: <Error />,
       },
       {
@@ -130,6 +136,11 @@ const router = createBrowserRouter([
       {
         path: "Tornoment",
         element: <Tornoment />,
+        errorElement: <Error />,
+      },
+      {
+        path: "voiceCommand",
+        element: <DynamicVoice />,
         errorElement: <Error />,
       },
       {
