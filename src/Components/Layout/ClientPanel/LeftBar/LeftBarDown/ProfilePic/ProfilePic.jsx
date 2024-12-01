@@ -18,6 +18,7 @@ import { getRandom , promptIdeas } from "../../../../../../Core/Services/utils/u
 import { setVoiceAction } from "../../../../../../Redux/Slice/voicecommand/voiceSlice";
 import Webcam from "react-webcam";
 import WebcamModal from "./WebCam";
+import FileCropModal from "./SelectPic";
 
 const ProfilePic = () => {
   const [images, setImages] = useState([]);
@@ -275,15 +276,7 @@ const dark = useSelector((state) => state.darkMood);
                 ${dark.selectedButton === 3 ? "border-red-600" : ""}
           `}
         >
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            multiple
-            placeholder="لطفا عکس را انتخاب کنید"
-            id="file"
-            className="w-[full] max-w-40 text-[0.6vw] max-md:max-w-[100%]"
-          />
+          <FileCropModal formik={formik}/>
           <svg
             className="max-md:hidden"
             width=""

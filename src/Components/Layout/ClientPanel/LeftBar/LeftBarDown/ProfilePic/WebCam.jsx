@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Webcam from "react-webcam";
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
 import {
   Modal,
   Button,
@@ -12,7 +14,9 @@ import {
 const WebcamModal = ({ handleFileChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
   const [isCameraActive, setIsCameraActive] = useState(true);
+  const [cropper, setCropper] = useState(null);
 
   const videoConstraints = {
     width: 1280,
@@ -20,24 +24,30 @@ const WebcamModal = ({ handleFileChange }) => {
     facingMode: "user",
   };
 
-  const handleFileUpload = (imageData) => {
-    const byteString = atob(imageData.split(",")[1]);
-    const mimeString = imageData.split(",")[0].split(":")[1].split(";")[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    const blob = new Blob([ab], { type: mimeString });
-    const file = new File([blob], "captured-image.png", { type: mimeString });
+  const handleFileUpload = () => {
+    if (cropper) {
+      const croppedDataUrl = cropper.getCroppedCanvas().toDataURL();
+      const byteString = atob(croppedDataUrl.split(",")[1]);
+      const mimeString = croppedDataUrl
+        .split(",")[0]
+        .split(":")[1]
+        .split(";")[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([ab], { type: mimeString });
+      const file = new File([blob], "cropped-image.png", { type: mimeString });
 
-    if (handleFileChange) {
-      console.log(file);
-      handleFileChange([file]); // ارسال فایل به تابع props
-    }
+      if (handleFileChange) {
+        console.log(file);
+        handleFileChange([file]); // ارسال فایل به تابع props
+      }
 
-    setIsOpen(false); // بستن مودال
-    resetModal(); // ریست کردن وضعیت
+      setIsOpen(false); // بستن مودال
+      resetModal(); // ریست کردن وضعیت
+    }
   };
 
   const handleRetake = () => {
@@ -47,6 +57,7 @@ const WebcamModal = ({ handleFileChange }) => {
 
   const resetModal = () => {
     setCapturedImage(null);
+    setCroppedImage(null);
     setIsCameraActive(true);
   };
 
@@ -57,7 +68,9 @@ const WebcamModal = ({ handleFileChange }) => {
 
   return (
     <div>
-        <span className="block mb-8 text-center text-[22px] max-md:hidden">گرفتن عکس</span>
+      <span className="block mb-8 text-center text-[22px] max-md:hidden">
+        گرفتن عکس
+      </span>
 
       <Button onPress={() => setIsOpen(true)}>باز کردن دوربین</Button>
       <Modal
@@ -91,26 +104,30 @@ const WebcamModal = ({ handleFileChange }) => {
                       </Button>
                     )}
                   </Webcam>
-                ) : (
+                ) : capturedImage ? (
                   <div>
-                    <img
+                    <Cropper
+                      style={{ height: 400, width: "100%" }}
+                      initialAspectRatio={1}
                       src={capturedImage}
-                      alt="Captured"
-                      className="w-full h-auto"
+                      viewMode={1}
+                      guides={true}
+                      cropBoxResizable={true}
+                      cropBoxMovable={true}
+                      responsive={true}
+                      autoCropArea={1}
+                      onInitialized={(instance) => setCropper(instance)}
                     />
                     <div className="flex justify-between mt-4">
                       <Button onPress={handleRetake} color="warning">
                         دوباره
                       </Button>
-                      <Button
-                        onPress={() => handleFileUpload(capturedImage)}
-                        color="primary"
-                      >
+                      <Button onPress={handleFileUpload} color="primary">
                         تایید
                       </Button>
                     </div>
                   </div>
-                )}
+                ) : null}
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
