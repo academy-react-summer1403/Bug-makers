@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import MultiAcc from "../common/MultiAcc";
 import { removeLoginToken, setLoginToken } from "../../../../Redux/Slice/Login/Login";
+import { FaMicrophone } from "react-icons/fa";
 
 const RightBar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -265,7 +266,7 @@ useEffect(() => {
           />
         </svg>
       ),
-    }, 
+    },
     {
       id: 7,
       name: "Tornoment",
@@ -300,28 +301,10 @@ useEffect(() => {
       name: "voiceCommand",
       label: "دستیار صوتی",
       icon: (
-        <svg
-          width=""
-          height="70%"
-          viewBox="0 0 24 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M4 13.5004V15.0446C4 18.2896 4 19.9121 4.88607 21.0111C5.06508 21.2331 5.26731 21.4354 5.48933 21.6144C6.58831 22.5004 8.21082 22.5004 11.4558 22.5004C12.1614 22.5004 12.5141 22.5004 12.8372 22.3864C12.9044 22.3627 12.9702 22.3354 13.0345 22.3047C13.3436 22.1569 13.593 21.9074 14.0919 21.4085L18.8284 16.672C19.4065 16.0939 19.6955 15.8049 19.8478 15.4374C20 15.0698 20 14.6611 20 13.8436V10.5004C20 6.72919 20 4.84358 18.8284 3.672C17.7693 2.61284 16.1265 2.51122 13.0345 2.50146M13 22.0004V21.5004C13 18.672 13 17.2578 13.8787 16.3791C14.7574 15.5004 16.1716 15.5004 19 15.5004H19.5"
-            stroke={activeIndex === 7 ? "#FEFDFF" : "#5e5e5e"}
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M4 8.9532V5.48748C4 4.07894 4 3.37467 4.43934 2.93709C4.87868 2.49951 5.58579 2.49951 7 2.49951C8.41421 2.49951 9.12132 2.49951 9.56066 2.93709C10 3.37467 10 4.07894 10 5.48748V8.9532C10 9.87314 10 10.3331 9.71208 10.4674C9.42416 10.6017 9.06938 10.3073 8.35982 9.71834L7.64018 9.12106C7.33408 8.86699 7.18103 8.73996 7 8.73996C6.81897 8.73996 6.66592 8.86699 6.35982 9.12106L5.64018 9.71834C4.93062 10.3073 4.57584 10.6017 4.28792 10.4674C4 10.3331 4 9.87314 4 8.9532Z"
-            stroke={activeIndex === 7 ? "#FEFDFF" : "#5e5e5e"}
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <FaMicrophone
+          size={30}
+          color={activeIndex === 10 ? "#FEFDFF" : "#5e5e5e"}
+        />
       ),
     },
   ];

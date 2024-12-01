@@ -9,6 +9,8 @@ import {
   ModalBody,
   ModalFooter,
   Tooltip,
+  Skeleton,
+  
 } from "@nextui-org/react";
 import { FaWallet } from "react-icons/fa";
 import { useSelector } from "react-redux";
@@ -17,6 +19,7 @@ import { CreateTractionById, getAllWallet, getTractionGetAll, getWalletById } fr
 import { useQuery, useQueryClient } from "react-query";
 import { getItem, setItem } from "../../../../../Core/Services/common/storage.services";
 import convertToJalali from "../../../../Common/TimeChanger/TimeToShamsi";
+
 
 const Wallet = () => {
   const queryClient = useQueryClient();
@@ -146,18 +149,16 @@ console.log(transactions);
         {/* موجودی کیف پول */}
         <div className="ml-6 flex flex-col justify-between h-full max-md:w-[60%] w-[30%] text-right">
           <div className="flex items-center gap-x-4 max-md:flex-col mb-4 max-md:gap-x-1">
-            <h2 className=" text-lg  max-md:font-normal font-bold">موجودی کیف‌پول :</h2>
-            <p className=" text-2xl  mt-2">{response?.data.data.Cost} تومان</p>
+            <h2 className="text-lg max-md:font-normal font-bold">
+              موجودی کیف‌پول :
+            </h2>
+            {isLoading ? (
+              <Skeleton height={30} width={120} />
+            ) : (
+              <p className="text-2xl mt-2">{response?.data.data.Cost} تومان</p>
+            )}
           </div>
-          {/* دکمه افزایش اعتبار */}
-          <Button
-            className={`w-[40%] text-white
-            ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
-                  ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
-                  ${dark.selectedButton === 2 ? "bg-yellow-600" : ""} 
-                  ${dark.selectedButton === 3 ? "bg-red-600" : ""}`}
-            onPress={onOpen}
-          >
+          <Button className="w-[40%] text-white bg-blue-600" onPress={onOpen}>
             افزایش اعتبار
           </Button>
         </div>
@@ -171,18 +172,34 @@ console.log(transactions);
           className="shadow-md  max-h-[550px] overflow-auto  rounded-lg "
         >
           <table className="w-full relative  text-right border-collapse">
-            <thead className="sticky top-0" style={{ background: dark.bgLow, color: dark.textHigh }}>
+            <thead
+              className="sticky top-0"
+              style={{ background: dark.bgLow, color: dark.textHigh }}
+            >
               <tr className="text-sm font-semibold">
                 <th className="py-3 px-4">تاریخ</th>
                 <th className="py-3 px-4">مبلغ</th>
                 <th className="py-3 px-4">توضیحات</th>
               </tr>
             </thead>
-            <tbody className="">
-              {errTr ? <div>تراکنشی پیدا نشد </div> : null}
-              {isLoadTr ? <p>در حال بارگذاری</p> : null}
-              {transactions.length > 0 ? (
-                transactions?.map((transaction) => (
+            <tbody>
+
+              {isLoadTr ? (
+                Array.from({ length: 5 }).map((_, i) => (
+                  <tr key={i} className="border-t">
+                    <td className="py-3 px-4">
+                      <Skeleton height={40} width={80} />
+                    </td>
+                    <td className="py-3 px-4">
+                      <Skeleton height={40} width={100} />
+                    </td>
+                    <td className="py-3 px-4">
+                      <Skeleton height={40} width={150} />
+                    </td>
+                  </tr>
+                ))
+              ) : transactions.length > 0 ? (
+                transactions.map((transaction) => (
                   <tr key={transaction.id} className="border-t">
                     <td className="py-3 px-4">
                       {convertToJalali(transaction.date)}
@@ -198,7 +215,14 @@ console.log(transactions);
                   </tr>
                 ))
               ) : (
-                <div className="text-lg p-4">تراکنشی موجود نیست </div>
+                <tr>
+                  {
+                    errTr ?  <td colSpan="3" className="py-3 px-4 text-center">
+                      تراکنشی موجود نیست
+                      </td>
+                  : null
+                  }
+                </tr>
               )}
             </tbody>
           </table>

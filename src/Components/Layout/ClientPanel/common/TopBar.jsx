@@ -49,7 +49,7 @@ const TopBar = () => {
       className="w-full h-full flex flex-row-reverse justify-between items-center  shadow-md px-[1%] py-[0.5%] rounded-lg"
     >
       {/* Left Icons */}
-      <div className="flex max-md:size-12 items-center justify-end gap-x-[2%] max-md:w-[20%] w-[10%]  h-full">
+      <div className="flex max-md:size-12 items-center justify-end gap-x-[2%] max-md:w-[30%] w-[22%]  h-full">
         <div className=" p-5">
           <VoiceCommand  />
         </div>
