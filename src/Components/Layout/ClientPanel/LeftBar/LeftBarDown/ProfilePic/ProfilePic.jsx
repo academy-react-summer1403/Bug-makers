@@ -19,6 +19,7 @@ import { setVoiceAction } from "../../../../../../Redux/Slice/voicecommand/voice
 import Webcam from "react-webcam";
 import WebcamModal from "./WebCam";
 import FileCropModal from "./SelectPic";
+import toast from "react-hot-toast";
 
 const ProfilePic = () => {
   const [images, setImages] = useState([]);
@@ -59,6 +60,8 @@ const ProfilePic = () => {
         if (files.length > 0) {
           console.log(files);
           await handleFileUpload(files); // فراخوانی تابع آپلود
+          toast.success("عملیات موفقیت امیز بود");
+
           setTimeout(() => {
             refetch(); // Refetch after 2 seconds of form submission
           }, 2000);
@@ -95,6 +98,8 @@ const ProfilePic = () => {
       const file = files[0]; // Assuming a single file
       console.log(file);
       await setProfilePic(file); // Upload the file
+      toast.success("عملیات موفقیت امیز بود");
+
     } catch (error) {
       console.error("Error uploading file:", error);
     }

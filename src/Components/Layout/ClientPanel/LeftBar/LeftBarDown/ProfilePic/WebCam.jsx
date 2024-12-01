@@ -10,6 +10,7 @@ import {
   ModalBody,
   ModalFooter,
 } from "@nextui-org/react";
+import toast from "react-hot-toast";
 
 const WebcamModal = ({ handleFileChange }) => {
   const [isOpen, setIsOpen] = useState(false);
