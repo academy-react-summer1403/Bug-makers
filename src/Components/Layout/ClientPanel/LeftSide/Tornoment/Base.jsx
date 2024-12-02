@@ -8,6 +8,7 @@ import SearchBox from "../LikedCourse/SearchBox/SearchBox";
 import { useQuery } from "react-query";
 import { getTournoment } from "../../../../../Core/Services/Api/Client/Tornoment";
 import TornomentDetail from "./TornomentDetail";
+import CustomSkeleton from "../../../../Common/Sceleton/CostomeSceleton";
 
 
 
@@ -65,9 +66,9 @@ setResponse(filterData);
 // }
   const renderCourses = () => {
   
-      if(response.length==0){return(
-          <div className="w-full mt-[2vw] text-gray-700 font-[500] text-[1.5vw] max-md:text-[16px]" >لیست{" "}{ name }{" "}خالی است</div>
-        )}
+      // if(response.length==0){return(
+      //     <div className="w-full mt-[2vw] text-gray-700 font-[500] text-[1.5vw] max-md:text-[16px]" >لیست{" "}{ name }{" "}خالی است</div>
+      //   )}
         
           return response.map((course, index) => (
             <div
@@ -192,8 +193,7 @@ const dark = useSelector((state) => state.darkMood);
         className={`justify-between pb-[0.2vw] px-[1vw] items-start ${
           show == true ? "flex" : "hidden"
         }`}
-      >
-      </div>
+      ></div>
       <div className="w-[100%] selection: mt-[0vw] ">
         {/* for dashbord........  */}
         <div
@@ -256,6 +256,9 @@ const dark = useSelector((state) => state.darkMood);
         </div>
         {/* courseItemsSection */}
         <div className="flex flex-wrap justify-center items-center  mt-[0.5vw]">
+          {response?.length == 0  ? (
+            <CustomSkeleton count={7} />
+          ) : null}
           {renderCourses()}
         </div>
 

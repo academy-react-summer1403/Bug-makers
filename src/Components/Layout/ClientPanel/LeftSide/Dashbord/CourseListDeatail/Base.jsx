@@ -18,6 +18,7 @@ import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
 import { getMyCourseListWithPagination } from "../../../../../../Core/Services/Api/Client/clientLiked";
 import { setpaymentList } from "../../../../../../Redux/Slice/payment/payment";
 import { useNavigate } from "react-router-dom";
+import CustomSkeleton from "../../../../../Common/Sceleton/CostomeSceleton";
 
 
 const CoursePage = ({
@@ -229,9 +230,9 @@ const dark = useSelector((state) => state.darkMood);
       return <p>دوره ای برای شما ثبت نشده</p>
     }
     if (ithem.length == 0 && point == "myCourse") {
-      return <p className="mt-[5%]">دوره ای با این مشخصات شما ثبت نشده</p>;
+      return <CustomSkeleton count={8} />;
     }
-    // console.log(ithem);
+    console.log(ithem);
 
     return ithem
       .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
@@ -419,7 +420,7 @@ const dark = useSelector((state) => state.darkMood);
   }, [detailId]);
 
   const renderDetail = () => {
-    if (isLoading) return <p>در حال بارگذاری...</p>;
+    if (isLoading) return ;
     if (error) return <p>خطایی رخ داده است...</p>;
 
 
@@ -662,6 +663,8 @@ const dark = useSelector((state) => state.darkMood);
         </div>
         {/* courseItemsSection */}
         <div className="flex flex-wrap justify-center items-center  mt-[0.5vw]">
+          
+
           {renderCourses()}
         </div>
 

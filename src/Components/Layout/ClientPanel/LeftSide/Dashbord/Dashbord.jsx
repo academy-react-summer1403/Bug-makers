@@ -178,13 +178,13 @@ function PersianCalendarComponent() {
             <CommentSection setOpenCommentBar={setOpenCommentBar} />
           </div>
 
-          <div className="h-[99%] w-[18%] max-md:w-[49%] max-md:h-[50%] overflow-auto">
+          <div className="h-[99%] w-[18%] max-md:mt-3 max-md:w-[50%] max-md:h-[50%] overflow-auto">
             {/* <PersianCalender /> */}
             {PersianCalendarComponent()}
           </div>
           <div
             style={{ background: dark.bgHigh, color: dark.textHigh }}
-            className="w-[20%] max-md:w-[49%] h-[99%] max-md:h-[50%] rounded-[0.5vw] max-md:rounded-[20px]"
+            className="w-[20%] max-md:w-[46%] max-md:mt-3 max-md:mr-2 h-[99%] max-md:h-[50%] rounded-[0.5vw] max-md:rounded-[20px]"
           >
             <Gauge value={CourseListItem.profileCompletionPercentage} />
           </div>

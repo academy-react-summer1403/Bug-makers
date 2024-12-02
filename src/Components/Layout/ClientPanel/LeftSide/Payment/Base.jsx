@@ -19,6 +19,7 @@ import { getMyCourseListWithPagination } from "../../../../../Core/Services/Api/
 import { setpaymentList } from "../../../../../Redux/Slice/payment/payment";
 import { useNavigate } from "react-router-dom";
 import { getPayment } from "../../../../../Core/Services/Api/Client/payment";
+import CustomSkeleton from "../../../../Common/Sceleton/CostomeSceleton";
 
 
 const CoursePage = ({
@@ -108,8 +109,7 @@ const handleSearch = (e) => {
     if (error) return <p>خطایی رخ داده است...</p>;
     console.log(payData)
 
-    if (payData.length == 0)
-      return <p>دوره ای وجود ندارد</p>;
+    if (error) return <p>دوره ای وجود ندارد</p>;
 
     return payData.map((course, index) => (
       <div
@@ -488,6 +488,9 @@ const handleSearch = (e) => {
         </div>
         {/* courseItemsSection */}
         <div className="flex flex-wrap justify-center items-center  mt-[0.5vw]">
+          {payData?.length == 0 || isLoading ? (
+            <CustomSkeleton count={8} />
+          ) : null}
           {renderCourses()}
         </div>
       </div>

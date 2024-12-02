@@ -15,6 +15,8 @@ import { setFavoriteList } from "../../../../../Redux/Slice/Course/favoritee";
 import toast from "react-hot-toast";
 import SearchBox from "./SearchBox/SearchBox";
 import { useQuery, useQueryClient } from "react-query";
+import { Skeleton } from "@mui/material";
+import CustomSkeleton from "../../../../Common/Sceleton/CostomeSceleton";
 
 
 
@@ -69,7 +71,7 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
   //     },
   //   });
 
-  const {data:CourseServ , isLoading :servLoding }=useQuery({
+  const {data:Course , isLoading :Loding }=useQuery({
       queryKey : ["GetCourseServ"],
       queryFn : ()=>{
       if (location == "BlogFav") {
@@ -100,50 +102,26 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
         console.log(data)
       }
     })
-console.log(CourseServ);
-servLoding ? <div>dfef</div>:null
-dispatch(setFavoriteList(response));
+// console.log(Course);
+
+response ? dispatch(setFavoriteList(response)) : null
 
 
-  const { data: CourseLike, isLoading: CourseLikeLoding } = useQuery({
-    queryKey: ["GetCourseLike"],
-    queryFn: getLikedCourse,
-    onSuccess: (data) => {
-      setResponse(data.favoriteCourseDto);
-      setOriginalData(data.favoriteCourseDto);
-    },
-  });  const { data: NewsLike, isLoading: NewsLikeLoding } = useQuery({
-    queryKey: ["GetLikeNews"],
-    queryFn: getLikedNews,
-    onSuccess: (data) => {
-      setResponse(data.myFavoriteNews);
-      setOriginalData(data.myFavoriteNews);
-    },
-  });
-// if (location == "BlogFav") {
-//   GetLikedNews();
-// }
-// if (location == "CourseFav") {
-//   GetLikedCourse();
-// }
-// if (location == "CourseServ") {
-//   GetCourseServ();
-// }
   const DeleteIthem = async (id) => {
     if (location == "BlogFav") {
       const res = await delBlogFav(id);
-      queryClient.invalidateQueries("GetLikeNews");
+      queryClient.invalidateQueries("Course");
       toast.success("خبر مورد نظر با موفقیت حذف شد");
     }
     if (location == "CourseFav") {
       const res = await delCourseFav(id);
-      queryClient.invalidateQueries("GetCourseLike");
+      queryClient.invalidateQueries("Course");
       toast.success("دوره مورد نظر با موفقیت حذف شد");
     }
     if (location == "CourseServ") {
       const res = await delCourseServ(id);
-      queryClient.invalidateQueries("GetCourseServ");
-      toast.success("دوره مورد نظر با موفقیت حذف شد");
+      queryClient.invalidateQueries("Course");
+      res?.StatusCode == 200 ? toast.success("دوره مورد نظر با موفقیت حذف شد"):null
     }
     setIsDeleteFalse();
   };  
@@ -221,75 +199,80 @@ const delfilter=()=>{
 }
   const renderCourses = () => {
   
-      if(response?.length==0){return(
-          <div className="w-full mt-[2vw] text-gray-700 font-[500] text-[1.5vw] max-md:text-[16px]" >لیست{" "}{ name }{" "}خالی است</div>
-        )}
+     
         
-          return response?.map((course, index) => (
-            <div
-              key={index}
-              style={{ background: dark.bgHigh, color: dark.textHigh }}
-              className="w-full h-[3vw] max-md:justify-between max-md:border-b-1 max-md:h-[40px] rounded-[0.4vw] flex items-center text-[0.9vw]  hover:bg-gray-100"
-            >
+        
+          if(response?.length > 0 ){
+            return response?.map((course, index) => (
               <div
-                className={`w-[8%] max-md:hidden justify-center h-[90%] overflow-hidden rounded-lg bg
+                key={index}
+                style={{ background: dark.bgHigh, color: dark.textHigh }}
+                className="w-full h-[3vw] max-md:justify-between max-md:border-b-1 max-md:h-[40px] rounded-[0.4vw] flex items-center text-[0.9vw]  hover:bg-gray-100"
+              >
+                <div
+                  className={`w-[8%] max-md:hidden justify-center h-[90%] overflow-hidden rounded-lg bg
                   ${
                     dark.bgHigh == "#ffffff"
                       ? "bg-gradient-to-r from-blue-200 to-blue-50"
                       : "bg-gradient-to-r from-[#222] to-[#333] "
                   }
                   ${location == "BlogFav" ? "flex" : "hidden"}`}
-              >
-                {course.currentImageAddressTumb != null ? <img
-                  className=" h-full rounded-lg w-full"
-                  src={course.currentImageAddressTumb}
-                  alt=""
-                />: null}
-                
-              </div>
-              <div className="w-[16%] h-full  py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[30%] max-md:text-[14px]">
-                {course.courseTitle ? course.courseTitle : null}
-                {course.title ? course.title : null}
-                {course.courseName ? course.courseName : null}
-              </div>
-              <div
-                className={`max-md:hidden w-[32%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+                >
+                  {course.currentImageAddressTumb != null ? (
+                    <img
+                      className=" h-full rounded-lg w-full"
+                      src={course.currentImageAddressTumb}
+                      alt=""
+                    />
+                  ) : null}
+                </div>
+                <div className="w-[16%] h-full  py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[30%] max-md:text-[14px]">
+                  {course.courseTitle ? course.courseTitle : null}
+                  {course.title ? course.title : null}
+                  {course.courseName ? course.courseName : null}
+                </div>
+                <div
+                  className={`max-md:hidden w-[32%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
               ${location == "BlogFav" ? "hidden" : "block"}`}
-              >
-                <Tooltip
-                  className="text-gray-700  leading-[1.5vw]"
-                  content={`${course.describe}`}
                 >
-                  <span>{course.describe}</span>
-                </Tooltip>
-              </div>
-              <div
-                className={`max-md:hidden w-[50%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
+                  <Tooltip
+                    className="text-gray-700  leading-[1.5vw]"
+                    content={`${course.describe}`}
+                  >
+                    <span>{course.describe}</span>
+                  </Tooltip>
+                </div>
+                <div
+                  className={`max-md:hidden w-[50%] h-full py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ...
               ${location == "BlogFav" ? "block" : "hidden"}`}
-              ></div>
-              <div
-                className={`w-[16%] h-full max-md:w-[30%] max-md:text-[14px] py-[1%] px-[1%]  text-right whitespace-nowrap ${
-                  location == "BlogFav" ? "hidden" : "block  "
-                }`}
-              >
-                <Tooltip
-                  className="text-gray-500 w-[200px]"
-                  content={`استاد: ${course.teacheName}`}
+                ></div>
+                <div
+                  className={`w-[16%] h-full max-md:w-[30%] max-md:text-[14px] py-[1%] px-[1%]  text-right whitespace-nowrap ${
+                    location == "BlogFav" ? "hidden" : "block  "
+                  }`}
                 >
-                  {course.teacheName}
-                </Tooltip>
-              </div>
-              <div className="w-[16%] max-md:hidden h-full py-[1%] px-[1%] text-center whitespace-nowrap">
-                {course.lastUpdate ? convertToJalali(course.lastUpdate) : null}
-                {course.updateDate ? convertToJalali(course.updateDate) : null}
-                {course.reserverDate
-                  ? convertToJalali(course.reserverDate)
-                  : null}
-              </div>
-              <div
-                className={`max-md:w-[30%]  max-md:text-[14px] w-[12%]  py-[1%] px-[1%] text-center whitespace-nowrap ${
-                  location == "BlogFav" ? "hidden" : "block"
-                }
+                  <Tooltip
+                    className="text-gray-500 w-[200px]"
+                    content={`استاد: ${course.teacheName}`}
+                  >
+                    {course.teacheName}
+                  </Tooltip>
+                </div>
+                <div className="w-[16%] max-md:hidden h-full py-[1%] px-[1%] text-center whitespace-nowrap">
+                  {course.lastUpdate
+                    ? convertToJalali(course.lastUpdate)
+                    : null}
+                  {course.updateDate
+                    ? convertToJalali(course.updateDate)
+                    : null}
+                  {course.reserverDate
+                    ? convertToJalali(course.reserverDate)
+                    : null}
+                </div>
+                <div
+                  className={`max-md:w-[30%]  max-md:text-[14px] w-[12%]  py-[1%] px-[1%] text-center whitespace-nowrap ${
+                    location == "BlogFav" ? "hidden" : "block"
+                  }
                   ${
                     course.accept == null
                       ? null
@@ -297,101 +280,101 @@ const delfilter=()=>{
                       ? "text-red-600 bg-red-200 w-[7%] mx-[2.5%] rounded-full h-[70%] leading-[50%] max-md:leading-[120%]"
                       : "text-green-600 bg-green-200 w-[7%] mx-[2.5%] rounded-full h-[70%] leading-[50%] max-md:leading-[120%]"
                   }`}
-              >
-                {course.levelName ? course.levelName : null}
-                {course.accept == null
-                  ? null
-                  : course.accept == false
-                  ? "تایید نشده"
-                  : "تایید شده"}
-              </div>
-              <div
-                className={`w-[4%] max-md:ml-[10px] h-full items-center ${
-                  true ? "flex" : "hidden"
-                }
+                >
+                  {course.levelName ? course.levelName : null}
+                  {course.accept == null
+                    ? null
+                    : course.accept == false
+                    ? "تایید نشده"
+                    : "تایید شده"}
+                </div>
+                <div
+                  className={`w-[4%] max-md:ml-[10px] h-full items-center ${
+                    true ? "flex" : "hidden"
+                  }
              ${location == "BlogFav" ? "max-md:mr-[60%]" : null}
              `}
-              >
-                {" "}
-                <Tooltip
-                  className="text-gray-500 w-[7vw] leading-[1.5vw]"
-                  content={"نمایش جزییات"}
                 >
-                  <svg
-                    onClick={() => {
-                      {
-                        location == "BlogFav"
-                          ? GetNewsId(course.newsId)
-                          : GetId(course.courseId);
-                      }
+                  {" "}
+                  <Tooltip
+                    className="text-gray-500 w-[7vw] leading-[1.5vw]"
+                    content={"نمایش جزییات"}
+                  >
+                    <svg
+                      onClick={() => {
+                        {
+                          location == "BlogFav"
+                            ? GetNewsId(course.newsId)
+                            : GetId(course.courseId);
+                        }
 
-                      {
-                        location == "BlogFav"
-                          ? setDetailId(course.newsId)
-                          : setDetailId(course.courseId);
-                      }
-                      
+                        {
+                          location == "BlogFav"
+                            ? setDetailId(course.newsId)
+                            : setDetailId(course.courseId);
+                        }
+
                         setDetailCourse(true);
-                      
 
-                      console.log(detailCourse);
-                    }}
-                    className="cursor-pointer"
-                    width=""
-                    height="50%"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                        console.log(detailCourse);
+                      }}
+                      className="cursor-pointer"
+                      width=""
+                      height="50%"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
+                        stroke="#787878"
+                        stroke-width="1.5"
+                      />
+                      <path
+                        d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
+                        stroke="#787878"
+                        stroke-width="1.5"
+                      />
+                    </svg>
+                  </Tooltip>
+                </div>
+                <div className="w-[4%] h-full flex items-center justify-center cursor-pointer">
+                  <Tooltip
+                    className="text-gray-700 w-[7vw] leading-[1.5vw]"
+                    content={"حذف از لیست"}
                   >
-                    <path
-                      d="M21.544 11.045C21.848 11.4713 22 11.6845 22 12C22 12.3155 21.848 12.5287 21.544 12.955C20.1779 14.8706 16.6892 19 12 19C7.31078 19 3.8221 14.8706 2.45604 12.955C2.15201 12.5287 2 12.3155 2 12C2 11.6845 2.15201 11.4713 2.45604 11.045C3.8221 9.12944 7.31078 5 12 5C16.6892 5 20.1779 9.12944 21.544 11.045Z"
-                      stroke="#787878"
-                      stroke-width="1.5"
-                    />
-                    <path
-                      d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"
-                      stroke="#787878"
-                      stroke-width="1.5"
-                    />
-                  </svg>
-                </Tooltip>
+                    <svg
+                      onClick={() => {
+                        setIsDelete(true);
+                        if (location == "BlogFav") {
+                          setDeleteId(course.favoriteId);
+                        }
+                        if (location == "CourseFav") {
+                          setDeleteId(course.favoriteId);
+                        }
+                        if (location == "CourseServ") {
+                          setDeleteId(course.reserveId);
+                        }
+                      }}
+                      width=""
+                      height="50%"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M19.001 5L5.00098 19M5.00098 5L19.001 19"
+                        stroke="#FF4242"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </Tooltip>
+                </div>
               </div>
-              <div className="w-[4%] h-full flex items-center justify-center cursor-pointer">
-                <Tooltip
-                  className="text-gray-700 w-[7vw] leading-[1.5vw]"
-                  content={"حذف از لیست"}
-                >
-                  <svg
-                    onClick={() => {
-                      setIsDelete(true);
-                      if (location == "BlogFav") {
-                        setDeleteId(course.favoriteId);
-                      }
-                      if (location == "CourseFav") {
-                        setDeleteId(course.favoriteId);
-                      }
-                      if (location == "CourseServ") {
-                        setDeleteId(course.reserveId);
-                      }
-                    }}
-                    width=""
-                    height="50%"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M19.001 5L5.00098 19M5.00098 5L19.001 19"
-                      stroke="#FF4242"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </Tooltip>
-              </div>
-            </div>
-          ));
+            ));
+          }
 
 
    
@@ -693,6 +676,9 @@ const dark = useSelector((state) => state.darkMood);
         </div>
         {/* courseItemsSection */}
         <div className="flex flex-wrap justify-center items-center max-h-[70%] overflow-scroll  mt-[0.5vw]">
+          {response?.length == 0 || Loding ? (
+            <CustomSkeleton count={7} />
+          ) : null}
           {renderCourses()}
         </div>
 
