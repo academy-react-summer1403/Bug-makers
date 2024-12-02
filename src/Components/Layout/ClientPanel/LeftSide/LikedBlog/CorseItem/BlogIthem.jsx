@@ -104,10 +104,10 @@ const BlogIthem = ({
           w-[100%] h-[250px]  max-md:h-[30%]
         `}
       >
-        <img
-          className={`w-full h-full ${img != "testimg" ? "block" : "hidden"}`}
-          src={img}
-        />
+        {img != "testing" ? (
+          <img className={`w-full h-full `} src={img} />
+        ) : null}
+        
       </div>
       <div className="absolute top-[3.2vw] px-[0.5vw] max-md:text-[12px] max-md:top-[9%] max-md:h-[5%] max-md:w-[18%] right-[1vw] rounded-full h-[4%] w-[20%] bg-blue-500 text-white text-[0.7vw] ">
         <Tooltip

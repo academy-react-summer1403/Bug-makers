@@ -9,7 +9,7 @@ import {
   ModalBody,
   ModalFooter,
   Tooltip,
-  Skeleton,
+
   
 } from "@nextui-org/react";
 import { FaWallet } from "react-icons/fa";
@@ -19,6 +19,7 @@ import { CreateTractionById, getAllWallet, getTractionGetAll, getWalletById } fr
 import { useQuery, useQueryClient } from "react-query";
 import { getItem, setItem } from "../../../../../Core/Services/common/storage.services";
 import convertToJalali from "../../../../Common/TimeChanger/TimeToShamsi";
+import { Skeleton } from "@mui/material";
 
 
 const Wallet = () => {
@@ -152,8 +153,8 @@ console.log(transactions);
             <h2 className="text-lg max-md:font-normal font-bold">
               موجودی کیف‌پول :
             </h2>
-            {isLoading ? (
-              <Skeleton height={30} width={120} />
+            {!response ? (
+              <Skeleton height={30} width={120} animation="wave" />
             ) : (
               <p className="text-2xl mt-2">{response?.data.data.Cost} تومان</p>
             )}
@@ -183,47 +184,47 @@ console.log(transactions);
               </tr>
             </thead>
             <tbody>
-
-              {isLoadTr ? (
-                Array.from({ length: 5 }).map((_, i) => (
-                  <tr key={i} className="border-t">
-                    <td className="py-3 px-4">
-                      <Skeleton height={40} width={80} />
-                    </td>
-                    <td className="py-3 px-4">
-                      <Skeleton height={40} width={100} />
-                    </td>
-                    <td className="py-3 px-4">
-                      <Skeleton height={40} width={150} />
-                    </td>
-                  </tr>
-                ))
-              ) : transactions.length > 0 ? (
-                transactions.map((transaction) => (
-                  <tr key={transaction.id} className="border-t">
-                    <td className="py-3 px-4">
-                      {convertToJalali(transaction.date)}
-                    </td>
-                    <td
-                      className={`py-3 px-4 ${
-                        transaction.Cost > 0 ? "text-green-500" : "text-red-500"
-                      }`}
-                    >
-                      {transaction.Cost.toLocaleString()} تومان
-                    </td>
-                    <td className="py-3 px-4">{transaction.Title}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  {
-                    errTr ?  <td colSpan="3" className="py-3 px-4 text-center">
-                      تراکنشی موجود نیست
+              {transactions.length == 0
+                ? Array.from({ length: 5 }).map((_, i) => (
+                    <tr key={i} className="border-t">
+                      <td className="py-3 px-4">
+                        <Skeleton height={40} width={80} />
                       </td>
-                  : null
-                  }
+                      <td className="py-3 px-4">
+                        <Skeleton height={40} width={100} />
+                      </td>
+                      <td className="py-3 px-4">
+                        <Skeleton height={40} width={150} />
+                      </td>
+                    </tr>
+                  ))
+                : null}
+              {errTr ? (
+                <tr>
+                  <td colSpan="3" className="py-3 px-4 text-center">
+                    تراکنشی موجود نیست
+                  </td>
                 </tr>
-              )}
+              ) : null}
+              {transactions.length > 0
+                ? transactions.map((transaction) => (
+                    <tr key={transaction.id} className="border-t">
+                      <td className="py-3 px-4">
+                        {convertToJalali(transaction.date)}
+                      </td>
+                      <td
+                        className={`py-3 px-4 ${
+                          transaction.Cost > 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }`}
+                      >
+                        {transaction.Cost.toLocaleString()} تومان
+                      </td>
+                      <td className="py-3 px-4">{transaction.Title}</td>
+                    </tr>
+                  ))
+                : null}
             </tbody>
           </table>
         </div>

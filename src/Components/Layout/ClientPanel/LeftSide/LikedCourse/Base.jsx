@@ -14,10 +14,13 @@ import DeleteModal from "../../common/DeleteModal";
 import { setFavoriteList } from "../../../../../Redux/Slice/Course/favoritee";
 import toast from "react-hot-toast";
 import SearchBox from "./SearchBox/SearchBox";
+import { useQuery, useQueryClient } from "react-query";
 
 
 
 const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
+  const queryClient = useQueryClient();
+
  
   // stateForListStyle
   const [listStyle, setListStyle] = useState(false);
@@ -45,51 +48,101 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
   const CourseListItem = useSelector((state) => state.favorite.favoriteList);
 
   // fetchCoursesWithFilters
-  const GetLikedCourse = async () => {
-    const data = await getLikedCourse();
-    setResponse(data.favoriteCourseDto);
-    setOriginalData(data.favoriteCourseDto);
-  };
-  dispatch(setFavoriteList(response));
 
-  const GetLikedNews = async () => {
-    const data = await getLikedNews();
-    setResponse(data.myFavoriteNews);
-    setOriginalData(data.myFavoriteNews);
-  };
-  const GetCourseServ = async () => {
-    const data = await getCourseServ();
-    setResponse(data);
-    console.log(data);
-    setOriginalData(data);
-  };
-  useEffect(() => {
-    if (location == "BlogFav") {
-      GetLikedNews();
-    }
-    if (location == "CourseFav") {
-      GetLikedCourse();
-    }
-    if (location == "CourseServ") {
-      GetCourseServ();
-    }
-  }, []);
+  
 
+  // const { data: NewsLike, isLoading: NewsLikeLoding } = useQuery({
+  //   queryKey: ["GetLikeNews"],
+  //   queryFn: getLikedNews,
+  //   onSuccess: (data) => {
+  //     setResponse(data.myFavoriteNews);
+  //     setOriginalData(data.myFavoriteNews);
+  //   },
+  // });
+
+  // const { data: CourseLike, isLoading: CourseLikeLoding } = useQuery({
+  //     queryKey: ["GetCourseLike"],
+  //     queryFn: getLikedCourse,
+  //     onSuccess: (data) => {
+  //       setResponse(data.favoriteCourseDto);
+  //       setOriginalData(data.favoriteCourseDto);
+  //     },
+  //   });
+
+  const {data:CourseServ , isLoading :servLoding }=useQuery({
+      queryKey : ["GetCourseServ"],
+      queryFn : ()=>{
+      if (location == "BlogFav") {
+        return getLikedNews();
+      }
+      if (location == "CourseFav") {
+        return getLikedCourse();
+      }
+      if (location == "CourseServ") {
+        return getCourseServ();
+      }
+      },
+      onSuccess : (data)=>{
+      if (location == "BlogFav") {
+        setResponse(data.myFavoriteNews);
+        setOriginalData(data.myFavoriteNews);
+      }
+      if (location == "CourseFav") {
+        setResponse(data.favoriteCourseDto);
+        setOriginalData(data.favoriteCourseDto);
+      }
+      if (location == "CourseServ") {
+        setResponse(data);
+        setOriginalData(data);
+      }
+        
+        
+        console.log(data)
+      }
+    })
+console.log(CourseServ);
+servLoding ? <div>dfef</div>:null
+dispatch(setFavoriteList(response));
+
+
+  const { data: CourseLike, isLoading: CourseLikeLoding } = useQuery({
+    queryKey: ["GetCourseLike"],
+    queryFn: getLikedCourse,
+    onSuccess: (data) => {
+      setResponse(data.favoriteCourseDto);
+      setOriginalData(data.favoriteCourseDto);
+    },
+  });  const { data: NewsLike, isLoading: NewsLikeLoding } = useQuery({
+    queryKey: ["GetLikeNews"],
+    queryFn: getLikedNews,
+    onSuccess: (data) => {
+      setResponse(data.myFavoriteNews);
+      setOriginalData(data.myFavoriteNews);
+    },
+  });
+// if (location == "BlogFav") {
+//   GetLikedNews();
+// }
+// if (location == "CourseFav") {
+//   GetLikedCourse();
+// }
+// if (location == "CourseServ") {
+//   GetCourseServ();
+// }
   const DeleteIthem = async (id) => {
     if (location == "BlogFav") {
       const res = await delBlogFav(id);
-      GetLikedNews();
+      queryClient.invalidateQueries("GetLikeNews");
       toast.success("خبر مورد نظر با موفقیت حذف شد");
     }
     if (location == "CourseFav") {
       const res = await delCourseFav(id);
-      GetLikedCourse();
+      queryClient.invalidateQueries("GetCourseLike");
       toast.success("دوره مورد نظر با موفقیت حذف شد");
     }
     if (location == "CourseServ") {
-      GetCourseServ();
       const res = await delCourseServ(id);
-      GetCourseServ();
+      queryClient.invalidateQueries("GetCourseServ");
       toast.success("دوره مورد نظر با موفقیت حذف شد");
     }
     setIsDeleteFalse();
@@ -132,7 +185,7 @@ const handleSearch = (e) => {
   }
 
   // در غیر این صورت، داده‌ها را بر اساس مقدار ورودی فیلتر کن
-  const filterData = response.filter((el) => {
+  const filterData = response?.filter((el) => {
     if (location == "BlogFav") {
       return el.title.toLowerCase().includes(value.toLowerCase());
     }
@@ -168,11 +221,11 @@ const delfilter=()=>{
 }
   const renderCourses = () => {
   
-      if(response.length==0){return(
+      if(response?.length==0){return(
           <div className="w-full mt-[2vw] text-gray-700 font-[500] text-[1.5vw] max-md:text-[16px]" >لیست{" "}{ name }{" "}خالی است</div>
         )}
         
-          return response.map((course, index) => (
+          return response?.map((course, index) => (
             <div
               key={index}
               style={{ background: dark.bgHigh, color: dark.textHigh }}
@@ -192,6 +245,7 @@ const delfilter=()=>{
                   src={course.currentImageAddressTumb}
                   alt=""
                 />: null}
+                
               </div>
               <div className="w-[16%] h-full  py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[30%] max-md:text-[14px]">
                 {course.courseTitle ? course.courseTitle : null}
@@ -365,35 +419,37 @@ const delfilter=()=>{
       console.log(detail)
       return (
         <BlogIthem
-          key={detail.id}
-          id={detail.id}
-          courseId={detail.courseId}
-          title={detail.title}
-          img={detail.currentImageAddress}
-          technologyList={detail.techs != null ? detail.techs : "برنامه نویسی"}
-          description={detail.describe}
-          teacherName={detail.addUserFullName}
-          likeCount={detail.likeCount}
-          commandCount={detail.commandCount}
-          courseRate={detail.currentRate}
-          statusName={detail.statusName}
-          price={detail.cost}
-          currentRegistrants={detail.currentRegistrants}
-          date={detail.lastUpdate}
+          key={detail?.id}
+          id={detail?.id}
+          courseId={detail?.courseId}
+          title={detail?.title}
+          img={detail?.currentImageAddress ? detail?.currentImageAddress:"testing"}
+          technologyList={
+            detail?.techs != null ? detail?.techs : "برنامه نویسی"
+          }
+          description={detail?.describe}
+          teacherName={detail?.addUserFullName}
+          likeCount={detail?.likeCount}
+          commandCount={detail?.commandCount}
+          courseRate={detail?.currentRate}
+          statusName={detail?.statusName}
+          price={detail?.cost}
+          currentRegistrants={detail?.currentRegistrants}
+          date={detail?.lastUpdate}
           listStyle={listStyle}
-          level={detail.newsCatregoryName}
-          state={detail.courseStatusName}
-          courseGroupCount={detail.courseGroupCount}
-          capacity={detail.capacity}
-          startDate={convertToJalali(detail.insertDate)}
-          endDate={convertToJalali(detail.endTime)}
+          level={detail?.newsCatregoryName}
+          state={detail?.courseStatusName}
+          courseGroupCount={detail?.courseGroupCount}
+          capacity={detail?.capacity}
+          startDate={convertToJalali(detail?.insertDate)}
+          endDate={convertToJalali(detail?.endTime)}
           setDetailCourse={setDetailCourse}
           detailCourse={detailCourse}
           GetId={GetNewsId}
-          userIsLiked={detail.currentUserIsLike}
-          currentUserDissLike={detail.currentUserIsDissLike}
-          userLikeId={detail.userLikeId}
-          view={detail.currentView}
+          userIsLiked={detail?.currentUserIsLike}
+          currentUserDissLike={detail?.currentUserIsDissLike}
+          userLikeId={detail?.userLikeId}
+          view={detail?.currentView}
         />
       );
     }
