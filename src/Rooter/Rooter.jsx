@@ -47,6 +47,7 @@ import { Provider, useSelector } from "react-redux";
 import Wallet from "../Components/Layout/ClientPanel/LeftSide/Wallet/Wallet";
 import ForgetPassStep2 from "../Components/Layout/LoginPages/passForgetStep2/ForgetPassStep2";
 import TestPage from "../Components/Layout/TestPage/TestPage";
+import TestDetail from "../Components/Layout/TestDetail/TestDetail";
 
 const router = createBrowserRouter([
   {
@@ -96,6 +97,11 @@ const router = createBrowserRouter([
       {
         path: "/TestPage",
         element: <TestPage />,
+        errorElement: <Error />,
+      },
+      {
+        path: "TestDetail/:id",
+        element: <TestDetail />,
         errorElement: <Error />,
       },
       {

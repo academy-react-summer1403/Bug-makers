@@ -26,7 +26,7 @@ const MinimalBlog = ({
   const pass = calculateDateDifference(datePass);
 
   const handleNavigate = () => {
-    navigate(`/PodcastDetail/${id}`);
+    navigate(`/TestDetail/${id}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const dark = useSelector((state) => state.darkMood);
@@ -68,8 +68,8 @@ const MinimalBlog = ({
             <div className=" font-[600] h-[50px] text-[14px] mt-[10px] w-full overflow-hidden text-ellipsis ...">
               {title}
             </div>
-            <p className=" font-[400] leading-[15px] text-[11px] mt-[8px] h-[33px] overflow-hidden text-ellipsis ...">
-              {/* {desc} */}
+            <p className=" font-[400] leading-[15px] text-[11px] mt-[8px] h-[80%] overflow-hidden text-ellipsis ...">
+              {desc}
               زمان ازمون : {time} دقیقه
             </p>
             {/* <div className="mt-[18px] w-full h-[64px] flex items-center justify-between flex-row">
@@ -86,7 +86,7 @@ const MinimalBlog = ({
                 <p className="w-[62px] text-[11px] font-[400] ">{writer}</p>
               </div>
               <BlogLikeSvg like={like} comment={comment} />
-            </div>
+            </div> */}
             <div className="flex justify-between items-center  text-xs">
               <svg
                 width="17"
@@ -105,7 +105,7 @@ const MinimalBlog = ({
               </svg>
               <span className="text-[12px] font-[400]">{date}</span>|
               <span className="text-[12px] font-[400]">{pass} روز پیش</span>
-            </div> */}
+            </div> 
           </div>
         </div>
       </div>

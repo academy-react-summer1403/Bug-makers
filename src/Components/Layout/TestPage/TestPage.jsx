@@ -82,16 +82,16 @@ const TestPage = () => {
             id={news.id}
             title={news.title}
             cat={news.Category}
-            desc={news.miniDesc}
-            newsImg={news.imageLink}
+            desc={news.Desc}
+            newsImg={news.Image}
             userImg={news.imageLink}
             writer={news.creator}
             level={news.Level}
             time={news.time}
             comment={10}
             like={news.view}
-            date={convertToJalali(news.InsertTime)}
-            datePass={convertToJalali(news.InsertTime)}
+            date={convertToJalali(news.Insert)}
+            datePass={convertToJalali(news.Insert)}
           />
         </motion.div>
       ));
