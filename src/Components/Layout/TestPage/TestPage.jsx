@@ -10,57 +10,65 @@ import { getPodcastListWithPagination } from '../../../Core/Services/Api/Podcast
 import SearchBox from './SearchBox/SearchBox.jsx';
 import SelectOpt2 from './Select/SelectOpt2.jsx';
 import convertToJalali from '../../Common/TimeChanger/TimeToShamsi.jsx';
+import { getTestList } from '../../../Core/Services/Api/TestPage/getTest.js';
 
-const PodcastPage = () => {
+const TestPage = () => {
   const [categoryQuery, setCategoryQuery] = useState("");
   const [queryValue, setQueryValue] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [filterValue, setFilterValue] = useState(false);
-  const [podcast,setPodcast]=useState([])
+  const [response, setResponse] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const itemsPerPage = 8;
   const dispatch = useDispatch();
   // const podcast = useSelector((state) => state.BlogSlice.BlogList);
   // console.log(podcast);
 
-
-  const { isLoading, error, data } = useQuery(
-    ["get", queryValue],
-    () => getPodcastListWithPagination(queryValue),
-    {
-      onSuccess: (data) => {
-        setPodcast(data.data.data.Dots || []);
-        setOriginalData(data.data.data.Dots || [])
-      },
-      keepPreviousData: true,
-    }
-  );
-  console.log(originalData)
-  const filterCat = ()=>{
+  const { isLoading, error, data } = useQuery(["getTestAll"], getTestList, {
+    onSuccess: (data) => {
+      setResponse(data.data.data || []);
+      setOriginalData(data.data.data || []);
+    },
+    keepPreviousData: true,
+  });
+  console.log(originalData);
+  const filterCat = () => {
     console.log(categoryQuery);
-    if(categoryQuery == false){
-      setPodcast(originalData)
+    if (categoryQuery == false) {
+      setResponse(originalData);
     }
-    const filterData = podcast.filter((el)=>{
+    const filterData = response.filter((el) => {
       return el.Category == categoryQuery;
-    })
-    setPodcast(filterData)
-  }
+    });
+    setResponse(filterData);
+  };
   useEffect(() => {
     filterCat();
   }, [categoryQuery]);
-  
-  const handleSearch = (e) => {
-    setQueryValue(e.target.value);
-  };
 
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setQueryValue(value);
+
+    // اگر مقدار ورودی خالی باشد، داده‌های اصلی را بازگردان
+    if (value === "") {
+      setResponse(originalData); // `originalData` باید شامل داده‌های اصلی (غیرفیلتر شده) باشد
+      return;
+    }
+
+    // در غیر این صورت، داده‌ها را بر اساس مقدار ورودی فیلتر کن
+    const filterData = response?.filter((el) => {
+        return el.title.toLowerCase().includes(value.toLowerCase());
+    });
+    setResponse(filterData);
+  };
 
 
   const renderCourses = () => {
     if (isLoading) return <Loading />;
     if (error) return <p>خطایی رخ داده است...</p>;
 
-    return podcast
+    return response
       .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
       .map((news) => (
         <motion.div
@@ -78,6 +86,8 @@ const PodcastPage = () => {
             newsImg={news.imageLink}
             userImg={news.imageLink}
             writer={news.creator}
+            level={news.Level}
+            time={news.time}
             comment={10}
             like={news.view}
             date={convertToJalali(news.InsertTime)}
@@ -88,7 +98,7 @@ const PodcastPage = () => {
   };
   const dark = useSelector((state) => state.darkMood);
   return (
-    <div className="step7 m-auto w-full bg-transparent relative text-center">
+    <div className="step7 m-auto py-12 w-full bg-transparent relative text-center">
       <div className="w-full max-w-[1200px] mt-[5vw] m-auto px-4">
         <TextLanding h3Text="پادکست" pText="پادکست های علمی ما" />
 
@@ -103,7 +113,7 @@ const PodcastPage = () => {
             className="w-[520px]"
           />
           <SelectOpt2
-            dataCat={podcast}
+            dataCat={response}
             placeholder="مرتب سازی"
             onChange={(value) => setCategoryQuery(value)}
             FilterValue={filterValue}
@@ -123,7 +133,7 @@ const PodcastPage = () => {
             }}
             className="h-[40px] w-[100px] max-[1312px]:w-full whitespace-nowrap text-center text-[12px] leading-[40px] rounded-[9px] "
           >
-            {podcast.length} آیتم یافت شد
+            {response.length} آیتم یافت شد
           </div>
         </div>
 
@@ -132,7 +142,7 @@ const PodcastPage = () => {
         </div>
 
         <Pagination
-          pageCount={Math.ceil(podcast.length / itemsPerPage)}
+          pageCount={Math.ceil(response.length / itemsPerPage)}
           handlePageClick={(data) => setCurrentPage(data.selected)}
         />
       </div>
@@ -140,4 +150,4 @@ const PodcastPage = () => {
   );
 };
 
-export default PodcastPage;
+export default TestPage;

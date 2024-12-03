@@ -1,10 +1,11 @@
 {
     "header" : {
-        "Course":"دوره ها",
-        "News": "مقالات",
-        "Podcast":"پادکست",
-        "Events": "رویداد ها",
-        "ContactMe": "ارتباط با ما"
+      "Course": "دوره ها",
+      "News": "مقالات",
+      "Podcast": "پادکست",
+      "test": "ازمون",
+      "Events": "رویداد ها",
+      "ContactMe": "ارتباط با ما"
     },
     "content":{
         "bahrAcademy" :{

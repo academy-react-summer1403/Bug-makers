@@ -46,6 +46,7 @@ import { Store } from "../Redux/Store/Store";
 import { Provider, useSelector } from "react-redux";
 import Wallet from "../Components/Layout/ClientPanel/LeftSide/Wallet/Wallet";
 import ForgetPassStep2 from "../Components/Layout/LoginPages/passForgetStep2/ForgetPassStep2";
+import TestPage from "../Components/Layout/TestPage/TestPage";
 
 const router = createBrowserRouter([
   {
@@ -90,6 +91,11 @@ const router = createBrowserRouter([
       {
         path: "PodcastDetail/:id",
         element: <PodcastDetail />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/TestPage",
+        element: <TestPage />,
         errorElement: <Error />,
       },
       {

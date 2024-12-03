@@ -337,7 +337,7 @@ const handleSearch = (e) => {
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
-      className="relative m-auto w-full bg-transparent text-center h-full max-md:w-full"
+      className="relative m-auto w-full bg-transparent text-center h-full max-md:w-full  "
     >
       <div
         className={`absolute z-[20]  backdrop-blur-[3px] top-[-1.5vw] right-[0vw] h-[104%] w-[100%]  ${
@@ -388,10 +388,10 @@ const handleSearch = (e) => {
           <span>بستن</span>
         </div>
       </div>
-      <div className="w-[100%] selection: mt-[0vw] ">
+      <div className="w-[100%] selection: mt-[0vw] h-full">
         {/* searchAndFilterSection */}
         <div
-          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-start items-center gap-x-3 max-md:gap-y-[20px] rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+          className={`h-[10%] max-md:h-[20%] w-full  relative flex-row flex-wrap justify-start items-center gap-x-3 max-md:gap-y-[20px] rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
             ${show == true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
         >
           <SearchBox
@@ -402,7 +402,7 @@ const handleSearch = (e) => {
             onChange={handleSearch}
           />
           <div
-            className={`max-md:col-span-2  items-center gap-x-2 flex-row-reverse mr-[2%] ${
+            className={`max-md:col-span-2 max-md:gap-x-1 max-md:justify-center items-center gap-x-2 flex-row-reverse mr-[2%] ${
               point == "myCourse" ? "flex" : "hidden"
             }`}
           >
@@ -422,7 +422,12 @@ const handleSearch = (e) => {
               radius="full"
               className={`${
                 selectedStatus === "notApproved"
-                  ? "bg-[#E1C461] text-white"
+                  ? `
+                  ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+                  ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+                  ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                  ${dark.selectedButton === 3 ? "bg-red-600" : ""}
+                  text-white`
                   : "bg-transparent border-gray-400 text-gray-500"
               }`}
               bordered
@@ -435,7 +440,12 @@ const handleSearch = (e) => {
               radius="full"
               className={`${
                 selectedStatus === "approved"
-                  ? "bg-[#E1C461] text-white"
+                  ? `
+                  ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+                  ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+                  ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                  ${dark.selectedButton === 3 ? "bg-red-600" : ""}
+                  text-white`
                   : "bg-transparent border-gray-400 text-gray-500"
               }`}
               bordered
@@ -448,7 +458,12 @@ const handleSearch = (e) => {
               radius="full"
               className={`${
                 selectedStatus === "work"
-                  ? "bg-[#E1C461] text-white"
+                  ? `
+                  ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
+                  ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
+                  ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
+                  ${dark.selectedButton === 3 ? "bg-red-600" : ""}
+                  text-white`
                   : "bg-transparent border-gray-400 text-gray-500"
               }`}
               bordered
@@ -457,12 +472,12 @@ const handleSearch = (e) => {
             >
               کامل نشده
             </Button>
-            |<span className="text-gray-500">فیلتر</span>
+            |<span className="text-gray-500 ">فیلتر</span>
           </div>
         </div>
         {/* filterActionSection */}
 
-        <div className=" w-full mt-[0.5vw] max-md:py-[10px]">
+        <div className=" w-full mt-[0.5vw] max-md:py-[10px] h-max ">
           <div
             style={{ background: dark.bgLow, color: dark.textLow }}
             className="flex items-center  w-full rounded-[0.5vw]  leading-normal"
@@ -487,7 +502,7 @@ const handleSearch = (e) => {
           </div>
         </div>
         {/* courseItemsSection */}
-        <div className="flex flex-wrap justify-center items-center  mt-[0.5vw]">
+        <div className="flex flex-wrap justify-center items-center  mt-[0.5vw]  max-h-[82%] overflow-auto">
           {payData?.length == 0 || isLoading ? (
             <CustomSkeleton count={8} />
           ) : null}
