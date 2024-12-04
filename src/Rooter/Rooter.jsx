@@ -48,6 +48,7 @@ import Wallet from "../Components/Layout/ClientPanel/LeftSide/Wallet/Wallet";
 import ForgetPassStep2 from "../Components/Layout/LoginPages/passForgetStep2/ForgetPassStep2";
 import TestPage from "../Components/Layout/TestPage/TestPage";
 import TestDetail from "../Components/Layout/TestDetail/TestDetail";
+import TestPanel from "../Components/Layout/ClientPanel/LeftSide/Certificate/TestPanel";
 
 const router = createBrowserRouter([
   {
@@ -158,6 +159,11 @@ const router = createBrowserRouter([
       {
         path: "Wallet",
         element: <Wallet />,
+        errorElement: <Error />,
+      },
+      {
+        path: "Test",
+        element: <TestPanel />,
         errorElement: <Error />,
       },
       {

@@ -15,6 +15,18 @@ const SelectOpt2 = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const opt = [
+    {
+      id: 1,
+      Category: "level",
+      CategoryFa: " بر اساس سطح",
+    },
+    {
+      id: 2,
+      Category: "date",
+      CategoryFa: " بر اساس تاریخ",
+    },
+  ];
 
   // Sort data for sorting options
   const sortData = [{ id: 1, value: "آخرین آپدیت" }];
@@ -22,16 +34,16 @@ const SelectOpt2 = ({
   // Fetch teacher or category list based on prop
 
   const handleSelect = (option) => {
-    setSelectedOption(option);
+    
     setIsOpen(false);
     onChange(option);
   };
 
   const handleRemove = () => {
     setSelectedOption(null);
-    if (onChange) {
+    
       onChange(false);
-    }
+    
   };
 
   useEffect(() => {
@@ -64,7 +76,7 @@ const SelectOpt2 = ({
           color: dark.textLow,
         }}
       >
-        <span>{selectedOption ? selectedOption.Category : placeholder}</span>
+        <span>{selectedOption ? selectedOption : placeholder}</span>
       </div>
       <AnimatePresence>
         {isOpen && (
@@ -76,13 +88,13 @@ const SelectOpt2 = ({
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {dataCat?.map((option) => (
+            {opt?.map((option) => (
               <li
                 key={option.id}
                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer text-[12px]"
-                onClick={() => handleSelect(option.Category)}
+                onClick={() => {handleSelect(option.Category);setSelectedOption(option.CategoryFa);}}
               >
-                {option.Category}
+                {option.CategoryFa}
               </li>
             ))}
           </motion.ul>

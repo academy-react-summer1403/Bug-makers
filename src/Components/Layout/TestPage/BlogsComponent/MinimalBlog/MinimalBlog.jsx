@@ -65,10 +65,10 @@ const MinimalBlog = ({
         </div>
         <div className="relative w-full h-[252px] px-[4px] flex flex-col justify-between text-right">
           <div>
-            <div className=" font-[600] h-[50px] text-[14px] mt-[10px] w-full overflow-hidden text-ellipsis ...">
+            <div className=" font-[600] h-[40px] text-[14px] mt-[10px] w-full overflow-hidden text-ellipsis ...">
               {title}
             </div>
-            <p className=" font-[400] leading-[15px] text-[11px] mt-[8px] h-[80%] overflow-hidden text-ellipsis ...">
+            <p className=" font-[400] leading-[15px] text-[11px] mt-[8px] h-[120px]  overflow-hidden text-ellipsis ...">
               {desc}
               زمان ازمون : {time} دقیقه
             </p>

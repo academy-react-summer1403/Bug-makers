@@ -1,17 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@nextui-org/react";
 import * as Yup from "yup";
 import { postTestAnswer } from "../../../../Core/Services/Api/TestDetail/TestDeatil";
 import { getItem } from "../../../../Core/Services/common/storage.services";
 import toast from "react-hot-toast";
+import Certificate from "../../../Common/Certificate/Certificate";
+import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
+import { useSelector } from "react-redux";
 
 const QuizPage = ({ data, response }) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [timeLeft, setTimeLeft] = useState(300); // زمان به ثانیه (5 دقیقه)
   const [isQuizOver, setIsQuizOver] = useState(false);
+  const [isTestStarted, setIsTestStarted] = useState(false);
+  const [persent,setPersent]=useState()
 
   // کاهش تایمر
   useEffect(() => {
-    if (timeLeft > 0 && !isQuizOver) {
+    if (timeLeft > 0 && isTestStarted && !isQuizOver) {
       const timer = setInterval(() => {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
@@ -19,7 +34,7 @@ const QuizPage = ({ data, response }) => {
     } else if (timeLeft === 0) {
       setIsQuizOver(true); // آزمون تمام شده
     }
-  }, [timeLeft, isQuizOver]);
+  }, [timeLeft, isTestStarted, isQuizOver]);
 
   // فرمت زمان
   const formatTime = (seconds) => {
@@ -55,109 +70,213 @@ const QuizPage = ({ data, response }) => {
 
     // ارسال به تابع postTestAnswer
     const res = await postTestAnswer(formattedResponse);
-    toast.success(`${res.data.data.Percent}%`);
+    setPersent(res.data.data.Percent)
+    toast.success(`${persent}%`);
+    
     setIsQuizOver(true);
   };
 
+  const handleRetry = () => {
+    setIsQuizOver(false);
+    setTimeLeft(300);
+    setIsTestStarted(false);
+  };
+  const today = new Date();
+  const isoDate = today.toISOString();
+  const CourseListItem = useSelector(
+    (state) => state.ClientInfoSlice.ClientInfo
+  );
+  console.log(CourseListItem);
+ const dark = useSelector((state) => state.darkMood);
   return (
-    <div className="min-h-screen w-full flex flex-col items-center p-6 rtl">
-      <div className="w-full  bg-white shadow-md rounded-lg p-6">
-        <div className="w-full flex justify-between">
-          <div className="flex flex-col gap-y-2">
-            <h1 className="text-2xl font-bold mb-2 text-right">
-              {response?.title}
-            </h1>
-            <p className="text-gray-600 mb-4 text-right">{response?.Desc}</p>
+    <div
+      style={{ background: dark.bgHigh, color: dark.textHigh }}
+      className="min-h-screen w-full bg-red-600 flex flex-col items-center p-6 rtl"
+    >
+      <div className="w-full  shadow-md rounded-lg p-6">
+        <div className="w-full ">
+          <div className="flex-wrap flex justify-between mb-2">
+            <div className="flex flex-col max-md:max-w-[100%] gap-y-2 max-w-[80%]">
+              <h1 className="text-2xl font-bold mb-2 text-right">
+                {response?.title}
+              </h1>
+            </div>
+            <div className="mb-4 text-lg font-semibold text-right">
+              زمان باقی‌مانده:{" "}
+              <span className="text-red-500">{formatTime(timeLeft)}</span>
+            </div>
           </div>
-          <div className="mb-4 text-lg font-semibold text-right">
-            زمان باقی‌مانده:{" "}
-            <span className="text-red-500">{formatTime(timeLeft)}</span>
+
+          <div className="text-gray-600 mb-4 block text-right">
+            {response?.Desc}
           </div>
         </div>
-        <div className="w-full my-8 border border-[#aaa]"></div>
 
-        <Formik
-          initialValues={data.reduce((values, question) => {
-            values[`q${question.id}`] = "";
-            return values;
-          }, {})}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ errors, touched }) => (
-            <Form>
-              <div className="grid grid-cols-1 gap-6">
-                {data.map((question) => (
-                  <div key={question.id}>
-                    <p className="text-xl font-bold text-right mb-2">
-                      {question.question}؟
-                    </p>
-                    <div className="flex flex-col items-start gap-y-1">
-                      <label className="block text-right w-full">
-                        <Field
-                          type="radio"
-                          name={`q${question.id}`}
-                          value={question.op1}
-                          disabled={isQuizOver}
-                          className="ml-2"
-                        />
-                        {question.op1}
-                      </label>
-                      <label className="block text-right w-full">
-                        <Field
-                          type="radio"
-                          name={`q${question.id}`}
-                          value={question.op2}
-                          disabled={isQuizOver}
-                          className="ml-2"
-                        />
-                        {question.op2}
-                      </label>
-                      <label className="block text-right w-full">
-                        <Field
-                          type="radio"
-                          name={`q${question.id}`}
-                          value={question.op3}
-                          disabled={isQuizOver}
-                          className="ml-2"
-                        />
-                        {question.op3}
-                      </label>
-                      <label className="block text-right w-full">
-                        <Field
-                          type="radio"
-                          name={`q${question.id}`}
-                          value={question.op4}
-                          disabled={isQuizOver}
-                          className="ml-2"
-                        />
-                        {question.op4}
-                      </label>
+        <div className="w-full min-w-[100%] my-8 border border-[#aaa]"></div>
+
+        {!isTestStarted ? (
+          <div className="flex flex-col items-center">
+            <button
+              onClick={() => setIsTestStarted(true)}
+              className="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg"
+            >
+              شروع آزمون
+            </button>
+          </div>
+        ) : (
+          <Formik
+            initialValues={data.reduce((values, question) => {
+              values[`q${question.id}`] = "";
+              return values;
+            }, {})}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ errors, touched }) => (
+              <Form>
+                <div className="grid grid-cols-1 gap-6">
+                  {data.map((question) => (
+                    <div key={question.id}>
+                      <p className="text-xl max-md:text-lg font-bold text-right mb-2">
+                        {question.question}؟
+                      </p>
+                      <div className="flex flex-col items-start gap-y-1">
+                        <label className="block text-right w-full">
+                          <Field
+                            type="radio"
+                            name={`q${question.id}`}
+                            value={question.op1}
+                            disabled={isQuizOver}
+                            className="ml-2"
+                          />
+                          {question.op1}
+                        </label>
+                        <label className="block text-right w-full">
+                          <Field
+                            type="radio"
+                            name={`q${question.id}`}
+                            value={question.op2}
+                            disabled={isQuizOver}
+                            className="ml-2"
+                          />
+                          {question.op2}
+                        </label>
+                        <label className="block text-right w-full">
+                          <Field
+                            type="radio"
+                            name={`q${question.id}`}
+                            value={question.op3}
+                            disabled={isQuizOver}
+                            className="ml-2"
+                          />
+                          {question.op3}
+                        </label>
+                        <label className="block text-right w-full">
+                          <Field
+                            type="radio"
+                            name={`q${question.id}`}
+                            value={question.op4}
+                            disabled={isQuizOver}
+                            className="ml-2"
+                          />
+                          {question.op4}
+                        </label>
+                      </div>
+                      {errors[`q${question.id}`] &&
+                        touched[`q${question.id}`] && (
+                          <p className="text-red-500 text-sm text-right">
+                            {errors[`q${question.id}`]}
+                          </p>
+                        )}
                     </div>
-                    {errors[`q${question.id}`] &&
-                      touched[`q${question.id}`] && (
-                        <p className="text-red-500 text-sm text-right">
-                          {errors[`q${question.id}`]}
-                        </p>
-                      )}
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
 
+                <button
+                  type="submit"
+                  className={`w-full py-2 px-4 mt-6 rounded-lg text-white font-bold ${
+                    isQuizOver
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-blue-500 hover:bg-blue-600"
+                  }`}
+                  disabled={isQuizOver}
+                >
+                  {isQuizOver ? "آزمون تمام شد" : "ارسال پاسخ‌ها"}
+                </button>
+              </Form>
+            )}
+          </Formik>
+        )}
+
+        <div className="w-full flex justify-center gap-x-4 p-2 ">
+          {isQuizOver && (
+            <div className="flex justify-center">
               <button
-                type="submit"
-                className={`w-full py-2 px-4 mt-6 rounded-lg text-white font-bold ${
-                  isQuizOver
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-500 hover:bg-blue-600"
-                }`}
-                disabled={isQuizOver}
+                onClick={handleRetry}
+                className="py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg"
               >
-                {isQuizOver ? "آزمون تمام شد" : "ارسال پاسخ‌ها"}
+                تلاش مجدد
               </button>
-            </Form>
+            </div>
           )}
-        </Formik>
+          {persent == 100 ? (
+            <Button onPress={onOpen}>گواهینامه ازمون </Button>
+          ) : null}
+        </div>
+      </div>
+      <div className="w-full flex items-center justify-center ">
+        <Modal
+          backdrop="opaque"
+          isOpen={isOpen}
+          size="4xl"
+          onOpenChange={onOpenChange}
+          motionProps={{
+            variants: {
+              enter: {
+                y: 0,
+                opacity: 1,
+                transition: {
+                  duration: 0.3,
+                  ease: "easeOut",
+                },
+              },
+              exit: {
+                y: -20,
+                opacity: 0,
+                transition: {
+                  duration: 0.2,
+                  ease: "easeIn",
+                },
+              },
+            },
+          }}
+        >
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">
+                  گواهینامه ازمون
+                </ModalHeader>
+                <ModalBody>
+                  <Certificate
+                    name={
+                      CourseListItem
+                        ? CourseListItem?.fName + CourseListItem?.lName
+                        : "mehdi asadi"
+                    }
+                    course={response?.title + `  سطح ${response.Level}`}
+                    date={convertToJalali(isoDate)}
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="light" onPress={onClose}>
+                    بستن
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ import convertToJalali from '../../Common/TimeChanger/TimeToShamsi.jsx';
 import { getTestList } from '../../../Core/Services/Api/TestPage/getTest.js';
 
 const TestPage = () => {
-  const [categoryQuery, setCategoryQuery] = useState("");
+  // const [categoryQuery, setCategoryQuery] = useState("");
   const [queryValue, setQueryValue] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [filterValue, setFilterValue] = useState(false);
@@ -31,20 +31,30 @@ const TestPage = () => {
     },
     keepPreviousData: true,
   });
-  console.log(originalData);
-  const filterCat = () => {
+
+  const filterCat = (categoryQuery) => {
     console.log(categoryQuery);
     if (categoryQuery == false) {
       setResponse(originalData);
     }
-    const filterData = response.filter((el) => {
-      return el.Category == categoryQuery;
-    });
-    setResponse(filterData);
+    if (categoryQuery == "level") {
+      const filterData = response.sort((a, b) => {return a.Level - b.Level});
+      console.log(filterData);
+      setResponse(filterData);
+      return
+    }
+    if (categoryQuery == "date") {
+      const filterData = response.sort(
+        (a, b) => {return b.Insert - a.Insert}
+      );
+      setResponse(filterData);
+      return;
+    }
+    // renderCourses()
   };
-  useEffect(() => {
-    filterCat();
-  }, [categoryQuery]);
+  // useEffect(() => {
+  //   filterCat();
+  // }, [categoryQuery]);
 
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -61,6 +71,9 @@ const TestPage = () => {
         return el.title.toLowerCase().includes(value.toLowerCase());
     });
     setResponse(filterData);
+    setTimeout(() => {
+      renderCourses();
+    }, 1000);
   };
 
 
@@ -115,7 +128,7 @@ const TestPage = () => {
           <SelectOpt2
             dataCat={response}
             placeholder="مرتب سازی"
-            onChange={(value) => setCategoryQuery(value)}
+            onChange={(value) => filterCat(value)}
             FilterValue={filterValue}
           />
           {/* <SelectOpt

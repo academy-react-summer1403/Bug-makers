@@ -145,7 +145,7 @@ const BDetailCenter = ({ id }) => {
   console.log(response);
   const dark = useSelector((state) => state.darkMood);
   return (
-    <div className="w-[80%] mx-auto max-md:w-full  px-4">
+    <div className="w-[80%]  mx-auto max-md:w-full  px-4">
       <div
         style={{ background: dark.bgHigh, color: dark.textHigh }}
         className=" rounded-lg w-[100%] shadow-lg p-4 mb-4"
@@ -182,7 +182,7 @@ const BDetailCenter = ({ id }) => {
         </div>
 
         <div className="border-t border-gray-300 my-4"></div>
-        <div className="w-full">
+        <div className="w-full ">
           {response?.tests ? (
             <QuizPage data={response.tests} response={response} />
           ) : (
