@@ -107,7 +107,6 @@ const BlogIthem = ({
         {img != "testing" ? (
           <img className={`w-full h-full `} src={img} />
         ) : null}
-        
       </div>
       <div className="absolute top-[3.2vw] px-[0.5vw] max-md:text-[12px] max-md:top-[9%] max-md:h-[5%] max-md:w-[18%] right-[1vw] rounded-full h-[4%] w-[20%] bg-blue-500 text-white text-[0.7vw] ">
         <Tooltip
@@ -237,7 +236,7 @@ const BlogIthem = ({
         className={`max-h-[3.6vw]  max-md:max-h-[12%] max-md:text-[10px] mr-[10px] text-[0.6vw] text-right overflow-hidden text-ellipsis ... break-words`}
       >
         <Tooltip
-          className="text-gray-700 text-right break-words w-[300px] max-md:w-[100px] text-[0.9vw] leading-[1.4vw]"
+          className="text-gray-700 max-w-[400px] max-h-[200px] overflow-hidden text-ellipsis ... text-right max-md:w-[100px] text-[0.9vw] leading-[1.4vw]"
           size="sm"
           content={`break-words ${description}`}
         >

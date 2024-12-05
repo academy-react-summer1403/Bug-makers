@@ -299,7 +299,7 @@ const GetId2 = async () => {
         className={`max-h-[3.6vw] max-md:max-h-[8%] max-md:text-[8px] mr-[10px] text-[0.6vw] text-right overflow-hidden text-ellipsis ... break-words`}
       >
         <Tooltip
-          className="text-gray-700 text-[0.8vw] break-words w-[19vw] leading-[1.4vw]"
+          className="text-gray-700 max-w-[400px] max-h-[200px] overflow-hidden text-ellipsis ... text-[0.8vw] break-words w-[19vw] leading-[1.4vw]"
           size="sm"
           content={` ${description}`}
         >
