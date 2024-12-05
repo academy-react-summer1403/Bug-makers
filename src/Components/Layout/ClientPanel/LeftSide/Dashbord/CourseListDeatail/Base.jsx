@@ -247,7 +247,8 @@ const dark = useSelector((state) => state.darkMood);
           </div>
           <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden overflow-hidden text-ellipsis ...">
             <Tooltip
-              className="text-gray-700  text-[0.8vw]"
+              placement="top-end"
+              className="text-gray-700 max-w-[400px] max-h-[200px] overflow-hidden text-ellipsis ... text-[0.8vw]"
               content={`${course.describe}`}
             >
               <span>{course.describe}</span>
@@ -255,7 +256,7 @@ const dark = useSelector((state) => state.darkMood);
           </div>
           <div className="w-[16%] h-full  py-3 px-6 text-right max-md:w-[40%] max-md:text-[14px] whitespace-nowrap overflow-hidden text-ellipsis ...">
             <Tooltip
-              className="text-gray-700 text-[0.8vw] "
+              className="text-gray-700 max-w-[100px] overflow-hidden text-ellipsis ...  text-[0.8vw] "
               content={`استاد: ${
                 point == "myCourse" ? course.fullName : course.teacherName
               }`}

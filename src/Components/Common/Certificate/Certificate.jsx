@@ -26,27 +26,25 @@ const Certificate = ({ name, course, date }) => {
     >
       <div
         id="certificate-wrapper"
-        className="p-6 bg-white"
+        className={`p-6 ${dark.bgHigh == "#ffffff" ? "bg-white" : "bg-[#111]"}`}
         style={{ borderRadius: "0.5rem" }}
       >
         <div id="certificate" className="p-1">
-          <h2 className="text-2xl font-bold mb-4">
-            گواهینامه دوره
-          </h2>
-          <p className="text-gray-700 mb-6">بدین‌وسیله تأیید می‌شود که</p>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{name}</h1>
-          <p className="text-gray-700 mb-6">
+          <h2 className="text-2xl font-bold mb-4">گواهینامه دوره</h2>
+          <p className=" mb-6">بدین‌وسیله تأیید می‌شود که</p>
+          <h1 className="text-3xl font-bold  mb-2">{name}</h1>
+          <p className=" mb-6">
             با موفقیت دوره را با نشان‌دادن درک تئوری <br />
             از موضوع
           </p>
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">{course}</h2>
+          <h2 className="text-2xl font-bold mb-6">{course}</h2>
           <div className="flex justify-between items-center mt-8">
             <div>
               <div className="bg-yellow-400 text-white rounded-full py-1 px-4 font-semibold">
                 دوره تکمیل شد
               </div>
             </div>
-            <p className="text-gray-700">تاریخ : {date}</p>
+            <p className="">تاریخ : {date}</p>
           </div>
           <div className="mt-8">
             <p className="text-gray-600">محمد حسن بحرالعلومی</p>

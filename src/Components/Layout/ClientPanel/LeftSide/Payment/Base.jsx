@@ -122,13 +122,13 @@ const handleSearch = (e) => {
         </div>
         <div className="w-[20%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden overflow-hidden text-ellipsis ...">
           <Tooltip
-            className="text-gray-700  text-[0.8vw]"
+            className="text-gray-700 max-w-[100px] overflow-hidden text-ellipsis ...  text-[0.8vw]"
             content={`${convertToJalali(course.insertDate)}`}
           >
             <span>{convertToJalali(course.insertDate)}</span>
           </Tooltip>
         </div>
-        <div className="w-[20%] h-full py-3 px-6 text-right max-md:w-[40%] max-md:hidden max-md:text-[14px] whitespace-nowrap">
+        <div className="w-[20%] h-full py-3 max-w-[100px] overflow-hidden text-ellipsis ...  px-6 text-right max-md:w-[40%] max-md:hidden max-md:text-[14px] whitespace-nowrap">
           <Tooltip
             className="text-gray-700 text-[0.8vw]"
             content={`${convertToJalali(course.peymentDate)}`}

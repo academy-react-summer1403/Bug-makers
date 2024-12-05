@@ -22,7 +22,7 @@ const BDetailCenter = ({ id }) => {
   const accId = getItem("accId");
   console.log(accId)
    const { isLoading, error, data } = useQuery({
-     queryKey: ["get،TestDetail"],
+     queryKey: ["getTestDetail"],
      queryFn: () => getTestById(id),
      enabled: !!id,
      onSuccess: (data) => {
@@ -30,108 +30,7 @@ const BDetailCenter = ({ id }) => {
        console.log(data.data.data);
      },
    });  
-  
-     const {
-       isLoading: isLoading2,
-       error: error2,
-       data: data2,
-     } = useQuery({
-       queryKey: ["getPodcastComment"],
-       queryFn: () => getPodcastComment(id),
-       enabled: !!id,
-       onSuccess: (data) => {
-         setComment(data.data || []);
-       },
-     });  
-  
 
-  const setPodcastDissLike = async () => {
-    console.log(id)
-    const res = await postDissLikePodcast(id, accId);
-    console.log(res);
-    setLikeId(res.id);
-    queryClient.invalidateQueries("getPodcastDetail");
-    !accId ? toast.error("ابتدا وارد شوید") : toast.success(" دیس لایک شد 😁");
- 
-    // GetId();
-  };
-  const setPodcastLike = async () => {
-    const res = await postLikePodcast(id, accId);
-    console.log(res);
-    setLikeId(res.id);
-    queryClient.invalidateQueries("getPodcastDetail");
-    !accId ? toast.error("ابتدا وارد شوید") : toast.success("لایک شد 😁");
-    // GetId();
-  };
-
-  const delPodcastLike = async () => {
-    
-    const res = await delLikePodcast(likeId);
-    console.log(res);
-    queryClient.invalidateQueries("getPodcastDetail");
-    toast.success("نظر شما با موفقییت حذف شد 😁");
-
-    // GetId();
-  };
-  const userId = getItem("userId");
-
-  const onSubmit = async (val) => {
-    const res = await setPodcastComment(val);
-    console.log(res)
-    res.data.success == true
-      ? toast.success("نظر قشنگت ثبت شد، بعد از تایید ادمین نمایش داده میشه 😉")
-      : "";
-  };
-
-  // comment.....................................
-
-  const setNewsDissLikeComment = async (id) => {
-    const res = await commentDissLikeNews(id, false);
-    console.log(res);
-          toast.success(" دیس لایک شد 😁");
-
-    
-  };
-  const setNewsLikeComment = async (id) => {
-    const res = await commentLikeNews(id, true);
-    console.log(res);
-    toast.success("لایک شد 😁");
-    
-  };
-
-  const delLikeNews2Comment = async (currentUserLikeId) => {
-    console.log(currentUserLikeId);
-    const res = await comentDelLikeCourse({
-      deleteEntityId: `${currentUserLikeId}`,
-    });
-    console.log(res);
-        toast.success("نظر شما با موفقییت حذف شد 😁");
-    
-  };
-
-  const mutation = useMutation({
-    mutationFn: async () => {
-      if (response.isCurrentUserFavorite === true) {
-        return await deleteBlogFavorite(id);
-      } else {
-        return await AddBlogFavorite(id);
-      }
-    },
-    onSuccess: (data) => {
-      if (data.success) {
-        const message = response.isCurrentUserFavorite
-          ? "دوره " + "(" + response.title + ")" + " از علاقه‌مندی‌ها حذف شد"
-          : "دوره " + "(" + response.title + ")" + " به علاقه‌مندی‌ها اضافه شد";
-
-        toast.success(message);
-        // GetId();
-      }
-    },
-    mutationKey: [
-      "toggleFavorite",
-      response ? "delete" : "add",
-    ],
-  });
 
   const synth = window.speechSynthesis;
   function Voice(voiceText) {

@@ -11,7 +11,7 @@ const MultiAcc = ({ multiAccount, setMultiAccount }) => {
       const dark = useSelector((state) => state.darkMood);
       const[mulltiData,setMulltiData]=useState([])
       const accId = getItem("accId");
-      console.log(accId)
+      
       const queryClient = useQueryClient()
       const { isLoading, error, data } = useQuery(
         ["get",accId],
@@ -33,7 +33,7 @@ const MultiAcc = ({ multiAccount, setMultiAccount }) => {
       );
       // if (isLoading) return <p>در حال بارگذاری ...</p>;
       if (error) return <p>خطایی رخ داده است...</p>;
-console.log(mulltiData);
+
 
   return (
     <div

@@ -28,7 +28,7 @@ const BlogLanding = () => {
         () => getBlogListWithPagination(),
       );
     console.log(data);
-
+const dark = useSelector((state) => state.darkMood);
     if (isLoading){return <div> در حال بارگذاری </div>}
     if(error){return <div>مشکلی وجود دارد </div>}
       return (
@@ -51,61 +51,100 @@ const BlogLanding = () => {
           />
           <div className="max-custom3:mt-[12vw] max-md:h-[200px]  max-[714px]:scale-125 max-[570px]:w-[80%] max-custom3:mr-[10vw]  w-[100%] h-[32.552083333333336vw] mt-[5vw] flex flex-row justify-center items-center">
             <div className="max-custom3:w-[100%] max-custom3:ml-[8vw] w-[26%] mx-[40px] mr-[10vw] rounded-lg h-[100%] relative bg-transparent  flex flex-col justify-end">
-              <img
-                src={data[1]?.currentImageAddressTumb}
-                className="max-custom3:h-[30vw] absolute top-0 right-[0.9vw] w-[100%] h-[22.229166666666668vw] rounded-2xl"
-                alt="news"
-              />
+              <div
+                className={`max-custom3:h-[30vw] absolute top-0 overflow-hidden right-[0.9vw] w-[100%] h-[22.229166666666668vw] rounded-2xl
+                  ${
+                    dark.bgHigh == "#ffffff"
+                      ? "bg-gradient-to-r from-blue-200 to-blue-50"
+                      : "bg-gradient-to-r from-[#222] to-[#333] "
+                  }
+                  `}
+              >
+                {data[4]?.currentImageAddressTumb ? (
+                  <img
+                    src={data[4]?.currentImageAddressTumb}
+                    className="w-full h-full"
+                  />
+                ) : null}
+              </div>
               <div className="max-custom3:ml-[5vw] text-[#fff] text-[0.6510416666666666vw] rounded-lg px-[1.2vw] py-[0.1vw] bg-[#7B7B7B] absolute right-[1.2vw] max-md:bottom-[80px] max-md:text-[10px] bottom-[9vw] ">
-                {data[1]?.newsCatregoryName}
+                {data[4]?.newsCatregoryName}
               </div>
               <div className="text-[#959595] text-[0.6510416666666666vw] absolute left-[1.2vw] max-md:bottom-[70px] bottom-[9vw] max-md:text-[10px]">
-                {convertToJalali(data[1]?.insertDate)}
+                {convertToJalali(data[4]?.insertDate)}
               </div>
               <p className="max-custom3:top-[32vw] max-[750px]:text-[2vw]  text-[#787878] w-[100%] break-words text-[1.171875vw] absolute text-right mr-[1vw] top-[24vw] max-md:mt-[20px]">
-                {data[1]?.miniDescribe}
+                {data[4]?.miniDescribe}
               </p>
               <span className="max-custom3:ml-[2vw] absolute left-[5.5vw] text-[0.98125vw] text-[#636363] bottom-[0.7vw] max-md:text-[10px] max-md:bottom-[50px]">
-                {data[1]?.addUserFullName}
+                {data[4]?.addUserFullName}
               </span>
-              <div className="max-custom3:ml-[2vw] overflow-hidden bg-white rounded-[100%] absolute left-[2vw] w-[2.734375vw] h-[2.734375vw] max-md:hidden ">
-                <img
-                  className="h-full w-full"
-                  src={data[1]?.addUserProfileImage}
-                  alt=""
-                />
+              <div
+                className={`max-custom3:ml-[2vw] overflow-hidden  rounded-[100%] absolute left-[2vw] w-[2.734375vw] h-[2.734375vw] max-md:hidden 
+                 ${
+                   dark.bgHigh == "#ffffff"
+                     ? "bg-gradient-to-r from-blue-200 to-blue-50"
+                     : "bg-gradient-to-r from-[#222] to-[#333] "
+                 }
+                `}
+              >
+                {data[4]?.addUserProfileImage ? (
+                  <img
+                    className="h-full w-full"
+                    src={data[4]?.addUserProfileImage}
+                    alt=""
+                  />
+                ) : null}
               </div>
             </div>
             <div className="max-custom3:hidden h-[100%] w-[60vw] LeftSide">
               <div className="flex flex-col W">
-                {[data[5], data[15], data[16]].map((item) => (
+                {[data[5], data[4], data[10]].map((item) => (
                   <div
-                    key={item.id}
+                    key={item?.id}
                     className="flex flex-row justify-start items-center p-[1vw] relative bg-transparent"
                   >
-                    <div className="w-[10.416666666666666vw] border-2 border-[#F2F2F1] overflow-hidden h-[8.138020833333334vw] shadow-black shadow-sm bg-white rounded-lg">
-                      <img
-                        src={item.currentImageAddressTumb}
-                        className="w-full h-full"
-                        alt=""
-                      />
-                    </div>
-                    <div className="w-[60%] text-right mr-[1vw] h-[100%]">
-                      <span className="text-[#FFF] text-[0.6510416666666666vw]  bg-[#7B7B7B] rounded-full px-[1.2vw] py-[0.1vw]">
-                        {item.newsCatregoryName}
-                      </span>
-                      <h3 className="text-[0.9114583333333334vw] overflow-hidden text-ellipsis ... text-[#777777] mt-[0.5vw] max-w-[21.158854166666668vw] break-words">
-                        {item.miniDescribe}
-                      </h3>
-                      <div className="LeftSide bg-white rounded-[100%] h-[2.734375vw] overflow-hidden w-[2.734375vw] mt-[0.5vw]">
+                    <div
+                      className={`w-[10.416666666666666vw]  overflow-hidden h-[8.138020833333334vw] shadow-black shadow-sm  rounded-2xl  
+                       ${
+                         dark.bgHigh == "#ffffff"
+                           ? "bg-gradient-to-r from-blue-200 to-blue-50"
+                           : "bg-gradient-to-r from-[#222] to-[#333] "
+                       }
+                      `}
+                    >
+                      {item?.currentImageAddressTumb ? (
                         <img
-                          src={item.addUserProfileImage}
+                          src={item?.currentImageAddressTumb}
                           className="w-full h-full"
                           alt=""
                         />
+                      ) : null}
+                    </div>
+                    <div className="w-[60%] text-right mr-[1vw] h-[100%]">
+                      <span className="text-[#FFF] text-[0.6510416666666666vw]  bg-[#7B7B7B] rounded-full px-[1.2vw] py-[0.1vw]">
+                        {item?.newsCatregoryName}
+                      </span>
+                      <h3 className="text-[0.9114583333333334vw] overflow-hidden text-ellipsis ... text-[#777777] mt-[0.5vw] max-w-[21.158854166666668vw] break-words">
+                        {item?.miniDescribe}
+                      </h3>
+                      <div
+                        className={`LeftSide  rounded-[100%] h-[2.734375vw] overflow-hidden w-[2.734375vw] mt-[0.5vw] *: ${
+                          dark.bgHigh == "#ffffff"
+                            ? "bg-gradient-to-r from-blue-200 to-blue-50"
+                            : "bg-gradient-to-r from-[#222] to-[#333] "
+                        }`}
+                      >
+                        {item?.addUserProfileImage ? (
+                          <img
+                            src={item?.addUserProfileImage}
+                            className="w-full h-full"
+                            alt=""
+                          />
+                        ) : null}
                       </div>
                       <p className="text-gray-500 text-[0.9vw] absolute bottom-[1.5vw] right-[15.6vw]">
-                        {item.addUserFullName}
+                        {item?.addUserFullName}
                       </p>
                     </div>
                   </div>

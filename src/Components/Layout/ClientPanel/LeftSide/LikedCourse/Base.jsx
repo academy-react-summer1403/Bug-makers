@@ -236,7 +236,8 @@ const delfilter=()=>{
               ${location == "BlogFav" ? "hidden" : "block"}`}
                 >
                   <Tooltip
-                    className="text-gray-700  leading-[1.5vw]"
+                    placement="top-end"
+                    className="text-gray-700 max-w-[500px] max-h-[200px] overflow-auto text-ellipsis ... leading-[1.5vw]"
                     content={`${course.describe}`}
                   >
                     <span>{course.describe}</span>
@@ -252,7 +253,7 @@ const delfilter=()=>{
                   }`}
                 >
                   <Tooltip
-                    className="text-gray-500 w-[200px]"
+                    className="text-gray-500 max-w-[200px] overflow-hidden text-ellipsis ...  w-[200px]"
                     content={`استاد: ${course.teacheName}`}
                   >
                     {course.teacheName}

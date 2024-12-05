@@ -78,7 +78,7 @@ setResponse(filterData);
             >
               <div className="w-[18%] h-full  py-[1%] px-[1%] text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[30%] max-md:text-[14px]">
                 <Tooltip
-                  className="text-gray-700  leading-[1.5vw]"
+                  className="text-gray-700 max-w-[100px] overflow-hidden text-ellipsis ...  leading-[1.5vw]"
                   content={`${course.tournamentName}`}
                 >
                   <span>{course.tournamentName}</span>
@@ -89,7 +89,8 @@ setResponse(filterData);
               `}
               >
                 <Tooltip
-                  className="text-gray-700  leading-[1.5vw]"
+                  placement="top-end"
+                  className="text-gray-700 p-1 max-w-[500px] overflow-auto max-h-[200px]  break-words leading-[1.5vw]"
                   content={`${course.describe}`}
                 >
                   <span>{course.describe}</span>
@@ -108,7 +109,7 @@ setResponse(filterData);
                 className={`max-md:w-[16%]  max-md:text-[14px] w-[16%]  py-[1%] px-[1%] text-center whitespace-nowrap
                   `}
               >
-                {course.active == true ? 'در حال برگزاری' : 'اتمام یافته'}
+                {course.active == true ? "در حال برگزاری" : "اتمام یافته"}
               </div>
               <div
                 className={`w-[6%] max-md:ml-[10px] h-full items-center justify-end ${
@@ -145,7 +146,6 @@ setResponse(filterData);
                   </svg>
                 </Tooltip>
               </div>
-              
             </div>
           ));
 
