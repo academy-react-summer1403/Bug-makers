@@ -34,6 +34,7 @@ const MultiAcc = ({ multiAccount, setMultiAccount }) => {
       // if (isLoading) return <p>در حال بارگذاری ...</p>;
       if (error) return <p>خطایی رخ داده است...</p>;
 
+      console.log(mulltiData);
 
   return (
     <div
@@ -77,7 +78,7 @@ const MultiAcc = ({ multiAccount, setMultiAccount }) => {
       <div className="w-full h-[90%] mt-3 overflow-auto flex flex-col gap-y-1">
         {mulltiData.length != 0
           ? mulltiData.map((ithem) => (
-              <div className="min-h-[60px] h-[22%] w-full  rounded-2xl px-1 flex">
+              <div key={ithem.id} className="min-h-[60px] h-[22%] w-full  rounded-2xl px-1 flex">
                 <div className="h-full w-[18%] flex items-center justify-center ">
                   <div className="w-[80%] h-[60%] overflow-hidden bg-gray-600 rounded-full max-md:w-full">
                     <img
@@ -128,7 +129,7 @@ const MultiAcc = ({ multiAccount, setMultiAccount }) => {
                 <div className="w-[20%] flex justify-end items-start pt-2">
                   <button onClick={()=>{
                     setItem("token", ithem.token);
-                    setItem("userId", ithem.token);
+                    setItem("userId", ithem.UserId);
                     setTimeout(() => {
                       queryClient.invalidateQueries("getProfileInfo");
                       queryClient.invalidateQueries("comments");
