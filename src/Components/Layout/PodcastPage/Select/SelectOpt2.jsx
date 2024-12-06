@@ -19,7 +19,26 @@ const SelectOpt2 = ({
   // Sort data for sorting options
   const sortData = [{ id: 1, value: "آخرین آپدیت" }];
 
-  // Fetch teacher or category list based on prop
+const [uniqueData, setUniqueData] = useState([]);
+    useEffect(() => {
+      // تابع برای حذف داده‌های تکراری بر اساس Category
+      const removeDuplicatesByCategory = (data) => {
+        const seenCategories = new Set();
+        const uniqueData = [];
+
+        data.forEach((entry) => {
+          const category = entry.Category;
+          if (!seenCategories.has(category)) {
+            uniqueData.push(entry);
+            seenCategories.add(category);
+          }
+        });
+
+        return uniqueData;
+      };
+
+      setUniqueData(removeDuplicatesByCategory(dataCat));
+    }, [dataCat]);
 
   const handleSelect = (option) => {
     setSelectedOption(option);
@@ -64,7 +83,7 @@ const SelectOpt2 = ({
           color: dark.textLow,
         }}
       >
-        <span>{selectedOption ? selectedOption.Category : placeholder}</span>
+        <span>{selectedOption ? selectedOption : placeholder}</span>
       </div>
       <AnimatePresence>
         {isOpen && (
@@ -76,7 +95,7 @@ const SelectOpt2 = ({
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {dataCat?.map((option) => (
+            {uniqueData?.map((option) => (
               <li
                 key={option.id}
                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer text-[12px]"

@@ -467,7 +467,7 @@ useEffect(() => {
     >
       {/* Header */}
       <div
-        className="h-[10%] mb-8 w-full flex items-center max-md:hidden"
+        className="h-[10%] mb-6 w-full flex items-center max-md:hidden"
         onClick={() => {
           navigator("/");
         }}
@@ -515,7 +515,7 @@ useEffect(() => {
       <div className="text-gray-400 text-[0.8vw] my-[1%] max-md:hidden">
         مالی
       </div>
-      <div className="flex flex-col gap-y-4 w-full h-[16%] my-[2%] ">
+      <div className="flex flex-col gap-y-4 w-full h-[14%] my-[2%] ">
         <Button
           radius="full"
           onClick={() => {

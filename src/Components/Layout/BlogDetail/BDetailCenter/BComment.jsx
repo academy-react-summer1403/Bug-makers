@@ -105,7 +105,7 @@ const dark = useSelector((state) => state.darkMood);
               جدید‌ترین
             </div>
           </div>
-          <div className="w-full text-[16px] max-md:text-[12px] md:w-[40%] text-right mt-2 md:my-2 ">
+          <div className="w-[20%]  text-[16px] max-md:text-[12px] max-md:w-[40%] text-left mt-2 md:my-2 ">
             <span className="">{commenting.length}</span>
             <span className=""> نظر ثبت شده</span>
           </div>

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import TehranClock from "../../../../Common/TimeChanger/TimeHours";
 import TodayDate from "../../../../Common/TimeChanger/TodayDate";
-import PersianCalender from "../../../../Common/TimeChanger/PersianCalender";
-import CommentCard from "./CommentBar/CommentBar";
 import CommentSection from "./CommentBar/CommentBar";
 import CourseTable from "./CourseList/CourseList";
 import Gauge from "../../LeftBar/LeftBarDown/PersonalInfo/ComplitingCircle";
@@ -179,7 +177,6 @@ function PersianCalendarComponent() {
           </div>
 
           <div className="h-[99%] w-[18%] max-md:mt-3 max-md:w-[50%] max-md:h-[50%] overflow-auto">
-            {/* <PersianCalender /> */}
             {PersianCalendarComponent()}
           </div>
           <div

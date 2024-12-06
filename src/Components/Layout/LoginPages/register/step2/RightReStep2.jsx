@@ -5,10 +5,9 @@ import * as yup from "yup";
 import LineButt from "../forAllRe/LineButt.jsx";
 import GreenButt from "../forAllRe/GreenButt.jsx";
 import WhiteButt from "../forAllRe/WhiteButt.jsx";
-import ReactCodeInput from "react-code-input";
+
 import '../../forAll/login.css'
 import OptInput from "./OptInput.jsx";
-import { RigesterStep2 } from "../../../../../Core/Services/Api/auth.js";
 import { getItem } from "../../../../../Core/Services/common/storage.services.js";
 import { useNavigate } from "react-router-dom";
 import { RigesterStep1 } from "../../../../../Core/Services/Api/auth.js";

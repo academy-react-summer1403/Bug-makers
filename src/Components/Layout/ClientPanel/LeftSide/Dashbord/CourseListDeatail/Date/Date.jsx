@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import moment from 'jalali-moment';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSelector } from 'react-redux';
+import moment from 'moment-jalaali';
 
 const DateModal = ({ onFilter }) => {
   const [startDay, setStartDay] = useState('');
@@ -14,8 +14,14 @@ const DateModal = ({ onFilter }) => {
   const [hasData, setHasData] = useState(true);
 
   const handleFilter = () => {
-    const startDate = moment(`${startYear}-${startMonth}-${startDay}`, 'YYYY-MM-DD').format('YYYY-MM-DD');
-    const endDate = moment(`${endYear}-${endMonth}-${endDay}`, 'YYYY-MM-DD').format('YYYY-MM-DD');
+    const startDate = moment(
+      `${startYear}-${startMonth}-${startDay}`,
+      "jYYYY-jMM-jDD"
+    ).format("jYYYY-jMM-jDD");
+    const endDate = moment(
+      `${endYear}-${endMonth}-${endDay}`,
+      "jYYYY-jMM-jDD"
+    ).format("jYYYY-jMM-jDD");
     
     const data = onFilter(startDate, endDate);
 

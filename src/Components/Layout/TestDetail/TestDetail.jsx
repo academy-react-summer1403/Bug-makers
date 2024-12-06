@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const TestDetail = () => {
   const { id } = useParams();
-  console.log(id);
+
   const dark = useSelector((state) => state.darkMood);
   return (
     <motion.div

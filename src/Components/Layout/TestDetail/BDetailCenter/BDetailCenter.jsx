@@ -12,6 +12,7 @@ import { delLikePodcast, getPodcastComment, getPodcastDetail, postDissLikePodcas
 import { setPodcastComment } from "../../../../Core/Services/Api/PodcastDetail/CommentDetail";
 import QuizPage from "./QuizPage";
 import { getTestById } from "../../../../Core/Services/Api/TestDetail/TestDeatil";
+import { Skeleton } from "@mui/material";
 const BDetailCenter = ({ id }) => {
   const queryClient = useQueryClient();
   // const [data, setdata] = useState();
@@ -50,14 +51,24 @@ const BDetailCenter = ({ id }) => {
         className=" rounded-lg w-[100%] shadow-lg p-4 mb-4"
       >
         <div className="flex justify-between items-center">
-          <span className=" text-2xl">{response.title}</span>
-          <div className=" max-md:text-sm text-lg">
-            <span>{convertToJalali(response.Insert)}</span> |
-            <span>
-              {calculateDateDifference(convertToJalali(response.Insert))} روز
-              پیش
-            </span>
-          </div>
+          <span className=" text-2xl">
+            {response.title ? (
+              response.title
+            ) : (
+              <Skeleton height={`100%`} width={`150px`} />
+            )}
+          </span>
+          {response.Insert ? (
+            <div className=" max-md:text-sm text-lg">
+              <span>{convertToJalali(response.Insert)}</span> |
+              <span>
+                {calculateDateDifference(convertToJalali(response.Insert))} روز
+                پیش
+              </span>
+            </div>
+          ) : (
+            <Skeleton height={`100%`} width={`200px`} />
+          )}
         </div>
 
         <div
@@ -76,7 +87,13 @@ const BDetailCenter = ({ id }) => {
             style={{ background: dark.bgLow, color: dark.textLow }}
             className="absolute top-[0.7vw] left-[0.7vw]  p-2  rounded-full shadow-md"
           >
-            <span className=""> سطح : {response.Level}</span>
+            <span className="">              
+              {response.Level ? (
+                ` سطح : ${response.Level}`
+              ) : (
+                <Skeleton circle={true} height={`100%`} width={`50px`} />
+              )}
+            </span>
           </div>
         </div>
 

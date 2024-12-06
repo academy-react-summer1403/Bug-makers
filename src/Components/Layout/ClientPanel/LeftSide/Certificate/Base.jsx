@@ -11,6 +11,7 @@ import { getTestById } from "../../../../../Core/Services/Api/TestDetail/TestDea
 import { useSelector } from "react-redux";
 import CustomSkeleton from "../../../../Common/Sceleton/CostomeSceleton";
 import Certificate from "../../../../Common/Certificate/Certificate";
+import { getItem } from "../../../../../Core/Services/common/storage.services";
 
 const CoursePage = ({
   location,
@@ -27,12 +28,12 @@ const CoursePage = ({
   const [originalData, setOriginalData] = useState([]);
   const [uniq, setUniq] = useState([]);
 
+  const userId = getItem("userId");
   const { isLoading, error, data } = useQuery({
     queryKey: ["getUserTest"],
-    queryFn: getUserTest,
+    queryFn: () => getUserTest(userId), 
     onSuccess: (data) => {
       setResponse(data.data.data || []);
-      
     },
   });
    const CourseListItem = useSelector(
@@ -344,6 +345,21 @@ useEffect(() => {
                   گواهینامه ازمون
                 </ModalHeader>
                 <ModalBody>
+                  {/* <Certificate
+                    name={
+                      CourseListItem
+                        ? CourseListItem?.fName + CourseListItem?.lName
+                        : "mehdi asadi"
+                    }
+                    course={
+                      detail
+                        ? detail?.exam.title + `  سطح ${detail?.exam.Level}`
+                        : ""
+                    }
+                    date={convertToJalali(isoDate)}
+                    companyName="Bahr academy" // The company issuing the certificate
+                    companyLogo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2HIo446aYfUlj3Qp3_fafI1WyxJWOnU2xRg&s" // The URL to the company logo image
+                  /> */}
                   <Certificate
                     name={
                       CourseListItem

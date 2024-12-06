@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "react-query";
-import { setCourseList } from "../../../../../Redux/Slice/Course/CourseList";
-import { getCourseListWithPagination } from "../../../../../Core/Services/Api/CoursePage/getCourseListWithPagination";
-import TextLanding from "../../../../Common/TextInLanding/TextLanding";
-import Pagination from "../../../../Common/Paginate/Paginate";
-import moment from "jalali-moment";
-import PriceFilter from "../Dashbord/CourseListDeatail/PriceFilter/PriceFilter";
 import SearchBox from "../Dashbord/CourseListDeatail/SearchBox/SearchBox";
-import SelectOpt from "../Dashbord/CourseListDeatail/Select/SelectOpt";
-import DateModal from "../Dashbord/CourseListDeatail/Date/Date";
 import { Button, Tooltip } from "@nextui-org/react";
-import CourseCard from "../../../CourseDetail/CourseCard/CourseCard";
 import { getCourseDetail } from "../../../../../Core/Services/Api/CourseDetail/CourseDetail";
 import CourseItem from "../Dashbord/CourseListDeatail/CorseItem/CourseItem";
 import convertToJalali from "../../../../Common/TimeChanger/TimeToShamsi";
-import { getMyCourseListWithPagination } from "../../../../../Core/Services/Api/Client/clientLiked";
 import { setpaymentList } from "../../../../../Redux/Slice/payment/payment";
 import { useNavigate } from "react-router-dom";
 import { getPayment } from "../../../../../Core/Services/Api/Client/payment";
@@ -107,9 +97,7 @@ const handleSearch = (e) => {
   const renderCourses = () => {
     if (isLoading) return <p>در حال بارگذاری...</p>;
     if (error) return <p>خطایی رخ داده است...</p>;
-    console.log(payData)
 
-    if (error) return <p>دوره ای وجود ندارد</p>;
 
     return payData.map((course, index) => (
       <div
@@ -297,33 +285,34 @@ const handleSearch = (e) => {
 
     return (
       <CourseItem
-        key={detail.courseId}
-        id={detail.courseId}
-        courseId={detail.courseId}
-        title={detail.title}
-        img={detail.imageAddress}
-        technologyList={detail.techs != null ? detail.techs : "برنامه نویسی"}
-        description={detail.describe}
-        teacherName={detail.teacherName}
-        likeCount={detail.likeCount}
-        commandCount={detail.commandCount}
-        courseRate={detail.currentRate}
-        statusName={detail.statusName}
-        price={detail.cost}
-        currentRegistrants={detail.currentRegistrants}
-        date={detail.lastUpdate}
-        level={detail.courseLevelName}
-        state={detail.courseStatusName}
-        courseGroupCount={detail.courseGroupCount}
-        capacity={detail.capacity}
-        startDate={convertToJalali(detail.startTime)}
-        endDate={convertToJalali(detail.endTime)}
+        key={detail?.courseId}
+        id={detail?.courseId}
+        courseId={detail?.courseId}
+        title={detail?.title}
+        img={detail?.imageAddress}
+        technologyList={detail?.techs != null ? detail?.techs : "برنامه نویسی"}
+        description={detail?.describe}
+        teacherName={detail?.teacherName}
+        likeCount={detail?.likeCount}
+        commandCount={detail?.commandCount}
+        courseRate={detail?.currentRate}
+        statusName={detail?.statusName}
+        price={detail?.cost}
+        currentRegistrants={detail?.currentRegistrants}
+        date={detail?.lastUpdate}
+        level={detail?.courseLevelName}
+        state={detail?.courseStatusName}
+        courseGroupCount={detail?.courseGroupCount}
+        capacity={detail?.capacity}
+        startDate={convertToJalali(detail?.startTime)}
+        endDate={convertToJalali(detail?.endTime)}
         setDetailCourse={setDetailCourse}
         detailCourse={detailCourse}
         GetId={GetId}
-        userIsLiked={detail.currentUserLike}
-        currentUserDissLike={detail.currentUserDissLike}
-        userLikeId={detail.userLikeId}
+        userIsLiked={detail?.currentUserLike}
+        currentUserDissLike={detail?.currentUserDissLike}
+        userLikeId={detail?.userLikeId}
+        Loding={detail?.courseId != detailId ? true : false}
       />
     );
   };

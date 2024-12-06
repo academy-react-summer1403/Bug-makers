@@ -9,11 +9,11 @@ import CourseItem from '../../Components/Common/CorseItem/CourseItem';
 import Pagination from '../../Components/Common/Paginate/Paginate';
 import SelectOpt from '../../Components/Common/Select/SelectOpt';
 import DateModal from '../../Components/ComponentOnce/Date/Date';
-import moment from 'jalali-moment'; 
 import PriceFilter from '../../Components/ComponentOnce/PriceFilter/PriceFilter';
 import {Card, Skeleton} from "@nextui-org/react";
 import Loading from '../../Components/Common/loadingWeb/Loading';
 import { getDiscount, getDiscountAll } from '../../Core/Services/Api/CourseDetail/CourseDetail';
+import convertToJalali from '../../Components/Common/TimeChanger/TimeToShamsi';
 
 const CoursePage = () => {
   // stateForCategoryFilter
@@ -92,9 +92,7 @@ const CoursePage = () => {
   };
   
   // Converting Date 
-  const convertToJalali = (miladiDate) => {
-    return moment(miladiDate, 'YYYY-MM-DD').locale('fa').format('YYYY/MM/DD');
-  };
+
   
 
   const handlePriceFilter = (min, max) => {

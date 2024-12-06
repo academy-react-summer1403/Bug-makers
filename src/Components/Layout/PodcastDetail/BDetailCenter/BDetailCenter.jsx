@@ -1,33 +1,20 @@
 import React, { useEffect, useState } from "react";
-
-import BDetailLikeSvg from "../BDcommon/BDetailLikeSvg";
-import { Formik, Form, Field } from "formik";
 import BComment from "./BComment";
-import {
-  postDissLikeNews,
-  postLikeNews,
-  delLikeNews,
-} from "../../../../Core/Services/Api/BlogDetail/BlogDetail";
 import { getItem } from "../../../../Core/Services/common/storage.services";
 import { comentDelLikeCourse, commentDissLikeNews, commentLikeNews, setNewComment } from "../../../../Core/Services/Api/BlogDetail/CommentDetail";
 import AddCommentForm from "./AddCommentForm";
-import RecommendLi from "./RecommendLi";
 import { useDispatch, useSelector } from "react-redux";
 import calculateDateDifference from "../../../Common/TimeChanger/TimeChanger";
-import moment from "moment-jalaali";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 import toast from "react-hot-toast";
 import { AddBlogFavorite } from "../../../../Core/Services/Api/BlogDetail/addFavorite";
 import { deleteBlogFavorite } from "../../../../Core/Services/Api/BlogDetail/deleteFavorite";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { Button } from "@nextui-org/react";
-import Swal from 'sweetalert2';
-import {Skeleton} from "@nextui-org/react";
-import { setBlogList } from "../../../../Redux/Slice/Blog/BlogList";
-import { RiUserVoiceLine } from "react-icons/ri";
 import MusicPlayer from "./MusicPlayer";
 import { delLikePodcast, getPodcastComment, getPodcastDetail, postDissLikePodcast, postLikePodcast } from "../../../../Core/Services/Api/PodcastDetail/BlogDetail";
 import { setPodcastComment } from "../../../../Core/Services/Api/PodcastDetail/CommentDetail";
+import { Skeleton } from "@mui/material";
+
 const BDetailCenter = ({ id }) => {
   const queryClient = useQueryClient();
   // const [data, setdata] = useState();
@@ -164,17 +151,27 @@ const BDetailCenter = ({ id }) => {
     <div className="w-[80%] mx-auto max-md:w-full  px-4">
       <div
         style={{ background: dark.bgHigh, color: dark.textHigh }}
-        className=" rounded-lg shadow-lg p-4 mb-4"
+        className=" rounded-lg shadow-lg p-4 mb-4 relative"
       >
         <div className="flex justify-between items-center">
-          <span className=" text-lg">{response.title}</span>
-          <div className=" max-[560px]:text-[1.7vw] text-[1vw]">
-            <span>{convertToJalali(response.InsertTime)}</span> |
-            <span>
-              {calculateDateDifference(convertToJalali(response.InsertTime))}{" "}
-              روز پیش
-            </span>
-          </div>
+          <span className=" text-lg">
+            {response.title ? (
+              response.title
+            ) : (
+              <Skeleton height={`100%`} width={`200px`} />
+            )}
+          </span>
+          {response.InsertTime ? (
+            <div className=" max-[560px]:text-[1.7vw] text-[1vw]">
+              <span>{convertToJalali(response.InsertTime)}</span> |
+              <span>
+                {calculateDateDifference(convertToJalali(response.InsertTime))}{" "}
+                روز پیش
+              </span>
+            </div>
+          ) : (
+            <Skeleton height={`100%`} width={`200px`} />
+          )}
         </div>
         <div
           className={`relative max-h-[600px] w-full rounded-lg overflow-hidden mt-4 
@@ -196,21 +193,45 @@ const BDetailCenter = ({ id }) => {
             style={{ background: dark.bgLow, color: dark.textLow }}
             className="absolute top-[0.7vw] left-[0.7vw]  p-2  rounded-full shadow-md"
           >
-            <span className="">{response.Category}</span>
+            <span className="">
+              {response.Category ? (
+                response.Category
+              ) : (
+                <Skeleton circle={true} height={`100%`} width={`50px`} />
+              )}
+            </span>
           </div>
         </div>
-        <div className="size-[7vw] max-md:size-24 absolute top-[23%] max-md:top-[18%] left-[13%] max-md:left-[10%] flex items-center flex-col ">
+        <div className="size-[7vw] max-md:size-24 absolute top-[38%] max-md:top-[20%] left-[2%] max-md:left-[10%] flex items-center flex-col ">
           <div
             style={{ background: dark.bgLow, color: dark.textLow }}
-            className=" size-[4vw] max-md:size-16 rounded-full bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]"
+            className=" size-[4vw] max-md:size-16 rounded-full bg-gradient-to-b from-[#838383] to-[#585858]"
           ></div>
           <span className=" max-md:text-[10px] mt-2  text-[0.6vw]">
-            {response.creator}
+            {response.creator ? (
+              response.creator
+            ) : (
+              <Skeleton height={`100%`} width={`100px`} />
+            )}
           </span>
         </div>
-        <h2 className="text-xl  mt-14 text-right">{response.title}</h2>
-        <div className="flex justify-start text-right my-6">
-          {response.Desc}
+        <h2 className="text-xl  mt-14 text-right">
+          {response.title ? (
+            response.title
+          ) : (
+            <Skeleton height={`100%`} width={`200px`} />
+          )}
+        </h2>
+        <div className="flex justify-start text-right my-6 max-md:text-[12px]">
+          {response.Desc ? (
+            response.Desc
+          ) : (
+            <div className="mb-4 w-[100%]">
+              <Skeleton height={30} width={`60%`} />
+              <Skeleton height={30} width={`80%`} />
+              <Skeleton height={30} width={`90%`} />
+            </div>
+          )}
         </div>
         <div className="w-full">
           <MusicPlayer audioUrl={response.FileLink} />
@@ -224,7 +245,11 @@ const BDetailCenter = ({ id }) => {
         <div className="text-[0.8vw] gap-[2vw] mt-[8vw]  w-full h-[1.46vw] px-[1vw] flex justify-end">
           <div className="flex justify-evenly h-full w-[10%] items-center">
             <span className="text-[0.9765625vw] max-[941px]:text-[1.565625vw] max-[941px]:mt-[0.8vw] max-[941px]:ml-[0.2vw] ">
-              {response.allLike}
+              {response.allLike  || response.allLike == 0? (
+                response.allLike
+              ) : (
+                <Skeleton height={`40px`} width={`150px`} />
+              )}
             </span>
             <svg
               className="cursor-pointer"
@@ -248,7 +273,11 @@ const BDetailCenter = ({ id }) => {
           </span>
           <div className="flex justify-evenly h-full w-[10%] items-center">
             <span className="text-[0.9765625vw] max-[941px]:text-[1.565625vw] max-[941px]:mt-[0.2vw] max-[941px]:ml-[0.4vw] ">
-              {response.allDissLike}
+              {response.allDissLike || response.allDissLike == 0  ? (
+                response.allDissLike
+              ) : (
+                <Skeleton height={`40px`} width={`150px`} />
+              )}
             </span>
             <svg
               onClick={() => {
