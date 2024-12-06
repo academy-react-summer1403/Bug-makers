@@ -106,24 +106,24 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
 
 response ? dispatch(setFavoriteList(response)) : null
 
-
   const DeleteIthem = async (id) => {
     if (location == "BlogFav") {
       const res = await delBlogFav(id);
-      queryClient.invalidateQueries("Course");
+
       toast.success("خبر مورد نظر با موفقیت حذف شد");
     }
     if (location == "CourseFav") {
       const res = await delCourseFav(id);
-      queryClient.invalidateQueries("Course");
+
       toast.success("دوره مورد نظر با موفقیت حذف شد");
     }
     if (location == "CourseServ") {
       const res = await delCourseServ(id);
-      queryClient.invalidateQueries("Course");
+
       res?.StatusCode == 200 ? toast.success("دوره مورد نظر با موفقیت حذف شد"):null
     }
     setIsDeleteFalse();
+    queryClient.invalidateQueries("GetCourseServ");
   };  
 const fetchMoreDetail=(id)=>{
   const res = getCourseDetail(id)

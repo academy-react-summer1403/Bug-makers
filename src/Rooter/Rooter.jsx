@@ -49,6 +49,7 @@ import ForgetPassStep2 from "../Components/Layout/LoginPages/passForgetStep2/For
 import TestPage from "../Components/Layout/TestPage/TestPage";
 import TestDetail from "../Components/Layout/TestDetail/TestDetail";
 import TestPanel from "../Components/Layout/ClientPanel/LeftSide/Certificate/TestPanel";
+import Job from "../Components/Layout/ClientPanel/LeftSide/Job/Job";
 
 const router = createBrowserRouter([
   {
@@ -164,6 +165,11 @@ const router = createBrowserRouter([
       {
         path: "Test",
         element: <TestPanel />,
+        errorElement: <Error />,
+      },
+      {
+        path: "Job",
+        element: <Job />,
         errorElement: <Error />,
       },
       {

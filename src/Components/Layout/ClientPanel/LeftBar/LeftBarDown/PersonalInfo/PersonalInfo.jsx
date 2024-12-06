@@ -8,7 +8,6 @@ import { ProfileStep1 } from "../../../../../../Core/Services/Api/Client/Profile
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import DatePicker from "react-multi-date-picker";
-import moment from "moment-jalaali";
 import persian_fa from "react-date-object/locales/persian_fa";
 import persian from "react-date-object/calendars/persian";
 import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";

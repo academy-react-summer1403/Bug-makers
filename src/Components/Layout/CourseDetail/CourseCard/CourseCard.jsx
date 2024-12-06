@@ -544,7 +544,10 @@ const GetId = async () => {
               }
               `}
             >
-              <Card style={{ width: "100%" }} className="">
+              <Card
+                style={{ background: dark.bgHigh, color: dark.textLow }}
+                className="w-full"
+              >
                 <CardHeader tag="h4">بازه های زمانی این دوره</CardHeader>
                 <div className="react-dataTable user-view-account-projects">
                   <DataTable
@@ -555,6 +558,7 @@ const GetId = async () => {
                     data={responseAdmin?.courseSchedules || []}
                     className="react-dataTable"
                     sortIcon={<BiChevronDown size={10} />}
+                    theme={dark.bgHigh == "#ffffff" ? "light" : "dark"}
                   />
                 </div>
               </Card>
@@ -613,9 +617,24 @@ const GetId = async () => {
               />
             </div>
             <div
+              style={{ background: dark.bgHigh, color: dark.textLow }}
+              className={`w-full h-full  rounded-xl${
+                detailPage === 3 ? "block" : "hidden"
+              }`}
+            >
+              {filterData ? (
+                <VideoAccordion data={filterData} />
+              ) : detailPage === 3 ?  (
+                <div className="p-8 rounded-xl">
+                  {" "}
+                  ویدیویی برای این دوره وجود ندارد
+                </div>
+              ) : null}
+            </div>
+            <div
               style={{ background: dark.bgHigh, color: dark.textHigh }}
               className={`w-full py-3 rounded-xl h-full ${
-                detailPage === 3 && response.isCourseReseve == 1
+                detailPage === 4 && response.isCourseReseve == 1
                   ? "block"
                   : "hidden"
               }
@@ -661,7 +680,7 @@ const GetId = async () => {
             <div
               style={{ background: dark.bgHigh, color: dark.textHigh }}
               className={`w-full h-full py-5 rounded-xl ${
-                detailPage === 4 && response.isCourseReseve == 1
+                detailPage === 5 && response.isCourseReseve == 1
                   ? "block"
                   : "hidden"
               }
@@ -691,13 +710,6 @@ const GetId = async () => {
                   </Button>
                 </div>
               </div>
-            </div>
-            <div
-              className={`w-full h-full bg-yellow-500 ${
-                detailPage === 3 ? "block" : "hidden"
-              }`}
-            >
-              <VideoAccordion data={filterData} />
             </div>
           </div>
         </div>
