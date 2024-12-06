@@ -193,9 +193,9 @@ const DashbordEditTop = () => {
       </div>
 
       {/* Tab Section */}
-      <div className="flex max-md:w-[100%] h-[18%] justify-between max-md:justify-start absolute bottom-0 gap-x-8 max-md:gap-x-1 overflow-hidden max-md:h-[13%]">
+      <div className="flex max-md:flex-wrap max-md:flex-col max-md:w-[100%] h-[18%] justify-between max-md:justify-start absolute bottom-0 gap-x-8 max-md:gap-x-1 max-md:gap-y-3 overflow-hidden max-md:h-[23%]">
         {tabs.map((tab) => (
-          <div className="max-md:w-[15%] text-center">
+          <div className="max-md:w-[26%] text-center">
             <div
               radius="sm"
               key={tab.id}

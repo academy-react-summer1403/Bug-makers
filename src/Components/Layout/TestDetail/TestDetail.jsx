@@ -18,7 +18,7 @@ const TestDetail = () => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="w-[85%]  max-w-[2400px]  mt-[5vw] relative m-auto flex bg-cover bg-blogBack justify-between">
+      <div className="w-[85%] max-md:w-full max-w-[2400px]  mt-[5vw] relative m-auto flex bg-cover bg-blogBack justify-between">
         {/* <BDetailRight /> */}
         <BDetailCenter key={id} id={id} />
         {/* <BDetailLeft /> */}

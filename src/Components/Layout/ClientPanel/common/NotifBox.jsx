@@ -38,7 +38,6 @@ const NotificationBox = () => {
      queryKey: ["getNotifMessage"],
      queryFn: getNotifMessageList,
      onSuccess: (data) => {
-        console.log(data)
        setMessage(data || []);
      },
    });
@@ -59,7 +58,6 @@ const NotificationBox = () => {
     const filterdata = dataa
       ? dataa.filter((el) => el.isRead == false && el.userId == userId)
       : [];
-    console.log(filterdata);
     setReadNotif(filterdata);
    }
 

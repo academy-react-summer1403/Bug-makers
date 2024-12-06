@@ -243,7 +243,7 @@ const dark = useSelector((state) => state.darkMood);
           key={index}
           className="w-full h-[3vw] max-md:border-b-1 max-md:h-[40px] rounded-[0.4vw] flex items-center text-[1vw]  text-[#272727] hover:bg-gray-100"
         >
-          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[50%] max-md:text-[14px]">
+          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap overflow-hidden text-ellipsis ... max-md:w-[45%] max-md:text-[14px]">
             {point == "myCourse" ? course.courseTitle : course.title}
           </div>
           <div className="w-[32%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden overflow-hidden text-ellipsis ...">
@@ -288,7 +288,7 @@ const dark = useSelector((state) => state.darkMood);
               : `${course.cost} تومان`}
           </div>
           <div
-            className={`w-[4%] h-full items-center ${
+            className={`w-[4%] max-md:w-[8%] h-full items-center ${
               show == true ? "flex" : "hidden"
             }`}
           >
@@ -524,7 +524,7 @@ const dark = useSelector((state) => state.darkMood);
       <div className="w-[100%] selection: mt-[0vw] ">
         {/* searchAndFilterSection */}
         <div
-          className={`h-[10%]  w-full  relative flex-row flex-wrap justify-start items-center gap-x-3 max-md:gap-y-[20px] rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+          className={`h-[10%] max-md:h-[15%] w-full  relative flex-row flex-wrap justify-start items-center gap-x-3 max-md:gap-y-[20px] rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
             ${show == true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
         >
           <SearchBox
@@ -662,7 +662,7 @@ const dark = useSelector((state) => state.darkMood);
             <div className="w-[16%] text-[1.1vw]   py-[1%] px-6 text-right max-md:hidden">
               تاریخ برگزاری
             </div>
-            <div className="w-[16%]  text-[1.1vw] max-md:w-[40%] max-md:text-[16px] py-[1%] px-6 text-right">
+            <div className="w-[16%]  text-[1.1vw] max-md:w-[50%] max-md:py-0.5 max-md:text-[16px] py-[1%] px-6 text-right">
               {" "}
               {point == "myCourse" ? "وضعیت پرداختی" : "قیمت دوره "}{" "}
             </div>

@@ -162,7 +162,7 @@ const BDetailCenter = ({ id }) => {
             )}
           </span>
           {response.InsertTime ? (
-            <div className=" max-[560px]:text-[1.7vw] text-[1vw]">
+            <div className="  max-md:text-[12px] text-[1vw]">
               <span>{convertToJalali(response.InsertTime)}</span> |
               <span>
                 {calculateDateDifference(convertToJalali(response.InsertTime))}{" "}
@@ -245,7 +245,7 @@ const BDetailCenter = ({ id }) => {
         <div className="text-[0.8vw] gap-[2vw] mt-[8vw]  w-full h-[1.46vw] px-[1vw] flex justify-end">
           <div className="flex justify-evenly h-full w-[10%] items-center">
             <span className="text-[0.9765625vw] max-[941px]:text-[1.565625vw] max-[941px]:mt-[0.8vw] max-[941px]:ml-[0.2vw] ">
-              {response.allLike  || response.allLike == 0? (
+              {response.allLike || response.allLike == 0 ? (
                 response.allLike
               ) : (
                 <Skeleton height={`40px`} width={`150px`} />
@@ -273,7 +273,7 @@ const BDetailCenter = ({ id }) => {
           </span>
           <div className="flex justify-evenly h-full w-[10%] items-center">
             <span className="text-[0.9765625vw] max-[941px]:text-[1.565625vw] max-[941px]:mt-[0.2vw] max-[941px]:ml-[0.4vw] ">
-              {response.allDissLike || response.allDissLike == 0  ? (
+              {response.allDissLike || response.allDissLike == 0 ? (
                 response.allDissLike
               ) : (
                 <Skeleton height={`40px`} width={`150px`} />

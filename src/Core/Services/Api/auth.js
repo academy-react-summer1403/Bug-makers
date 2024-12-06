@@ -1,13 +1,17 @@
 import axios from "axios";
 import http from "../interseptore/Interceptor.js"
+import toast from "react-hot-toast";
 
 export const LoginAPI = async (user)=>{
     try {
         const response = await http.post('/Sign/Login',user);
-
-        return response
+        if(response.success ==false){return toast.error("رمز رو با دقت بیشتری وارد کنید !!");}
+        else{
+            return response;
+        }
     } catch (error) {
-        return false        
+
+        return console.log(error)        
     }
 }
 

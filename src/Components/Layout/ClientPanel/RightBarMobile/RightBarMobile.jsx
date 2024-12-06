@@ -6,6 +6,10 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import MultiAcc from "../common/MultiAcc";
 import { removeLoginToken, setLoginToken } from "../../../../Redux/Slice/Login/Login";
+import { FaMicrophone } from "react-icons/fa";
+import { PiExam, PiHammerThin } from "react-icons/pi";
+import { TfiCup } from "react-icons/tfi";
+
 
 const RightBarMobile = () => {
   const dispatch = useDispatch();
@@ -38,6 +42,12 @@ const [multiAccount, setMultiAccount] = useState(false);
     }
     if (lastPart == "Wallet") {
       setActiveIndex(8);
+    }
+    if (lastPart == "Test") {
+      setActiveIndex(11);
+    }
+    if (lastPart == "Job") {
+      setActiveIndex(12);
     }
     
     
@@ -212,6 +222,44 @@ const [multiAccount, setMultiAccount] = useState(false);
             stroke={activeIndex === 8 ? "#FEFDFF" : "#5e5e5e"}
           />
         </svg>
+      ),
+    },
+    {
+      id: 10,
+      name: "voiceCommand",
+      label: "دستیار صوتی",
+      icon: (
+        <FaMicrophone
+          size={30}
+          color={activeIndex === 10 ? "#FEFDFF" : "#5e5e5e"}
+        />
+      ),
+    },
+    {
+      id: 7,
+      name: "Tornoment",
+      label: "مسابقات",
+      icon: (
+        <TfiCup size={30} color={activeIndex === 7 ? "#FEFDFF" : "#5e5e5e"} />
+      ),
+    },
+    {
+      id: 11,
+      name: "Test",
+      label: "ازمون های من",
+      icon: (
+        <PiExam size={30} color={activeIndex === 11 ? "#FEFDFF" : "#5e5e5e"} />
+      ),
+    },
+    {
+      id: 12,
+      name: "Job",
+      label: "شغل های من",
+      icon: (
+        <PiHammerThin
+          size={30}
+          color={activeIndex === 12 ? "#FEFDFF" : "#5e5e5e"}
+        />
       ),
     },
   ];
@@ -418,7 +466,7 @@ const dark = useSelector((state) => state.darkMood);
           </svg>
           <div
             style={{ background: dark.bgLow, color: dark.textHigh }}
-            className={`flex-col  w-[400%]  rounded-md transition-all duration-500 h-[450%] absolute top-[-470%] left-[40%] ${
+            className={`flex-col  w-[400%]  rounded-xl transition-all duration-500 h-[470%] overflow-auto absolute top-[-470%] left-[40%] ${
               overmenu == true ? "flex" : "hidden"
             }`}
           >
@@ -431,7 +479,7 @@ const dark = useSelector((state) => state.darkMood);
                   setActiveIndex(item.id);
                   navigator(`${item.name}`);
                 }}
-                className={`flex items-center text-bold text-[20px] gap-x-[2vw] justify-start w-full h-[25%] bg-transparent hover:border-[#E1C461] ${
+                className={`flex items-center text-bold text-[20px] gap-x-[2vw] justify-start w-full h-[25%] min-h-[40px] bg-transparent hover:border-[#E1C461] ${
                   activeIndex === item.id
                     ? ` text-white 
                   ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
@@ -454,7 +502,7 @@ const dark = useSelector((state) => state.darkMood);
             />
             <Button
               radius="full"
-              className="flex bg-transparent items-center text-bold text-[20px] gap-x-[2vw] justify-start w-full h-[25%] "
+              className="flex bg-transparent items-center text-bold text-[20px] gap-x-[2vw] justify-start min-h-[40px] w-full h-[25%] "
               auto
               onClick={() => {
                 setMultiAccount(true);
@@ -498,7 +546,7 @@ const dark = useSelector((state) => state.darkMood);
                 navigator("/");
               }}
               radius="full"
-              className="flex items-center text-bold bg-transparent text-[20px] gap-x-[2vw] justify-start w-full h-[25%]  text-red-500"
+              className="flex items-center text-bold bg-transparent text-[20px] gap-x-[2vw] justify-start w-full h-[25%] min-h-[40px] text-red-500"
               auto
             >
               <svg

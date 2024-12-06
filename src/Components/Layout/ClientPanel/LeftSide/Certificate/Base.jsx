@@ -34,6 +34,7 @@ const CoursePage = ({
     queryFn: () => getUserTest(userId), 
     onSuccess: (data) => {
       setResponse(data.data.data || []);
+      console.log(data.data.data);
     },
   });
    const CourseListItem = useSelector(
@@ -46,7 +47,7 @@ useEffect(() => {
   const uniqueData = response?.reduce((acc, current) => {
     const x = acc.find(
       (item) =>
-        item.ExamId === current.ExamId && item.Percent === current.Percent
+        item.exam.id === current.exam.id && item.Percent === current.Percent
     );
     if (!x) {
       return acc.concat([current]);
@@ -54,6 +55,7 @@ useEffect(() => {
       return acc;
     }
   }, []);
+  console.log(uniqueData);
   setUniq(uniqueData);
   setOriginalData(uniqueData);
 }, [response]);

@@ -59,7 +59,7 @@ const BDetailCenter = ({ id }) => {
             )}
           </span>
           {response.Insert ? (
-            <div className=" max-md:text-sm text-lg">
+            <div className=" max-md:text-[12px] text-lg">
               <span>{convertToJalali(response.Insert)}</span> |
               <span>
                 {calculateDateDifference(convertToJalali(response.Insert))} روز
@@ -100,7 +100,7 @@ const BDetailCenter = ({ id }) => {
         <div className="border-t border-gray-300 my-4"></div>
         <div className="w-full ">
           {response?.tests ? (
-            <QuizPage data={response.tests} response={response} />
+            <QuizPage data={response.tests} response={response} id={response.id}/>
           ) : (
             "تستی موجود نیست"
           )}

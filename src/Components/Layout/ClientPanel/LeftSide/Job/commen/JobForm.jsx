@@ -214,7 +214,6 @@ const JobForm = () => {
                               render={(value, openCalendar) => (
                                 <Input
                                   readOnly
-                                  placeholder="تاریخ تولد خود را وارد کنید"
                                   value={value} // نمایش تاریخ انتخاب شده
                                   onClick={openCalendar} // باز کردن تقویم
                                   className={dark.input}
@@ -260,7 +259,6 @@ const JobForm = () => {
                               render={(value, openCalendar) => (
                                 <Input
                                   readOnly
-                                  placeholder="تاریخ تولد خود را وارد کنید"
                                   value={value} // نمایش تاریخ انتخاب شده
                                   onClick={openCalendar} // باز کردن تقویم
                                   className={dark.input}

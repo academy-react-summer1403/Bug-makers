@@ -208,7 +208,7 @@ const dark = useSelector((state) => state.darkMood);
       className="relative  m-auto w-[100%] bg-transparent text-center max-md:w-full"
     >
       <div
-        className={`fixed top-[40%] left-[50%] translate-x-[-100%] ${
+        className={`fixed top-[40%]  max-md:left-[90%] left-[50%] translate-x-[-100%] ${
           isDelete == true ? "flex" : "hidden"
         }`}
       >
@@ -325,7 +325,7 @@ const dark = useSelector((state) => state.darkMood);
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1 ">
-                    جزییات شغل
+                  جزییات شغل
                 </ModalHeader>
                 <ModalBody>
                   <JobDetails jobData={detail} />

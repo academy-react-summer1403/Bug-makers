@@ -36,7 +36,6 @@ const TopBar = () => {
         };
         useEffect(() => {
           changeTheme();
-          console.log("ali");
         }, [theme]);
 
   const CourseListItem = useSelector(

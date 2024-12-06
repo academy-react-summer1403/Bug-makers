@@ -44,7 +44,10 @@ const AddCommentForm = ({ onSubmit, userId, newsId, parentId, setRepleyModal }) 
       }}
     >
       {({ errors, touched }) => (
-        <Form className="w-full h-max px-4 mt-4 mb-4 max-md:p-4">
+        <Form
+          style={{ background: dark.bgHigh, color: dark.textHigh }}
+          className="w-full h-max px-4 mt-4 mb-4 max-md:p-4"
+        >
           <div className="mb-4">
             <Field
               placeholder="عنوان دیدگاه خود را وارد کنید"

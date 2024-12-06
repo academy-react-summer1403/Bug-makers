@@ -97,14 +97,11 @@ const CoursePage = ({location,name, show, itemPerpage, setShowMoreCourse }) => {
         setResponse(data);
         setOriginalData(data);
       }
-        
-        
-        console.log(data)
       }
     })
 // console.log(Course);
 
-response ? dispatch(setFavoriteList(response)) : null
+// response ? dispatch(setFavoriteList(response)) : null
 
   const DeleteIthem = async (id) => {
     if (location == "BlogFav") {
@@ -489,7 +486,7 @@ const dark = useSelector((state) => state.darkMood);
       className="relative h-full m-auto w-[100%] bg-transparent text-center max-md:w-full "
     >
       <div
-        className={`fixed top-[40%] left-[50%] translate-x-[-100%] ${
+        className={`fixed top-[40%] max-md:left-[90%] left-[50%] translate-x-[-100%] ${
           isDelete == true ? "flex" : "hidden"
         }`}
       >
@@ -558,7 +555,7 @@ const dark = useSelector((state) => state.darkMood);
         {/* filterActionSection */}
         <div
           style={{ background: dark.bgHigh, color: dark.textHigh }}
-          className={`h-[10%]  w-full max-md:grid  relative flex-row flex-wrap justify-start items-center gap-x-3 max-md:gap-y-[20px]  rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
+          className={`h-[10%] max-md:h-[15%] w-full max-md:grid  relative flex-row flex-wrap justify-start items-center gap-x-3 max-md:gap-y-[20px]  rounded-[10px] shadow-[-5px_5px_5px_0px_#0000001C] p-3
             ${true ? "flex max-md:grid max-md:grid-cols-2" : "hidden"}`}
         >
           <SearchBox

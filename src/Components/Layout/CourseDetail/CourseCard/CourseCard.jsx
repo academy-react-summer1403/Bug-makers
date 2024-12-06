@@ -91,7 +91,6 @@ function CourseCard({ id }) {
         setDiscount(false);
       }
       console.log(data.data.data||[]);
-      console.log(discount);
     },
   });
 const GetId = async () => {
@@ -100,17 +99,14 @@ const GetId = async () => {
     setResponseAdmin(res2)
     setResponse(res);
     GetHomework(res2?.courseSchedules[0].id);
-    console.log(res2);
   };
   const GetComment = async () => {
     const re = await getCourseDetailComment(id);
     setComment(re);
-    console.log(comment);
   };
   const GetHomework = async (id)=>{
     const res = await getCourseHomeWork(id);
     setHomeWork(res)
-    console.log(res)
   }
   useEffect(() => {
     GetId();
@@ -124,7 +120,6 @@ const GetId = async () => {
     enabled: !!id,
     onSuccess: (data) => {
       setTime(data || []);
-      console.log(data);
     },
   });
 
@@ -177,22 +172,18 @@ const GetId = async () => {
   
   const setNewsDissLike = async () => {
     const res = await postDissLikeNews(id);
-    console.log(res);
     toast.success(" دیس لایک شد 😁");
 
     GetId();
   };
   const setNewsLike = async () => {
     const res = await postLikeNews(id);
-    console.log(res);
     toast.success("لایک شد 😁");
     GetId();
   };
 
   const delLikeNews2 = async () => {
-    console.log(response.userLikeId);
     const res = await delLikeNews(response.userLikeId);
-    console.log(res);
     toast.success("نظر شما با موفقییت حذف شد 😁");
     GetId();
   };
@@ -215,14 +206,12 @@ const GetId = async () => {
 
   const setNewsDissLikeComment = async (id) => {
     const res = await commentDissLikeCourse(id, false);
-    console.log(res);
     toast.success(" دیس لایک شد 😁");
 
     GetComment();
   };
   const setNewsLikeComment = async (id) => {
     const res = await commentLikeCourse(id, true);
-    console.log(res);
     toast.success("لایک شد 😁");
     GetComment();
   };
@@ -230,8 +219,7 @@ const GetId = async () => {
   const delLikeNews2Comment = async (currentUserLikeId) => {
     console.log(currentUserLikeId);
     const res = await comentDelLikeCourse(currentUserLikeId);
-    console.log(res);
-    toast.success("نظر شما با موفقییت حذف شد 😁");
+    // toast.success("نظر شما با موفقییت حذف شد 😁");
 
     GetComment();
   };
@@ -514,12 +502,12 @@ const GetId = async () => {
           <div className="w-full py-3 rounded-xl overflow-hidden ">
             <div
               style={{ background: dark.bgHigh, color: dark.textLow }}
-              className={` p-5 rounded-lg w-full max-h-[500px] overflow-auto text-right md:leading-[2.5vw] text-[2vw] leading-5 md:text-[0.9vw] ${
+              className={` p-5 rounded-lg w-full max-md:text-sm max-h-[500px] overflow-auto text-right md:leading-[2.5vw] text-[2vw] leading-5 md:text-[0.9vw] ${
                 detailPage === 0 ? "block" : "hidden"
               }`}
             >
-              <div className="academyH1 flex justify-between text-2xl m-2">
-                <span> توضیحات دوره</span>
+              <div className="academyH1 flex justify-between text-2xl  m-2">
+                <span className="max-md:text-lg"> توضیحات دوره</span>
 
                 <RiUserVoiceLine
                   className="cursor-pointer"
@@ -623,8 +611,8 @@ const GetId = async () => {
               }`}
             >
               {filterData ? (
-                <VideoAccordion data={filterData} />
-              ) : detailPage === 3 ?  (
+                detailPage === 3  ? (<VideoAccordion data={filterData} />) : null
+              ) : detailPage === 3 ? (
                 <div className="p-8 rounded-xl">
                   {" "}
                   ویدیویی برای این دوره وجود ندارد
@@ -645,16 +633,16 @@ const GetId = async () => {
               {homeWork?.map((ithem) => (
                 <div
                   key={ithem.id}
-                  className="text-center py-3 px-6  mt-8 flex justify-between items-center"
+                  className="text-center py-3 px-6  mt-8 max-md:flex-col flex justify-between items-center"
                 >
                   {/* دکمه سفارشی برای انتخاب فایل */}
-                  <div className="h-full w-[60%] flex flex-col justify-between items-start">
+                  <div className="h-full max-md:w-full w-[60%] flex flex-col justify-between items-start">
                     <span>{ithem.hwTitle}</span>
                     <span>{ithem.hwDescribe}</span>
                   </div>
                   <label htmlFor="file-upload" className="cursor-pointer">
                     <div
-                      className={`w-[100%] px-6 py-3 text-white text-sm font-medium rounded-lg shadow-md duration-400 transition-all hover:bg-gray-600 
+                      className={`w-[100%] max-md:w-[100%] max-md:text-sm max-md:p-1 px-6 py-3 text-white text-sm font-medium rounded-lg shadow-md duration-400 transition-all hover:bg-gray-600 
                       ${dark.selectedButton === 0 ? "bg-blue-600" : ""} 
                       ${dark.selectedButton === 1 ? "bg-green-600" : ""} 
                       ${dark.selectedButton === 2 ? "bg-yellow-600" : ""}
@@ -687,9 +675,9 @@ const GetId = async () => {
               `}
             >
               <span className="block text-[20px] mb-5">حضور غیاب</span>
-              <div className="p-5 w-full flex justify-between items-center">
+              <div className="p-5 w-full flex justify-between max-md:flex-col max-md:gap-y-4 items-center">
                 <span className="text-[16px]">حضور داری؟!</span>
-                <div className="w-[30%] text-white flex justify-evenly">
+                <div className="w-[30%] max-md:w-full text-white flex justify-evenly max-md:justify-between">
                   <Button
                     onClick={() => {
                       PresenceContext(true);
@@ -786,7 +774,7 @@ const GetId = async () => {
             className="academyH1 rounded-lg shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)]  h-auto"
           >
             <div
-              className={`flex cursor-pointer gap-2 justify-center items-center rounded-lg transition-all duration-150`}
+              className={`flex max-md:flex-col max-md:h-[100px] cursor-pointer gap-2 justify-center items-center rounded-lg transition-all duration-150`}
             >
               <span className="leading-[4rem] ml-8">
                 چه امتیازی به این دوره میدهید؟

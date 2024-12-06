@@ -26,15 +26,15 @@ const RatingStar = (id) => {
   
 
   return (
-    <div className="max-[650px]:scale-125 max-[480px]:scale-[200%] max-[480px]:left-[2vw] w-[20%] flex flex-row-reverse relative top-[-8px] justify-between bg-white " style={{ gap: "0.5vw", background: "transparent" }}>
+    <div className="max-md:scale-125 max-[480px]:scale-[200%] max-[480px]:left-[2vw] w-[20%] flex flex-row-reverse relative top-[-8px] justify-between bg-white " style={{ gap: "0.5vw", background: "transparent" }}>
       {[...Array(5)].map((star, index) => {
         index += 1;
         return (
           <button
             type="button"
             key={index}
-            className={`p-0 bg-transparent size-[1vw] text-[1.5vw] border-none ${
-                index <= (hover || rating) ? "text-yellow-500" : "text-gray-300"
+            className={`p-0 max-md:scale-[2] bg-transparent size-[1vw] text-[1.5vw] border-none ${
+              index <= (hover || rating) ? "text-yellow-500" : "text-gray-300"
             }`}
             onClick={() => setRating(index)}
             onMouseEnter={() => setHover(index)}

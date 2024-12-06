@@ -6,10 +6,10 @@ const DeleteModal = ({ onCancel, onDelete ,id}) => {
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textHigh }}
-      className="flex flex-col items-center  p-6 rounded-lg shadow-lg max-w-sm mx-auto"
+      className="flex flex-col items-center max-md:w-[80vw] max-md:h-[60vw]  p-6 rounded-lg shadow-lg max-w-sm mx-auto"
     >
       {/* آیکون زباله */}
-      <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full mb-4">
+      <div className="flex items-center justify-center  h w-12 h-12 bg-gray-100 rounded-full mb-4">
         <svg
           width="32"
           height="32"

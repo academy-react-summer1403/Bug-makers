@@ -14,7 +14,7 @@ const CourseMenu = ({ handelPage, isCourseReseve }) => {
   return (
     <div
       style={{ background: dark.bgHigh, color: dark.textLow }}
-      className="  whitespace-nowrap /* end responsive  */ pt-2 w-full h-16 rounded-[0.52vw] shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)] flex  gap-5 items-center text-[#9F9F9F]  text-[1.09vw]"
+      className="  whitespace-nowrap /* end responsive  */ pt-2 w-full h-16 rounded-[0.52vw] shadow-[-0.26vw_0.26vw_0.26vw_0_rgba(0,0,0,0.1)] flex max-md:flex-row max-md:flex-wrap max-md:h-[100px]  gap-5 items-center text-[#9F9F9F]  text-[1.09vw]"
     >
       {[
         "توضیحات",
@@ -30,7 +30,7 @@ const CourseMenu = ({ handelPage, isCourseReseve }) => {
             handleClick(index);
             handelPage(index);
           }}
-          className={` h-[90%] max-custom4:w-[50%] academyH1 text-[0.8vw] flex justify-center items-center max-md:text-[14px]  px-2  cursor-pointer mt-5 duration-200 mb-[1vw]   ${
+          className={` h-[90%] max-md:h-[30%] max-md:w-[28%] max-md:mt-0 academyH1 text-[0.8vw] flex justify-center items-center max-md:text-[14px]  px-2  cursor-pointer mt-5 duration-200 mb-[1vw]   ${
             selected === index
               ? ` max-custom4:m-0  border-b-[0.2vw] max-md:border-b-2 px-6
                 ${dark.selectedButton === 0 ? "border-blue-600" : ""} 

@@ -197,7 +197,7 @@ const BDetailCenter = ({ id }) => {
             )}
           </span>
           {response.updateDate ? (
-            <div className=" max-[560px]:text-[1.7vw] text-[1vw]">
+            <div className=" max-md:text-[12px] text-[1vw]">
               <span>{convertToJalali(response.updateDate)}</span> |
               <span>
                 {calculateDateDifference(convertToJalali(response.updateDate))}{" "}
@@ -209,7 +209,7 @@ const BDetailCenter = ({ id }) => {
           )}
         </div>
         <div
-          className={`relative h-[400px] w-full rounded-lg overflow-hidden mt-4 ${
+          className={`relative max-md:h-[200px] h-[400px] w-full rounded-lg overflow-hidden mt-4 ${
             dark.bgHigh == "#ffffff"
               ? "bg-gradient-to-r from-blue-200 to-blue-50"
               : "bg-gradient-to-r from-[#202020] to-[#414141] "
@@ -223,12 +223,12 @@ const BDetailCenter = ({ id }) => {
             />
           ) : null}
         </div>
-        <div className="size-[7vw] max-md:size-24 absolute top-[26%] max-md:top-[26%] left-[3%] max-md:left-[10%] flex items-center flex-col ">
+        <div className="size-[7vw] max-md:size-24 absolute top-[26%] max-md:top-[19%] left-[3%] max-md:left-[10%] flex items-center flex-col ">
           <div
             style={{ background: dark.bgLow, color: dark.textLow }}
             className=" size-[4vw] max-md:size-16 rounded-full bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]"
           ></div>
-          <span className="mt-2 max-md:text-[8px] text-gray-800 text-[0.6vw]">
+          <span className="mt-2 max-md:text-[10px] overflow-hidden text-ellipsis ...  text-[0.6vw]">
             {response.addUserFullName ? (
               response.addUserFullName
             ) : (

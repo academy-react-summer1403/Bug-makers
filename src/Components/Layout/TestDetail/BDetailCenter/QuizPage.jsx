@@ -18,9 +18,9 @@ import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@mui/material";
 
-const QuizPage = ({ data, response }) => {
+const QuizPage = ({ data, response ,id}) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [timeLeft, setTimeLeft] = useState(300); // زمان به ثانیه (5 دقیقه)
+  const [timeLeft, setTimeLeft] = useState(response?.time * 60); // زمان به ثانیه (5 دقیقه)
   const [isQuizOver, setIsQuizOver] = useState(false);
   const [isTestStarted, setIsTestStarted] = useState(false);
   const [persent,setPersent]=useState()
@@ -56,11 +56,12 @@ const QuizPage = ({ data, response }) => {
 
   const userId = getItem("userId");
   const handleSubmit = async (values) => {
+    console.log(id)
     // تبدیل پاسخ‌ها به فرمت مورد نظر
     const formattedResponse = {
       UserId: `${userId}`,
       Time: response?.time, // زمان سپری‌شده به دقیقه
-      examId: response?.id, // examId از props
+      examId: `${id}`,
       tests: Object.entries(values).map(([key, value]) => ({
         id: key.slice(1), // حذف 'q' از کلید برای گرفتن id تست
         option: value,
@@ -72,14 +73,14 @@ const QuizPage = ({ data, response }) => {
     // ارسال به تابع postTestAnswer
     const res = await postTestAnswer(formattedResponse);
     setPersent(res.data.data.Percent)
-    toast.success(`${persent}%`);
+    toast.success(`${res.data.data.Percent}%`);
     
     setIsQuizOver(true);
   };
 
   const handleRetry = () => {
     setIsQuizOver(false);
-    setTimeLeft(300);
+    setTimeLeft(response?.time*60);
     setIsTestStarted(false);
   };
   const today = new Date();
@@ -87,7 +88,7 @@ const QuizPage = ({ data, response }) => {
   const CourseListItem = useSelector(
     (state) => state.ClientInfoSlice.ClientInfo
   );
-  console.log(CourseListItem);
+
  const dark = useSelector((state) => state.darkMood);
   return (
     <div
@@ -113,7 +114,6 @@ const QuizPage = ({ data, response }) => {
           </div>
 
           <div className="text-gray-600 mb-4 block text-right">
-            
             {response.Desc ? (
               response.Desc
             ) : (
@@ -240,6 +240,7 @@ const QuizPage = ({ data, response }) => {
       </div>
       <div className="w-full flex items-center justify-center ">
         <Modal
+          style={{ background: dark.bgHigh, color: dark.textHigh }}
           backdrop="opaque"
           isOpen={isOpen}
           size="4xl"
