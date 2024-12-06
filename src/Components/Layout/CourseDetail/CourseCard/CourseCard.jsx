@@ -46,6 +46,8 @@ import { useSelector } from "react-redux";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 import { RiUserVoiceLine } from "react-icons/ri";
 import DataTable from "react-data-table-component";
+import { getCourseVideo } from "../../../../Core/Services/Api/CourseDetail/video";
+import VideoAccordion from "../Commen/video";
 
 function CourseCard({ id }) {
     const dark = useSelector((state) => state.darkMood);
@@ -64,6 +66,16 @@ function CourseCard({ id }) {
   const handelPage = (value) => {
     setDetailPage(value);
   };
+
+  // video url 
+  
+  
+  const {data : videoData} = useQuery({
+    queryKey:['getVideo'],
+    queryFn: getCourseVideo
+  })
+  const filterData = videoData?.find((el) => el.courseId === id)
+
 
   const [discount, setDiscount] = useState();
   const {
@@ -567,7 +579,7 @@ const GetId = async () => {
             <div
               style={{ background: dark.bgHigh, color: dark.textHigh }}
               className={`w-full py-3 h-full ${
-                detailPage === 3 && response.isCourseReseve == 1
+                detailPage === 4 && response.isCourseReseve == 1
                   ? "block"
                   : "hidden"
               }
@@ -613,7 +625,7 @@ const GetId = async () => {
             <div
               style={{ background: dark.bgHigh, color: dark.textHigh }}
               className={`w-full h-full py-5 ${
-                detailPage === 4 && response.isCourseReseve == 1
+                detailPage === 5 && response.isCourseReseve == 1
                   ? "block"
                   : "hidden"
               }
@@ -646,9 +658,11 @@ const GetId = async () => {
             </div>
             <div
               className={`w-full h-full bg-yellow-500 ${
-                detailPage === 5 ? "block" : "hidden"
+                detailPage === 3 ? "block" : "hidden"
               }`}
-            ></div>
+            >
+              <VideoAccordion data={filterData} />
+            </div>
           </div>
         </div>
 

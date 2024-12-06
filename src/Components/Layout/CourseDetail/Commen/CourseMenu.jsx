@@ -20,6 +20,7 @@ const CourseMenu = ({ handelPage, isCourseReseve }) => {
         "توضیحات",
         "زمانبندی کلاس ها",
         "دیدگاه ها",
+        "ویدیو ها",
         isCourseReseve == 1 ? "تمرینات" : null,
         isCourseReseve == 1 ? "حضور غیاب" : null,
       ].map((item, index) => (
