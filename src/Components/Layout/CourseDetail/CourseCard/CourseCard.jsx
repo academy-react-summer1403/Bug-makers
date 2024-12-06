@@ -12,7 +12,6 @@ import { PiStudent } from "react-icons/pi";
 import { IoCalendarNumber, IoTimeOutline } from "react-icons/io5";
 import { BiChevronDown, BiLike } from "react-icons/bi";
 import { BiDislike } from "react-icons/bi";
-
 import {
   delLikeNews,
   getCourseDetail,
@@ -46,6 +45,7 @@ import { useSelector } from "react-redux";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 import { RiUserVoiceLine } from "react-icons/ri";
 import DataTable from "react-data-table-component";
+import { Skeleton } from "@mui/material";
 
 function CourseCard({ id }) {
     const dark = useSelector((state) => state.darkMood);
@@ -283,49 +283,6 @@ const GetId = async () => {
       selector: (row) => convertToJalali(row.startDate),
       sortable: true,
     },
-    // {
-    //   name: "حالت دوره",
-    //   selector: (row) => row.forming,
-    //   sortable: true,
-    //   cell: (row) => (
-    //     <Active
-    //       isActive={row.forming}
-    //       id={row.id}
-    //       styled={{ minWidth: "50px", cursor: "pointer", padding: "5px" }}
-    //       api="/Schedual/SchedualFroming"
-    //       method="put"
-    //       text2="تشکیل شده"
-    //       text="تشکیل نشده"
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "حضور غیاب دانشجو",
-    //   selector: (row) => row.lockToRaise,
-    //   sortable: true,
-    //   cell: (row) => (
-    //     <Active
-    //       isActive={row.lockToRaise}
-    //       id={row.id}
-    //       styled={{ minWidth: "50px", cursor: "pointer", padding: "5px" }}
-    //       api="/Schedual/LockToRiase"
-    //       method="put"
-    //       text2="نمیتوانند شرکت کنند"
-    //       text="میتوانند شرکت کنند"
-    //     />
-    //   ),
-    // },
-    // {
-    //   name: "عملیات",
-    //   cell: (row) => (
-    //     <div
-    //       onClick={() => setSchedualId(row.id)}
-    //       className="d-flex justify-content-center align-items-center gap-1"
-    //     >
-          
-    //     </div>
-    //   ),
-    // },
   ];
   
   const handleFileChange = (event) => {
@@ -360,10 +317,19 @@ const GetId = async () => {
         className="w-[100%]   rounded-lg h-auto  flex flex-col items-start gap-4 "
       >
         <h1 className="max-[688px]:hidden text-right m-[1rem_2rem_0_0]    h-fit font-bold  text-3xl">
-          {response.title}
+          {response.title ? (
+            response.title
+          ) : (
+            <Skeleton height={`100%`} width={`200px`} />
+          )}
         </h1>
         <span className="max-[688px]:hidden text-right m-[1rem_2rem_0_0]    h-fit  text-sm">
-          نام مدرس : {response.teacherName}
+          نام مدرس :{" "}
+          {response.teacherName ? (
+            response.teacherName
+          ) : (
+            <Skeleton height={`100%`} width={`150px`} />
+          )}
         </span>
         <div className="max-custom6:gap-5 max-[1051px]:gap-0 /*end responsive */ flex max-[688px]:flex-col max-[688px]:items-end max-[688px]:justify-between w-full  gap-16">
           <div className=" flex flex-row max-[688px]:flex-col items-center">
@@ -375,7 +341,15 @@ const GetId = async () => {
             />
             <div className="max-[688px]:hidden ml-6 justify-end max-[1440px]:mr-64 max-[1325px]:mr-52 max-[1273px]:mr-32 max-[1181px]:mr-16 max-[1051px]:mr-10 max-[991px]:mr-0  max-[945px]:w-52 max-[883px]:w-32 max-[788px]:absolute max-[788px]:top-16 max-[788px]:right-32 /*end responsive */ flex  mr-80 w-64 h-32 items-center gap-2">
               <div className="   text-2xl price">
-                {!discount ? response.cost : discount.Pcost}
+                {!discount ? (
+                  response.cost ? (
+                    response.cost
+                  ) : (
+                    <Skeleton height={`100%`} width={`150px`} />
+                  )
+                ) : (
+                  discount.Pcost
+                )}
               </div>
               <img
                 src="../../../../../public/images/icon/toman.png"
@@ -387,10 +361,19 @@ const GetId = async () => {
             {discount ? (
               <div className="flex w-[10%] max-md:hidden justify-between">
                 <h3 className="text-[14px] block line-through decoration-[1.5px]	decoration-gray-500 text-[#f3aeae]  price">
-                  {discount.Tcost}
+                  {discount.Tcost ? (
+                    discount.Tcost
+                  ) : (
+                    <Skeleton height={`100%`} width={`100px`} />
+                  )}
                 </h3>
                 <div className="size-[22px] text-center leading-[20px] rounded-full bg-red-500 text-[10px] text-white">
-                  {discount.discount}%
+                  {discount.discount ? (
+                    discount.discount
+                  ) : (
+                    <Skeleton height={`100%`} width={`100px`} />
+                  )}
+                  %
                 </div>
               </div>
             ) : null}
@@ -404,7 +387,11 @@ const GetId = async () => {
             alt=""
           />
           <h1 className="max-[688px]:block hidden text-center m-[1rem_auto]  border-blue-600  h-fit font-bold  text-3xl">
-            {response.title}
+            {response.title ? (
+              response.title
+            ) : (
+              <Skeleton height={`100%`} width={`100px`} />
+            )}
           </h1>
           <CoursePreviwe0
             response={response}
@@ -415,7 +402,15 @@ const GetId = async () => {
 
           <div className=" max-[688px]:flex hidden max-[688px]:h-0 /*end responsive */  justify-center    m-[1rem_auto] items-center gap-2">
             <button className="   text-2xl price">
-              {!discount ? response.cost : discount.Pcost}
+              {!discount ? (
+                response.cost ? (
+                  response.cost
+                ) : (
+                  <Skeleton height={`100%`} width={`100px`} />
+                )
+              ) : (
+                discount.Pcost
+              )}
             </button>
             <img
               src="../../../../../public/images/icon/toman.png"
@@ -426,42 +421,76 @@ const GetId = async () => {
           {discount ? (
             <div className="mx-auto max-md:flex  hidden  w-[25%] justify-between">
               <h3 className="text-[14px] block line-through decoration-[1.5px]	decoration-gray-500 text-[#f3aeae]  price">
-                {discount.Tcost}
+                {discount.Tcost ? (
+                  discount.Tcost
+                ) : (
+                  <Skeleton height={`100%`} width={`100px`} />
+                )}
               </h3>
               <div className="size-[22px] text-center leading-[20px] rounded-full bg-red-500 text-[10px] text-white">
-                {discount.discount}%
+                {discount.discount ? (
+                  discount.discount
+                ) : (
+                  <Skeleton height={`100%`} width={`100px`} />
+                )}
+                %
               </div>
             </div>
           ) : null}
           <span className="hidden max-[688px]:block  text-right m-[1rem_auto]    h-fit  t text-sm">
-            نام مدرس : {response.teacherName}
+            نام مدرس :{" "}
+            {response.teacherName ? (
+              response.teacherName
+            ) : (
+              <Skeleton height={`100%`} width={`100px`} />
+            )}
           </span>
         </div>
         <div className="border-t border-t-[#ccc] flex flex-wrap justify-center items-center gap-4 md:gap-10 lg:gap-16 min-h-16 p-2 w-full">
           <div className="flex justify-center items-center gap-2 ">
             <FaChalkboardTeacher color="gray" />
             <span>استاد دوره :</span>
-            <span>{response.teacherName}</span>
+            {response.teacherName ? (
+              <span>{response.teacherName}</span>
+            ) : (
+              <Skeleton height={`100%`} width={`100px`} />
+            )}
           </div>
           <div className="flex justify-center items-center gap-2 ">
             <FaRegPlayCircle color="gray" />
             <span> وضعیت دوره :</span>
-            <span>{response.courseStatusName}</span>
+            {response.courseStatusName ? (
+              <span>{response.courseStatusName}</span>
+            ) : (
+              <Skeleton height={`100%`} width={`100px`} />
+            )}
           </div>
           <div className="flex justify-center items-center gap-2">
             <PiStudent color="gray" />
             <span>تعداد دانشجویان :</span>
-            <span>{response.capacity}</span>
+            {response.capacity ? (
+              <span>{response.capacity}</span>
+            ) : (
+              <Skeleton height={`100%`} width={`100px`} />
+            )}
           </div>
           <div className="flex justify-center items-center gap-2 ">
             <IoTimeOutline color="gray" />
             <span> زمان شروع دوره :</span>
-            <span>{convertToJalali(response.startTime)}</span>
+            {response.startTime ? (
+              <span>{convertToJalali(response.startTime)}</span>
+            ) : (
+              <Skeleton height={`100%`} width={`100px`} />
+            )}
           </div>
           <div className="flex justify-center items-center gap-2 ">
             <IoTimeOutline color="gray" />
             <span> زمان پایان دوره :</span>
-            <span>{convertToJalali(response.endTime)}</span>
+            {response.endTime ? (
+              <span>{convertToJalali(response.endTime)}</span>
+            ) : (
+              <Skeleton height={`100%`} width={`100px`} />
+            )}
           </div>
         </div>
       </div>
@@ -471,7 +500,7 @@ const GetId = async () => {
             handelPage={handelPage}
             isCourseReseve={response.isCourseReseve}
           />
-          <div className="w-full p-[1vw] ">
+          <div className="w-full py-3 rounded-xl overflow-hidden ">
             <div
               style={{ background: dark.bgHigh, color: dark.textLow }}
               className={` p-5 rounded-lg w-full max-h-[500px] overflow-auto text-right md:leading-[2.5vw] text-[2vw] leading-5 md:text-[0.9vw] ${
@@ -488,15 +517,24 @@ const GetId = async () => {
                   }}
                 />
               </div>
-              {response.describe}
+              {response.describe ? (
+                response.describe
+              ) : (
+                <div className="">
+                  <Skeleton height={40} width={`60%`} />
+                  <Skeleton height={40} width={`80%`} />
+                </div>
+              )}
             </div>
 
             <div
               style={{ background: dark.bgHigh, color: dark.textHigh }}
-              className={`w-full h-full ${detailPage === 1 ? "block" : "hidden"}
+              className={`w-full rounded-2xl h-full ${
+                detailPage === 1 ? "block" : "hidden"
+              }
               `}
             >
-              <Card style={{ width: "100%" }}>
+              <Card style={{ width: "100%" }} className="">
                 <CardHeader tag="h4">بازه های زمانی این دوره</CardHeader>
                 <div className="react-dataTable user-view-account-projects">
                   <DataTable
@@ -522,7 +560,7 @@ const GetId = async () => {
                   window.scrollTo({ top: 780, behavior: "smooth" });
                 }}
                 style={{ background: dark.bgHigh, color: dark.textHigh }}
-                className="w-full rounded-[0.5vw] h-[3vw] text-[1.5vw] max-md:text-[18px] max-md:h-[30px]  cursor-pointer"
+                className="w-full mt-5 rounded-[0.5vw] h-[3vw] text-[1.5vw] max-md:text-[18px] max-md:h-[30px]  cursor-pointer"
               >
                 ثبت نظر
               </div>
@@ -566,7 +604,7 @@ const GetId = async () => {
             </div>
             <div
               style={{ background: dark.bgHigh, color: dark.textHigh }}
-              className={`w-full py-3 h-full ${
+              className={`w-full py-3 rounded-xl h-full ${
                 detailPage === 3 && response.isCourseReseve == 1
                   ? "block"
                   : "hidden"
@@ -612,7 +650,7 @@ const GetId = async () => {
             </div>
             <div
               style={{ background: dark.bgHigh, color: dark.textHigh }}
-              className={`w-full h-full py-5 ${
+              className={`w-full h-full py-5 rounded-xl ${
                 detailPage === 4 && response.isCourseReseve == 1
                   ? "block"
                   : "hidden"
@@ -645,7 +683,7 @@ const GetId = async () => {
               </div>
             </div>
             <div
-              className={`w-full h-full bg-yellow-500 ${
+              className={`w-full h-full  bg-yellow-500 ${
                 detailPage === 5 ? "block" : "hidden"
               }`}
             ></div>
@@ -661,32 +699,43 @@ const GetId = async () => {
               <span className="leading-[4rem] ml-8">
                 آیا این دوره مورد پسند شماست؟
               </span>
-              <div className="flex flex-row gap-1 justify-center items-center">
-                <span>{response.likeCount}</span>
-                <BiLike
-                  onClick={() => {
-                    response.currentUserLike != 0
-                      ? delLikeNews2()
-                      : setNewsLike();
-                  }}
-                  color={response.currentUserLike == 0 ? "black" : "blue"}
-                  className="cursor-pointer"
-                  size={"25px"}
-                />
-              </div>
-              <div className="flex flex-row gap-1 justify-center items-center">
-                <span>{response.dissLikeCount}</span>
-                <BiDislike
-                  onClick={() => {
-                    response.currentUserDissLike != 0
-                      ? delLikeNews2()
-                      : setNewsDissLike();
-                  }}
-                  color={response.currentUserDissLike == 0 ? "black" : "blue"}
-                  className="cursor-pointer"
-                  size={"25px"}
-                />
-              </div>
+              {response.currentUserLike ? (
+                <>
+                  <div className="flex flex-row gap-1 justify-center items-center">
+                    <span>{response.likeCount}</span>
+                    <BiLike
+                      onClick={() => {
+                        response.currentUserLike != 0
+                          ? delLikeNews2()
+                          : setNewsLike();
+                      }}
+                      color={response.currentUserLike == 0 ? "black" : "blue"}
+                      className="cursor-pointer"
+                      size={"25px"}
+                    />
+                  </div>
+                  <div className="flex flex-row gap-1 justify-center items-center">
+                    <span>{response.dissLikeCount}</span>
+                    <BiDislike
+                      onClick={() => {
+                        response.currentUserDissLike != 0
+                          ? delLikeNews2()
+                          : setNewsDissLike();
+                      }}
+                      color={
+                        response.currentUserDissLike == 0 ? "black" : "blue"
+                      }
+                      className="cursor-pointer"
+                      size={"25px"}
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className="flex w-[100px] justify-between items-center">
+                  <Skeleton circle={true} height={40} width={40} />
+                  <Skeleton circle={true} height={40} width={40} />
+                </div>
+              )}
             </div>
           </div>
 

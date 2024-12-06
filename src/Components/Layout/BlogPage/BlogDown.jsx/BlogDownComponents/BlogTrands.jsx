@@ -30,18 +30,18 @@ const BlogTrands = ({id,newsImg,title,date,like,comment}) => {
 
         <div className="flex-grow h-full pr-[0.42vw] w-[80%]">
           <div className="h-1/2 w-full">
-            <span className=" inline-block  text-[0.85vw] w-8/12 h-full overflow-hidden text-ellipsis ...">
+            <span className=" inline-block  text-sm w-11/12 h-full overflow-hidden text-ellipsis ...">
               {title}
             </span>
           </div>
           <div className="h-1/2 w-full flex justify-between">
             <div className=" text-[0.6vw] mt-[0.42vw]">{date}</div>
             <div className="flex items-center justify-between w-[38%]">
-              <div className="flex items-center  text-[0.6vw] justify-center gap-1 w-1/3">
+              <div className="flex items-center h-full text-[0.6vw] justify-center gap-1 w-[45%]">
                 {like}
                 <svg
-                  width="0.99vw"
-                  height="0.83vw"
+                  width=""
+                  height="70%"
                   viewBox="0 0 19 16"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -52,11 +52,11 @@ const BlogTrands = ({id,newsImg,title,date,like,comment}) => {
                   />
                 </svg>
               </div>
-              <div className="flex items-center  text-[0.6vw] justify-center gap-1 w-1/3">
+              <div className="flex items-center h-full text-[0.6vw] justify-center gap-1 w-[45%]">
                 {comment}
                 <svg
-                  width="0.99vw"
-                  height="0.94vw"
+                  width=""
+                  height="70%"
                   viewBox="0 0 19 18"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

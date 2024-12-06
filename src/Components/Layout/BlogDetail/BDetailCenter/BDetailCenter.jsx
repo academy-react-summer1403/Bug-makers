@@ -25,9 +25,10 @@ import { useMutation, useQuery } from "react-query";
 import { Button } from "@nextui-org/react";
 import Swal from 'sweetalert2';
 import { getBlogListWithPagination } from "../../../../Core/Services/Api/BlogPage/getBlogListWithPagination";
-import {Skeleton} from "@nextui-org/react";
+
 import { setBlogList } from "../../../../Redux/Slice/Blog/BlogList";
 import { RiUserVoiceLine } from "react-icons/ri";
+import { Skeleton } from "@mui/material";
 const BDetailCenter = ({ id }) => {
   const [response, setResponse] = useState({});
   const [comment, setComment] = useState({});
@@ -188,14 +189,24 @@ const BDetailCenter = ({ id }) => {
         className="relative rounded-lg shadow-lg p-4 mb-4"
       >
         <div className="flex justify-between items-center">
-          <span className=" text-lg">{response.newsCatregoryName}</span>
-          <div className=" max-[560px]:text-[1.7vw] text-[1vw]">
-            <span>{convertToJalali(response.updateDate)}</span> |
-            <span>
-              {calculateDateDifference(convertToJalali(response.updateDate))}{" "}
-              روز پیش
-            </span>
-          </div>
+          <span className=" text-lg">
+            {response.newsCatregoryName ? (
+              response.newsCatregoryName
+            ) : (
+              <Skeleton height={`100%`} width={`150px`} />
+            )}
+          </span>
+          {response.updateDate ? (
+            <div className=" max-[560px]:text-[1.7vw] text-[1vw]">
+              <span>{convertToJalali(response.updateDate)}</span> |
+              <span>
+                {calculateDateDifference(convertToJalali(response.updateDate))}{" "}
+                روز پیش
+              </span>
+            </div>
+          ) : (
+            <Skeleton height={`100%`} width={`200px`} />
+          )}
         </div>
         <div
           className={`relative h-[400px] w-full rounded-lg overflow-hidden mt-4 ${
@@ -218,7 +229,11 @@ const BDetailCenter = ({ id }) => {
             className=" size-[4vw] max-md:size-16 rounded-full bg-gradient-to-b from-[#F2F2F2] to-[#C4CDD5]"
           ></div>
           <span className="mt-2 max-md:text-[8px] text-gray-800 text-[0.6vw]">
-            {response.addUserFullName}
+            {response.addUserFullName ? (
+              response.addUserFullName
+            ) : (
+              <Skeleton height={`100%`} width={`100px`} />
+            )}
           </span>
         </div>
         <h2 className="text-xl  mt-20 text-right">{response.title}</h2>
@@ -229,7 +244,15 @@ const BDetailCenter = ({ id }) => {
           />
         </div>
         <p className=" mt-2 py-[20px] text-right break-words">
-          {response.describe}
+          {response.describe ? (
+            response.describe
+          ) : (
+            <div className="mb-4 ">
+              <Skeleton height={30} width={`60%`} />
+              <Skeleton height={30} width={`80%`} />
+              <Skeleton height={30} width={`90%`} />
+            </div>
+          )}
           <br />
           <br />
           <RiUserVoiceLine
@@ -247,7 +270,11 @@ const BDetailCenter = ({ id }) => {
         <div className="text-[0.8vw] gap-[2vw] mt-[8vw]  w-full h-[1.46vw] max-md:h-[60px] items-center  px-[1vw] flex justify-end">
           <div className="flex justify-evenly h-full w-[10%] max-md:w-[20%] items-center">
             <span className="text-[0.9765625vw] max-md:w-[60%] max-[941px]:text-[14px] max-[941px]:mt-[0.8vw] max-[941px]:ml-[0.2vw] ">
-              {response.currentLikeCount}
+              {response.currentLikeCount ? (
+                response.currentLikeCount
+              ) : (
+                <Skeleton height={`100%`} width={`100px`} />
+              )}
             </span>
             <svg
               className="cursor-pointer"
@@ -271,7 +298,12 @@ const BDetailCenter = ({ id }) => {
           </span>
           <div className="flex justify-evenly h-full w-[10%] max-md:w-[20%] items-center">
             <span className="text-[0.9765625vw] max-[941px]:text-[14px] max-[941px]:mt-[0.2vw] max-[941px]:ml-[0.4vw] ">
-              {response.currentDissLikeCount}
+              {response.currentDissLikeCount ? (
+                response.currentDissLikeCount
+              ) : (
+                <Skeleton height={`100%`} width={`100px`} />
+              )}
+              
             </span>
             <svg
               onClick={() => {
@@ -292,19 +324,7 @@ const BDetailCenter = ({ id }) => {
               />
             </svg>
           </div>
-          {/* <svg
-            className="relative bottom-[0.2vw] cursor-pointer w-[2vw] h-[2vw]"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill={response.isCurrentUserFavorite ? '#FF0000' : 'none'}
-            stroke={response.isCurrentUserFavorite ? '#FF0000' : '#000'}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            onClick={() => mutation.mutate(id)}
-          >
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-          </svg> */}
+
           <Button
             className="max-[1352px]:bottom-[0.8vw] max-[607px]:bottom-[1.3vw] max-[570px]:bottom-[1.8vw] max-[1136px]:bottom-[1vw] max-[1352px]:text-[10px] max-[1352px]:p-1 max-[1352px]:h-7   /*end responsive */ relative bottom-[0.6vw]"
             color={response.isCurrentUserFavorite ? "danger" : "success"}

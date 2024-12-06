@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 import Certificate from "../../../Common/Certificate/Certificate";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 import { useSelector } from "react-redux";
+import { Skeleton } from "@mui/material";
 
 const QuizPage = ({ data, response }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -98,7 +99,11 @@ const QuizPage = ({ data, response }) => {
           <div className="flex-wrap flex justify-between mb-2">
             <div className="flex flex-col max-md:max-w-[100%] gap-y-2 max-w-[80%]">
               <h1 className="text-2xl font-bold mb-2 text-right">
-                {response?.title}
+                {response?.title ? (
+                  response?.title
+                ) : (
+                  <Skeleton height={`100%`} width={`150px`} />
+                )}
               </h1>
             </div>
             <div className="mb-4 text-lg font-semibold text-right">
@@ -108,7 +113,16 @@ const QuizPage = ({ data, response }) => {
           </div>
 
           <div className="text-gray-600 mb-4 block text-right">
-            {response?.Desc}
+            
+            {response.Desc ? (
+              response.Desc
+            ) : (
+              <div className="mb-4 w-[100%]">
+                <Skeleton height={30} width={`60%`} />
+                <Skeleton height={30} width={`80%`} />
+                <Skeleton height={30} width={`90%`} />
+              </div>
+            )}
           </div>
         </div>
 

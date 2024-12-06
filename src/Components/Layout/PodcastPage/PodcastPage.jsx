@@ -35,23 +35,41 @@ const PodcastPage = () => {
       keepPreviousData: true,
     }
   );
-  console.log(originalData)
+
   const filterCat = ()=>{
     console.log(categoryQuery);
     if(categoryQuery == false){
       setPodcast(originalData)
     }
-    const filterData = podcast.filter((el)=>{
-      return el.Category == categoryQuery;
-    })
-    setPodcast(filterData)
+    else{
+      const filterData = podcast.filter((el) => {
+        return el.Category == categoryQuery;
+      });
+      setPodcast(filterData);
+    }
   }
   useEffect(() => {
     filterCat();
   }, [categoryQuery]);
   
   const handleSearch = (e) => {
-    setQueryValue(e.target.value);
+    const value = e.target.value;
+    setQueryValue(value);
+
+    // اگر مقدار ورودی خالی باشد، داده‌های اصلی را بازگردان
+    if (value === "") {
+      setPodcast(originalData); // `originalData` باید شامل داده‌های اصلی (غیرفیلتر شده) باشد
+      return;
+    }
+
+    // در غیر این صورت، داده‌ها را بر اساس مقدار ورودی فیلتر کن
+    const filterData = podcast?.filter((el) => {
+      return el.title.toLowerCase().includes(value.toLowerCase());
+    });
+    setPodcast(filterData);
+    setTimeout(() => {
+      renderCourses();
+    }, 1000);
   };
 
 
