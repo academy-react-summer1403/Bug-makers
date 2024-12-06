@@ -407,7 +407,11 @@ const delfilter=()=>{
           id={detail?.id}
           courseId={detail?.courseId}
           title={detail?.title}
-          img={detail?.currentImageAddress ? detail?.currentImageAddress:"testing"}
+          img={
+            detail?.currentImageAddress
+              ? detail?.currentImageAddress
+              : "testing"
+          }
           technologyList={
             detail?.techs != null ? detail?.techs : "برنامه نویسی"
           }
@@ -434,6 +438,7 @@ const delfilter=()=>{
           currentUserDissLike={detail?.currentUserIsDissLike}
           userLikeId={detail?.userLikeId}
           view={detail?.currentView}
+          Loding={detail?.id != detailId ? true : false}
         />
       );
     }
@@ -470,6 +475,7 @@ const delfilter=()=>{
             userIsLiked={detail?.currentUserLike}
             currentUserDissLike={detail?.currentUserDissLike}
             userLikeId={detail?.userLikeId}
+            Loding={detail?.courseId != detailId ? true : false}
           />
         );
     }

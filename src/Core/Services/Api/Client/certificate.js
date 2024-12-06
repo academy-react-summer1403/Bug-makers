@@ -1,10 +1,9 @@
 import axios from "axios";
 import { getItem } from "../../common/storage.services";
-const userId = getItem("userId")
 
-export const getUserTest = async () => {
+
+export const getUserTest = async (userId) => {
   try {
-
     let url = `https://taharahimycode.liara.run/Exam/userByUserId/${userId}`;
     const response = await axios.get(url);
     return response;

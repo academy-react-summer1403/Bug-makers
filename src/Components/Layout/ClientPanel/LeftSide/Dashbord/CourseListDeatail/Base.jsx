@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import CustomSkeleton from "../../../../../Common/Sceleton/CostomeSceleton";
 
 
+
 const CoursePage = ({
   payment,
   show,
@@ -254,7 +255,7 @@ const dark = useSelector((state) => state.darkMood);
               <span>{course.describe}</span>
             </Tooltip>
           </div>
-          <div className="w-[16%] h-full  py-3 px-6 text-right max-md:w-[40%] max-md:text-[14px] whitespace-nowrap overflow-hidden text-ellipsis ...">
+          <div className="w-[16%] h-full  py-3 px-6 text-right  max-md:hidden whitespace-nowrap overflow-hidden text-ellipsis ...">
             <Tooltip
               className="text-gray-700 max-w-[300px] overflow-hidden text-ellipsis ...  text-[0.8vw] "
               content={`استاد: ${
@@ -267,7 +268,7 @@ const dark = useSelector((state) => state.darkMood);
           <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden">
             {convertToJalali(course.lastUpdate)}
           </div>
-          <div className="w-[16%] h-full py-3 px-6 text-right whitespace-nowrap max-md:hidden flex items-center">
+          <div className="w-[16%] h-full py-3 px-6 max-md:w-[40%] max-md:text-[14px]  text-right whitespace-nowrap flex items-center">
             <div
               className={`w-[5%] h-[30%] bg-red-500 rounded-full ml-[5%] ${
                 point == "myCourse" && course.paymentStatus == "پرداخت نشده"
@@ -412,52 +413,58 @@ const dark = useSelector((state) => state.darkMood);
   };
 
   const GetId = async (detailId) => {
-    console.log(detailId);
+    ;
     const res = await getCourseDetail(detailId);
     setDetail(res);
+    console.log(res)
   };
   useEffect(() => {
     if (detailId) {GetId(detailId)};
   }, [detailId]);
 
   const renderDetail = () => {
-    if (isLoading) return ;
+    // if (detail.courseId != detailId) return <Skeleton2 />;
     if (error) return <p>خطایی رخ داده است...</p>;
 
 
 
-    return (
-      <CourseItem
-        key={detail?.courseId}
-        id={detail?.courseId}
-        courseId={detail?.courseId}
-        title={detail?.title}
-        img={detail?.imageAddress}
-        technologyList={detail?.techs != null ? detail?.techs : "برنامه نویسی"}
-        description={detail?.describe}
-        teacherName={detail?.teacherName}
-        likeCount={detail?.likeCount}
-        commandCount={detail?.commandCount}
-        courseRate={detail?.currentRate}
-        statusName={detail?.statusName}
-        price={detail?.cost}
-        currentRegistrants={detail?.currentRegistrants}
-        date={detail?.lastUpdate}
-        listStyle={listStyle}
-        level={detail?.courseLevelName}
-        state={detail?.courseStatusName}
-        courseGroupCount={detail?.courseGroupCount}
-        capacity={detail?.capacity}
-        startDate={convertToJalali(detail?.startTime)}
-        endDate={convertToJalali(detail?.endTime)}
-        setDetailCourse={setDetailCourse}
-        detailCourse={detailCourse}
-        GetId={GetId}
-        userIsLiked={detail?.currentUserLike}
-        currentUserDissLike={detail?.currentUserDissLike}
-        userLikeId={detail?.userLikeId}
-      />
-    );
+    
+      return (
+        <CourseItem
+          key={detail?.courseId}
+          id={detail?.courseId}
+          courseId={detail?.courseId}
+          title={detail?.title}
+          img={detail?.imageAddress}
+          technologyList={
+            detail?.techs != null ? detail?.techs : "برنامه نویسی"
+          }
+          description={detail?.describe}
+          teacherName={detail?.teacherName}
+          likeCount={detail?.likeCount}
+          commandCount={detail?.commandCount}
+          courseRate={detail?.currentRate}
+          statusName={detail?.statusName}
+          price={detail?.cost}
+          currentRegistrants={detail?.currentRegistrants}
+          date={detail?.lastUpdate}
+          listStyle={listStyle}
+          level={detail?.courseLevelName}
+          state={detail?.courseStatusName}
+          courseGroupCount={detail?.courseGroupCount}
+          capacity={detail?.capacity}
+          startDate={convertToJalali(detail?.startTime)}
+          endDate={convertToJalali(detail?.endTime)}
+          setDetailCourse={setDetailCourse}
+          detailCourse={detailCourse}
+          GetId={GetId}
+          userIsLiked={detail?.currentUserLike}
+          currentUserDissLike={detail?.currentUserDissLike}
+          userLikeId={detail?.userLikeId}
+          Loding={detail.courseId != detailId ? true : false}
+        />
+      );
+    
   };
 
   return (
@@ -649,23 +656,22 @@ const dark = useSelector((state) => state.darkMood);
             <div className="w-[32%]  text-[1.1vw] py-[1%] px-6 text-right max-md:hidden">
               درباره دوره
             </div>
-            <div className="w-[16%] max-md:w-[40%] max-md:text-[16px]  text-[1.1vw] py-[1%] px-6 text-right">
+            <div className="w-[16%]  max-md:hidden  text-[1.1vw] py-[1%] px-6 text-right">
               استاد دوره
             </div>
             <div className="w-[16%] text-[1.1vw]   py-[1%] px-6 text-right max-md:hidden">
               تاریخ برگزاری
             </div>
-            <div className="w-[16%]  text-[1.1vw] py-[1%] px-6 text-right max-md:hidden">
+            <div className="w-[16%]  text-[1.1vw] max-md:w-[40%] max-md:text-[16px] py-[1%] px-6 text-right">
               {" "}
-              {point == "myCourse" ? "درصد پرداختی" : "قیمت دوره "}{" "}
+              {point == "myCourse" ? "وضعیت پرداختی" : "قیمت دوره "}{" "}
             </div>
+            <div className="w-[4%] text-[1.1vw] py-3 px-4 text-center"></div>
             <div className="w-[4%] text-[1.1vw] py-3 px-4 text-center"></div>
           </div>
         </div>
         {/* courseItemsSection */}
         <div className="flex flex-wrap justify-center items-center  mt-[0.5vw]">
-          
-
           {renderCourses()}
         </div>
 
