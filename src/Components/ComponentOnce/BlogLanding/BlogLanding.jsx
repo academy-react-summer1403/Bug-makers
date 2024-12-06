@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { GetListNews, GetListNewsCategory } from '../../../Core/Services/Api/BlogPage/NewsList';
-import { setDefaultLocale } from 'react-datepicker';
 import { getBlogListWithPagination } from '../../../Core/Services/Api/BlogPage/getBlogListWithPagination';
 import convertToJalali from '../../Common/TimeChanger/TimeToShamsi';
 import { useNavigate } from 'react-router-dom';

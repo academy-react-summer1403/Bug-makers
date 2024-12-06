@@ -526,7 +526,6 @@ const GetId = async () => {
                 </div>
               )}
             </div>
-
             <div
               style={{ background: dark.bgHigh, color: dark.textHigh }}
               className={`w-full rounded-2xl h-full ${

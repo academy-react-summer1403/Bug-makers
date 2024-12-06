@@ -5,7 +5,7 @@ import { setCourseList } from "../../../../../../Redux/Slice/Course/CourseList";
 import { getCourseListWithPagination } from "../../../../../../Core/Services/Api/CoursePage/getCourseListWithPagination";
 import TextLanding from "../../../../../Common/TextInLanding/TextLanding";
 import Pagination from "../../../../../Common/Paginate/Paginate";
-import moment from "jalali-moment";
+
 import PriceFilter from "./PriceFilter/PriceFilter";
 import SearchBox from "./SearchBox/SearchBox";
 import SelectOpt from "./Select/SelectOpt";

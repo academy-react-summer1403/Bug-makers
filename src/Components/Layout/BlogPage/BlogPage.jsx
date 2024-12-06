@@ -12,10 +12,11 @@ import SelectOpt2 from "../../Common/Select/SelectOpt2.jsx";
 import BlogDownRight from "./BlogDown.jsx/BlogDownRight/BlogDownRight.jsx";
 import BlogDownLeft from "./BlogDown.jsx/BlogDownLeft/BlogDownLeft";
 import { motion } from 'framer-motion'; // Import motion
-import moment from 'jalali-moment'; 
+
 import Loading from '../../Common/loadingWeb/Loading.jsx';
 import Tour from "reactour";
 import AppTour from '../../Common/Tuor/Tour.jsx';
+import convertToJalali from '../../Common/TimeChanger/TimeToShamsi.jsx';
 const BlogPage = () => {
   const [categoryQuery, setCategoryQuery] = useState('');
   const [queryValue, setQueryValue] = useState(''); 
@@ -49,9 +50,7 @@ const BlogPage = () => {
     }, 100); 
   };
 
-  const convertToJalali = (miladiDate) => {
-    return moment(miladiDate, "YYYY-MM-DD").locale("fa").format("YYYY/MM/DD");
-  };
+
 
   const renderCourses = () => {
     if (isLoading) return <Loading />
