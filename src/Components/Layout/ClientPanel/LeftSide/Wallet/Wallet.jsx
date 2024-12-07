@@ -40,7 +40,7 @@ const Wallet = () => {
         )
       : "درحال بارگذاری";
 
-setItem("walletId", filterWallet[0].id)
+setItem("walletId", filterWallet[0]?.id)
 
 
   const walletId = filterWallet[0]?.id;

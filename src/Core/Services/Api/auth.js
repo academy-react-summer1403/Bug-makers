@@ -6,8 +6,11 @@ export const LoginAPI = async (user)=>{
     try {
         const response = await http.post('/Sign/Login',user);
         if(response.success ==false){return toast.error("رمز رو با دقت بیشتری وارد کنید !!");}
-        else{
-            return response;
+        if (response.success == true) {
+          toast.success(" با موفقیت لاگین شدی!!");
+          return response;
+        } else {
+          return response;
         }
     } catch (error) {
 

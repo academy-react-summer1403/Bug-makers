@@ -13,6 +13,7 @@ import { getNotifMessageList, getUserNotif, postReedNotif } from "../../../../Co
 import { getItem } from "../../../../Core/Services/common/storage.services";
 import convertToJalali from "../../../Common/TimeChanger/TimeToShamsi";
 import toast from "react-hot-toast";
+import { Skeleton } from "@mui/material";
 
 const NotificationBox = () => {
     const userId = getItem("userId");
@@ -41,7 +42,7 @@ const NotificationBox = () => {
        setMessage(data || []);
      },
    });
-   if(isLoading) {<div>dddd</div>}
+   if(isLoading){<Skeleton height={`100%`} width={100}/>}
 
 
    useEffect(() => {
