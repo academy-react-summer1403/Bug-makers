@@ -18,7 +18,7 @@ const DataTableVoice = () => {
     { id: 12, name: "تغییر تم به قرمز", tour: "change to red" },
     { id: 13, name: "تغییر تم به دارک", tour: "dark mode" },
     { id: 14, name: "تغییر تم به لایت", tour: "light mode" },
-    { id: 15, name: "ساخت عکس", tour: "generate image" },
+    { id: 15, name: "ساخت عکس", tour: "generate photo" },
   ];
 
   // تعریف ستون‌ها

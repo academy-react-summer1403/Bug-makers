@@ -77,7 +77,7 @@ function VoiceCommand({classes}) {
 
           };
           if (window.location.pathname === '/ClientPanel/DashbordEdit/Picture') {
-            commands['generate image'] = handleSurpriseMe;
+            commands['generate photo'] = handleSurpriseMe;
           }
 
           Object.assign(commands, loadCustomCommands());
