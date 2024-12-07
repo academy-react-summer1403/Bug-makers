@@ -156,7 +156,7 @@ console.log(transactions);
             {!response ? (
               <Skeleton height={30} width={120} animation="wave" />
             ) : (
-              <p className="text-2xl mt-2">{response?.data.data.Cost} تومان</p>
+              <p className="text-2xl mt-2">{response?.data.data.Cost.toLocaleString()} تومان</p>
             )}
           </div>
           <Button className="w-[40%] text-white bg-blue-600" onPress={onOpen}>

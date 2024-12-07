@@ -210,9 +210,9 @@ const dark = useSelector((state) => state.darkMood);
        };
   // renderCourseItems
   const renderCourses = () => {
-    if (isLoading) return <p>در حال بارگذاری...</p>;
+    // if (isLoading) return <p>در حال بارگذاری...</p>;
     if (error) return <p>خطایی رخ داده است...</p>;
-    if (IsLoading) return <p>در حال بارگذاری...</p>;
+    // if (IsLoading) return <p>در حال بارگذاری...</p>;
     if (Error) return <p>خطایی رخ داده است...</p>;
 
     if (myCourseList.totalCount == 0 && point == "myCourse")
@@ -232,6 +232,9 @@ const dark = useSelector((state) => state.darkMood);
     }
     if (ithem.length == 0 && point == "myCourse") {
       return <CustomSkeleton count={8} />;
+    }
+    if (ithem.length == 0 && point == "dashbord") {
+      return <CustomSkeleton count={itemPerpage} />;
     }
     console.log(ithem);
 
@@ -319,6 +322,7 @@ const dark = useSelector((state) => state.darkMood);
           <div
             onClick={() => {
               dispatch(setpaymentList(course || []));
+
               navigator("PaymentFirstStep");
             }}
             className={`w-[4%] h-full items-center ${
@@ -367,13 +371,15 @@ const dark = useSelector((state) => state.darkMood);
           <div
             onClick={() => {
               dispatch(setpaymentList(course || []));
-              navigator("../Payment/PaymentFirstStep");
+              if (course.paymentStatus == "پرداخت نشده") {
+                navigator("../Payment/PaymentFirstStep");
+              }
             }}
             className={`w-[4%] h-full items-center ${
               point == "myCourse" ? "flex" : "hidden"
             }`}
           >
-            <Tooltip content="پرداخت">
+            <Tooltip content={course.paymentStatus == "پرداخت شده" ? "پرداختت تمومه" : "پرداخت"}>
               <svg
                 width=""
                 height="50%"

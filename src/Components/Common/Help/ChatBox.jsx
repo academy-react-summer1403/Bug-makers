@@ -323,9 +323,10 @@ useEffect(()=>{
                 {/* داده‌ها به صورت پویا اضافه می‌شوند */}
               </div>
             ) : !responseAdmin ? null : (
-              <div className="text-center bg-white p-2 rounded-md text-black mt-4">
-                پیام شما در انتظار تایید ادمین و پاسخگویی است
-              </div>
+              // <div className="text-center bg-white p-2 rounded-md text-black mt-4">
+                  
+              // </div>
+              null
             )}
           </div>
         )}
@@ -333,7 +334,7 @@ useEffect(()=>{
 
       {/* ورودی پیام */}
       {isChatOpen && (
-        <div className="flex flex-row-reverse items-center px-4 py-2 border-t">
+        <div className="flex flex-row-reverse gap-x-1 items-center px-4 py-2 pl-0 border-t">
           <SpeechToText />
           <input
             style={{ backgroundColor: dark.bgLow, color: dark.textHigh }}
@@ -353,7 +354,7 @@ useEffect(()=>{
             onClick={handleSendMessage}
           >
             ارسال
-            <FaPaperPlane className="ml-2 " />
+            <FaPaperPlane className=" " />
           </button>
         </div>
       )}

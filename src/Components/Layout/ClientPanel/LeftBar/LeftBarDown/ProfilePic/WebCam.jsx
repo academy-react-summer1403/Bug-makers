@@ -11,6 +11,7 @@ import {
   ModalFooter,
 } from "@nextui-org/react";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const WebcamModal = ({ handleFileChange }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,6 +68,8 @@ const WebcamModal = ({ handleFileChange }) => {
     resetModal(); // ریست کردن وضعیت هنگام بستن مودال
   };
 
+  const dark = useSelector((state) => state.darkMood);
+
   return (
     <div>
       <span className="block mb-8 text-center text-[22px] max-md:hidden">
@@ -75,6 +78,7 @@ const WebcamModal = ({ handleFileChange }) => {
 
       <Button onPress={() => setIsOpen(true)}>باز کردن دوربین</Button>
       <Modal
+        style={{ background: dark.bgHigh, color: dark.textHigh }}
         isOpen={isOpen}
         onOpenChange={handleModalClose}
         size="5xl"

@@ -1,3 +1,4 @@
+import { Skeleton } from '@mui/material';
 import React from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -8,9 +9,11 @@ const Gauge = ({ value }) => {
 
   return (
     <div className="flex flex-col w-full items-center border p-[0.5vw] border-[#eee] h-full rounded-[0.5vw]  text-right">
-      <h2 className="text-[1vw] font-[500] text-right max-md:text-[14px]">وضعیت اطلاعات حساب</h2>
+      <h2 className="text-[1vw] font-[500] text-right max-md:text-[14px]">
+        وضعیت اطلاعات حساب
+      </h2>
       <div className="w-[60%] my-[1vw]">
-        <CircularProgressbar
+        {value ? <CircularProgressbar
           value={percentage}
           text={`${percentage}%`}
           styles={buildStyles({
@@ -18,8 +21,7 @@ const Gauge = ({ value }) => {
             pathColor: color,
             trailColor: "lightgray",
           })}
-        />
-      </div>
+        /> : <Skeleton height={150}  width={`100%`} circle={true} />}</div>
       <p
         className={`text-right text-[0.7vw] max-md:text-[12px] ${
           percentage == 100 ? "text-green-600" : "text-orange-500"

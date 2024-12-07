@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {Modal, ModalContent,  CardHeader, CardBody, CardFooter, Divider, Image , ModalHeader,Card  , ModalBody, ModalFooter, Button, useDisclosure , Tab ,Tabs, Input} from "@nextui-org/react";
 import { CiSearch } from 'react-icons/ci';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getCourseListWithPagination } from '../../../Core/Services/Api/CoursePage/getCourseListWithPagination';
 import SearchBox from '../SearchBox/SearchBox';
 import { getSearch, getSearchBlog } from '../../../Core/Services/Api/CoursePage/search';
@@ -32,6 +32,7 @@ const SearchModal = () => {
           keepPreviousData: true, 
         }
       );
+      const navigate = useNavigate()
 
       
       const handleSearchBlog = (e) => {
@@ -87,7 +88,7 @@ const SearchModal = () => {
                                 background: dark.bgLow,
                                 color: dark.textHigh,
                               }}
-                              className="max-w-[400px]"
+                              className="max-w-[400px] mb-8"
                               key={item.id}
                             >
                               <CardHeader className="flex gap-3">
@@ -107,13 +108,12 @@ const SearchModal = () => {
                               </CardBody>
                               <Divider />
                               <CardFooter>
-                                <Link
-                                  to={`BlogDetail/` + item.id}
-                                  onClick={() => isOpen(false)}
-                                  className="text-blue-600"
+                                <div
+                                  onClick={() => onClose()}
+                                  className="text-blue-600 cursor-pointer"
                                 >
-                                  مشاهده جزییات این مقاله
-                                </Link>
+                                  <span onClick={()=>{navigate(`BlogDetail/${item.id}`);}}>مشاهده جزییات این مقاله</span>
+                                </div>
                               </CardFooter>
                             </Card>
                           );
@@ -164,13 +164,21 @@ const SearchModal = () => {
                                 </CardBody>
                                 <Divider />
                                 <CardFooter>
-                                  <Link
+                                  <div
                                     to={`CourseDetail/` + item.courseId}
-                                    onClick={() => isOpen(false)}
-                                    className="text-blue-600"
+                                    onClick={() => onClose()}
+                                    className="text-blue-600 cursor-pointer"
                                   >
-                                    مشاهده جزییات این دوره
-                                  </Link>
+                                    <span
+                                      onClick={() => {
+                                        navigate(
+                                          `CourseDetail/${item.courseId}`
+                                        );
+                                      }}
+                                    >
+                                      مشاهده جزییات این دوره
+                                    </span>
+                                  </div>
                                 </CardFooter>
                               </Card>
                             );
@@ -183,10 +191,7 @@ const SearchModal = () => {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
+                  بستن
                 </Button>
               </ModalFooter>
             </>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaMicrophone, FaMicrophoneAltSlash } from 'react-icons/fa'; // وارد کردن آیکون‌ها
 import { useDispatch } from 'react-redux';
 import { setVoiceType } from '../../../Redux/Slice/SpechToText/spechToText';
+import toast from 'react-hot-toast';
 
 const SpeechToText = () => {
   const [transcript, setTranscript] = useState('');
@@ -14,7 +15,7 @@ const SpeechToText = () => {
         await navigator.mediaDevices.getUserMedia({ audio: true });
         console.log("دسترسی به میکروفن موفقیت‌آمیز بود.");
       } catch (err) {
-        alert("دسترسی به میکروفن رد شد. لطفاً دسترسی را فعال کنید.");
+        toast.error("دسترسی به میکروفن رد شد. لطفاً دسترسی را فعال کنید.");
       }
     };
 
@@ -22,7 +23,7 @@ const SpeechToText = () => {
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert('Speech Recognition API در مرورگر شما پشتیبانی نمی‌شود.');
+      toast.error('Speech Recognition API در مرورگر شما پشتیبانی نمی‌شود.');
       return;
     }
 
@@ -72,7 +73,7 @@ const SpeechToText = () => {
   }, [transcript])
 
   return (
-      <div className="flex absolute left-2 items-center space-x-4">
+      <div className="flex  items-center">
         <button
           className={`p-2 rounded-full transition duration-300 ease-in-out ${isListening ? 'bg-green-500 shadow-lg' : 'bg-gray-300'}`}
           onClick={toggleListening}

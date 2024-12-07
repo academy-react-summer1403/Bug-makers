@@ -3,6 +3,7 @@ import { getMyCoursesComments, getMyNewsComments } from "../../../../../../Core/
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import convertToJalali from "../../../../../Common/TimeChanger/TimeToShamsi";
+import { Skeleton } from "@mui/material";
 
 
 const CommentSection = ({ setOpenCommentBar }) => {
@@ -69,11 +70,14 @@ console.log(NewsComment);
             {!CourseComent ? (
               <div
                 style={{ background: dark.bgLow, color: dark.textLow }}
-                className="w-full h-[99%]  rounded-[0.5vw] flex items-center justify-center"
+                className="w-full h-[99%]  rounded-[0.5vw] flex items-start flex-col justify-center pr-3"
               >
-                <p className="text-[2vw] max-md:text-[20px]">
+                {/* <p className="text-[2vw] max-md:text-[20px]">
                   کامنتی برای دوره شما موجود نیست
-                </p>
+                </p> */}
+                <Skeleton height={`20%`} width={`60%`} />
+                <Skeleton height={`20%`} width={`80%`} />
+                <Skeleton height={`20%`} width={`90%`} />
               </div>
             ) : (
               <>
@@ -116,11 +120,14 @@ console.log(NewsComment);
             {!NewsComment ? (
               <div
                 style={{ background: dark.bgLow, color: dark.textLow }}
-                className="w-full h-[99%] min-h-[80px]  rounded-[0.5vw] flex items-center justify-center"
+                className="w-full h-[99%] min-h-[80px]  rounded-[0.5vw] flex items-start pr-4 flex-col  justify-center"
               >
-                <p className="text-[1.2vw] max-md:text-[18px]">
+                <Skeleton height={`20%`} width={`60%`} />
+                <Skeleton height={`20%`} width={`80%`} />
+                <Skeleton height={`20%`} width={`90%`} />
+                {/* <p className="text-[1.2vw] max-md:text-[18px]">
                   کامنتی برای مقالات شما موجود نیست
-                </p>
+                </p> */}
               </div>
             ) : (
               <>

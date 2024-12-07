@@ -8,7 +8,7 @@ import {
   selectCurentProfilePic, // assuming this is the API function to get profile info
 } from "../../../../../../Core/Services/Api/Client/Profile";
 import { useMutation, useQuery } from "react-query";
-import { Button, Input, Modal, useDisclosure , ModalContent, ModalHeader, ModalBody, ModalFooter} from "@nextui-org/react";
+import { Button, Input, Modal, useDisclosure , ModalContent, ModalHeader, ModalBody, ModalFooter, useModal} from "@nextui-org/react";
 import { setClientInfo } from "../../../../../../Redux/Slice/ClientInfo/ClientInfo";
 // import { setClientInfo } from "../../../../../../Core/Store/Slices/ClientInfoSlice"; // Assuming this is the correct action
 import { FaRobot } from "react-icons/fa6";
@@ -121,8 +121,10 @@ const ProfilePic = () => {
     });
   };
 
+
+
   // Ai 
-  
+
   const ImgGenerator = useMutation({
     mutationKey:['generateImg'],
     mutationFn: (imgData) => CreateImg(imgData),
@@ -131,7 +133,7 @@ const ProfilePic = () => {
     mutationKey:['createUpload'],
     mutationFn: (id) => setProfilePic(id),
   })
-  console.log(ImgGenerator?.data);
+  
 
   const sendImgToApi = () => {
     const imgData = {
@@ -281,7 +283,7 @@ const dark = useSelector((state) => state.darkMood);
                 ${dark.selectedButton === 3 ? "border-red-600" : ""}
           `}
         >
-          <FileCropModal formik={formik}/>
+          <FileCropModal formik={formik} />
           <svg
             className="max-md:hidden"
             width=""
@@ -341,50 +343,94 @@ const dark = useSelector((state) => state.darkMood);
             اندازه فریم ( 236*236 )
           </span>
         </div>
-
         <div
-          className={`w-[15%] max-md:w-[32%]  max-md:h-[25%] h-[45%] flex flex-col justify-between p-1 items-center border-[0.1vw] rounded-[0.5vw]
+          className={`w-[15%] max-md:w-[32%] max-md:h-[25%] h-[45%] flex flex-col gap-y-[0.5vw] justify-center items-center border-[0.1vw] rounded-[0.5vw]
           ${dark.selectedButton === 0 ? "border-blue-600" : ""} 
                 ${dark.selectedButton === 1 ? "border-green-600" : ""} 
                 ${dark.selectedButton === 2 ? "border-yellow-600" : ""}
                 ${dark.selectedButton === 3 ? "border-red-600" : ""}
           `}
         >
-          <Input
-            type="text"
-            id="text-input"
-            className="form-control w-[90%] max-md:text-[8px] rounded-lg outline-black"
-            placeholder="متن خود را وارد کنید"
-            value={inputText}
-            onChange={(e) => dispatch(setVoiceAction(e.target.value))}
-          />
-          
-          {ImgGenerator?.data ? (
-            <Button
-              onClick={() => sendAiImgUpload.mutate(ImgGenerator?.data)}
-              auto
-              className="max-w-40 bg-[#E7E7E7] hover:bg-gray-300 max-md:w-full"
-              size="sm"
-            >
-              آپلود عکس
-            </Button>
-          ) : (
-            <>
-              <Button className="max-md:hidden" onClick={handleSurpriseMe} size="sm"> عکس تصادفی</Button>
-              <Button
-                onClick={sendImgToApi}
-                auto
-
-                className="max-w-40 bg-[#E7E7E7] hover:bg-gray-300 max-md:w-full"
-                size="md"
-              >
-                {ImgGenerator?.status === "loading"
-                  ? "در حال ساخت"
-                  : "ساخت عکس"}
-              </Button>
-            </>
-          )}
+          <Button onPress={onOpen}>عکس با هوش مصنوعی</Button>
         </div>
+
+        <Modal
+          style={{ background: dark.bgHigh, color: dark.textHigh }}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+        >
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">
+                  عکس با هوش مصنوعی
+                </ModalHeader>
+                <ModalBody>
+                  <div
+                    className={`w-full h-full flex flex-col justify-between p-1 items-center border-[0.1vw] rounded-[0.5vw]
+            ${dark.selectedButton === 0 ? "border-blue-600" : ""} 
+            ${dark.selectedButton === 1 ? "border-green-600" : ""} 
+            ${dark.selectedButton === 2 ? "border-yellow-600" : ""} 
+            ${dark.selectedButton === 3 ? "border-red-600" : ""}
+            `}
+                  >
+                    <Input
+                      type="text"
+                      id="text-input"
+                      className="form-control w-[90%] max-md:text-[8px] rounded-lg outline-black"
+                      placeholder="متن خود را وارد کنید"
+                      value={inputText}
+                      onChange={(e) => dispatch(setVoiceAction(e.target.value))}
+                    />
+                    {ImgGenerator?.data ? (
+                      <div className="w-full h-full">
+                        <img src={ImgGenerator?.data} alt="" />
+                      </div>
+                    ) : null}
+                    {ImgGenerator?.data ? (
+                      <Button
+                        onClick={() =>
+                          sendAiImgUpload.mutate(ImgGenerator?.data)
+                        }
+                        auto
+                        className="max-w-40 bg-[#E7E7E7] hover:bg-gray-300 max-md:w-full"
+                        size="sm"
+                      >
+                        آپلود عکس
+                      </Button>
+                    ) : (
+                      <>
+                        <Button
+                          className="max-md:hidden"
+                          onClick={handleSurpriseMe}
+                          size="sm"
+                        >
+                          عکس تصادفی
+                        </Button>
+                        <Button
+                          onClick={sendImgToApi}
+                          auto
+                          className="max-w-40 bg-[#E7E7E7] hover:bg-gray-300 max-md:w-full"
+                          size="md"
+                        >
+                          {ImgGenerator?.status === "loading"
+                            ? "در حال ساخت"
+                            : "ساخت عکس"}
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="light" onPress={onClose}>
+                    بستن
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+
         <div
           className={`w-[15%] max-md:w-[32%] max-md:h-[25%] h-[45%] flex flex-col gap-y-[0.5vw] justify-center items-center border-[0.1vw] rounded-[0.5vw]
           ${dark.selectedButton === 0 ? "border-blue-600" : ""} 
