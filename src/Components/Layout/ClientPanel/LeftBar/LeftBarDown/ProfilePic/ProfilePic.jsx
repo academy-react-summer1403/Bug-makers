@@ -20,7 +20,8 @@ import Webcam from "react-webcam";
 import WebcamModal from "./WebCam";
 import FileCropModal from "./SelectPic";
 import toast from "react-hot-toast";
-
+import { Skeleton } from "@mui/material";
+import image2 from '../../../../../../../public/images/icon/image.jpg'
 const ProfilePic = () => {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -28,7 +29,8 @@ const ProfilePic = () => {
   const [mainImageId, setMainImageId] = useState(null);
   const dispatch = useDispatch();
   const inputText = useSelector((state) => state.voice.value)
-
+  const [fileBlob, setFileBlob] = useState(null);
+  console.log(fileBlob);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   // Fetch the profile info with react-query, auto-refetching every 6 seconds
@@ -132,6 +134,9 @@ const ProfilePic = () => {
   const sendAiImgUpload = useMutation({
     mutationKey:['createUpload'],
     mutationFn: (id) => setProfilePic(id),
+    onSuccess: () => {
+      toast.success('با موفقیت آپلود شد')
+    }
   })
   
 
@@ -150,6 +155,17 @@ const ProfilePic = () => {
     
     ImgGenerator.mutate(imgData)
   }
+  
+
+  useEffect(() => {
+    if (ImgGenerator?.data) {
+      const blob = new Blob([ImgGenerator?.data], { type: 'image/jpeg' }); 
+      const imageUrl = URL.createObjectURL(blob);  
+      setFileBlob(imageUrl); 
+    }
+  }, [ImgGenerator?.data]);
+  
+
   const handleSurpriseMe = (e) => {
     const surprisePrompt = getRandom(promptIdeas);
     dispatch(setVoiceAction(surprisePrompt));
@@ -382,22 +398,29 @@ const dark = useSelector((state) => state.darkMood);
                       value={inputText}
                       onChange={(e) => dispatch(setVoiceAction(e.target.value))}
                     />
-                    {ImgGenerator?.data ? (
+                    {/* {ImgGenerator?.data ? (
                       <div className="w-full h-full">
                         <img src={ImgGenerator?.data} alt="" />
                       </div>
-                    ) : null}
+                    ) : null} */}
                     {ImgGenerator?.data ? (
+                      <>
                       <Button
-                        onClick={() =>
+                        onClick={() => 
                           sendAiImgUpload.mutate(ImgGenerator?.data)
                         }
+                        onPress={onClose}
                         auto
                         className="max-w-40 bg-[#E7E7E7] hover:bg-gray-300 max-md:w-full"
                         size="sm"
                       >
                         آپلود عکس
                       </Button>
+                      <div className={`mt-10 w-96 h-96 bg-red-600 `}>
+                        <img src={fileBlob ? fileBlob : image2} alt="no photo"  />
+                                                                           
+                      </div>
+                      </>
                     ) : (
                       <>
                         <Button
@@ -419,6 +442,18 @@ const dark = useSelector((state) => state.darkMood);
                         </Button>
                       </>
                     )}
+                    {
+                      ImgGenerator?.status === 'loading' ? (
+                        <div className="mt-10 w-96 h-96 transition-all duration-150">
+                          <Skeleton
+                            sx={{ bgcolor: 'grey.900' }}
+                            variant="rectangular"
+                            width={385}
+                            height={385}
+                          />
+                        </div>
+                      ) : null}
+
                   </div>
                 </ModalBody>
                 <ModalFooter>
